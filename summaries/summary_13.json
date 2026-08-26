@@ -1,0 +1,50 @@
+{
+  "abstract_en": "We present a label-free imaging flow cytometry system that integrates a microfluidic chip, imaged by a motion-sensitive (event-based) camera and an interferometric phase microscopy module using a simple frame-based camera. The event camera captures activity from the flowing cells, corresponding to thousands of frames per second, and triggers the significantly slower interferometric camera when a rare cell, requiring more sensitive analysis, is detected via a single raw-interferogram analysis, significantly reducing data volume. The raw interferometric data serves as an input to a deep neural network for rare-cell classification. We demonstrate the use of this system to detect and grade rare cancer cells in blood, where the event camera is used to rapidly classify between the common white blood cells and the rare cancer cells, and the interferometric camera is used to grade the cancer cell type (primary/metastatic), as a human model for detecting and grading circulating tumor cells in liquid biopsies. This hybrid approach enables efficient data acquisition, rapid processing, and high sensitivity, significantly reducing computational load, and is expected to find various applications in detecting and processing rare cells in imaging flow cytometry.",
+  "abstract_zh": "提出无标记成像流式细胞术平台：微流控芯片内流动细胞由事件相机（运动敏感）捕获（等效数千帧/秒），当单原始干涉图判断到“需精细分析的稀有细胞”时触发干涉相位显微镜（帧相机）成像；干涉数据输入深度神经网络完成稀有细胞分类，并演示了血液中稀有癌细胞检测与分级（原发/转移）。",
+  "background_zh": "循环肿瘤细胞等稀有细胞检测依赖高灵敏成像，但普通成像流式数据量大、信息冗余，难以兼顾速度与精度。",
+  "problem_zh": "如何在降低数据量与计算负担的同时，实现对稀有细胞的快速识别与精细分级？",
+  "data_zh": "微流控通道内流动细胞的事件相机亮度变化序列 + 干涉相位显微图（原始干涉图）；类别含常见白细胞与稀有癌细胞，以及癌细胞的原发/转移分级。",
+  "task_zh": "先快速筛选“是否稀有”（事件相机），再对稀有细胞细粒度分级（干涉成像+深度网络）。",
+  "method_zh": "混合触发架构：事件相机以数千帧/秒等效速率感知细胞运动，用单原始干涉图快速分类常见白细胞vs稀有癌细胞；命中稀有细胞后触发干涉相机采集高信息图像，输入深度神经网络完成癌细胞类型分级（原发/转移）。",
+  "results_zh": "系统成功在血液模型中对稀有癌细胞进行检测与分级；显著减少数据量（仅对稀有事件精细成像），降低计算负载，保持高灵敏度与快速处理。",
+  "metrics_zh": [
+    {
+      "label": "事件相机等效帧率",
+      "value": "数千帧/秒"
+    },
+    {
+      "label": "演示任务",
+      "value": "血液稀有癌细胞检测与分级(原发/转移)"
+    }
+  ],
+  "innovation_zh": "“事件相机快速把关+干涉相位精细分析”的两级触发架构，实现数据与算力双节省的稀有细胞分类。",
+  "limitation_zh": "PDF未获取；基于公开摘要。临床规模与长期鲁棒性未在摘要中披露；事件相机受光照/流速影响。",
+  "paradigm_zh": "级联触发分析：用低成本高帧率传感做粗筛，用高信息量相位成像做精判，深度学习贯穿两级，属于“分层注意力”式多模态感知。",
+  "paradigm_tags": [
+    "事件相机",
+    "干涉相位显微",
+    "深度神经网络",
+    "稀有细胞分级"
+  ],
+  "framework_zh": "流动细胞→事件相机运动感知→原始干涉图粗分类→触发干涉显微→深度网络精分级→输出检测/分级结果。",
+  "framework_steps": [
+    "数据与预处理：事件流+干涉原始图，标注白细胞/癌/原发-转移",
+    "模型设计：两阶段网络（粗筛+精细分级）",
+    "训练策略：事件-干涉跨模态触发、类别均衡",
+    "评估与解读：检出灵敏度、分级准确率、数据量/算力下降幅度"
+  ],
+  "scheme_zh": "Scheme展示微流控芯片、事件相机、干涉显微镜与两阶段深度网络的触发架构（PPT用占位图）。",
+  "lessons_zh": "成像流式不必“全速全分辨率”；事件驱动触发+分级分析是稀有细胞快检的实用化路线。",
+  "id": "13",
+  "title_en": "Rare cell classification using label-free imaging flow cytometry via motion-sensitive-triggered interferometry",
+  "title_zh": "基于运动敏感触发干涉测量的无标记成像流式细胞术稀有细胞分类",
+  "journal": "Lab on a Chip",
+  "year": 2025,
+  "doi": "10.1039/D5LC00634A",
+  "pmid": null,
+  "pmcid": null,
+  "kind": "image_cell",
+  "kind_zh": "图像识别与高通量细胞分析",
+  "scheme_image": "papers_figs/13_fig1.png",
+  "pdf_status": "未获取全文PDF：基于公开摘要与题录精读"
+}

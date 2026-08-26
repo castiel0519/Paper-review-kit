@@ -1,0 +1,1167 @@
+===PAGE 1===
+Deep learning enabled label-free
+microﬂuidic droplet classiﬁcation
+for single cell functional assays
+Thibault Vanhoucke1,2, Angga Perima1, Lorenzo Zolfanelli1,3,
+Pierre Bruhns1,4* and Matteo Broketa1,2,5*
+1Institut Pasteur, Université Paris Cité, Institut National de la Santé et de la Recherche Médicale (INSERM), Unité
+Mixte de Recherche (UMR) 1222, Antibodies in Therapy and Pathology, Paris, France, 2Sorbonne Université,
+Collège Doctoral, Paris, France, 3Laboratoire de Colloides et Matériaux Divisés, École Supérieure de Physique et
+de Chimie Industrielles de la Ville de Paris, Université Paris Sciences et Lettres, Centre National de la Recherche
+Scientiﬁque (CNRS) Unité Mixte de Recherche (UMR) 8231, Paris, France, 4Paris Est Créteil University (UPEC),
+Assistance Publique-Hôpitaux de Paris (AP-HP), Henri Mondor Hospital, Fédération Hospitalo-Universitaire
+TRUE InnovaTive theRapy for immUne disordErs, Créteil, France, 5Evexta Bio, Paris, France
+Droplet-based microﬂuidics techniques coupled to microscopy allow for the
+characterization of cells at the single-cell scale. However, such techniques
+generate substantial amounts of data and microscopy images that must be
+analyzed. Droplets on these images usually need to be classiﬁed depending
+on the number of cells they contain. This veriﬁcation, when visually carried out by
+the experimenter image-per-image, is time-consuming and impractical for
+analysis of many assays or when an assay yields many putative droplets of
+interest. Machine learning models have already been developed to classify
+cell-containing droplets within microscopy images, but not in the context of
+assays in which non-cellular structures are present inside the droplet in addition
+to cells. Here we develop a deep learning model using the neural network
+ResNet-50 that can be applied to functional droplet-based microﬂuidic assays
+to classify droplets according to the number of cells they contain with >90%
+accuracy in a very short time. This model performs high accuracy classiﬁcation of
+droplets containing both cells with non-cellular structures and cells alone and
+can accommodate several different cell types, for generalization to a broader
+array of droplet-based microﬂuidics applications.
+KEYWORDS
+droplet-based microﬂuidic, convolutional neural network, image classiﬁcation, deep
+learning, image preprocessing, Resnet 50
+Introduction
+Droplet-based microﬂuidics (DBMF) have been a breakthrough in the realm of
+biological research, having been applied to molecular analyses and single cell analyses,
+particularly in the ﬁeld of immunology. DBMF assays offer signiﬁcantly improved
+throughput and parallelization while also minimizing reagent usage by miniaturizing
+the traditional well-plate format. Despite the apparent improvements offered by the
+adaptation of existing assays into DBMF formats for single cell characterization, there
+is a technical limitation imposed by the nature of current droplet generation methods. The
+encapsulation of cells into droplets follows Poisson distribution patterns of in-droplet cell
+numbers and is an inherently heterogeneous process (Collins et al., 2015; Moon et al., 2011).
+For DBMF methods to achieve true single-cell resolution, ﬁnal analysis of single cells may be
+achieved by a high cellular dilution factor prior to encapsulation or a means of sorting for
+OPEN ACCESS
+EDITED BY
+Yuetong Wang,
+Nanjing Normal University, China
+REVIEWED BY
+Chuanhui Song,
+Nanjing University, China
+Yangnan Hu,
+Southeast University, China
+*CORRESPONDENCE
+Matteo Broketa,
+matteo.broketa@epﬂ.ch
+Pierre Bruhns,
+bruhns@pasteur.fr
+RECEIVED 22 July 2024
+ACCEPTED 30 August 2024
+PUBLISHED 18 September 2024
+CITATION
+Vanhoucke T, Perima A, Zolfanelli L, Bruhns P
+and Broketa M (2024) Deep learning enabled
+label-free microﬂuidic droplet classiﬁcation for
+single cell functional assays.
+Front. Bioeng. Biotechnol. 12:1468738.
+doi: 10.3389/fbioe.2024.1468738
+COPYRIGHT
+© 2024 Vanhoucke, Perima, Zolfanelli, Bruhns
+and Broketa. This is an open-access article
+distributed under the terms of the Creative
+Commons Attribution License (CC BY). The use,
+distribution or reproduction in other forums is
+permitted, provided the original author(s) and
+the copyright owner(s) are credited and that the
+original publication in this journal is cited, in
+accordance with accepted academic practice.
+No use, distribution or reproduction is
+permitted which does not comply with these
+terms.
+Frontiers in Bioengineering and Biotechnology
+frontiersin.org
+01
+TYPE Original Research
+PUBLISHED 18 September 2024
+DOI 10.3389/fbioe.2024.1468738
+
+===PAGE 2===
+single-cell/-object
+droplets
+following
+encapsulation.
+Various
+methods have implemented single cell sorting either as a physical
+droplet isolation step using dielectrophoresis, a piezoelectric
+actuator, or a solenoid actuator (Dortaj et al., 2024; Murphy
+et al., 2018; Nakamura et al., 2024; Welch et al., 2024) or
+alternatively as an analytical ﬁlter applied during data analysis
+(Sesen and Whyte, 2020; Srikanth et al., 2021); both approaches
+have recently begun to be driven using single cell content
+classiﬁcations made by machine learning algorithms.
+Machine learning has seen considerable growth in recent years
+regarding its technical capabilities as well as its ease of applicability and
+robustness, reshaping profoundly various technological sectors including
+autonomous vehicles (Qiu et al., 2024; Ušinskis et al., 2024), natural
+language processing (Vaswani et al., 2017) or automated medical image
+analysis (Liu et al., 2022; Qiu et al., 2024). Due to their successful
+application in image classiﬁcation tasks and increased accessibility,
+Convolutional Neural Network (CNN) architectures have paved the
+way for the exploitation of deep learning methods in biotechnology
+(Kusumoto and Yuasa, 2019; Samukhina et al., 2021; Sultana et al., 2018).
+CNNs can directly extract information from input images: they are
+implemented as a deep series of convolutional layers, where at each
+convolutional layer a sliding ﬁlter is applied to the input image to
+produce an activation map of the detected features. Layer after layer this
+information is progressively pooled and simpliﬁed to obtain, at the last
+output layer, a categorical classiﬁcation for the input image. The fact that
+all the model parameters can be learned directly from the data, using a set
+of manually classiﬁed training images, simpliﬁes the application and
+exploitation of these architectures.
+Various machine learning models have been developed to address
+the needs of those working on microﬂuidics (McIntyre et al., 2022;
+Riordon et al., 2019). Microﬂuidic devices and the experimental
+procedures they are employed under are now able to be artiﬁcially
+designed by machine learning, as well as the analysis of droplets for
+classiﬁcation and sorting (Srikanth et al., 2021). Deep learning methods
+offer considerable improvement when handling structured data types,
+namely, images within the context of DBMF. The availability of
+numerous publicly available deep learning solutions offers researchers
+means to automatedly identify droplets containing a single cell and
+extract biophysical feature data, increasing the throughput and breadth
+of analyses (Soldati, Ben, et al., 2018). CNNs have been used for high
+throughput sorting of droplets according to the number of objects they
+contain with the added functionality to distinguish mixtures of in-
+droplet objects, such as a cell and bead mixture (Anagnostidis et al.,
+2020). Another method of droplet classiﬁcation recently demonstrated
+the classiﬁcation of various cell types despite having visually similar
+presentations when manually analyzed (Chen et al., 2016).
+Parallel to the application of machine learning to DBMF, another
+emerging ﬁeld of DBMF has been in-droplet secretion assays for single
+cell functional characterization (Broketa and Bruhns, 2022; Bucheli
+et al., 2021). These techniques often utilize microbeads (Konry et al.,
+2011), rods (Wei et al., 2019), or nanoparticles (Eyer et al., 2017) as
+surfaces for assay reactions or reagent and analyte capture. The
+detection of secreted analytes by surface capture is the basis for
+several widely used techniques in biomedical research (Bucheli et al.,
+2021; Janetzki et al., 2014), namely, ELISA and ELISPOT or FLISA and
+FLUOROSPOT depending on whether detection is enzyme or
+ﬂuorophore-based, respectively. Single cell DBMF secretion assays
+will
+likely
+become
+increasingly
+common
+given
+the
+increased
+throughput and parallelization afforded by such techniques, as has
+been
+seen
+with
+DBMF
+techniques
+for
+single
+cell
+molecular
+FIGURE 1
+Image datasets construction. (A) PBMCs were isolated from COVID-19 vaccinated patient blood and injected into a microﬂuidic chip together with a
+mixture of anti-human-κ chain-VHH-coated paramagnetic nanobeads, ﬂuorescent antigen (recombinant SARS-CoV-2 Spike Receptor Binding Domain)
+and ﬂuorescent anti-human IgG F(ab’)2. The mix of cells and reagents was encapsulated in droplets using a ﬂow focusing technique. The produced
+droplets were introduced and immobilized in an observation chamber. A magnetic ﬁeld generated by two magnets was applied to the chamber so
+that the nanobeads form a vertical line. (B) Brightﬁeld images of the chamber were acquired with an optical microscope. Images of each droplet were
+cropped (red square) and manually sorted into 3 populations (empty droplets, single cell droplets, and multiple cell droplets).
+Frontiers in Bioengineering and Biotechnology
+frontiersin.org
+02
+Vanhoucke et al.
+10.3389/fbioe.2024.1468738
+
+===PAGE 3===
+characterization compared to their well plate-based predecessors
+(Sánchez Barea et al., 2019). The additional data that may be
+extracted from the images gathered during DBMF techniques, such
+as cell morphology or motility, also allows one to address unexplored
+aspects of functional heterogeneity.
+The presence of non-cellular structures within the droplet
+represents an additional challenge during analyses where cellular
+features require identiﬁcation. Cell detection and quantiﬁcation
+during image analyses has been extensively addressed
+and
+numerous informatic packages are available to incorporate into
+image analysis pipelines (Buggenthin et al., 2013; Maddalena
+et al., 2022). Cell detection is commonly performed using
+ﬂuorescent surface markers when possible or detection in the
+brightﬁeld channel when label-free conditions are necessary.
+However, during DBMF secretion assays the included analyte
+capture surface (beads or rods) will introduce its own ﬂuorescent
+signals or brightﬁeld distortions. DropMap (Eyer et al., 2017) is a
+ﬂuorescence relocation-based immunoassay using magnetically
+aligned nanobeads in droplets that we previously applied to
+measure antibody afﬁnity and secretion rate in the context of
+autoimmune
+disorder
+(Canales-Herrerias
+et
+al.,
+2022)
+or
+vaccination (Broketa et al., 2023). Analyses of such single cell
+DBMF secretion assays that use non-cellular capture surfaces
+have
+largely
+been
+limited
+by
+a
+need
+for
+manual
+droplet
+veriﬁcation
+or
+experimental
+restrictions.
+A
+requirement
+for
+manual droplet veriﬁcation by the experimenter represents a
+signiﬁcant analysis bottleneck, is less robust when applied over
+larger datasets, and reduces comparability of results between studies.
+In this article we describe a deep learning solution using ResNet-
+50 for label-free droplet classiﬁcation that is resistant to vertical non-
+cellular structures within the droplet. We used a droplet image
+dataset from a previous publication (Broketa et al., 2023) using the
+DropMap DBMF system. ResNet-50 models have been showed to be
+highly performant to classify droplets containing cells only (Soldati,
+Ben, et al., 2018). However, when applied directly to minimally
+preprocessed images this CNN poorly performed with droplets
+containing non-cellular structures that could partially mask the
+cells. To compensate for this drop in performance, we designed a
+pre-processing method to remove information irrelevant to
+classiﬁcation (for instance the non-cellular structures) while
+emphasizing meaningful information (in this case the cells).
+Thanks to this pre-processing, our trained model is capable of
+classifying droplets as containing zero, one, or multiple cells with
+accuracy scores above 90%, therefore allowing for automated
+analyses of DropMap assays. This work addresses a gap in the
+current capabilities of machine learning-enabled image analyses to
+accommodate
+non-cellular
+structures
+that
+can
+obscure
+or
+mimic cells.
+Methods
+Wafer production
+The silicone wafer for microﬂuidic device production was
+fabricated using soft lithography. Wafers were spin-coated with
+TABLE 1 Classiﬁcation accuracy of empty droplets, droplets containing a single cell and droplets containing multiple cells obtained with indicated
+conventional methods, in presence or absence of nanobeads in the droplets.
+Image dataset
+Detection Method
+Classiﬁcation accuracy (%)
+Empty
+Single cell
+Multiple cell
+Cells only
+Hough transform
+100
+85
+20
+MSER algorithm
+99
+21
+26
+Segmentation algorithm
+100
+83
+34
+Cells with beads
+Hough transform
+99
+31
+4
+MSER algorithm
+68
+38
+42
+Segmentation algorithm
+99
+62
+42
+The scores were calculated with 1,000 images for each condition.
+TABLE 2 First and third quartiles of classiﬁcation accuracy scores for empty droplets, droplets containing a single cell and droplets containing multiple cells
+obtained with ResNet-50 models (n = 10), in presence or absence of nanobeads in the droplets.
+Training dataset
+Testing dataset
+First and third quartile of accuracy scores (%)
+Empty
+Single cell
+Multiple cell
+Cells only
+Cells only
+94.2–99.9
+96.8–98.9
+99.1–99.5
+Cells with beads
+7.9–43.8
+14.3–39.6
+92.0–98.3
+Cells with beads
+Cells only
+100–100
+87.0–93.3
+89.9–95.2
+Cells with beads
+99.5–99.9
+67.7–83.6
+81.8–90.8
+The scores were calculated with 1,000 images for each condition.
+Frontiers in Bioengineering and Biotechnology
+frontiersin.org
+03
+Vanhoucke et al.
+10.3389/fbioe.2024.1468738
+
+===PAGE 4===
+SU-8 2035 (MicroChem) at 3,000 rpm for 30 s, then heated for pre-
+baking at 65°C for 5 min followed by heating at 95°C for 3 min.
+Afterwards, wafers were exposed to UV light (365 nm) for 16 s using
+MJB-4 (SUSS MicroTec). Subsequently, wafers were heated for post-
+baking at 65°C for 3 min and at 95°C for 1 min. Wafers then
+underwent development to remove the SU-8 resin residue for 2 min
+at 100 rpm. Thickness was measured using a DEKTAK proﬁlometer
+(Bruker) to ensure ~40 µm of thickness.
+FIGURE 2
+Diminishment of classiﬁcation accuracy due to the beadline. Classiﬁcation accuracy of model trained and tested with images of droplet containing
+cells only (red squares) or cells and beads (blue triangles) on empty droplets (Empty), droplets containing a single cell (Single) and droplets containing
+multiple cells (Multiple). The scores were calculated with 1,000 images for each condition. Scores were compared using Welch’s t-test (n = 10). **: p <
+0.01; ***: p < 0.001; ns, not signiﬁcant.
+FIGURE 3
+Flow chart of proposed preprocessing method. (A) A horizontal-edge-detecting convolution using Prewitt operator removes the beadline and other
+vertical structures. (B) A bisigmoidal threshold is applied to create ﬁrm segregation between the detected edges and the uniform grey. (C) Images are
+resized to create uniform input for model training. (D) The droplet edges are removed by applying a circular black mask, whose radius is slightly lower than
+the half-width of the image.
+Frontiers in Bioengineering and Biotechnology
+frontiersin.org
+04
+Vanhoucke et al.
+10.3389/fbioe.2024.1468738
+
+===PAGE 5===
+Microﬂuidic chip production
+A mix of Sylgard 184 (Dow, 1317318) prepared at a 10:1 mix ratio
+was poured onto the wafer covered on its rear by round aluminum foil to
+create a mold. Subsequently, a desiccator was used to remove bubbles
+and the wafer was incubated in an oven at 65°C for 2 h. Afterwards, the
+foil mold and wafer were removed, appropriate holes were punched with
+a 0.75 mm biopsy puncher, and the cured PDMS was plasma bonded
+with glass slide 75 mm × 50 mm (Corning, 2947-75 × 50). The
+microﬂuidic chips were then silanized using 5% v/v solution of 1H,
+1H,
+2H,
+2H-Perﬂuorododecyltrichlorosilane
+(Sigma,
+729965)
+in
+HFE7500 oil (3M, B40045191).
+Droplet formation
+Water-in-oil droplets were produced by mixing two aqueous phases.
+Phase 1 consisted of a cell suspension (30e6 cells/mL) and phase
+2 consisted of assay buffer with or without paramagnetic nanobeads
+as indicated. Both phases were injected with a ﬂow rate of 70 μL/h. The oil
+phase consisted of 2% v/v solution of Perﬂuorosurfactant (RAN-
+Biotechnologies, 008-FluoroSurfactant) in HFE 7500 oil, with a ﬂow
+rate of 600 μL/h to obtain a ﬁnal droplet volume of ~40 pL.
+Computing
+Computation was done with a Windows 10, 64-bit operating
+system using an AMD 3990X 4.3 GHz processor with 64 GB RAM
+and GeForce RTX 3080. All image data was stored and read from a
+local M.2 NVME SSD drive. Scripts were written in Python
+3.7.11 utilizing the Tensorﬂow (Abadi et al., 2016) 2.5.0 library.
+Scripts used in this work are available as ESI.
+Image acquisition
+An inverted microscope with a motorized stage (Nikon, Ti2-
+Eclipse) was used to acquire droplet images with a high-speed
+CMOS
+camera
+(Orca
+Flash
+4.0,
+Hamamatsu)
+at
+room
+temperature. Images were acquired through a × 10 objective (NA
+0.45). The whole of the droplet chamber was acquired as an array of
+9 × 9 individual images stitched together to form a single image.
+Image acquisition occurred every 7.5 min over a total period of
+37.5 min (6 measurements in total). Duplicates were systematically
+acquired for every sample, with each replicate consisting of the ﬁlling
+of the DropMap 2D chamber with a novel droplet population.
+Images were stored in the nd2 ﬁle format.
+Datasets
+Droplets were identiﬁed as previously described (Broketa et al.,
+2023) based on circle detection by Hough transform. Droplet images
+for model training were taken from the brightﬁeld channel of the
+original nd2 format image, centered on the droplet, and cropped
+to the diameter of the droplet. Images were saved in the tif ﬁle
+format. Droplet images were randomly selected without prior
+measurement or ﬁltering based on droplet contents. Images for
+the creation of the validation datasets were selected amongst those
+images not included in the training dataset. Droplet images were
+visually classiﬁed by the authors according to the number of cells
+inside of the droplets.
+Image preprocessing
+The droplet image was either loaded from a tif ﬁle into a Python
+3.7.11 environment using scikit-image v0.19.2 during training or
+cropped directly from the nd2 ﬁle according to measured position
+and diameter. Then, the image undergoes either a minimal or a more
+sophisticated preprocessing, where indicated. In the latter, the image
+is convolved using a Prewitt operator kernel, with the convolve2d
+function from the scipy.signal package. Image contours are then
+highlighted using a bisigmoidal ﬁlter based on Equation 1:
+final pixel value  24000 ×
+1
+1 + eα1 +
+1
+1 + e−α2 −1
+2
+
+
+(1)
+FIGURE 4
+Improvement of classiﬁcation accuracy due to preprocessing. Classiﬁcation accuracy of models trained with raw or preprocessed images were
+assessed on empty droplets (Empty), droplets containing a single cell (Single) and droplets containing multiple cells (Multiple), without (A) or with (B)
+nanobeads. The scores were calculated with 1,000 images for each condition. Scores were compared using Welch’s t-test (n = 10). *: p < 0.05; **: p <
+0.01; ns, not signiﬁcant.
+Frontiers in Bioengineering and Biotechnology
+frontiersin.org
+05
+Vanhoucke et al.
+10.3389/fbioe.2024.1468738
+
+===PAGE 6===
+where α1  min(initial pixel value−image minimal pixel value+image mean pixel value
+600
+, 700)
+and α2  min(initial pixel value −image maximal pixel value+image mean pixel value
+600
+, 700)
+The image is resized to dimensions of 55 × 55 pixels using the
+resize function without anti-aliasing from skimage.transform
+package.
+The
+pixel
+values
+are
+then
+normalized
+using
+Equation 2:
+final pixel value 
+initial pixel value −image minimal pixel value
+image maximal pixel value −image minimal pixel value × 65535
+(2)
+A circular mask with a 5-pixel radius reduction compared to the
+image half-width is applied to the image to occlude the area outside
+of the droplet. When minimally preprocessed, the image is resized to
+dimensions of 55 × 55 pixels using the resize function without anti-
+aliasing from skimage. transform package. Pixel values were then
+normalized using (Equation 2). Images are ﬁnally all passed to the
+model as an array of (n, 55, 55) with n representing the number of
+images to be classiﬁed.
+Convolutional neural network
+implementation
+Droplet images were separated into three classes: “Empty/0”, if
+the droplet contained no cell, “Single/1”, if 1 cell is within the
+droplet, and “Multiple/2”, if two or more cells are inside the droplet.
+The Keras module of the TensorFlow v2.5 library in Python
+3.7.11 was used to deﬁne a ResNet-50 model. Images were resized to
+a uniform dimension of 55 × 55 pixels. Categorical cross-entropy
+was used to compute loss during training. The learning rate was set
+to 0.001 during training. Hyper-parameters were incrementally
+increased to determine optimal values. Final model training was
+performed using 6 epochs and a batch size of 160. The training-set
+contained 95% of all labeled images with the remaining 5% used for
+the validation-set.
+The model used to classify droplets containing cells only was
+trained with 12 epochs, batches of 30 images and 2,500 training
+images for each class.
+FIGURE 5
+Adjustment of epochs number, training dataset size (per class) and batch size. The values of these parameters were optimized by evaluating
+validation accuracy using data from ﬁve independent experiments (Groups A-E). For each image, three hundred droplets were used to measure the
+accuracy. Prediction accuracy was calculated using either one (A, D) or three (B, C) trained models per parameter value. The default values for the
+parameters were training dataset size = 16,000 images per class, epochs number = 12 and batch size = 64.
+Frontiers in Bioengineering and Biotechnology
+frontiersin.org
+06
+Vanhoucke et al.
+10.3389/fbioe.2024.1468738
+
+===PAGE 7===
+Computer-vision-based methods
+implementation
+Scripts for conventional object recognition were run in Matlab
+2021a. Rosenfeld method was performed using the script previously
+published (Rosenfeld et al., 2005), run with a “dilatation” parameter
+of 15 instead of 7, to allow for the unique and unintended nature of
+our dataset.
+Morphological shape algorithm method is similar with the
+method published by Buggenthin and colleagues (Buggenthin
+et al., 2013). On this method, we sequentially detect the edge,
+add a circular mask to the image, create linear structuring
+elements, dilate the image, ﬁll the holes, erode the images and
+ﬁnd the image centroid. Number of cells was determined based on
+how many image centroid were calculated.
+Results
+In this work, we used an image dataset from previously
+published experiments (Figure 1A) (Broketa et al., 2023). In these
+experiments PBMCs were isolated from COVID-19 vaccinated
+patients’ blood and encapsulated into ~40 pL droplets together
+with
+paramagnetic
+nanobeads,
+ﬂuorescently-labeled
+Receptor
+Binding Domain (RBD) of SARS-CoV-2 Spike protein and a
+ﬂuorescent anti-human IgG F(ab’)2. Nanobeads are coated with
+an anti-human-κ-chain VHH that captures secreted antibodies in
+the event that an antibody-secreting cell is encapsulated within the
+droplet. Under a magnetic ﬁeld, the beads in each droplet form a line
+of beads (hereafter named beadline) that acts as a physical surface
+for a sandwich immunoassay. The ﬂuorescent anti-human IgG
+F(ab’)2 and ﬂuorescent RBD allow us to quantify antibody
+relocation to the beadline and to identify RBD-speciﬁc plasma
+cells, respectively. The droplets were then immobilized in an
+observation chamber and images of the chamber were acquired
+over a period of about 40 min to monitor antibody secretion. We
+generated from these experiments three classiﬁcations of droplet
+images as either empty, containing a single cell, or containing
+multiple cells, through sorting of randomly selected droplet
+images (Figure 1B). Each classiﬁcation contained 1,000 brightﬁeld
+droplet images. We also generated three similar image datasets of
+droplets containing cells only to compare the accuracy of
+conventional methods in the presence or the absence of non-
+cellular structures (here nanobeads).
+Conventional image analyses for cell detection use image
+processing algorithms such as morphological or thresholding-
+based transformation to identify objects within images and are
+preferred due to their relative simplicity and robustness (Gao
+et al., 2013; Macfarlane et al., 2021). The detection of cells from
+microscopy images is well established and several approaches are
+readily available through standard bioinformatic analysis packages
+(Cuevas et al., 2013; Li et al., 2008; Markovic et al., 2013). We
+therefore initially sought to use conventional object recognition to
+address the need for determining the number of cells within
+droplets. For each dataset we tested three common cell detection
+methods for their ability to classify droplets according to the number
+of cells they contained: Hough transform (Djekoune et al., 2017;
+Ioannou et al., 1999), Maximally Stable Extremal Regions (MSER)
+algorithm (Buggenthin et al., 2013; Zhang et al., 2022), and
+segmentation
+algorithm
+(Rosenfeld
+et
+al.,
+2005)
+(Supplementary Figure S1).
+When classifying droplets containing cells only, all conventional
+methods tested reached an accuracy above 99% for empty droplets
+(Table 1). The accuracies for single-cell droplets was 85%, 21% and
+83%, and for multiple-cells was 20%, 26% and 34%, when using
+Hough transform, MSER algorithm, or segmentation algorithm,
+respectively. When nanobeads forming a beadline were present
+within the droplets,
+the scores changed
+considerably,
+with
+accuracy for single-cell droplets dropping from 85% to 31% for
+Hough transform and from 83% to 62% for the segmentation
+algorithm, whereas increasing from 21% to 38% for the MSER
+algorithm. Overall conventional cell detection methods performed
+FIGURE 6
+Model performance after training. (A) Accuracy of model predictions under different conditions of conﬁdence restriction, n = 5 and “+” indicates
+mean. Scores were compared using paired t-test. *: p < 0.05 (B) Bar chart representing the proportion of predictions against the classiﬁcation conﬁdence
+of the trained model. (C) Representative confusion matrix used to assess model performance.
+Frontiers in Bioengineering and Biotechnology
+frontiersin.org
+07
+Vanhoucke et al.
+10.3389/fbioe.2024.1468738
+
+===PAGE 8===
+poorly to accurately quantify the number of cells in a droplet,
+especially when the droplet contained nanobeads, despite their
+proven accuracy and robustness in other applications. This latter
+result is most likely explained by partial occlusion of the cells by the
+vertical line formed by the nanobeads (Supplementary Figure S2).
+Indeed, traditional cell detection methods usually require a deﬁned
+border between the cell and other cells or environmental elements.
+In this context, occlusion of cells by the beads disrupts the cell border
+within the image, as well as cell’s measured “circularity,” causing
+cells to erroneously be excluded from detection. Additionally, the
+beadline
+itself
+occasionally
+presents
+with
+morphological
+irregularities that may be detected as a cell, further obfuscating
+detection. We therefore sought to use machine learning to ﬁnd a
+more reliable method to classify droplets based on the number of
+cells they contain.
+We chose ResNet-50, a 50-layer CNN architecture introduced in
+2015, designed to address the problem of vanishing gradients in very
+deep neural networks (Song et al., 2018). ResNet-50 models are
+typically trained using a mini-batch stochastic gradient descent and
+these
+models
+have
+been
+shown
+to
+achieve
+state-of-the-art
+performance on a variety of domains including microﬂuidics
+(Gangadhar et al., 2023; Praljak et al., 2021; Sahaai et al., 2022).
+Before training the ResNet-50 neural network, we manually
+generated two training datasets (with or without nanobeads in
+the droplets) each containing three categories (empty, single-cell
+and multiple-cell). Each category was composed of 16,000 and
+2,500 images for the datasets with and without beadlines,
+respectively. We then assessed the performances of ten model
+replicates for each dataset. Each replicate was tested against the
+images used to evaluate the accuracy of conventional methods.
+When trained and tested with droplets containing cells only,
+ResNet-50 reached accuracy scores above 99% for each category
+(Table 2). When trained and tested with droplets containing cells
+and beadlines, the accuracy for single-cell droplets dropped to 55%,
+whereas the accuracy for empty and multiple-cell droplets remained
+above 90%. Overall, ResNet-50 performances were signiﬁcantly
+lower when classifying droplets containing cells and beads
+(Figure 2). The presence of a beadline within droplets therefore
+represented an obstacle to classiﬁcation. The potential for nearby
+droplets to also introduce image distortion at the edges of the droplet
+image also likely affected the model.
+We therefore implemented a pre-processing method for
+removing information irrelevant to classiﬁcation, such as the
+beadline and droplet borders, while also emphasizing meaningful
+information, which in this case represented the cells. Image
+preprocessing
+was
+composed
+here
+of
+four
+steps.
+First,
+a
+convolution using a Prewitt operator kernel (Baareh et al., 2018)
+was applied to remove the beadline and other vertical structures
+(Figure 3A). This caused the image background to be uniformly
+grey, whereas horizontal edges were either white or black; this
+difference is due to the asymmetry of the Prewitt operator. Then,
+a bisigmoidal ﬁlter was applied to enhance the contrast between the
+background and the contours (Figure 3B) (see Methods). All images
+were then resized, and pixel values were harmonized by applying an
+afﬁne transformation (Figure 3C) (see Methods). Finally, droplet
+borders were removed by applying a circular binary mask, in which
+the central circle radius is several pixels less than that of the
+droplet (Figure 3D).
+This preprocessing was then applied to each image of the
+training datasets used to compare computer-vision-based and
+machine-learning-based methods to build two new datasets of
+preprocessed images with cells only or with cells and nanobeads.
+Ten model replicates were trained for each dataset and their
+performances were assessed on the same validation datasets used
+for Table 2 (Figure 4). No statistically signiﬁcant improvement due
+to the image preprocessing was observed when models were tested
+with images of droplets containing cells only. However, image
+preprocessing signiﬁcantly improved prediction accuracy when
+the models were challenged with images of droplets containing
+cells and nanobeads. For single-cell droplets containing nanobeads,
+the median accuracy scores of models trained and tested with raw or
+preprocessed images were 75.9% and 91.7%, respectively. For
+multiple-cell droplets, the median accuracy scores of models
+trained and tested with raw or preprocessed images were 86.9%
+and 93.4%, respectively. These results demonstrate that the
+proposed image preprocessing improved prediction accuracy by
+approximately 20% and 7% in single or multiple-cell contexts,
+respectively.
+It
+is
+noteworthy
+that
+this
+preprocessing
+also
+signiﬁcantly improved the conﬁdence values associated with
+predictions (Supplementary Figure S3).
+We set out to optimize various training parameters, including
+the dataset size, the number of epochs, and the batch size. The
+training datasets again contained 3 classes of images, empty droplets,
+or no cells (empty), droplets with only a single cell (single), or
+droplets with multiple cells or clear aggregates (multiple). Accuracy
+was tested on droplet images across 5 independent experiments
+(300 images per experiment, 1,500 images in total) to investigate
+potential performance variability (Figure 5). As expected, the
+performance of the model improved as the training dataset
+increased,
+with
+the
+accuracy
+reaching
+a
+plateau
+around
+12,000 images per class (Figure 5C). Concerning the number of
+epochs, an abrupt increase in accuracy was observed for the ﬁrst
+several epochs, followed by a plateau and a trend to decrease after
+10 epochs, corresponding to the onset of overﬁtting (Figures 5A, B).
+Large batch sizes led to irregular performances, as the model likely
+became unable to converge quickly enough; the optimal and most
+stable accuracies were obtained with batch sizes between 128 and
+200 (Figure 5D). From these observations, we proceeded to train a
+ﬁnal model using 16,000 images per class, and the gradient descent
+was performed using 6 epochs and a batch size of 160.
+We used the same 5 independent experiments to further assess
+performance of the ﬁnal model in representative conditions for
+applied experiment analysis. The model demonstrated a high degree
+of accuracy, over 90% in most images analyzed (Figure 6A).
+Moreover, imposing a conﬁdence threshold to only include the
+most reliable predictions led to an increase of accuracy and reduced
+variability between experiments. This conﬁdence threshold for
+classiﬁcation exclusion did not result in notable amounts of data
+loss, 2% or 5% of all predictions when a threshold of 75 or 90 was
+applied, respectively (Figure 6B). We further investigated model
+performance through the confusion matrices of classiﬁcations to
+better understand the nature of errors made by the model
+(Figure 6C; Supplementary Figure S4). The model appeared
+minorly skewed towards under-detection of cells, with the
+number of cells in the droplet being underestimated when
+classiﬁcation was incorrect.
+Frontiers in Bioengineering and Biotechnology
+frontiersin.org
+08
+Vanhoucke et al.
+10.3389/fbioe.2024.1468738
+
+===PAGE 9===
+Discussion
+In the process of optimizing and automating our existing DBMF
+data analyses, which had relied heavily on manual discrimination of
+droplet images, we faced limitations of classical image analysis
+approaches aimed at detecting cells in the absence of other
+structures that may hide part or the entirety of the cell. We
+explored the possibility of using a well-established machine learning
+classiﬁcation approach based on the CNN ResNet-50, designed in
+2015 to address the challenge of vanishing gradients in very deep
+neural networks, which can make it difﬁcult for the network to learn
+and make accurate prediction (Song et al., 2018). ResNet-50 models
+have been shown to achieve state-of-the-art performance on a variety of
+domains including microﬂuidics (Gangadhar et al., 2023; Praljak et al.,
+2021; Sahaai et al., 2022). Although our large dataset could enable the
+training of a deeper model, we chose ResNet-50 rather than ResNet-102
+or ResNet-152 as the variability and complexity of the features relevant
+for classiﬁcation are relatively low. In this case a shallower model might
+be preferred to achieve a better generalization. Several studies have
+reported similar image classiﬁcation accuracy scores between ResNet
+models (Bianco et al., 2018; Kumar et al., 2024; Soﬁan et al., 2018).
+Moreover, when an improved accuracy is reported for a deeper ResNet
+model (i.e., additional layers), it is to the detriment of analysis time
+(Bressem et al., 2020; Wightman et al., 2021). Even though we trained
+our model for the analysis of a stationary assay, the kind of pre-
+processing we present here could be adapted to other contexts involving
+live sorting. In such situations, classiﬁcation speed would become a key
+parameter. We demonstrate high accuracy classiﬁcation under our
+assay conditions where magnetic nanoparticles form a column (termed
+beadline) within the droplet that often occludes or mimics the shape of
+cells. Introducing an additional pre-processing module that was speciﬁc
+to the morphological properties of these images – the presence of
+vertically aligned linear structures – signiﬁcantly improved the model
+training performance and the accuracy of the results.
+In most known approaches to machine learning for image
+classiﬁcation, minimal pre-processing is applied to the datasets or
+generic data normalization transformations are used with the aim of
+improving the numerical stability and the convergence time of the
+models (Shanker et al., 1996). Soldati, Ben, et al. (2018) previously
+applied CNNs to separate cell-containing droplets from empty
+droplets and debris-containing droplets. The assay they used in
+this study did not require non-cellular structures within the droplets.
+In a previous study, Anagnostidis et al. (2020) developed a CNN
+model to classify droplets containing both cells and non-cellular
+structures that rarely mask the cells, as they appear mostly
+transparent or are smaller than the cells. Hence, the latter model
+could
+reach
+accuracy
+scores
+of
+80%–85%
+with
+minimally
+preprocessed images. Here we show that the presence of the
+beadline may represent a major obstacle to accurate classiﬁcation,
+as shown by the decrease of accuracy to identify single-cell droplets
+(Table 2). In this scenario we show that adding an application-
+speciﬁc pre-processing step can be highly beneﬁcial, guided by
+previous-knowledge-based assumptions on which image features
+do not carry any useful information for the classiﬁcation. Thanks to
+this step, the model could reach accuracy scores above 90%. Also, the
+model we present here provides additional information as it can
+distinguish single-cell droplets from multiple-cell droplets. Other
+DBMF techniques that use non-cellular objects whose morphology
+is sufﬁciently different from cells (Ding et al., 2020) may beneﬁt
+from adding a custom ﬁlter at the start of any image-based machine
+learning pipeline. To do so, our pipeline could be adapted by using a
+different kernel for the convolution step or by implementing
+additional ﬁlters based on morphological operations or other
+image treatment algorithms.
+It is noteworthy that our full pipeline produced an improvement
+in results also for droplets that do not contain any beadline. In this
+case, the application of the circular mask before feeding the images
+in the neural network may have played a signiﬁcant role in masking
+disturbances that could arise from surrounding droplets. This can be
+expected as CNNs alone are inherently local and insensitive to global
+(non-local) patterns (Song et al., 2018; Wang et al., 2018), and might
+advocate for the integration of non-local layers in networks used to
+analyze structured images. Our implementation of ResNet-50 for
+droplet classiﬁcation offers a simple, robust solution for other
+investigators seeking to implement cell number classiﬁcation into
+their DBMF analysis workﬂows.
+We applied our approach to the classiﬁcation of droplet images
+coming from a stationary experiment, in which droplets were
+immobilized in a horizontal-plane imaging chamber. However,
+the sole element needed to perform this classiﬁcation is a bright-
+ﬁeld image of the droplet. This classiﬁcation method may also be
+applied to images from ﬂowed DBMF systems, in which the images
+of single ﬂowing droplets can be captured using a high-speed camera
+(Gérard et al., 2020). In such cases, the ability to quickly perform an
+automated classiﬁcation could be used to directly trigger sorting
+decisions in real-time. Despite the availability of image ﬂow
+cytometry and cell sorting, commercially available systems only
+allow for a limited set of information from the image to be used to
+gate and sort cells (Holzner et al., 2021); being able to feed the image
+through a pre-trained neural network and sort the droplets
+according to the output holds the potential of improving existing
+workﬂows in droplet-based assays where the recovery of rare or
+difﬁcult-to-detect populations is required.
+The application of deep learning methods to make “live” sorting
+decisions poses signiﬁcative barriers, especially in fast high-throughput
+setups where all the computations must be done with strict and
+reproducible timing. With the computation setup we used (see
+Methods), our model is able to classify 1,000 droplets in less than
+20 s, in other words with an average frequency of 50 Hz. Therefore, the
+model we described here could be adapted to a number of live sorting
+assay, as previous studies reported sorting frequency lower than 50 Hz
+(Beneyton et al., 2016; Anagnostidis et al., 2020). We believe that the
+increasing performance of currently available workstations and
+acquisition hardware, coupled with the smart design of synchronized
+acquisition setups will make this kind of model a valuable tool for an
+increasing number of DBMF assays, even based on higher sorting
+frequencies. Our work to implement machine learning for droplet cell
+number classiﬁcation in a context with in-droplet structures to measure
+secretion signiﬁcantly improves the throughput of such single cell assays
+as well as the scope of machine learning use for DBMF.
+Data availability statement
+The datasets presented in this study can be found in online
+repositories. The names of the repository/repositories and accession
+Frontiers in Bioengineering and Biotechnology
+frontiersin.org
+09
+Vanhoucke et al.
+10.3389/fbioe.2024.1468738
+
+===PAGE 10===
+number(s) can be found below: Training and validation image
+datasets
+are
+available
+on
+Zenodo
+(Doi:
+10.5281/
+zenodo.10810199). Scripts used in this work will be available as ESI.
+Author contributions
+TV:
+Conceptualization,
+Formal
+Analysis,
+Investigation,
+Methodology, Validation, Writing–original draft, Writing–review and
+editing.
+AP:
+Conceptualization,
+Investigation,
+Methodology,
+Writing–original
+draft,
+Writing–review
+and
+editing.
+LZ:
+Conceptualization, Investigation, Methodology, Writing–original draft,
+Writing–review and editing. PB: Funding acquisition, Resources,
+Supervision, Writing–original draft, Writing–review and editing. MB:
+Conceptualization, Investigation, Methodology, Supervision, Validation,
+Writing–original draft, Writing–review and editing.
+Funding
+The authors declare that ﬁnancial support was received for the
+research, authorship, and/or publication of this article. MB is the
+recipient of a CIFRE PhD fellowship in collaboration with
+Evextabio, Paris, France. TV is the recipient of a PhD fellowship
+from École polytechnique, Palaiseau, France (AMX fellowship
+2023–2026). LZ is the recipient of a fellowship from the French
+Ministère de l’Enseignement Supérieur et de la Recherche (MESER).
+PB acknowledges funding from the Agence Nationale de la
+Recherche (ANR) ANR-21-CE15-0027-01 project CURAREP,
+from Fondation pour la Recherche Médicale Programme «
+Espoirs
+de
+la
+Recherche
+»
+Equipe
+FRM
+2022
+(EQU202203014631), from the Institut Carnot Pasteur Microbes
+et Santé, from the CAPNET (Comité ad-hoc de pilotage national des
+essais thérapeutiques et autres recherches, French government)
+MEMO-VOC, from the Institut Pasteur and from the Institut
+National de la Santé et de la Recherche Médicale (INSERM).
+Acknowledgments
+We thank Dr. Matthieu Mahévas, his team and colleagues at
+Institut Necker Enfants Malades (INEM), Paris, France and at
+Hôpital Henri Mondor, Créteil, France for help, advice and
+enabling access to the MEMO-COV-2 clinical study.
+Conﬂict of interest
+Author MB was employed by the company Evexta Bio.
+The remaining authors declare that the research was conducted
+in the absence of any commercial or ﬁnancial relationships that
+could be construed as a potential conﬂict of interest.
+Publisher’s note
+All claims expressed in this article are solely those of the authors and
+do not necessarily represent those of their afﬁliated organizations, or
+those of the publisher, the editors and the reviewers. Any product that
+may be evaluated in this article, or claim that may be made by its
+manufacturer, is not guaranteed or endorsed by the publisher.
+Supplementary material
+The Supplementary Material for this article can be found online
+at: https://www.frontiersin.org/articles/10.3389/fbioe.2024.1468738/
+full#supplementary-material
+SUPPLEMENTARY FIGURE 1
+Illustration of computer-vision based methods to detect cells. Droplet
+images were classiﬁed using various methods to detect cells: Maximally
+Stable Extremal Regions (MSER) algorithm (A), segmentation algorithm (B)
+or Hough transform (C). The original images are in the left column. The
+detected signal is superimposed over the original image in the right column.
+SUPPLEMENTARY FIGURE 2
+Challenge posed by the presence of non-cellular structures to computer-
+based methods. Examples of incorrect cell detection due to non-cellular
+structures, using Maximally Stable Extremal Regions (MSER) algorithm (A),
+segmentation algorithm (B) or Hough transform (C). The original images are
+on the left. The detected signal is shown (A) on the right, or (B, C)
+superimposed over the original image in the middle and on the right.
+SUPPLEMENTARY FIGURE 3
+Improvement of classiﬁcation conﬁdence due to preprocessing.
+Classiﬁcation conﬁdence of models trained with raw or preprocessed
+images were assessed on empty droplets (Empty), droplets containing a
+single cell (Single) and droplets containing multiple cells (Multiple), without
+(left) or with (right) nanobeads. The scores were calculated with
+1,000 images for each condition. Scores were compared using Welch’s
+t test (n = 10). * : p < 0.05; ns, not signiﬁcant.
+SUPPLEMENTARY FIGURE 4
+Nature of errors made by the optimized model. The confusion matrices were
+established based on 300 images of 5 independent experiments
+(1,500 images in total). Each of these 5 panels represent an independent
+experiment.
+References
+Abadi, M., Agarwal, A., Barham, P., Brevdo, E., Chen, Z., Citro, C., et al. (2016),
+TensorFlow: large-scale machine learning on heterogeneous distributed systems. arXiv.
+doi:10.48550/arXiv.1603.04467
+Anagnostidis, V., Sherlock, B., Metz, J., Mair, P., Hollfelder, F., and Gielen, F. (2020).
+Deep learning guided image-based droplet sorting for on-demand selection and analysis
+of single cells and 3D cell cultures. Lab. Chip 20, 889–900. doi:10.1039/d0lc00055h
+Baareh, A. K. M., Al-Jarrah, A., Smadi, A. M., and Shakah, G. H. (2018). Performance
+evaluation of edge detection using sobel, homogeneity and Prewitt algorithms. J. Softw.
+Eng. Appl. 11 (11), 537–551. doi:10.4236/jsea.2018.1111032
+Beneyton, T., Wijaya, I. P. M., Postros, P., Najah, M., Leblond, P., Couvent, A., et al.
+(2016). High-throughput screening of ﬁlamentous fungi using nanoliter-range droplet-
+based microﬂuidics. Sci. Rep. 6, 27223. doi:10.1038/srep27223
+Bianco, S., Cadene, R., Celona, L., and Napoletano, P. (2018). Benchmark analysis of
+representative deep neural network architectures. IEEE Access 6, 64270–64277. doi:10.
+1109/ACCESS.2018.2877890
+Bressem, K. K., Adams, L. C., Erxleben, C., Hamm, B., Niehues, S. M., and Vahldiek,
+J. L. (2020). Comparing different deep learning architectures for classiﬁcation of chest
+radiographs. Sci. Rep. Nat. Res. 10 (1), 13590. doi:10.1038/s41598-020-70479-z
+Broketa, M., and Bruhns, P. (2022). Single-cell technologies for the study of antibody-
+secreting cells. Front. Immunol. Front Immunol 12, 821729. doi:10.3389/FIMMU.2021.
+821729
+Broketa, M., Sokal, A., Mor, M., Canales-Herrerias, P., Perima, A., Meola, A., et al.
+(2023). Qualitative monitoring of SARS-CoV-2 mRNA vaccination in humans using
+droplet microﬂuidics. JCI Insight 8 (13), e166602. doi:10.1172/jci.insight.166602
+Frontiers in Bioengineering and Biotechnology
+frontiersin.org
+10
+Vanhoucke et al.
+10.3389/fbioe.2024.1468738
+
+===PAGE 11===
+Bucheli, O. T. M., Sigvaldadóttir, I., and Eyer, K. (2021). Measuring single-cell protein
+secretion in immunology: technologies, advances, and applications. Eur. J. Immunol.
+Eur J Immunol 51 (6), 1334–1347. doi:10.1002/EJI.202048976
+Buggenthin, F., Marr, C., Schwarzﬁscher, M., Hoppe, P. S., Hilsenbeck, O., Schroeder, T.,
+et al. (2013). An automatic method for robust and fast cell detection in bright ﬁeld images
+from high-throughput microscopy. BMC Bioinforma. 14, 297. doi:10.1186/1471-2105-14-297
+Canales-Herrerias, P., Crickx, E., Broketa, M., Sokal, A., Chenon, G., Azzaoui, I., et al.
+(2022). High-afﬁnity autoreactive plasma cells disseminate through multiple organs in
+patients with immune thrombocytopenic purpura. J. Clin. Investigation, Am. Soc. Clin.
+Investigation 132 (12), e153580. doi:10.1172/JCI153580
+Chen, C. L., Mahjoubfar, A., Tai, L.-C., Blaby, I. K., Huang, A., Niazi, K. R., et al. (2016).
+Deep learning in label-free cell classiﬁcation. Sci. Rep. 6, 21471. doi:10.1038/srep21471
+Collins, D. J., Neild, A., deMello, A., Liu, A. Q., and Ai, Y. (2015). The Poisson
+distribution and beyond: methods for microﬂuidic droplet production and single cell
+encapsulation. Lab Chip 15, 3439–3459. doi:10.1039/c5lc00614g
+Cuevas, E., Díaz, M., Manzanares, M., Zaldivar, D., and Perez-Cisneros, M. (2013). An
+improved computer vision method for white blood cells detection. Comput. Math.
+Methods Med. 2013, 1–14. doi:10.1155/2013/137392
+Ding, R., Hung, K. C., Mitra, A., Ung, L. W., Lightwood, D., Tu, R., et al. (2020). Rapid
+isolation of antigen-speciﬁc B-cells using droplet microﬂuidics. RSC Adv. 10 (45),
+27006–27013. doi:10.1039/d0ra04328a
+Djekoune, A. O., Messaoudi, K., and Amara, K. (2017). Incremental circle hough transform:
+an improved method for circle detection. Optik 133, 17–31. doi:10.1016/j.ijleo.2016.12.064
+Dortaj, H., Amani, A. M., Tayebi, L., Azarpira, N., Ghasemi Toudeshkchouei, M.,
+Hassanpour-Dehnavi, A., et al. (2024). Droplet-based microﬂuidics: an efﬁcient high-
+throughput portable system for cell encapsulation. J. Microencapsul. 41, 479–501.
+doi:10.1080/02652048.2024.2382744
+Eyer, K., Doineau, R. C. L., Castrillon, C. E., Briseño-Roa, L., Menrath, V., Mottet, G.,
+et al. (2017). Single-cell deep phenotyping of IgG-secreting cells for high-resolution
+immune monitoring. Nat. Biotechnol. 35 (10), 977–982. doi:10.1038/NBT.3964
+Gangadhar, A., Sari-Sarraf, H., and Vanapalli, S. A. (2023). Deep learning assisted
+holography microscopy for in-ﬂow enumeration of tumor cells in blood. RSC Adv. R.
+Soc. Chem. 13 (7), 4222–4235. doi:10.1039/d2ra07972k
+Gao, H., Kwong, S., Yang, J., and Cao, J. (2013). Particle swarm optimization based on
+intermediate disturbance strategy algorithm and its application in multi-threshold
+image segmentation. Inf. Sci. 250, 82–112. doi:10.1016/j.ins.2013.07.005
+Gérard, A., Woolfe, A., Mottet, G., Reichen, M., Castrillon, C., Menrath, V., et al. (2020).
+High-throughput single-cell activity-based screening and sequencing of antibodies using
+droplet microﬂuidics. Nat. Biotechnol. 38 (6), 715–721. doi:10.1038/s41587-020-0466-7
+Holzner, G., Mateescu, B., van Leeuwen, D., Cereghetti, G., Dechant, R., Stavrakis, S.,
+et al. (2021). High-throughput multiparametric imaging ﬂow cytometry: toward
+diffraction-limited sub-cellular detection and monitoring of sub-cellular processes.
+Cell Rep. 34 (10), 108824. doi:10.1016/j.celrep.2021.108824
+Ioannou, D., Huda, W., and Laine, A. F. (1999). Circle recognition through a 2D
+Hough Transform and radius histogramming. Image Vis. Comput. 17 (1), 15–26. doi:10.
+1016/S0262-8856(98)00090-0
+Janetzki, S., Rueger, M., and Dillenbeck, T. (2014). Stepping up ELISpot: multi-level
+analysis in FluoroSpot assays. Cells 3 (4), 1102–1115. doi:10.3390/cells3041102
+Konry, T., Dominguez-Villar, M., Baecher-Allan, C., Haﬂer, D. A., and Yarmush, M.
+L. (2011). Droplet-based microﬂuidic platforms for single T cell secretion analysis of IL-
+10 cytokine. Biosens. and Bioelectron. Biosens Bioelectron 26 (5), 2707–2710. doi:10.
+1016/J.BIOS.2010.09.006
+Kumar, V., Prabha, C., Sharma, P., Mittal, N., Askar, S. S., and Abouhawwash, M.
+(2024). Uniﬁed deep learning models for enhanced lung cancer prediction with ResNet-
+50–101 and EfﬁcientNet-B3 using DICOM images. BMC Med. Imaging, Biomed. Cent.
+Ltd. 24 (1), 63. doi:10.1186/s12880-024-01241-4
+Kusumoto, D., and Yuasa, S. (2019). The application of convolutional neural network
+to stem cell biology. Inﬂamm. Regen. 39, 14. doi:10.1186/s41232-019-0103-3
+Li, K., Miller, E. D., Chen, M., Kanade, T., Weiss, L. E., and Campbell, P. G. (2008).
+“Computer vision tracking of stemness,” in 2008 5th IEEE International Symposium on
+Biomedical Imaging: From Nano to Macro, United States, May 14–17, 2008 (IEEE),
+847–850. doi:10.1109/ISBI.2008.4541129
+Liu, S., Masurkar, A. V., Rusinek, H., Chen, J., Zhang, B., Zhu, W., et al. (2022).
+Generalizable deep learning model for early Alzheimer’s disease detection from
+structural MRIs. Sci. Rep. Nat. Res. 12 (1), 17106. doi:10.1038/s41598-022-20674-x
+Macfarlane, F., Murray, P., Marshall, S., Perret, B., Evans, A., and White, H. (2021). Robust
+object detection in colour images using a multivariate percentage occupancy hit-or-miss
+transform. Math. Morphol. - Theory Appl. 5 (1), 128–152. doi:10.1515/mathm-2020-0111
+Maddalena, L., Antonelli, L., Albu, A., Hada, A., and Guarracino, M. R. (2022).
+Artiﬁcial intelligence for cell segmentation, event detection, and tracking for label-free
+microscopy imaging. Algorithms 15 (9), 313. doi:10.3390/a15090313
+Markovic, S., Li, B., Pera, V., Sznaier, M., Camps, O., and Niedre, M. (2013). A
+computer vision approach to rare cell in vivo ﬂuorescence ﬂow cytometry. Cytom. Part
+A 83 (12), 1113–1123. doi:10.1002/cyto.a.22397
+McIntyre, D., Lashkaripour, A., Fordyce, P., and Densmore, D. (2022). Machine
+learning for microﬂuidic design and control. Lab a Chip, R. Soc. Chem. 29 July,
+2925–2937. doi:10.1039/d2lc00254j
+Moon, S. J., Ceyhan, E., Gurkan, U. A., and Demirci, U. (2011). Statistical modeling of single
+target cell encapsulation. PLoS One 6 (7), e21580. doi:10.1371/JOURNAL.PONE.0021580
+Murphy, T. W., Zhang, Q., Naler, L. B., Ma, S., and Lu, C. (2018). Recent advances in
+the use of microﬂuidic technologies for single cell analysis. Cite This Anal. 143, 60–80.
+doi:10.1039/c7an01346a
+Nakamura, M., Matsumoto, M., Ito, T., Hidaka, I., Tatsuta, H., and Katsumoto, Y. (2024).
+Microﬂuidic device for the high-throughput and selective encapsulation of single target cells.
+Lab a Chip, R. Soc. Chem. 24 (11), 2958–2967. doi:10.1039/d4lc00037d
+Praljak, N., Iram, S., Goreke, U., Singh, G., Hill, A., Gurkan, U. A., et al. (2021). Integrating
+deep learning with microﬂuidics for biophysical classiﬁcation of sickle red blood cells adhered
+to laminin. PLOS Comput. Biol. 17 (11), e1008946. doi:10.1371/journal.pcbi.1008946
+Qiu, C., Tang, H., Yang, Y., Wan, X., Xu, X., Lin, S., et al. (2024). Machine vision-
+based autonomous road hazard avoidance system for self-driving vehicles. Sci. Rep. Nat.
+Res. 14 (1), 12178. doi:10.1038/s41598-024-62629-4
+Riordon, J., Sovilj, D., Sanner, S., Sinton, D., and Young, E. W. K. (2019). Deep
+learning with microﬂuidics for biotechnology. Trends Biotechnol. 1, 310–324. doi:10.
+1016/j.tibtech.2018.08.005
+Rosenfeld, N., Young, J. W., Alon, U., Swain, P. S., and Elowitz, M. B. (2005). Gene
+regulation at the single-cell level. Science 307 (5717), 1962–1965. doi:10.1126/science.1106914
+Sahaai, M. B., Jothilakshmi, G. R., Ravikumar, D., Prasath, R., and Singh, S. (2022).
+ResNet-50 based deep neural network using transfer learning for brain tumor
+classiﬁcation. AIP Conf. Proc., 20014. doi:10.1063/5.0082328
+Samukhina, Y. V., Matyushin, D. D., Grinevich, O. I., and Buryak, A. K. (2021). A
+deep convolutional neural network for prediction of peptide collision cross sections in
+ion mobility spectrometry. Biomolecules 11, 1904. doi:10.3390/biom11121904
+Sánchez Barea, J., Lee, J., and Kang, D.-K. (2019). Recent advances in droplet-based
+microﬂuidic technologies for biochemistry and molecular biology. Micromachines 10
+(6), 412. doi:10.3390/mi10060412
+Sesen, M., and Whyte, G. (2020). Image-based single cell sorting automation in
+droplet microﬂuidics. Sci. Rep. Sci. Rep. 10 (1), 8736. doi:10.1038/S41598-020-65483-2
+Shanker, M., Hu, M. Y., and Hung, M. S. (1996). Effect of data standardization on
+neural network training. Omega 24 (4), 385–397. doi:10.1016/0305-0483(96)00010-2
+Soﬁan, H., Than, J. C. M., Mohammad, S., and Noor, N. M. (2018). Calciﬁcation detection
+of coronary artery disease in intravascular ultrasound image: deep feature learning approach.
+Int. J. Integr. Eng. Penerbit UTHM 10 (7), 43–57. doi:10.30880/ijie.2018.10.07.005
+Soldati, G., Ben, F. D., Brisotto, G., Biscontin, E., Bulfoni, M., Piruska, A., et al. (2018).
+Microﬂuidic droplets content classiﬁcation and analysis through convolutional neural
+networks in a liquid biopsy workﬂow. Am. J. Transl. Res. 10 (12), 4004–4016.
+Song, H., Zhou, Y., Jiang, Z., Guo, X., and Yang, Z. (2018). “ResNet with global and
+local image features, stacked pooling block, for semantic segmentation,” in 2018 IEEE/
+CIC International Conference on Communications in China (ICCC), China, August
+16–18, 2018, (IEEE), 79–83. doi:10.1109/ICCChina.2018.8641146
+Srikanth, S., Dubey, S. K., Javed, A., and Goel, S. (2021). Droplet based microﬂuidics
+integrated with machine learning. Sens. Actuators A: Phys. 332, 113096. doi:10.1016/j.sna.
+2021.113096
+Sultana, F., Suﬁan, A., and Dutta, P. (2018). “Advancements in image classiﬁcation
+using convolutional neural network,” in 2018 Fourth International Conference on
+Research in Computational Intelligence and Communication Networks (ICRCICN),
+China, November 22–23, 2018 (IEEE), 122–129. doi:10.1109/ICRCICN.2018.8718718
+Ušinskis, V., Makulavičius, M., Petkevičius, S., Dzedzickis, A., and Bučinskas, V. (2024).
+Towards autonomous driving: technologies and data for vehicles-to-everything communication.
+Sensors, Multidiscip. Digit. Publ. Inst. (MDPI) 24 (1 June), 3411. doi:10.3390/s24113411
+Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez, A. N., et al.
+(2017), “Attention is all you need,” in 31st Conference on Neural Information
+Processing Systems (NIPS 2017), Long Beach, CA, December 4–9, 2017.
+Wang, X., Girshick, R., Gupta, A., and He, K. (2018). “Non-local neural networks,” in
+2018 IEEE/CVF Conference on Computer Vision and Pattern Recognition, Germany,
+June 18–23, 2018 (IEEE), 7794–7803. doi:10.1109/CVPR.2018.00813
+Wei, S. C., Hsu, M. N., and Chen, C. H. (2019). Plasmonic droplet screen for single-cell
+secretion analysis. Biosens. Bioelectron. 144, 111639. doi:10.1016/J.BIOS.2019.111639
+Welch, L. G., Estranero, J., Tourlomousis, P., Wootton, R. C. R., Radu, V., González-
+Fernández, C., et al. (2024). A programmable and automated optical electrowetting-on-
+dielectric (oEWOD) driven platform for massively parallel and sequential processing of
+single cell assay operations. Lab a Chip, R. Soc. Chem. 24, 3763–3774. doi:10.1039/
+d4lc00245h
+Wightman, R., Touvron, H., and Jégou, H. (2021). ResNet strikes back: an improved
+training procedure in timm. arXiv:2110.00476
+Zhang, X., Bian, H., Cai, Y., Zhang, K., and Li, H. (2022). An improved tongue image
+segmentation algorithm based on Deeplabv3+ framework. IET Image Process. 16 (5),
+1473–1485. doi:10.1049/ipr2.12425
+Frontiers in Bioengineering and Biotechnology
+frontiersin.org
+11
+Vanhoucke et al.
+10.3389/fbioe.2024.1468738

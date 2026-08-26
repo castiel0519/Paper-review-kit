@@ -1,0 +1,46 @@
+{
+  "abstract_en": "In this paper, we review the integration of microfluidic chips and computer vision, which has great potential to advance research in the life sciences and biology, particularly in the analysis of cell imaging data. Microfluidic chips enable the generation of large amounts of visual data at the single-cell level, while computer vision techniques can rapidly process and analyze these data to extract valuable information about cellular health and function. One of the key advantages of this integrative approach is that it allows for noninvasive and low-damage cellular characterization, which is important for studying delicate or fragile microbial cells. The use of microfluidic chips provides a highly controlled environment for cell growth and manipulation, minimizes experimental variability and improves the accuracy of data analysis. Computer vision can be used to recognize and analyze target species within heterogeneous microbial populations, which is important for understanding the physiological status of cells in complex biological systems. As hardware and artificial intelligence algorithms continue to improve, computer vision is expected to become an increasingly powerful tool for in situ cell analysis. The use of microelectromechanical devices in combination with microfluidic chips and computer vision could enable the development of label-free, automatic, low-cost, and fast cellular information recognition and the high-throughput analysis of cellular responses to different compounds, for broad applications in fields such as drug discovery, diagnostics, and personalized medicine.",
+  "abstract_zh": "本文综述微流控芯片与计算机视觉的融合：微流控提供单细胞级、高通量、受控环境，计算机视觉快速解析细胞图像，实现低损伤、无标记的细胞健康与功能表征，并可在异质微生物群落中识别目标物种。",
+  "background_zh": "细胞显微成像数据规模大、人工分析主观且昂贵；微流控芯片可生成海量单细胞级视觉数据并提供稳定物理环境。",
+  "problem_zh": "如何将微流控产生的高通量视觉数据与计算机视觉算法结合，实现无标记、低损伤、高通量的细胞分析？",
+  "data_zh": "综述论文：覆盖微生物/哺乳动物细胞的微流控图像数据、传统图像处理与深度学习模型，无固定数据集。",
+  "task_zh": "系统梳理微流控成像-计算机视觉集成方向的技术路径、算法分类与未来趋势。",
+  "method_zh": "按“芯片-成像-算法”链条综述：微流控芯片提供受控流体环境；明场/相位/荧光等成像获取视觉数据；计算机视觉完成检测、分割、识别、分类与表型分析；讨论软硬件协同。",
+  "results_zh": "指出该融合方法可无创、低损伤地表征细胞；异质群落中可识别与分析目标物种；随硬件与AI算法进步，有望实现自动化的实时细胞监测与分选。",
+  "metrics_zh": [
+    {
+      "label": "论文类型",
+      "value": "Microsystems & Nanoengineering 综述"
+    }
+  ],
+  "innovation_zh": "以“微流控+计算机视觉”而非单一技术为视角，强调无标记、受控环境与高通量分析的优势。",
+  "limitation_zh": "综述定性为主；实际系统需解决算法算力、芯片-相机同步、轻量化与临床/工业验证等工程问题。",
+  "paradigm_zh": "系统集成范式：硬件（微流控）提供受控高通量数据，软件（计算机视觉）实现自动化解读，两者互为依赖；强调“数据-算法-硬件”协同。",
+  "paradigm_tags": [
+    "综述",
+    "计算机视觉",
+    "无标记分析",
+    "软硬件协同"
+  ],
+  "framework_zh": "微流控芯片设计→成像采集→图像预处理→CV算法（检测/分割/分类）→生物/健康解读→反馈控制。",
+  "framework_steps": [
+    "数据与预处理：高密度单细胞图像获取与校正",
+    "模型设计：检测/分割/分类模型（传统CV与深度学习）",
+    "训练策略：小样本、迁移学习与在线学习",
+    "评估与解读：形态学/生理指标提取，健康/功能状态推断"
+  ],
+  "scheme_zh": "Scheme展示微流控芯片、成像模块、计算机视觉流水线与反馈驱动器的集成架构（PPT采用提取的Fig.1）。",
+  "lessons_zh": "微流控与CV结合的核心价值在“受控环境+海量数据”；工程落地应优先考虑无标记、实时、轻量化算法。",
+  "id": "04",
+  "title_en": "Computer vision meets microfluidics: a label-free method for high-throughput cell analysis",
+  "title_zh": "计算机视觉遇见微流控：高通量细胞分析的无标记方法",
+  "journal": "Microsystems & Nanoengineering",
+  "year": 2023,
+  "doi": "10.1038/s41378-023-00562-8",
+  "pmid": null,
+  "pmcid": null,
+  "kind": "image_cell",
+  "kind_zh": "图像识别与高通量细胞分析",
+  "scheme_image": "papers_figs/04_fig1.png",
+  "pdf_status": "已获取PDF全文精读"
+}

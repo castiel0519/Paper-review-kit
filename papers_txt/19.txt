@@ -1,0 +1,1885 @@
+===PAGE 1===
+Citation: Ma, X.; Guo, G.; Wu, X.;
+Wu, Q.; Liu, F.; Zhang, H.; Shi, N.;
+Guan, Y. Advances in Integration,
+Wearable Applications, and Artiﬁcial
+Intelligence of Biomedical
+Microﬂuidics Systems. Micromachines
+2023, 14, 972. https://doi.org/
+10.3390/mi14050972
+Academic Editors: Nam-Trung
+Nguyen and Colin Dalton
+Received: 16 March 2023
+Revised: 20 April 2023
+Accepted: 25 April 2023
+Published: 29 April 2023
+Copyright:
+© 2023 by the authors.
+Licensee MDPI, Basel, Switzerland.
+This article is an open access article
+distributed
+under
+the
+terms
+and
+conditions of the Creative Commons
+Attribution (CC BY) license (https://
+creativecommons.org/licenses/by/
+4.0/).
+micromachines
+Review
+Advances in Integration, Wearable Applications, and Artiﬁcial
+Intelligence of Biomedical Microﬂuidics Systems
+Xingfeng Ma 1,2, Gang Guo 2, Xuanye Wu 2,3, Qiang Wu 4, Fangfang Liu 3, Hua Zhang 4, Nan Shi 3,5,*
+and Yimin Guan 2,4,*
+1
+School of Communication and Information Engineering, Shanghai University, Shanghai 200000, China
+2
+Department of Microelectronics, Shanghai University, Shanghai 200000, China
+3
+Shanghai Industrial µTechnology Research Institute, Shanghai 200000, China
+4
+Shanghai Aure Technology Limited Company, Shanghai 200000, China
+5
+Institute of Translational Medicine, Shanghai University, Shanghai 200000, China
+*
+Correspondence: nanshi1227@shu.edu.cn (N.S.); yimin_guan@shu.edu.cn (Y.G.)
+Abstract: Microﬂuidics attracts much attention due to its multiple advantages such as high through-
+put, rapid analysis, low sample volume, and high sensitivity. Microﬂuidics has profoundly inﬂuenced
+many ﬁelds including chemistry, biology, medicine, information technology, and other disciplines.
+However, some stumbling stones (miniaturization, integration, and intelligence) strain the develop-
+ment of industrialization and commercialization of microchips. The miniaturization of microﬂuidics
+means fewer samples and reagents, shorter times to results, and less footprint space consumption,
+enabling a high throughput and parallelism of sample analysis. Additionally, micro-size channels
+tend to produce laminar ﬂow, which probably permits some creative applications that are not acces-
+sible to traditional ﬂuid-processing platforms. The reasonable integration of biomedical/physical
+biosensors, semiconductor microelectronics, communications, and other cutting-edge technologies
+should greatly expand the applications of current microﬂuidic devices and help develop the next
+generation of lab-on-a-chip (LOC). At the same time, the evolution of artiﬁcial intelligence also gives
+another strong impetus to the rapid development of microﬂuidics. Biomedical applications based on
+microﬂuidics normally bring a large amount of complex data, so it is a big challenge for researchers
+and technicians to analyze those huge and complicated data accurately and quickly. To address
+this problem, machine learning is viewed as an indispensable and powerful tool in processing the
+data collected from micro-devices. In this review, we mainly focus on discussing the integration,
+miniaturization, portability, and intelligence of microﬂuidics technology.
+Keywords: microﬂuidics; integration; miniaturization; artiﬁcial intelligence
+1. Introduction
+Microfluidics is a multidisciplinary technique that processes or manipulates 10−9~10−18
+liters of ﬂuids with micrometer-size channels [1]. A microﬂuidic platform paves an effective
+way for the automatic and high-throughput analysis of biochemical samples [2]. According
+to the actuation mechanisms, microﬂuidic platforms can be classiﬁed into several groups,
+such as capillary, pressure-driven, centrifugal, electrokinetic, and acoustic [3]. Based on
+the ﬂuid-propulsion force, microﬂuidics can be divided into continuous-ﬂow and droplet
+microﬂuidics [4].
+The liquids ﬂow in the fabricated microchannels without breaking continuity in the
+continuous-ﬂow microchips and they have evolved rapidly in the last decades [5]. How-
+ever, some inherent issues (such as Taylor dispersion, solute–surface interactions, and
+cross-contamination) limit the further development of this type of microﬂuidics [6]. Droplet
+microﬂuidics is a type of technique that utilizes immiscible multiphase ﬂow to generate
+and manipulate discrete droplets in the micro-size channels [7]. Microﬂuidic devices can
+produce discrete droplets at frequencies ranging from a few Hz to thousands of Hz. Each
+Micromachines 2023, 14, 972. https://doi.org/10.3390/mi14050972
+https://www.mdpi.com/journal/micromachines
+
+===PAGE 2===
+Micromachines 2023, 14, 972
+2 of 36
+droplet is viewed as a microreactor encapsulating biochemical reactants, cells, nanoparticles,
+nucleic acids, or other components, and individually manipulated [8,9] For biological and
+chemical analysis, droplet reactors offer signiﬁcant advantages of miniaturization and inde-
+pendence that represent the beneﬁts of low consumption and low cross-contamination [10].
+On the one hand, the miniaturization of the reactor makes single-cell or molecular analysis
+possible [11,12]. On the other hand, small droplets have a large surface area-to-volume
+ratio, which facilitates heat and mass transfer and accelerates the reaction rate [13]. The
+large number of uniform droplets generated by the microﬂuidic platform provides the pos-
+sibility of parallel processing, paving the way for high-throughput analysis and enabling
+high-throughput screening under a variety of experimental conditions [14,15].
+In the 1990s, many researchers explored the application of micro-electromechanical
+systems (MEMS) technology in the ﬁelds of biology, chemistry, and biomedicine, which
+lead to the generation of microﬂuidics. It is a versatile platform that integrates sample
+preparation, reaction, separation, and detection on a micron-scale chip [16]. In conclusion,
+building biochemical systems on the surface of a solid chip produced via MEMS tech-
+nology enabled the fast and accurate processing and detection of proteins [17], cells [18],
+nucleic acids [19], metabolites [20], and other speciﬁc targets. Normally, the fabrication of
+microchips primarily relies on the microchip design, optical materials, and MEMS tech-
+nologies. The purpose of the microchip determines the whole microchip design, such as
+the channel shape, channel size, position of valves, detection zone, micro-pumps, method
+of detection, chip size, etc.
+In addition, the properties of ﬂuids in microchannels cannot be ignored during the
+microchip design. The Reynolds number (Re) reﬂects the ratio of inertial forces to viscous
+forces [21]. Within the microscale channels, the Reynolds number is usually less than 1
+and the ﬂuidic behavior is mainly inﬂuenced by the viscosity rather than inertia, which
+means the ﬂuid ﬂow is essentially laminar [22], and this speciﬁc feature is usually used
+in the generation of concentration gradients [23–25], macroscopically, polymer microrods,
+Janus droplets, etc. [26,27]. The Peclet number (Pe) represents the ratio between advection
+and diffusion. When the Peclet number is relatively large, the diffusion effect is weak, and
+the mixing becomes very difﬁcult at this moment [28], which means the time for complete
+mixture should be very long even if the diffusion distance is short. This is critical for
+some reactions and measurements that have to be ﬁnished in milliseconds. This is the
+reason why some sinuous microchannels are required when designing microchips [29,30],
+which helps induce chaotic advection and accelerate ﬂuid mixing. In addition, fabricating
+interconnected microchannel networks plays a key role in the construction of microchips
+where MEMS (photolithography) processes and optical materials are used to generate
+micron-size channels in silicon and other substrates [31].
+The advent of LOCs miniaturizes benchtop laboratory equipment into portable tools
+for point-of-care (POC) diagnostics, while achieving orders-of-magnitude reductions in
+hardware costs and sample usage [32]. Although existing discrete devices have the ability
+to reduce the sizes of physical equipment, reasonable integration of microelectronics and
+integrated circuit techniques will further miniaturize microchips and effectively improve
+their performance [33]. When integrated circuits (ICs) are inserted into microﬂuidic plat-
+forms, a complementary metal-oxide semiconductor (CMOS) is able to distinguish and
+gather the weak changes of electrical signals (current, voltage, or electromagnetic wave)
+that are generated in some biochemical reactions and promotes the implementation of
+real-time quantitative analysis [34]. The integration of microﬂuidics and CMOS not only
+contributes to the portability of clinic equipment, but also helps perform rapid diagnostics
+for patients in non-laboratory and non-specialist conditions [35].
+As per the description above, CMOS and MEMS techniques have contributed to the
+development of microﬂuidics [35]. In return, microﬂuidics as an emerging discipline also
+provides some creative ideas for the development of traditional semiconductor technol-
+ogy. The miniaturization of electronic devices and circuits causes the phenomenon of
+self-heating, which restricts in the performance and reliability of microelectronic electrical
+
+===PAGE 3===
+Micromachines 2023, 14, 972
+3 of 36
+systems [36]. To solve this problem, microchannels have attracted the attention of engineers,
+and manifold microchannel cooling systems were produced by putting microﬂuidic and
+electronic devices on the same semiconductor substrate, which greatly reduced the temper-
+ature of the semiconductor and the energy consumption for cooling electronic devices [37].
+In summary, microﬂuidics and semiconductors naturally complement each other.
+How to collect and process the huge data from droplet microchips is another tricky
+challenge for researchers [38]. Intelligent microﬂuidics is beginning to receive increasing
+attention from researchers as an emerging interdisciplinary research ﬁeld that combines mi-
+croﬂuidics with machine learning (ML), taking full advantage of the high throughput and
+controllability of microﬂuidics while introducing the powerful data processing capabilities
+of ML. In recent years, the possibility of combining machine learning and microﬂuidics has
+been veriﬁed in successfully solving biomedical and biotechnological issues [39]. By select-
+ing appropriate training models and proper training, ML has proven to be a powerful tool
+for rapid and accurate feature extraction, classiﬁcation, prediction, and optimization of the
+large amount of data generated in microﬂuidic systems [40]. Compared with traditionally
+manual analysis, intelligent microﬂuidics requires less human intervention, dynamically
+improving computer-aided prediction performance from large amounts of data.
+Although microﬂuidics has been successfully applied in many ﬁelds until now there
+should be great potential to be exploited with the development of technology. Miniatur-
+ization, integration, and intelligence will probably provide a larger stage for microﬂuidic
+techniques. In this review, we ﬁrst introduce some classical electrochemical biosensors and
+applications after integrating them with microﬂuidic devices. In the next part, wearable
+microﬂuidics is discussed, which includes multiple technologies such as sensors, ﬂexible
+electronics, mobile communication, and other necessary elements for various purposes.
+Smart microﬂuidics with artiﬁcial intelligence technologies is investigated in the last sec-
+tion. This review gives some useful hints to researchers who are interested in microﬂuidic
+miniaturization, integration, and intelligence.
+2. Integrated Microﬂuidic Systems
+Integrated microﬂuidic system have the speciﬁc characteristics of integrating multiple
+analytical processes in a signal device [41]. The external physical techniques (such as optical,
+electrical, acoustic, and magnetic ﬁelds) that are introduced into microchips help make the
+integrated microﬂuidic system become a powerful platform for biomedical analysis [42].
+Speciﬁcally, the combination of microﬂuidics and various electrochemical biosensors has
+also attracted researchers’ interests, which is viewed as an ideal way to implement the next
+generation of highly integrated and miniaturized LOC systems. Therefore, this chapter will
+brieﬂy introduce the combination of external ﬁelds and microﬂuidic systems and ﬁnally
+focus on presenting the integrated electrochemical microﬂuidics.
+2.1. Microﬂuidics Integrated with External Techniques
+2.1.1. Magnetic Fields and Microﬂuidics
+The integration of microchips and magnetics has been demonstrated in many ﬁelds.
+Magnetic materials have been used as valves to control the status of ﬂuids, and magnetic
+particles have been employed for mixing ﬂuid streams. The most conventional application
+of magnetics in microﬂuidics is to separate target cells from suspensions [43,44].
+Masumi Yamaha et al. presented a type of cell-sorting microﬂuidic system based on
+size and surface markers. This simple system sorted cells with high precision via combining
+the hydrodynamic ﬁltration (HDF) scheme and magnetophoresis. As shown in Figure 1a,
+cells were ﬁrst aligned onto the low sidewall in the main channel and then sorted into each
+separation lane (up to six) based on different sizes in the HDF scheme. Then the magnets
+were perpendicularly added to the separation lanes and sorted the similar-sized cells with
+different numbers of markers (up to four in each separation lane). In this microchip, the
+cells conjugated with more immunomagnetic beads would get closer to the magnet than
+those with fewer beads, thus achieving the second-round screening [45].
+
+===PAGE 4===
+Micromachines 2023, 14, 972
+4 of 36
+Karabacak et al. redesigned CTC-iChip to isolate circulating tumor cells (CTCs) from
+the whole blood with the assistance of magnetic force, and CD66 was used as a leukocyte
+marker in this system. As shown in Figure 1b, two independent chips with different
+modules were integrated to achieve screening CTCs. In the CTC-Chip-1, the white blood
+cells (WBCs) and tumor cells were separated from the whole blood based on the size with
+continuous deterministic lateral displacement (DLD). In the CTC-Chip-2, inertial focusing
+was used to position these cells in the microchannel precisely and the tumor cells were
+isolated through microﬂuidic magnetophoresis. This system achieved an average of 3.8 g-
+log depletion of WBCs with a sample processing rate of 8 mL/h, and the yield of rare
+cancer cells was 97 ± 2.7% [46].
+2.1.2. Acoustic Fields and Microﬂuidics
+Microﬂuidics with acoustics is a powerful tool for manipulating particles and cells in
+biomedical applications. The devices have the properties of versatility, biocompatibility,
+precision, ﬂexibility, compactness, and cost-effectiveness [47]. Generally, acoustic waves
+can be classiﬁed into two types: surface acoustic waves (SAWs) and bulk acoustic waves
+(BAWs) [48].
+SAWs are often generated within piezoelectric materials, which can be exploited to
+screen particles or cells in a micro-system [49]. Lee et al. proposed putting four different
+modules in a microchip that utilized acoustic and electric ﬁelds to sort particles and cells.
+This device broke through the limitation of previous microchips, which sorted targets
+based on individual cell or particle properties. Moreover, label-free cells signiﬁcantly
+simpliﬁed the process of sample preparation. As shown in Figure 1c, a deterministic lateral
+displacement (DLD) array in a direct current (DC) ﬁeld ﬁrst separated the analytes on the
+volume and surface charge difference. Then, a bipolar electrode (BPE) well aligned the
+particles into a particle beam in the microchannel for subsequent acoustic separation based
+on the compressibility and density. In parallel, a dielectrophoresis (DEP) force from BPE
+was used to separate non-viable and viable cells depending on the dielectric properties,
+and the viable cells were trapped on the BEP edges with a positive DEP force while the
+non-viable cells were repelled towards the center of the channels and washed away [50].
+Ivo et al. not only applied the BAW acoustophoresis to manipulate particles and
+cells, but they also used BAW to merge droplets. As shown in Figure 1d, the T-junction
+and ﬂow-focusing geometries stably generated water-in-oil droplets, and the piezoelectric
+transducer adhered to the underside of the channel transformed the voltage into mechanical
+vibration for sample manipulation. In the aspect of droplet fusion, BAW acoustophoresis
+focus-aligned two adjacent droplets on the centerline of the channel and induced two
+droplets to merge. BAW acoustophoresis sorted target droplets at an extremely high speed
+via turning on/off the transducer. They also successfully transferred the droplets from a
+current continuous phase to the another one using acoustophoresis, which contributed to
+cell washing and medium change [51].
+2.1.3. Electric Fields and Microﬂuidics
+The integration of electric ﬁelds and microﬂuidics has existed for a long time, such
+as on-line electrophoresis, dielectrophoresis, electroosmosis, and electric impedance anal-
+ysis [52]. The electric ﬁeld has been regarded as one of the most popular and efﬁcient
+nonmechanical pumping and separation mechanisms in microchips [53]. However, the
+electric current generated from the electric ﬁeld may result in Joule heating, which might
+lead to irreversible thermal damage to the cells [54].
+An aqueous two-phase system (ATPS) was built and used as a liquid ﬁlter by one
+group. The target cells and polystyrene (PS) particles were selectively separated at the
+liquid–liquid interface with an external electric ﬁeld. The factors affecting the particles on
+the ATPS interface were the strength of the electric pulse, particle size, zeta potential, and
+hydrophobicity of the particle [55].
+
+===PAGE 5===
+Micromachines 2023, 14, 972
+5 of 36
+A trans-membrane voltage (TMV) generated from a nearby electric ﬁeld will temporar-
+ily change the permeability of a cellular membrane and the extracellular components will
+ﬂow into the cells through the cell membrane, which is known as electroporation. Therefore,
+the reversibility of electroporation provides an effective treatment option for tumors. As
+shown in Figure 1e, the integration of electroporation and microﬂuidics provided a plat-
+form for the rapid and precise identiﬁcation of bacterial strains. The electric ﬁeld strength
+for electroporation of different types of bacterial strains were demonstrated in this paper:
+Escherichia coli BL21 (3.65 ± 0.09 kV/cm), Corynebacterium glutamicum (5.20 ± 0.20 kV/cm),
+and Mycobacterium smegmatis (5.56 ± 0.08 kV/cm) [56].
+2.1.4. Optical Fields and Microﬂuidics
+Due to the prominent advantages of optics-based detection, including non-invasiveness,
+easy integration, rapid response, and high sensitivity, many optical detection methods have
+been incorporated into microﬂuidic devices, such as ﬂuorescence, absorbance, colorimetry,
+chemiluminescence, and scattering [57]. Among them, ﬂuorescence detection is still the
+most widely used because of its high sensitivity, high selectivity for cellular and molecular
+sensing, and low backgrounds [58].
+The integration of microchips and optical systems can also efﬁciently and precisely
+sort targets. Fluorescent-dyed particles were excited with an integrated optical waveguide
+network within microchannels. A diode-bar optical-trapping scheme guided the particles
+across the waveguide/microchannels and selectively separated the particles based on their
+ﬂuorescent intensity [59].
+In addition to ﬂuorescent detection, absorbance spectroscopy is the most straight-
+forward detection method in separation science. However, this method is signiﬁcantly
+constrained by the length of the optical path, which affects the sensitivity of the analy-
+sis [60]. The Easley group combined the lock-in technique and absorbance detection to
+improve the LOD of analytes in droplet microﬂuidics (Figure 1f). Ultimately, a detection
+limit of 3.0 × 10−4 absorbance units or 500 nM bromophenol blue (29 fmol) was achieved
+with an optical microscope and a standard, single-depth (27 µm) microchip [61].
+2.2. Introduction of Electrochemical Biosensors
+Electrochemical biosensors use electrodes as conversion elements and ﬁxation carriers
+and ﬁx biological recognition elements (such as proteins, antibodies, enzymes, nucleic
+acids, cells, etc.) as sensitive elements on the electrodes. The speciﬁc recognition between
+biomolecules generates catalytic or binding activities between the target analyte and the bio-
+logical recognition element on the electrode, and the ﬁnal binding reaction is converted into
+a detectable electrical signal (such as current, potential, resistance, or impedance) through
+the electrode, which is proportional to the analyte concentration, thus achieving qualitative
+or quantitative detection of the target analyte [62]. Electrochemical biosensors have the
+advantages of high sensitivity, portability, low cost, simplicity, and easy operation [63].
+
+===PAGE 6===
+Micromachines 2023, 14, 972
+6 of 36
+Figure 1. External ﬁelds in integrated microﬂuidic devices. (a) Schematic of magnetophoresis-
+integrated hydrodynamic ﬁltration system. (Reprinted with permission from Ref. [45], copyright 2013
+American Chemical Society). (b) Schematic of CTC-iChip. (Reprinted with permission from Ref. [46],
+copyright 2014 Nature Publishing Group). (c) Schematic diagram of an integrated microﬂuidic system
+designed to achieve multitarget separation. (Reprinted with permission from Ref. [50], copyright
+2021 American Chemical Society). (d) Sketch of the microﬂuidic as well as the front and back side of
+the microchip. (Reprinted with permission from Ref. [51] under a Creative Commons Attribution
+3.0 Unported Licence). (e) Microﬂuidic device to determine the critical electric ﬁeld required for
+bacterial electroporation. (Reprinted with permission from Ref. [56], copyright 2016 The Author(s)).
+(f) The microchannel layout for alternately generating signal and reference droplets. (Reprinted with
+permission from Ref. [61], copyright 2012 American Chemical Society).
+
+===PAGE 7===
+Micromachines 2023, 14, 972
+7 of 36
+Electrochemistry typically uses the three-electrode system: a working electrode (WE)
+where oxidation or reduction reactions occur and are measured; a reference electrode (RE)
+that gives a known potential to the redox reactions that happen and precisely controls
+the potential on the WE; as well as a counter electrode (CE) that forms a series circuit
+with the WE and acts as a conductor of electricity [64]. Although electrochemical sensors
+have many beneﬁts, as mentioned, traditional electrochemical detection consumes large
+volumes of reagents and requires bulky potentiostats, macroelectrodes, and other large
+equipment [65]. The main components of electrochemical biosensors are electrodes, which
+are suitable for miniaturization, batch microfabrication, and integration with other com-
+ponents on a single microchip. The applications of electrochemical sensors in biological
+and chemical detection in microﬂuidic systems has many beneﬁts, including a low volume
+of reagents, less detection time, high signal-to-noise ratio, and low consumption of metal
+materials [66]. To adapt to the microchip size, micrometer-scale “microelectrodes” and
+“ultramicroelectrodes” have been developed recently and become popular in microﬂuidics.
+The synergistic integration of electrochemical sensors and microchips in a signal platform
+helps researchers discover unknown bioanalysis phenomena. The speciﬁc properties of
+liquid metals (simple fabrication, easy integration, stretchability, reconﬁgurability, low
+power consumption, etc.) yield advantages in their integration with microﬂuidics. For
+example, some liquid metals can be used as electrodes for microchips because of their
+high conductivity and ﬂuidity [67]. Kong et al. proposed a novel technique for fabricating
+three-dimensional (3D) multilayer liquid-metal microcoils together with the microﬂuidic
+network through the lamination of dry adhesive sheets, which is beneﬁcial for cleaning up
+the microﬂuidic chips and avoiding cross-contamination when reusing the microcoils. A
+nuclear magnetic resonance (NMR)-based biosensing system integrated with microcoils
+was successfully applied to aid the diagnosis of anemia [68].
+The applications of electrochemical sensors in microchips offer tremendous advan-
+tages for facilitating the evolution of modern micro-total analysis systems (µTAS), such
+as inherent miniaturization, low power requirements, low limit of detection (LOD), and
+compatibility with advanced micromachining systems [69]. The development of LOC or
+µTAS mainly relies on semiconductor microfabrication technologies, but the MEMS and
+microelectronic IC fabrication technologies determine the advancement of micro/nano
+fabrication technologies. Therefore, the MEMS and IC fabrication have huge effects on the
+electrochemistry-based LOC and µTAS. There are some challenges, though the concept
+of sensor–ﬂuid integration has been proposed for long time. The mismatch of footprint
+between the microﬂuidic device and the CMOS chip is one of the stumbling blocks, and the
+other difﬁcult points are the direct contact between the sample ﬂuid and the electrodes and
+the topographical conﬂict between the electrical interconnect and the microﬂuidic channels.
+Huang et al. proposed an integrated system of CMOS microchip and electrochemical
+sensors. This platform contained microﬂuidics, electrode arrays, and CMOS ICs, which
+introduced both silicon substrate carriers to expand the surface area beyond the CMOS
+chip and resolved topological conﬂicts between electrical interconnects and microﬂuidic
+channels. This system brings the electrochemical advantages to help the general public
+without compromising accuracy and reliability [70]. Therefore, electro-microchips have
+become one of the most popular research directions in µTAS.
+2.3. The Protocols and Applications of Electrochemical Microﬂuidics
+Microﬂuidics-based electrochemical biosensors, as a new application area, may be an
+ideal answer for developing next-generation portable analysis systems [71]. At present,
+many academic studies have reported various electrochemical analysis protocols in mi-
+croﬂuidics. According to the detection principles, ﬁve types of common electrochemical
+detection techniques and the relative applications in microchips are presented here.
+
+===PAGE 8===
+Micromachines 2023, 14, 972
+8 of 36
+2.3.1. Amperometry
+Amperometry is a kind of electrochemical analysis where a constant potential is
+applied to the WE and the RE, and the current generated by the oxidation or reduction
+of electroactive substances at the working electrode is directly monitored, with a linear
+relationship between the magnitude of the current and the concentration of the analyte.
+Early microﬂuidics-based amperometry detection systems were mainly used for elec-
+trophoretic separation and detection. Woolley et al. developed an integrated platform that
+contained microﬂuidic devices, capillary electrophoresis, and amperometry detection for
+the ﬁrst time [72]. Currently, microﬂuidic amperometry sensors (MAS) are widely used in
+medical diagnostics and health care. The MAS invented by Kaur et al. achieved highly sen-
+sitive measurement of cholesterol with an LOD of 0.10 mM over a wide concentration range,
+and the device had the potential to be added to POC diagnostic devices via inserting the
+electronic circuits [73]. For the ﬁrst time, Senel et al. proposed a novel MAS for quantifying
+dopamine (DA) levels in cerebrospinal ﬂuid (CSF) and plasma in a Parkinson’s disease (PD)
+mouse model. The microelectrode was surrounded by a ~4 × 4 mm2 micro-chamber and
+the total volume of the PDMS micro-chambers is 2.4 µL (Figure 2a). The electrochemical
+oxidation of DA on gold microelectrodes was monitored via the amperometry method at
+the potential of 0.2 V, and the results demonstrated that this MAS device had the ability
+to analyze the DA in the range of 0.1–1000 nM. A 50 µm electrode spacing signiﬁcantly
+reduced the Ohmic drop and improved the reliability of the analysis [74].
+Digital microﬂuidics (DMF) is a special microﬂuidic technology with amperometry
+analysis that enables the manipulation of discrete droplets containing samples and reagents
+on a ﬂat surface. Speciﬁcally, the discrete droplets are manipulated “digitally” on a two-
+dimensional array of identical unit electrodes. Compared with droplet-based microchips,
+DMF mixes reagents more uniformly and does not require micro-pumps and microvalves,
+which greatly simpliﬁes the design and manufacture of the equipment. The absence of
+microchannels reduces cross-contamination and eliminates dead volume. In addition,
+because each droplet can be controlled independently, these systems are also dynamically
+reconﬁgurable, allowing droplet manipulation to be performed at any location on the array,
+allowing a variety of processes to be performed simultaneously in a simple and compact
+design while performing a set of bioassays [75].
+DMF couples a complicated sampling process and electrochemical biosensors well.
+The similar fabrication methods and the ease of integrating electro-sensors and DMF
+that have an electrode array make the electrochemical sensing mechanism highly com-
+patible with the DMF platform. Wheeler’s team presented the ﬁrst digital microﬂuidic
+electro-immunoassay in a digital microﬂuidic device by means of electrodeposition with-
+out external electrodes, which was used for successfully measuring thyroid stimulating
+hormones [76]. Later, Wheeler’s team proposed DMF devices coupled with nanostructured
+microelectrodes (NMEs) for out-of-lab distributed diagnostics with etching sensing elec-
+trodes (each consisting of three Au-NEMs, one CE, and one RE), a DMF counter-electrode,
+ﬁve apertures on the sensing electrodes, and a hydrophobic coating in four steps on the
+top plate of an Indium tin oxide (ITO)-coated slide (Figure 2b). A rubella virus (RV) IgG
+immunoassay was developed based on this system and analyzed via current change, and
+the detection limit of this RV assay was 100 times lower than the immunological threshold
+set by the World Health Organization [77].
+2.3.2. Voltammetry
+Voltammetry is the most common method of electrochemical analysis, where a po-
+tential is supplied between the WE and RE, and the changes in current are also measured.
+The difference is that the potential changes dynamically over a set range of sweeps in
+voltammetry and the current response is usually proportional to the concentration of the an-
+alyte. There are also various types of voltammetry, such as polarography, differential pulse
+voltammetry, linear sweep voltammetry, cyclic voltammetry, etc., based on the methods of
+changing electric potential [71].
+
+===PAGE 9===
+Micromachines 2023, 14, 972
+9 of 36
+TK Dhiman et al. fabricated an electrochemical nanochip based on CeO2 −Nps, which
+was used for ochratoxin A (OTA) analysis. OTA in the concentration range of 350 pg·mL−1
+to ng·mL−1 was detected using differential pulse voltammetry (DPV) on a CeO2 −Nps-
+based immuno-electrode. The immuno-electrode was immobilized with OTA antibodies
+and BSA, and the OTA solution ﬂowed through the BSA/Anti −OTA/CeO2/OTA elec-
+trodes with a syringe pump. The speciﬁc bond between antibodies and antigens generated
+changes in the charge on the electrode surface and resulted in a rise of the current peak
+in the DPV. The micro-size channels of the microchip had superiority in detecting the
+weak signals of immunoassays compared to conventional electrochemical electrodes [78].
+Wheeler et al. proposed the two-plate DMF platform containing droplet manipulation
+and on-line voltammetric analysis with electrochemical electrodes surrounding four-DMF
+electrodes (Figure 2c). The LOD of acetaminophen reached 76 µM with a 4% mean RSD
+using linear scanning voltammetry in this system [79].
+In recent years, carbon-based nanomaterials have been used in electrochemical detec-
+tors due to their excellent electrical conductivity, structural ﬂexibility, high strength, and
+other outstanding properties. However, it is still controversial whether there are more suit-
+able materials for fabricating electrochemical sensors compared to graphene and its parent
+graphite. The effects of several different materials (graphite oxide (GO), chemically reduced
+graphene oxide (CRGO), graphene oxide (GO’), electrochemically reduced graphene oxide
+(ERGO), and glassy carbon (GC)) on the electron transfer between hemoglobin in solution
+and solid electrodes were explored and compared in this work. The electrochemistry of
+hemoglobin in solution was investigated via cyclic voltammetry and differential pulse
+voltammetry. The results differed from previous studies in that carbon nanomaterials did
+not signiﬁcantly enhance the electron transfer, and the bare glassy carbon remained an
+appropriate electrode material for electrochemical sensing [80].
+Cyclic voltammetry (CV) is the most popular method in voltammetry-based detection.
+In CV, the potential of a triangular waveform is scanned between two values at a ﬁxed
+rate and the scan is divided into two parts: a negative scan and a positive scan. During
+the negative scan, the potential gradually decreases and the electroactive analytes in the
+electrode are reduced (reduction wave). For the positive scan, the potential gradually
+increases, and the reduction products are oxidized in the electrode (oxidation wave).
+The current–voltage curve is called a cyclic voltammogram [81]. Typically, CV is used
+to measure electrode reaction parameters, determine reaction mechanisms, and observe
+possible reactions over the entire potential scan range. For a new electrochemical system,
+CV, also known as “electrochemical spectroscopy,” is generally considered the ﬁrst priority
+for evaluation [82]. In addition, CV is used to characterize the performance of different
+materials or electrodes with different surface modiﬁcations [83].
+In addition, cyclic voltammetry has been applied for the quantitative analysis of
+samples. For example, Srikanth et al. developed a microﬂuidic platform without any
+biological modiﬁcation of the electrodes and used CV to study the variation of bacteria
+concentrations overtime [84]. For integration with DMF, K.C. et al. coupled a three-
+electrode-based electrochemical system and an electrowetting on dielectric (EWOD) digital
+microﬂuidic device to detect iodide droplets via cyclic voltammetry and successfully
+quantiﬁed iodide, which demonstrated that the combination of EWOD microﬂuidics and
+electrochemical sensors could achieved a rapid and accurate analysis of targets with a small
+volume of reagents [85]. Later, Yu et al. proposed an EWOD digital microchip by installing
+a microﬂuidic module on the bottom board and a three-microelectrode system on the top
+board (Figure 2d). A fully automated analysis of ferrocenemethanol (FcM) and dopamine
+(DA) was ﬁnished with cyclic voltammetry with a high sensitivity of 2145 nA/µM/cm2 and
+a low detection limit of 0.42 µM in the concentration range between 1.0 and 50.0 µM [86].
+
+===PAGE 10===
+Micromachines 2023, 14, 972
+10 of 36
+Figure 2. Microﬂuidics-based amperometry and voltammetry detection systems. (a) Schematic of the
+electrochemical sensing device. (Reprinted with permission from Ref. [74], copyright 2020 American
+Chemical Society). (b) Schematic of DMF devices with integrated nanostructured microelectrodes
+(NMEs). (Reprinted with permission from Ref. [77], copyright 2015 Royal Society of Chemistry).
+(c) Schematic of double-plate DMF platform and side view of electrochemical electrode. (Reprinted
+with permission from Ref. [79], copyright 2013 American Chemical Society). (d) Schematic of a digital
+microﬂuidic biochip for fully automated microarray analysis of ferrocene methanol FcM and DA.
+(Reprinted with permission from Ref. [86], copyright 2014 IOP Publishing, Ltd.).
+2.3.3. Potentiometry
+In the potentiometric-detection technique, the charge potential accumulation between
+the WE and the RE is measured under zero-current conditions. In other words, the analysis
+of the target analyte is achieved using the potential change between the ion-selective
+electrode (ISE) and the reference electrode [87]. The potential sensor usually consists of
+a reference electrode and an indicator electrode. The potential of the indicator electrode
+varies proportionally to the logarithm of the ion activity, so the potential stability and
+reliability are key parts of this analytical method.
+For any ion-selective electrode (ISE), the most important parameters are the slope,
+LOD, selectivity, and response time. The slope provides information about the charge
+interactions between the target compound and the membrane. The sensitivity of the ISE
+is given by the LOD and the response time is deﬁned as the time it takes for the sensor to
+reach 95% of the expected response when the analysis occurs [88].
+A microchip with an all-solid-state potential biosensor array was developed by
+Liao et al. Three Pt/Cr electrodes were fabricated on a glass substrate through the electron-
+beam evaporation process. The electrodes were further modiﬁed with iridium oxide, cal-
+cium ion-selective and potassium ion-selective membranes, respectively. The reference elec-
+trodes were formed by depositing and patterning Ag/Au/Cr and processing with electron
+beam evaporation. The detection sensitivity of pH, Ca2+, and K+are 62.62 ± 2.5 mV pH−1,
+53.76 mV ± 3 mV-log
+
+K+−1,, and 25.77 mV ± 2 mV-log
+h
+Ca2+i−1
+in this potentiometric
+
+===PAGE 11===
+Micromachines 2023, 14, 972
+11 of 36
+method, respectively [89]. Gallardo-Gonzalez et al. report a creative microchip that con-
+sisted of a microﬂuidic device and electrochemical microelectrodes for in situ and real-time
+measurements of ammonium in ﬂowing water (Figure 3a). In the control experiment, the
+WE worked as an ammonium-selective electrode, and the performance of this system was
+evaluated via the potentiometric analysis of the target. The results showed the sensitivity
+of the system, and the detection limit was 55 mV/decade and 4 × 10−5 M, and the whole
+response time was between 10 and 12 S. In addition, the robustness results also showed
+that this micro-system remained after being immersed in sewage for at least 15 min [90].
+Farzbod et al. achieved the installation of potassium-selective sensor arrays on digital
+microﬂuidics for the ﬁrst time (Figure 3b). In this equipment, the AgCl layer of the RE
+quickly was dissolved in the sample solution and then the silver-plated solution and
+hydrochloric acid are sequentially driven onto the sensing electrode on this DMF platform.
+The potentiometric detection of potassium ions in eight different concentrations of KCl
+solution is performed in this system, and it takes about 250 s for the EMF (electromotive
+force) to ﬁnish each measurement. The slope of the average EMF data was 58 mV/log,
+which demonstrates that the electrochemical sensor can be well-integrated with the digital
+microﬂuidic platform [91].
+Polymer-membrane-based ISE has become the most popular wearable sensor for
+monitoring the electrolytes in sweat. Many wearable devices do not require a dedicated
+microchip because sweat can directly ﬂow into the reaction chambers attached on the skin
+and trigger the biochemical reactions. Sempionatto et al. proposed a potential-sensor-based
+wearable device that included sensors for detecting K+ and Na+ on the top layer of PDMS,
+four 2 mm diameter reservoirs, and four channels connected to the detection chamber. This
+microchip platform with ﬂexible electronics achieved real-time transmission of wireless
+data to mobile devices and exhibited a selective potential response to K+ and Na+ [92].
+Alizadeh et al. reported another wearable device for detecting K+ and Na+, where both
+the solid ISE and the RE were fabricated on a PET substrate, and then conductive carbon
+and dielectric insulation layers were printed on the substrate. Finally, a contact transducer
+layer was electrodeposited on the exposed carbon layer [93].
+2.3.4. Conductometry
+The conductivity sensor is a miniature two-electrode device for measuring the conduc-
+tivity of a thin electrolyte layer near the electrode surface. The principle of conductivity-
+based detection is that the changes in the charge concentrations should lead to a change in
+the conductivity of the sending layer. Currently, conductivity-based detection is considered
+one of the simplest electrochemical analytical method in microﬂuidic devices [94].
+Lee et al. proposed a single site-speciﬁc polyaniline (PANI) nanowire biosensor to
+quantify cardiac biomarkers with beneﬁts of high sensitivity, good reproducibility, and
+high speciﬁcity. The electrodes were lithographed and deposited on the silicon substrate
+with electron beams, and the nanochannels were also lithographed on the PMMA between
+two electrodes. Finally, the microﬂuidic channels were adhered to the functionalized PANI
+nanowires [95]. Venzac et al. reported a microﬂuidic device analyzing short DNA sequences
+of Staphylococcus aureus via a conductometric method. Figure 3c shows a schematic diagram
+of the detection system where the conductivity changes were detected from the planar and
+sample solution. Then, the raw signal was processed using a discrete wavelet to extract the
+information of conductivity change, and the slow baseline change and electronic noise were
+eliminated here. Compared to conventional conductivity assays, electrohydrodynamic
+aggregation-based conductivity assays are more sensitive to small changes in the DNA
+concentration in the sample solution [96].
+Wu et al. reported a digital microﬂuidic platform for on-chip in situ monitoring of
+the spore-germination process within Bacillus atrophyticus via a conductivity method. The
+manufacturing process of the chip is as follows: chromium and gold layers were deposited
+on the glass by sputtering, and then patterned electrodes were etched and patterned. At
+selected time points, on-chip and off-chip experiments were performed, and no statistically
+
+===PAGE 12===
+Micromachines 2023, 14, 972
+12 of 36
+signiﬁcant differences were found between the germination rates. However, the on-chip
+conductivity method sacriﬁces a little detection sensitivity [97].
+2.3.5. Electrochemical Impedance Spectroscopy (EIS)
+Electrochemical impedance spectroscopy (EIS) is one of the most important electro-
+chemical techniques, and the ﬁrst publication about EIS dates back to 1975 [98]. Elec-
+trochemical impedance spectroscopy originates from the frequency-response analysis in
+electrical engineering. The basic principle of EIS is using a small-amplitude sinusoidal
+potential wave as the excitation signal to actively perturb the electrochemical steady-state
+system and measuring the change in the ratio of the AC potential to the response (current)
+signal (i.e., impedance of the system). In contrast to other conventional electrochemical
+methods, EIS is a steady-state technique that uses small-signal analysis to detect signal
+relaxation over a very wide frequency range, so EIS is able to study intrinsic material
+properties or speciﬁc processes that may affect the conductance, resistance, or capacitance
+of an electrochemical system [99].
+EIS biosensors have many advantages, such as easy operation, fast response, miniatur-
+ization capabilities, low cost, sensitivity to analytes, and simpliﬁcation in integration with
+microﬂuidics [100]. Ben-Yoav et al. proposed a microﬂuidics-based electrochemical sensor
+that consisted of a patterned electrode chip and a double-layer valve. This EIS-based mi-
+crochip was used to detect the hybridization between single-strand DNA probes and their
+complementary ssDNA targets. This device provided programmability and automation for
+the high-throughput analysis of DNA hybridization and the LOD was 1 nM [101]. Wang
+et al. proposed a microﬂuidic device combined with electric impedance ﬂow cytometry
+(IFC) and EIS for analyzing the electrical properties of single cells (Figure 3d). The IFC and
+EIS coplanar electrodes were inserted in the main channel and below the capture point,
+respectively. There are two types of microchannels in this system, a main channel for cells
+to pass through and side channels for cell trapping. In addition, the ﬂow resistance of
+the main channel was smaller than that of the side channel. In this platform, the ﬁrst cell
+will be trapped in the ﬁrst capture reservoir, and then the remaining cells must ﬂow in the
+main channel. In the next cycle, the second cell will be captured, and so on. EIS obtained
+full impedance spectra containing rich characteristic information of cells, and IFC quickly
+collected several representative frequency-dependent impedance data points [102]. Three
+types of cancer cells were analyzed in this platform.
+In another study, a system consisting of EIS and DMF for the dynamic analysis
+of peripheral blood mononuclear cells (PBMC) was introduced. Thin-ﬁlm transistors
+(TFTs) and pixel electrodes were integrated in the electrode backplane for independently
+controlling each pixel electrode in this system. The top ITO plate was modiﬁed by etching
+sixteen 2 mm×2 mm interdigital electrode arrays (Figure 3e). The interdigital electrode
+arrays combined with EIS enabled the detection of analytes encapsulated in droplets [103].
+Liu et al. installed an EIS-based biosensor into a DMF platform for the analysis of peripheral
+blood mononuclear cell (PBMC) abundance. A gold layer was deposited on an ITO
+substrate with electron-beam physical vapor deposition, peeled, etched to create IDEs,
+and ﬁnally coated with anti-45 on the gold IDEs to manufacture a biometric layer. The
+detection of different concentrations of PBMCs in dynamic and static cell culture modes
+was compared in this system, and the results showed that the dynamic mode had a higher
+sensitivity than the PBMCs in the static condition [104].
+2.4. Conclusions
+A variety of active manipulation methods for samples have been widely integrated
+with microﬂuidics until now, such as magnetic, acoustic, electrical, and optical ﬁelds.
+This chapter brieﬂy introduced these techniques and their biomedical applications and
+presented more information about the combination of electrochemistry and microchips.
+
+===PAGE 13===
+Micromachines 2023, 14, 972
+13 of 36
+Figure 3. Microﬂuidics-based potentiometry and conductometry detection systems. (a) Microﬂu-
+idic chip for electrochemical analysis in an aquatic environment. (Reprinted with permission
+from Ref. [90], copyright 2019 Elsevier). (b) On-chip ion-selective electrode calibration procedure.
+(Reprinted with permission from Ref. [91], copyright 2018 Elsevier). (c) Schematic of the system for
+small DNA sequence detection of Staphylococcus aureus. (Reprinted with permission from Ref. [96],
+copyright 2017 Royal Society of Chemistry). (d) Fabrication process of DMF chip for in situ detection
+of endospore germination. (Reprinted with permission from Ref. [102], copyright 2019 American
+Chemical Society). (e) Schematic of sensing electrodes on AM-DMF chip. (Reprinted with permission
+from Ref. [103], copyright 2022 IOP Publishing, Ltd.).
+Both electrochemical biosensors and microﬂuidics have their speciﬁc beneﬁts, so the
+rational integration of these two analytical devices will create greater functional platforms.
+In this synthetic system, microﬂuidics provides portability, enables additional sample
+preparation capabilities [105], and reduces the consumption of reagents. Electrochemical
+sensors are particularly well-suited for combination with microchips because they are the
+least constrained by the requirements of device miniaturization and scale-up manufacturing
+compared to other analytical modules [106].
+
+===PAGE 14===
+Micromachines 2023, 14, 972
+14 of 36
+Miniaturizing and integrating several laboratory apparatus in a small facility is viewed
+as a powerful analytical method with higher efﬁciency, faster analysis, and lower reagent
+consumption [107]. Considering the ease of integration of electrochemistry and the minia-
+turization of microﬂuidics, the coupling of electrochemical sensors and microﬂuidics
+should be an ideal high-throughput and cost-effective platform that can support sample
+manipulation, detection, and analysis [108]. Therefore, the integration of microﬂuidics
+and electrochemical biosensors is conceived as an effective strategy to facilitate µTAS for
+next-generation LOC platforms.
+3. Wearable Microﬂuidics
+3.1. Introduction
+With the development of ﬂexible electronics, materials science, wireless communi-
+cation, and other related technologies, wearable devices are gradually emerging in the
+ﬁelds of medicine, biology, chemistry, sports, the military, etc. Traditional wearable devices
+(e.g., smart watches) are used to detect human physical indexes, such as the heart rate,
+body temperature, and motion tracking [109]. However, some biomarkers in body ﬂuids
+better display health status than those physical signals, which requires a new generation
+of wearable devices that have the ability to discover biochemical information at a deeper
+molecular level [110]. The accumulation of experience of life science and medical research
+on microﬂuidics has decisive effects on the emergence of wearable equipment, which
+mainly integrates various electronic modules, membranes, microchannels, reservoirs, and
+biochemical sensors.
+Microﬂuidics is an ideal technique that is well-suited for the development of wearable
+devices. First, microchips are usually fabricated with soft and stretchable materials that can
+be easily bent and folded without compromising their properties, such as PDMS, acrylics,
+and hydrogels [111]. Second, microchannels are beneﬁcial to transport and manipulate a
+small volume of ﬂuid, which may weaken patients’ pain and facilitate the collection of body
+ﬂuids [112]. In addition, MEMS-based micro-systems can be combined well with ﬂexible
+electronic modules, patterned electrodes, and sensor modules for biomarker monitoring.
+Wearable microﬂuidics provides efﬁcient platforms for the real-time, continuous, non-
+invasive monitoring of human bio-signals. The addition of big data and the accumulation
+of personal medical data into wearable devices will help implement further predictions
+and complex diagnostics [113].
+3.2. General Functions
+In the light of the requirements, microﬂuidics can take a more important role in
+wearable devices, including sample collection, storage, analysis, signal transmission, etc.
+3.2.1. Sample Collection
+Smooth and efﬁcient sample collection is an important step for the usage of wearable
+devices and normally consists of three types of methods: invasive, minimally invasive, and
+non-invasive collection. Sample collection can also be divided into two aspects based on
+the way the force acts: capillary force and osmotic property.
+Capillary Force
+The capillary effect has been applied to collect and store body ﬂuids in wearable
+devices without the assistance of peripheral devices. Ma et al. built a wearable device that
+collected sweat through capillary absorption in biocompatible tubes and the collected sweat
+was spontaneously transported to hydrophilic microﬂuidic channels to form a continuous
+ﬂow [114]. Rogers et al. described a soft microﬂuidic device adhered to skin that used
+capillary action and the natural pressure to capture and guide sweat through microﬂuidic
+channels and a network of reservoirs [115]. Paper-based analytical devices (PADs) are
+characterized by their low cost, portability, biocompatibility, miniaturization, point-of-care
+detection, etc. compared to conventional methods [116]. Wearable devices demonstrate
+
+===PAGE 15===
+Micromachines 2023, 14, 972
+15 of 36
+the ﬂexible and real-time biosensor concept, while paper-based diagnostic cards represent
+the state of the art in terms of integration and functionality. Moreover, PADs provide an
+alternative platform for spontaneous sample and reagent transport through the capillary
+force, which avoids purchasing external pumps [117]. Toonder et al. invented a ﬂexible
+microchip in which the wicking paper absorbed sweat when the device was placed on the
+skin and then the microchannels and cavities were ﬁlled with sweat (Figure 4a) [118]. Yang
+et al. reported a wearable contact lens that spontaneously delivered tears to microﬂuidic
+channels and reservoirs via capillary forces [119].
+Figure 4. Sample collection methods in microchips. (a) Designs of cavities in microﬂuidic device.
+(Reprinted with permission from Ref. [118], copyright 2016 Elsevier). (b) Schematic of the sweat-
+collection device. (Reprinted with permission from Ref. [120], copyright 2017 Royal Society of
+Chemistry). (c) Sweat-collection schematic of wearable sweat-sensing platform. (Reprinted with
+permission from Ref. [121], copyright 2021 American Chemical Society). (d) Design of microﬂuidic
+channels, reservoirs, and SAP valves for epidermal microﬂuidic devices. (Reprinted with permission
+from Ref. [122], copyright 2018 John Wiley and Sons). (e) Design schematic of capillary bursting
+valves. (Reprinted with permission from Ref. [123], copyright 2019 American Chemical Society).
+
+===PAGE 16===
+Micromachines 2023, 14, 972
+16 of 36
+Osmotic Property
+Osmotic pressure is also an effective method for sample collection in microﬂuidic
+devices. Velev et al. added thin hydrogel discs that were equilibrated in saline or glycerol
+on the microchip, and these hydrogel discs were attached to a permeable membrane. In
+this system, the difference in the solute concentration between the hydrogel and sample
+generated an osmotic drive for ﬂuid entry into the device (Figure 4b) [120]. Later, the same
+team integrated hydrogel discs and paper-based microﬂuidics (Figure 4c), and the hydrogel
+discs directly contacted with the round ends of the paper and the skin. Due to high-pressure
+penetration, the hydrogel automatically extracted sweat containing biomarkers from the
+skin surface and then utilized the capillary force to transport the mixed solution from the
+rectangular paper tape to the evaporation pad for expelling [121].
+3.2.2. Sample Transmission
+After the sample is successfully gathered, the collected liquid sample ﬂows into the
+detection area through the microﬂuidic channels. Sometimes, the sample solution has to be
+directed to a designated reservoir or the reservoirs need to be ﬁlled sequentially. Rogers
+et al. reported a ﬂexible microﬂuidics with superabsorbent polymer (SAP) active valves
+and hydrophobic passive valves. The sweat entered the device from the adhesive layer
+ﬁrst, and then the sweat ﬁlled the reservoir containing the assays due to the existence of the
+hydrophobic passive valve in the right channels. Once the reservoir was full of sweat, the
+sweat would ﬂow to the lower layer, which caused the expansion of the SAP material that
+closed the corresponding inlets and outlets and forced the excess sweat to ﬂow into the
+next triple reservoir (Figure 4d) [122]. The same lab designed and installed capillary burst
+valves (CVB) in their skin microchips to achieve precise and continuous sampling. Those
+four chronologically marked valves were different in their channel widths and dispersion
+angles, and their burst pressures (BP) also increased gradually in sequence, which guided
+the sweat sample ﬂowing into the channels and ﬁlled the micro-reservoirs (Figure 4e) [123].
+They also applied a similar CVB in another soft microchip where sweat ﬁrst passed into the
+inlet area and the micro-reservoirs, and ﬁnally the sweat solution was removed through
+a capillary burst valve. Different valves have different dispersion angles and BPs, which
+enable precise control of the ﬂowing path of the sample solution [124].
+3.2.3. Sample Analysis
+Wearable microﬂuidic platforms select a detection system based on various require-
+ments, and several analytical mechanisms have emerged in recent years, such as optical,
+electrochemical, and mechanical detection. The operational stability, suitability, sensitivity,
+selectivity, reliability, and power are key factors to be considered when choosing the optimal
+method for sample analysis.
+Colorimetric Detection
+The most widely used optics-based detection method in wearable devices is col-
+orimetric detection with some attractive features of cheapness, simplicity, rapidity, and
+semi-quantitative assessment of biomarkers. It relies on the measurable color changes of
+the reagents to quantify the concentration of the target analytes [125].
+Colorimetric detection enables the simple and rapid quantitative assessment of the
+instantaneous rate, total loss volume, pH, and multiple biomarkers of sweat. The microﬂu-
+idic system developed by Rogers’s lab had ﬁve separate channels and cobalt chloride was
+embedded in the circular serpentine channel as a colorimetric indicator. Once exposed to
+the sweat samples, the color would change from dark blue to light purple, which generated
+information about the amount of sweating. Other channels with four colorimetric reaction
+areas in the center had the ability to measure chloride, glucose, lactate, and pH. After
+the cylindrical chamber was ﬁlled with sweat, obvious color changes occurred within 1
+min (Figure 5a), and ﬁnally the corresponding quantitative analysis was performed using
+UV-Vis spectroscopy and optical graphics [115]. Later, Rogers’s group made further im-
+
+===PAGE 17===
+Micromachines 2023, 14, 972
+17 of 36
+provements by forming a color reference through a series of in vitro simulation experiments
+and printed a layer of color reference on the top of the wearable device. What is more, the
+colorimetric response of each target chemical in sweat over a typical concentration range
+provided the spectral information for the color reference markers (Figure 5b) [123].
+Electrochemical Detection
+However, when colorimetric detection is used for point-of-care bio-ﬂuid analysis,
+they bring out some limitations, such as the inability to obtain a continuous response,
+the signiﬁcant inﬂuence of sweat turbidity, and the essential requirement of advanced
+equipment for acquiring high-quality digital pictures for quantitative analysis [126].
+Electrochemical biosensors play important roles in wearable systems due to their
+portability, rapid detection, low power consumption, low cost, and high speciﬁcity. These
+wearable electrochemical sensors promise new opportunities in future medical diagnostics,
+health care, and more. A variety of electrochemical-sensing principles have been introduced
+in the previous chapter. In wearable systems, the electrochemical modes of potentiometric
+and current measurements are mainly used. J.W. et al. showed the ﬁrst example of con-
+tinuously monitoring lactate levels in sweat with an epidermal electrochemical biosensor,
+which demonstrated the real-time kinetics of lactate during exercise. The epidermal sensor
+consisted of three electrodes and had a high sensitivity with a correlation coefﬁcient of
+0.996 in the linear dynamic range. In the practical experiments, the temporal dynamics
+of lactate during prolonged cycling were recorded using amperometry, and the resulting
+curve reﬂected the changes in lactate as the exercise intensity changed [127].
+Gao et al. developed a fully integrated wearable sensor array coupled with an amper-
+ometry glucose/lactate sensor, and the sensitivities of glucose and lactate were 2.35 nA/µM
+and 220 nA/mM, respectively. The potentiometric sensors consisted of ion-selective elec-
+trodes and PVB-coated reference electrodes used to measure K+ and Na+ with sensitivities
+of 61.3 mV and 64.2 mV per decade of concentration, respectively [128].
+3.2.4. Signal Transformation
+The integration of wearable devices and mobile communication technologies for real-
+time health monitoring, data processing, and storage has become a research/industrial
+interest. All the collected signals need to be processed, noise-ﬁltered, data-transmitted, cali-
+brated, and read out [110]. Speciﬁcally, Bluetooth and NFC as two conventional proximity
+communication techniques have been widely used in smart devices.
+Bluetooth
+Bluetooth is a wireless technique that enables the exchange of data between devices
+over a short distance, and it is widely used in consumer electronics. With the help of the
+MCU’s built-in 10-bit ADC conversion module and its serial communication capability,
+Gao et al. successfully transmitted data from ﬁve sensors (glucose, lactose, temperature,
+K+, and Na+) to a Bluetooth transceiver. After pairing with Bluetooth, the Bluetooth
+transceiver transmitted the data to mobile phones for real-time display and storage in
+the cloud (Figure 5c) [128]. Wang et al. described a wearable sensor for monitoring the
+dynamics of sodium in sweat. With the help of a miniature wearable wireless transceiver,
+this device relayed data to a PC via Bluetooth in the form of a serial data stream at 1 s
+intervals [129].
+NFC
+In addition to Bluetooth, near-ﬁeld communication (NFC) is another important tool
+for signal processing in wearable microﬂuids. NFC utilizes short-range radio signals to
+transmit information between two devices, which are typically limited to the centimeter
+scale. It is not necessary to charge the power-transmission components within the sending
+equipment, and, inversely, it requires power from the receiving device to complete the
+measurements and data collection.
+
+===PAGE 18===
+Micromachines 2023, 14, 972
+18 of 36
+ 
+Figure 5. Sample analysis and signal transformation in microﬂuidics. (a) Colorimetric detection of
+four biomarkers in sweat. (Reprinted with permission from Ref. [115], copyright 2016 American
+Association for the Advancement of Science). (b) Colorimetric sensing microﬂuidic platform ﬁlled
+with staining solution. (Reprinted with permission from Ref. [123], copyright 2019 American Chemical
+Society). (c) System block diagram of a wearable device for sweat analysis, 1–11 correspond to
+11 available integrated circuit components that incorporate the critical signal conditioning, processing
+and wireless transmission functionalities. (Reprinted with permission from Ref. [128], copyright 2016
+Spring Nature). (d) System block diagram of a wearable sensing patch for sweat analysis. (Reprinted
+with permission from Ref. [130], copyright 2021 Elsevier).
+Zhang et al. coupled an NFC wireless patch system with ﬂexible electrochemical
+detectors (Figure 5d). The two-electrode-based electrochemical system acted as a battery
+to provide power for the NFC chip and a smartphone was used as a radio frequency (RF)
+power source to wirelessly activate the NFC system. The ADC module in the NFC read
+and converted the output of the K+ sensor, and the programmable gain ampliﬁer (PGA)
+provided a gain of 2.8 times for the analog output voltage. Finally, the potential value could
+be used to display the K+ concentration after it was read and calibrated on the mobile
+app [130]. Rogers’s lab installed ultra-thin NFC electronics on top of a microﬂuidic device
+that could automatically launch image capture and analysis software when a cell phone
+was in close proximity [115]. In another type of wearable microﬂuid, the NFC system
+was also powered by collecting and transmitting RF. After power-up, the ADC module in
+the NFC system converted the analog data of the electrodes embedded in the microﬂuid
+into digital data, and the data were transmitted back to the phone through the same RF
+antenna [131].
+3.3. Applications
+3.3.1. Sample Analysis
+Although blood is the most popular biological ﬂuid in clinical diagnostics, it is not
+suitable for continuous monitoring. Currently, researchers are focused on using wearable
+microﬂuidics to quantify biomarkers in body ﬂuids. Sweat, tears, and saliva are more at-
+
+===PAGE 19===
+Micromachines 2023, 14, 972
+19 of 36
+tractive samples for biomarker analysis in wearable device because they offer non-invasive
+sample collection and the ability of in situ monitoring [132].
+Sweat
+Sweat is a ﬂuid containing many biomarkers, such as electrolytes, metabolites, trace
+elements, and macromolecules, that can provide important information related to human
+health and physiological status [133]. It is generated inside small glands in human skin
+and can be collected non-invasively at convenient locations on the body, which makes it
+an ideal analyte for continuous monitoring. It is wise to place the wearable sensors near
+the site of sweat production for rapid detection prior to analyte biodegradation [109]. The
+development of materials science, biochemical sensors, and ﬂexible electronics have laid
+the foundation for novel wearable platforms for sweat detection at the skin interface, which
+enables the continuous or intermittent assessment of the biomolecular composition and
+dynamics of sweat without external devices [134].
+Sweat glucose is metabolically related to blood glucose, and real-time monitoring
+of blood glucose is critical to understanding diabetes progression and disease manage-
+ment [135]. Sweat lactate is a byproduct of the local metabolism of sweat glands that reﬂects
+the status of oxidative metabolism and tissue viability. A variety of wearable microﬂuidics
+have been developed that can continuously monitor the glucose and lactate levels in real
+time. Rogers’s team invented a wearable microchip that could simultaneously monitor the
+sweat rate, pH, lactate, glucose, and chloride (Figure 6a), which consisted of a disposable
+soft microﬂuidic network and a reusable thin NFC module. In the glucose sensor, glucose
+oxidase was dispersed directly in the Naﬁon and improved the interaction between the
+glucose and enzymes, which supported the detection of micromolar glucose. In the lactate
+sensor, the current generated from anodic and cathodic responses were proportional to the
+lactate concentration [136].
+Excessive loss of sodium and potassium in sweat may lead to hyponatremia, hy-
+pokalemia, muscle cramps, or dehydration. J San Nah et al. developed a wearable
+immunosensor with microﬂuidics and electrochemical sensors for the detection of cor-
+tisol biomarkers in sweat based on a Ti3C2TxMxene −loadedLBG3D network of the LOD
+achieved as low as 3.88 pM with a relative standard deviation of 2.8% for four different
+sweat samples [137].
+Zhang et al. developed a wireless, battery-free, fully integrated wearable system that
+used a novel Ti3C2Tx −MWXNTs network to real-time quantify K+ in human sweat. The
+sensitivity of this device was 63 mV/dec, which was ampliﬁed to be 173 mV/dec with an
+NFC ampliﬁer module [130].
+Urea and creatinine, related to kidney function, also exist in sweat. Rogers et al.
+developed a wearable system with capillary burst valves that measured the concentrations
+of urea and creatinine in sweat (Figure 6b), and the creatinine and urea concentrations in
+sweat were successfully determined with a simple colorimetric reaction [138].
+Tears
+Tears are a promising ﬂuid for protein, lipid, metabolite, and glucose detection. The
+biomarkers in tears are diffused directly from the blood, so there is a strong relationship
+between the biomarker concentrations of tears and blood [139]. However, tear sampling
+or continuous monitoring is probably uncomfortable and may present a risk of irritation.
+Capillary micropipettes and swabs are conventional methods for tear sampling. The eye
+usually reacts in proximity to external objects and some unwanted contact can cause
+irritation, which cause some difﬁculty for tear sampling. On the other hand, irritation to
+the eyes may lead to lower biomarker concentrations in the tear sample [140].
+Contact-lens-based wearable devices are an effective solution to address the problem
+of tear collection. Yang et al. developed a ﬂexible contact lens that spontaneously delivered
+tears to different microchannels and reservoirs via capillary forces. The inner lens cavity
+was embedded with a chemical substrate for a colorimetric reaction that could respond
+
+===PAGE 20===
+Micromachines 2023, 14, 972
+20 of 36
+to three biomarkers of glucose, chloride, and urea in tears [119]. Kim et al. developed a
+transparent and stretchable contact lens that allowed sensitive monitoring of the glucose
+and intraocular pressure in tears (Figure 6c). This method was demonstrated using in vitro
+detection of glucose in rabbit eyes and intraocular pressure in bovine eyes [141].
+Similar wearable device can be combined with glasses in daily life. Wang et al. encap-
+sulated electrochemical detectors in a microﬂuidic chamber and the micro-chamber was
+then inserted into the glasses’ nasal pad for monitoring some biomarkers such as alcohol,
+glucose, and vitamins in tears (Figure 6d). This design avoids the discomfort of placing the
+device directly in the eye and the potential for infection and vision impairment [142].
+Saliva
+In recent years, saliva has gained popularity as a diagnostic ﬂuid and is a substitute
+for blood. The saliva is easily gathered and contains biomarkers of several diseases, such
+as cardiovascular disease, oral and breast cancer, and the human immunodeﬁciency virus.
+However, few studies about wearable oral biosensors have been conducted because the
+abundance of salivary proteins may cause biological contamination [139]. Moreover, the
+point-of-care saliva sample provides limited physiological insight due to the highly variable
+composition of last-meal saliva. Despite these challenges, oral biosensing platforms may
+provide an attractive and painless way to obtain dynamic chemical information from
+saliva [140]
+Lucas et al. made a wearable device for monitoring glucose and nitrite in saliva via
+3D-printing technology (Figure 6e). This device prevented any contact between the mouth
+and reagents and reduced the risk of contamination and the invalidation of reagents. After
+optimization, the detection limits of glucose and nitrite were 27 µmolL−1 and 7 µmolL−1,
+respectively. In the paper, they also found that higher concentrations of glucose and nitrite
+were detected in saliva from patients with diabetes and periodontitis, as expected [143].
+3.3.2. Drug Delivery
+Despite the widespread use of drug patches, the efﬁcacy of drug release over time
+remains a challenge. Wearable microﬂuidics offers new opportunities for drug delivery.
+Wearable microﬂuidics combined with microneedle arrays or microsensors enable accurate,
+efﬁcient, and safe drug delivery [144].
+Lee et al. developed a wearable patch for sweat-based diabetes monitoring and
+feedback therapy. The patch consisted of a sweat-control component, a sensing component,
+and a therapeutic component (Figure 6f). The microneedle released the drug into the
+bloodstream, and the microneedle was coated with a thermosensitive PCM that melts at a
+temperature of 41–42 ◦C to prevent the microneedle from dissolving when it touched water
+and effectively prevent the drug from being released prematurely when the temperature
+does not reach the thermal-response temperature. The multi-channel thermal actuator
+would control the rate of drug release in a stepwise manner. The system effectively
+delivered the glucose-lowering drug metformin to mice and rapidly lowered their blood
+glucose levels [145].
+Di et al. made a tensile-strain-triggered wearable device for drug delivery that con-
+sisted of a stretchable elastomer and a microgel reservoir. A layer with a microneedle array
+was attached to the stretchable elastomer. When the elastomer membrane was strained by
+stretching, the microgel reservoir containing the drug nanoparticles induced compression
+and released the drug, and the drug further diffused from the microgel reservoir into the
+microneedles for transdermal delivery. Not only could this method be used for the delivery
+of anti-infective drugs or painkillers, but they also have successfully used the device to
+deliver insulin to mice for controlling their blood glucose levels [146].
+
+===PAGE 21===
+Micromachines 2023, 14, 972
+21 of 36
+Figure 6.
+The applications of wearable microﬂuidics.
+(a) Wearable device for sweat analysis.
+(Reprinted with permission from Ref. [136] under the Creative Commons Attribution 4.0 International
+(CC BY-NC 4.0) License). (b) Soft microﬂuidic system for sweat analysis. (Reprinted with permission
+from Ref. [138], copyright 2019 Royal Society of Chemistry). (c) Contact lenses for detecting glucose
+in tears. (Reprinted with permission from Ref. [141] under the Creative Commons Attribution 4.0
+International (CC BY 4.0) License). (d) Schematics of the ﬂuidic device and wireless electronics
+integrated into the eyeglass platform. Where, (a) corresponds to the baseline; (b) current change due
+to the captured tear; (c) the measured alcohol signal and (d) drying of the device. (Reprinted with
+permission from Ref. [142], copyright 2019 Elsevier). (e) Microﬂuidic devices for saliva diagnostics.
+(Reprinted with permission from Ref. [143], copyright 2019 Spring Nature). (f) Schematic drawings
+of the diabetes patch, which is composed of the sweat-control, sensing, and therapy components.
+(Reprinted with permission from Ref. [145], copyright 2016 Spring Nature).
+3.4. Conclusions
+Since the emergence of mobile devices and smartphones, wearable biosensors have
+gained tremendous interest and promise to be one of the major advances in wearable
+health technology. Unlike previously reported wearable devices, wearable microﬂuidics
+primarily track physical activity and vital signs and allow real-time rapid detection of
+accessible biomarkers in the human body, as well as enabling large-scale data collection
+about an individual’s dynamic health status at the molecular level [139]. However, it is
+
+===PAGE 22===
+Micromachines 2023, 14, 972
+22 of 36
+worth mentioning that wearable microﬂuidics are still in the early stage of development,
+and most of them are still in the laboratory research stage. Several challenges remain to be
+solved before large-scale commercialization, such as biocompatibility, biosafety, etc. [147].
+On the other hand, the reasonable integration of various components is critical for creating
+fully functional wearable devices, and the seamless integration of multiple functions into
+miniaturized components is imperative [112]. It is undeniable that the complementary
+convergence of microﬂuidics, ﬂexible materials, biochemistry, and the Internet of Things
+will promote the continued development of wearable microﬂuidics.
+These developments will transfer biomarker measurements from the central laboratory
+to the body with the advantages of quickness, reliability, and cheapness [148] Especially in
+the face of an epidemic, wearable microﬂuidics are expected to play an important role in
+monitoring health, physical and mental status, and telemedicine.
+4. Artiﬁcial Intelligence
+4.1. Introduction
+The concept of artiﬁcial intelligence (AI) was ﬁrst introduced in the 1950s [149]. As a
+branch of computer science, artiﬁcial intelligence is the simulation of human intelligence
+processes with machines, especially computer systems. It enables computers to simulate
+human behavior and reproduce or even surpass human decisions to solve complex prob-
+lems independently or with less human intervention [150]. Artiﬁcial intelligence (AI) has
+been a relatively obscure ﬁeld with limited utility for more than half a century. However,
+the development of big data and the increased computing power of computers have helped
+AI become a powerful engine driving the development of all disciplines today [151].
+Machine learning (ML), a part of AI, is the core of artiﬁcial intelligence [152]. Machine
+learning (ML) algorithms build a model based on sample data, known as training data,
+in order to make predictions or decisions without being explicitly programmed to do
+so. Therefore, the key components of ML are data, algorithms (models), and arithmetic
+(computing power). Especially in tasks related to high-dimensional data such as classiﬁca-
+tion, regression, and clustering, ML shows good utility and can help produce reliable and
+repeatable decisions by learning from previous computations and extracting patterns from
+massive databases [150].
+Deep learning (DL) is a relatively new concept that was proposed by Hinton et al.
+in 2006. A subset of ML, it is viewed as one of the cutting-edge and core technologies of
+AI [153]. Neural networks are the most important component of DL algorithms. Just as
+the human brain consists of a network of neurons, a typical neural network also comprises
+many simple and interconnected neurons that identify hidden correlations and patterns
+in raw data, then classify and continuously improve them [154]. Unlike basic ML models,
+algorithms with DL models can automatically extract features through their own neural
+networks, reducing the requirement of time and labor for constructing feature extractors
+for each problem [154].
+The applications of DL use a layered algorithmic structure called an artiﬁcial neural
+network (ANN), where the leftmost layer is the input layer, the rightmost layer is the
+output layer, and the middle layer is the hidden layer, whose values are unobservable in the
+training set. The more hidden layers exist between the input and output layers, the deeper
+the DL is. Typically, ANNs with two or more hidden layers are called deep neural networks
+(DNNs), and building complex ‘multilayer DNNs’ allows data to be transferred between
+different nodes (e.g., neurons) in a highly connected manner [155]. In many applications,
+DL models perform much better than ML models and traditional data-analysis methods
+and push AI to a higher level. As usual, DL requires much more data than ML (typically, at
+least 100,000 samples for common image recognition), and it will show better performance
+than ML as the amount of data increases.
+The important step of AI development is data preparation and collection. Coinci-
+dentally, microﬂuidic technologies can generate highly informative graphics in a high-
+throughput, cost-effective, and automatic way. Moreover, effective image analysis is
+
+===PAGE 23===
+Micromachines 2023, 14, 972
+23 of 36
+regarded as a challenge to most microﬂuidic experiments. Considering that ML/DL’s
+powerful analysis of structured data (sequences, images, videos, etc.) can predict com-
+plex outputs with unprecedented accuracy, the combination of traditional ML/DL and
+microﬂuidics should have the potential to address some previously unsolvable problems.
+4.2. Machine Learning in Microﬂuidics
+4.2.1. Traditional Machine Learning and Microﬂuidics
+ML methods are classiﬁed into supervised learning and unsupervised learning based
+on whether the input data are labeled or not [156]. In supervised learning, it is essential to
+understand the relationship between the input and output based on the existing dataset and
+then train the data to obtain the optimal model. In other words, the supplied training data
+should have both features and labels in supervised learning, and the machine can ﬁnd the
+connection between features and labels by itself through training. Finally, it can determine
+the labels when facing the data without labels. Conventional supervised learning tasks
+contain classiﬁcation and regression, and typical algorithms consist of SVM, KNN, linear
+regression/logistic regression, decision tree, random forest, etc. [149].
+In many practical applications, there is not a large amount of labeled data to be used
+and it is very difﬁcult to label the data, as it requires a large amount of manual work.
+Therefore, unsupervised learning will become more important in the long run [157]. As
+opposed to supervised learning, unsupervised learning looks more like self-learning, and
+the machine must classify the data without any prior information. The computer will ﬁnd
+patterns and associations once it determines they ﬁt well with the raw data, which often
+produces unexpected results. A typical example in unsupervised learning is clustering. The
+purpose of clustering is to group similar things together, and the type of the class does not
+matter much [149]. Thus, an unsupervised learning algorithm does not necessarily have an
+explicit result.
+The reinforcement learning (RL) approach is a trial-and-error method that allows a
+model to learn using feedback from its own behaviors. It is the closest attempt to model the
+human learning experience because it can learn not only from data, but also from trial and
+error [149]. In RL, the computer receives “positive feedback” when it correctly understands
+or classiﬁes data, and “negative feedback” when it fails. By “rewarding” good behaviors
+and “punishing” bad behaviors, this learning method reinforces the former one.
+Supervised Learning
+Among the biological applications of intelligent microﬂuidics, cell classiﬁcation, in-
+cluding its derivatives (such as cell screening, sorting, counting, etc.), is the most popular
+research interest and requires processing large amounts of image data. Supervised learning
+should have the ability to powerfully process the data collected from microﬂuidics.
+Supervised learning of conventional ML improves the accuracy and efﬁciency of cell
+classiﬁcation, as well as reducing the labor. Guo et al. proposed to use an optoﬂuidic
+time-stretch quantitative-phase microscope and glass microﬂuidic devices to screen cells.
+This microchip mainly consisted of four independent microchannels, an oriﬁce layer, and a
+channel layer. A sequence minimum optimization algorithm was used to train a support
+vector machine (SVM), which was applied to characterize a heterogeneous population of
+Euglena gracilis under both nitrogen-sufﬁcient and nitrogen-deﬁcient culture conditions.
+SVM achieved a high-throughput ﬂuorescence-free labeling screening of cells with an error
+of 2.15% [158].
+In the same group, Jiang et al. utilized a similar microﬂuidic chip-based optoﬂuidic
+time-stretch microscope combined with ML for detecting platelets in blood. They fabricated
+a hydrodynamically focused microchip that enabled identifying and sorting the ﬂowing
+blood cells. The simplest linear classiﬁcation based on a standard logistic regression
+model (LR) was used to classify cells from the clear images provided by the microscope,
+and over 100 features were extracted. An average speciﬁcity and sensitivity of 96.6%
+
+===PAGE 24===
+Micromachines 2023, 14, 972
+24 of 36
+was achieved in the distinguishment of aggregated platelets, individual platelets, and
+leukocytes (Figure 7a) [159].
+Singh et al. introduced an inline digital holographic microscope coupling with ML
+for the detection of tumor cells in blood. A collimated laser beam was used to illuminate a
+sample containing ﬂowing cells in a transparent microchannel, and the forward scattered
+light from the cells interfered with the non-scattered light to produce a two-dimensional
+hologram. The hologram was then magniﬁed with the microscope and imaged on a CCD.
+The micro-size channels (width: 1000 µm, height: 350 µm) maximized the accuracy and
+precision of imaging. Three features, D (cell size), I_max (intensity of a single brightest
+pixel (2 × 2 µm2) in a given cell image), and I_mean (average intensity of a region centered
+on the brightest pixel (6 × 6 µm2)), were extracted from a dataset consisting of erythrocytes,
+peripheral blood mononuclear cells (PBMC), and tumor cell lines to develop a classiﬁer
+based on the classiﬁcation and regression tree (CART) algorithm (Figure 7b). The tumor
+cells were identiﬁed with a false positive rate of 0.001% [160].
+Xu et al. collected SERS spectra of two breast cancer cell lines and normal cell lines
+on a dynamic liquid surface-enhanced Raman scattering (SERS) platform incorporating
+a microchip, and the SERS spectra were used as a training set for ML. A hose used as
+a ﬂuidic microchannel was embedded into a 3D-printed recess and a T-connector was
+used to connect the hose and the pump (Figure 7c). In addition, the classiﬁcation model
+for spectrum analysis was built based on the K-nearest neighbors (KNN) algorithm. The
+sensitivity and speciﬁcity of identifying the three types of cells was higher than 83.3% and
+91.7%, respectively. In addition, the accuracy of cell identiﬁcation was 92.8%, 94.4% and
+95%, respectively [161].
+In addition to cell classiﬁcation, the combination of supervised learning and microﬂu-
+idics has been applied to biomarker detection. Manak et al. introduced an ML-assisted
+micro-device to quantify live-cell phenotypic biomarkers with a single-cell resolution and
+helped standardize the measurement of biomarkers. The dataset was divided into training
+and test sets at a ratio of 7:3, and the biomarker rankings were trained with a random forest
+classiﬁer based on the accuracy of adverse pathology prediction. After establishing the best
+biomarker ranking, the remaining 30% of the dataset in the sample was classiﬁed at the
+cellular level and sample level to determine its possibility of speciﬁc adverse pathology for
+the risk-stratiﬁcation prediction of cancer patients [162].
+Unsupervised Learning
+Wang et al. developed an analytical platform with unsupervised learning algorithms
+for monitoring the biomarkers secreted from single cells. They designed two types of
+microﬂuidic chips for single -cell printing and array-containing captured-antibody mi-
+croprinting, respectively. The secretion data of more than 5000 individual tumor cells
+were analyzed with the K-means algorithm. Different K values were tested from large
+to small until all the subgroups were distinguishable from each other, which eventually
+led to an identiﬁcation accuracy of 95.0% for tumor cell classiﬁcation (Figure 7d) [163].
+Alvarez et al. proposed a new method for quantifying contaminated and ﬁltered droplets in
+single-nucleus RNA-sequencing experiments. K-means was used to cluster the droplets to
+initialize the parameter α and π of EM, and then EM was applied to estimate the parameters
+of the model to classify the population fragments and cell-based droplets [164].
+Another traditional type of unsupervised learning is dimensionality reduction, which
+looks much like compression and reduces the complexity of the data while preserving as
+much relevant structure as possible. Desir et al. observed seven different ﬂow patterns (seg-
+mental plug ﬂow, droplet ﬂow, segmental plug ﬂow, parallel ﬂow, annular ﬂow, dispersed
+ﬂow, and irregular ﬂow) in four different biphasic systems in capillary microchannels
+with laser-induced ﬂuorescence. Using principal component analysis (PCA) to reduce
+the dimensionality of the potential features of the ﬂow patterns, six important features
+were eventually identiﬁed. A decision-tree model was developed based on the six features,
+which predicted the ﬂow patterns with an accuracy of 93% (Figure 7e) [165].
+
+===PAGE 25===
+Micromachines 2023, 14, 972
+25 of 36
+Peng et al. demonstrated a POCT system based on NMR. This group used this
+device to rapidly phenotype label-free molecules with multidimensional inverse Laplace
+decomposition techniques. The molecular ﬁngerprint of a single drop of blood could be
+obtained in several minutes on this platform. In this work, multiple unsupervised machine
+learning algorithms (multidimensional scaling (MDS) and hierarchical clustering) were
+also introduced for the image analysis of molecular ﬁngerprints, which transformed the
+complicated NMR correlation maps into user-friendly information [166].
+ 
+Figure 7. Machine learning in microﬂuidics. (a) Schematic of the microﬂuidic device and result of
+cell sorting. (Reprinted with permission from Ref. [159], copyright 2017 Royal Society of Chemistry).
+(b) Heat map of the in–focus image of a single cell. (Reprinted with permission from Ref. [160],
+copyright 2017 Royal Society of Chemistry). (c) Schematic of dynamic liquid SERS platform based
+on soft tubular microﬂuidics. (Reprinted with permission from Ref. [161], copyright 2019 American
+Chemical Society). (d) Training ﬂowchart of machine learning and ﬁnal accuracy. (Reprinted with
+permission from Ref. [163], copyright 2022 John Wiley and Sons). (e) Prediction results for 7 different
+ﬂow patterns. (Reprinted with permission from Ref. [165], copyright 2019 Royal Society of Chemistry).
+(f) Example of logic state of micro–pump and the structure of the learning system. (Reprinted with
+permission from Ref. [167], copyright 2021 AIP Publishing).
+Reinforcement Learning
+RL can provide intelligent control for microﬂuidics. Abe et al. investigated the applica-
+tion of RL algorithms in a micro-peristaltic pump and deﬁned the components of a Markov
+decision process adapted to a micro-pump. In this algorithm, the ﬂow obtained using
+micro-valves at the state transition was deﬁned as a reward to obtain a ﬂow-maximizing
+drive sequence. The micro-pump consisted of three diaphragms and thus, eight logical
+states (000~111) existed. Figure 7f illustrates the learning system: micro-beads were placed
+in the observation area and the ﬂow rate was measured using the distance traveled by the
+
+===PAGE 26===
+Micromachines 2023, 14, 972
+26 of 36
+micro-beads. The traveled distance was viewed as a reward function and the microcon-
+troller implemented the pumping sequence based on the computer’s calculations. The ﬁnal
+three-phase sequence of (000) (110) (001) was obtained, and the ﬂow rate was more than
+two times higher than that based on conventional sequences [167].
+Liang et al. found that RL could assist the digital microﬂuidic biochips (DMFBs) in
+providing reliable ﬂuid control while being able to supervise the health of the electrodes and
+prevent electrode degradation. The system diagram is shown below: a CCD camera was
+used to capture the droplet positions in real time and a controller connected to the DMFB
+was utilized to load all bioassays for the droplet-routing task. The experimental results
+demonstrated that the RL droplet router could learn degradation behavior and transmit
+droplets using only healthy electrodes, even if the electrodes on the DMFB failed [168].
+Microﬂuidic devices often require signiﬁcant human intervention to ensure their oper-
+ational stability in long-time experiments. Dressler et al. used two reinforcement learning
+algorithms to localize the interface of unmixed phases in laminar ﬂow and control the
+droplet size in segmented ﬂow in the microchip based on Deep Q-Networks and a model-
+free scenario controller (MFEC). The experimental results indicated that both of these two
+algorithms performed better than the manual work at different time scales, which highlights
+the superiority of the novel control algorithms in high-throughput microﬂuidics [169]
+4.2.2. Deep Learning and Microﬂuidics
+The major stage of traditional ML is processing the natural data in their raw form,
+but DL is particularly good at domains with large and high–dimensional data. That is the
+key reason why deep neural networks are widely used in many applications that require
+processing text, image, video, speech, and audio data [157].
+Supervised Learning
+The convolutional neural network (CNN) is one of the most–frequently used architec-
+tures for image classiﬁcation and its name comes from the convolution in linear operations.
+The CNN consists of convolutional, nonlinear, pooling, and fully connected layers [170],
+and the best parameters of each layer will be considered for meaningful output and reduc-
+ing the complexity of the model. With the development of computer hardware, datasets,
+and models, as well as the emergence of a series of new ideas and algorithms [171], since
+the early LeNet-5 architecture, many CNN network architectures have been invented (such
+as AlexNet, VGG, Inception, ResNet, Xception, etc.) that have greatly enriched the CNN
+architecture system.
+Lung cancer is a kind of cancer with the highest incidence and mortality rate, and early
+detection is the most effective means for the treatment of lung cancer. Hashemzadeh et al.
+developed a DL–based microﬂuidic platform for automatic and high-throughput screening
+of lung cancer cells. The microﬂuidic device supported cells a on three–dimensional
+growth platform to keep the cell population similar to the in vivo environment. The sorting
+accuracy for ﬁve different lung cancer cells with the residual learning convolutional neural
+network ResNet18 was 98.37% and the relative F1 score (a measure of the classiﬁcation
+problem) was 97.29%. In the screening of lung cancer cells and normal cells, the accuracy
+reached 99.77% and the F1 score was 99.87% [172].
+J.S. et al. proposed a microﬂuidic platform that helped simulate the ﬂow conditions of
+the spleen in the interendothelial gap (Figure 8a). DL algorithms worked to distinguish
+speciﬁc types of rare hereditary hemolytic anemia by studying the deformation character-
+istics of red blood cells. Microﬂuidic technology was used to discover the microvascular
+characteristics at the cellular level, providing an opportunity to study the biomechanical
+properties of red blood cells. Each region of interest (ROI) was extracted from the video and
+was converted into a feature vector by the AlexNET DL network based on CNN architecture.
+In this DL, the irrelevant image features were eliminated through an unsupervised and
+automatic feature-selection procedure and a support vector machine (SVM) classiﬁer with
+
+===PAGE 27===
+Micromachines 2023, 14, 972
+27 of 36
+a linear kernel was applied to construct the classiﬁcation model. The average efﬁciency of
+this platform was 91% and the accuracy of screening RHHA subtypes was 82% [173].
+The performance of three different DL architectures—baseline CNN (two convo-
+lutional layers), SimpleNet (13 convolutional layers), and CapsNet—was compared in
+classifying microﬂuidic trap images (Figure 8b). The training dataset was augmented
+through a series of afﬁne transformations, which expanded the training set and improved
+the performance of the convolutional and capsular networks. These three architectures had
+different advantages and disadvantages in the recognition of different biological classes.
+The model integrating these three models exhibited higher overall accuracy than the in-
+dividual models or models combining two or more by combining the advantages of each
+model and assigning different prediction weights to those models [174].
+Lee et al. presented an image-activation-based sorting technique based on a fast DL
+model under the Tensor RT framework that determined the sorting or not within 3 ms. The
+microﬂuidic device was divided into three parts, a ﬂow-focusing zone, a detection zone,
+and a sorting zone, and there were an actuation channel, a waste channel, and a collection
+channel in the sorting zone. Since the waste channel was wider than the collection channel,
+the focused beads/cells ﬂowed into this channel when there was no actuation signal. The
+beads/cells were guided into the collection channel when there was an actuation signal.
+The multifunctional I/O device generated a voltage pulse 2.5 ms before the target beads
+or cells reached the sorting line, and the piezoelectric pulse was ampliﬁed to cause the
+piezoelectric actuator to push water from the syringe into the actuation channel, which
+sorted the target beads or cells into the collection channel. ResNet18 was selected as the DL
+model for classiﬁcation, and the sorting rates were 98.0%, 95.1%, and 94.2% for 15 µm and
+10 µm beads, HL-60 and Jurkat cells, and HL-60 and K562 cells, respectively [175].
+RNNs are another popular type of neural network with “memory” that can remem-
+ber previous information and apply it to the current output computation for processing
+sequential or time-series data. Honrado et al. designed a new microchip with two detec-
+tion zones that provided two electric ﬁelds: one had a uniform height along the channel
+and non-uniform width along the channel, and the other one had a uniform width along
+the channel and non-uniform height along the channel. The combination of these two
+types of electric ﬁelds helped eliminate the effect of position ambiguity. Since the signal
+of the impedance data stream was a time-series, a modiﬁed RNN network (LSTM) was
+used to process the data, predicting the cell size, velocity, and cross-sectional position at
+2500 cells/second [176].
+Unsupervised Learning
+Autoencoder (AE) is a popular unsupervised DL algorithm. Kobayashi et al. con-
+ducted image recognition of the drug sensitivity of leukocytes via extreme-ﬂux ﬂow cytom-
+etry coupled with deep convolutional self-encoders. The small height and narrow width
+of the channels in the microchip ensured a precise focus and high ﬂow rate for imaging.
+The combination of a narrow imaging region and wide non-imaging parts avoids the risk
+of high pressure caused by high-speed ﬂow. The self-encoder extracted features from the
+cell images and transformed them into a 4,608-dimensional latent space (Figure 8c). The
+maximum mean difference (MMD) and HSIC could capture dose-dependent morpholog-
+ical changes occurring in drug-sensitive cells, whether cultured cells or primary blood
+cells [177].
+Constantinou et al. developed a self-learning microﬂuidic platform for single-cell
+imaging and classiﬁcation based on a Y-shaped channel and a variational autoencoder
+(VAE). The encoder was composed of six 3 × 3 ReLU activation convolution kernels, and
+the decoder was composed of transposed convolutions in the reverse order of the encoder.
+The encoder mapped the image into a ten-dimensional point in the latent space; each
+dimension corresponded to an individual feature, and the decoder generated images from
+these points. Eventually, an SVM classiﬁer was applied in the latent space for few-shot
+classiﬁcation with an accuracy of 88% (Figure 8d) [178].
+
+===PAGE 28===
+Micromachines 2023, 14, 972
+28 of 36
+Figure 8. Deep learning in microﬂuidics. (a) Microﬂuidic chip-design diagram and performance of
+healthy/RHHA RBC through the slits. (Reprinted with permission from Ref. [173] under the Creative
+Commons Attribution 4.0 International (CC BY 4.0) License). (b) Architectures of three models.
+(Reprinted with permission from Ref. [174] under the Creative Commons Attribution 4.0 International
+(CC BY 4.0) License). (c) Schematic of the feature analysis and round-robin training and testing.
+(Reprinted with permission from Ref. [177], copyright 2019 Royal Society of Chemistry). (d) VAE
+architecture for unsupervised learning and result of few–short classiﬁcation accuracy. (Reprinted
+with permission from Ref. [178] under the Creative Commons Attribution 4.0 International (CC BY
+4.0) License).
+Other unsupervised DL algorithms, such as deep belief networks (DBNs), are also
+used in microﬂuidics. DBNs stack multiple independent unsupervised networks (e.g., AE,
+RBM) and use the hidden layer of each network as the input to the next layer. The DBN
+algorithm designed by Gopakumar et al. could extract features and sort the localized cell
+lines without clear segmentation and obvious features. The speciﬁc steps are as follows:
+First, a rectangular bounding box containing the cells are found for rough segmentation,
+and then the background is subtracted for simple preprocessing. Finally, the bounding box
+is identiﬁed to locate non-repeating cells to format a dataset. Constructing DBN with a
+restricted Boltzmann machine (RBM) improved the classiﬁcation accuracy and response
+rate [179].
+4.3. Conclusions
+ML and DL will have a profound impact on our lives, and all of industry will be
+changed by the effects of AI. The main focus of Industry 4.0 is technology-driven au-
+tomation and intelligence in various ﬁelds such as smart healthcare, smart cities, and
+smart business [180]. The combination of microﬂuidics with ML and DL is an especially
+innovative approach that should have huge effects on smart healthcare.
+The main advantage of droplet-based microﬂuidics is its high multiplexing capabil-
+ity, which means that it can enable thousands of reactions to react simultaneously and
+independently, which also introduces the requirement for big-data processing. In recent
+years, the potential of ML and DL has been explored in microﬂuidics for biomedical and
+biotechnological applications. ML has proven to be a useful tool in feature extraction,
+classiﬁcation, prediction, and optimization for the large amount of data generated by
+microﬂuidic systems [181]. Essentially, the large amount of data collected from highly par-
+allelized microﬂuidic systems represents an ideal biotechnological application for current
+DL algorithms [38] The combination of microchips and AI will be automatic and micro-total
+
+===PAGE 29===
+Micromachines 2023, 14, 972
+29 of 36
+analysis systems that can effectively solve some tough issues and are capable of predicting
+results with extremely high accuracy [39]
+5. Conclusions
+In the past decades, microﬂuidics has shown great promise in enhancing biotechnol-
+ogy applications with small sample volumes, short reaction times, high sensitivity, and
+high throughput [182]. Microﬂuidics has the potential of becoming a practical technol-
+ogy that will help daily human life, although there are some challenges. There are four
+main components in microﬂuidics, including microchip design and fabrication, micro-
+electronics, sample detection, and data analysis [1]. The success of microelectronics and
+computer miniaturization has inspired the miniaturization, integration, and intelligence
+of microﬂuidics. We are about to enter a special age when everything is connecting by
+integrating energy, electronics, communication, computers, and sensors. The emergence
+and improvement of intelligent microﬂuidics requires advanced materials, electrochemistry,
+biochemistry, microelectronics, AI, and some other technologies. Intelligent microﬂuidic
+systems will provide a powerful platform for biomedical analysis.
+Wearable microﬂuidics is a popular ﬁeld that contains several types of techniques:
+microﬂuidics, biosensors, soft materials, microelectronics, and AI. Wearable microﬂuidics
+will be an important tool in medical diagnosis, despite some challenges in data collection,
+processing, communication, security, and biocompatibility [183]. Wearable electronic
+devices and digital health based on big-data analytics and ML have great potential to
+provide real-time diagnostic information to patients.
+A combined platform consisting of microﬂuidics and advanced machine learning
+tools is inevitable. It will take full advantage of the high throughput and small-volume
+of microﬂuidics, as well as the automation and powerful data-processing capabilities of
+ML [181]. ML not only innovates microﬂuidic equipment, but also addresses some tough
+issues in traditional biology and life sciences. ML technology has been shown in facilitating
+the implementation of AI in microﬂuidic devices for cell sorting, manipulation, biomolec-
+ular analysis, DNA/RNA sequencing, and other biomedical applications. Therefore, we
+believe that intelligent microﬂuidics will play a more and more important role in research
+and industrial ﬁelds in the future.
+Author Contributions: Conceptualization, Q.W., F.L., H.Z., X.M., N.S. and Y.G.; Editing, X.M., G.G.
+and N.S.; Investigation, X.M. and G.G.; Project administration, X.W., N.S. and Y.G.; Funding acquisi-
+tion, X.W. and Y.G. All authors have read and agreed to the published version of the manuscript.
+Funding: This research was funded by the National Natural Science Foundation of the People’s
+Republic of China (No.82130069); the Ministry of Science and Technology of the People’s Repub-
+lic of China (No.2019YFA0707004 and No.SQ2021YFF0700202); and the Ministry of Industry and
+Information Technology of the People’s Republic of China (CEIEC-2021-ZM02-0188).
+Data Availability Statement: Data sharing not applicable: no new data were created or analyzed in
+this study.
+Conﬂicts of Interest: The authors declare no conﬂict of interest.
+References
+1.
+Whitesides, G.M. The origins and the future of microﬂuidics. Nature 2006, 442, 368–373. [CrossRef] [PubMed]
+2.
+Mark, D.; Haeberle, S.; Roth, G.; Von Stetten, F.; Zengerle, R. Microﬂuidic lab-on-a-chip platforms: Requirements, characteristics
+and applications. In Microﬂuidics Based Microsystems: Fundamentals and Applications; Springer: Berlin/Heidelberg, Germany, 2010;
+pp. 305–376.
+3.
+Alistar, M.; Pop, P. Synthesis of biochemical applications on digital microﬂuidic biochips with operation execution time variability.
+Integr. VLSI J. 2015, 51, 158–168. [CrossRef]
+4.
+Kulinsky, L.; Noroozi, Z.; Madou, M. Present technology and future trends in point-of-care microﬂuidic diagnostics. In Microﬂuidic
+Diagnostics: Methods and Protocols; Springer: Berlin/Heidelberg, Germany, 2013; pp. 3–23.
+5.
+Tseng, T.-M.; Li, M.; Li, B.; Ho, T.-Y.; Schlichtmann, U. Columba: Co-layout synthesis for continuous-ﬂow microﬂuidic biochips.
+In Proceedings of the 53rd Annual Design Automation Conference, Austin, TX, USA, 2016; pp. 1–6.
+
+===PAGE 30===
+Micromachines 2023, 14, 972
+30 of 36
+6.
+i Solvas, X.C.; DeMello, A. Droplet microﬂuidics: Recent developments and future applications. Chem. Commun. 2011, 47,
+1936–1942. [CrossRef]
+7.
+Teh, S.-Y.; Lin, R.; Hung, L.-H.; Lee, A.P. Droplet microﬂuidics. Lab Chip 2008, 8, 198–220. [CrossRef]
+8.
+Zhu, P.; Wang, L. Passive and active droplet generation with microﬂuidics: A review. Lab Chip 2017, 17, 34–75. [CrossRef]
+9.
+Matuła, K.; Rivello, F.; Huck, W.T. Single-cell analysis using droplet microﬂuidics. Adv. Biosyst. 2020, 4, 1900188. [CrossRef]
+10.
+Shang, L.; Cheng, Y.; Zhao, Y. Emerging droplet microﬂuidics. Chem. Rev. 2017, 117, 7964–8040. [CrossRef] [PubMed]
+11.
+Joensson, H.N.; Andersson Svahn, H. Droplet microﬂuidics—A tool for single-cell analysis. Angew. Chem. Int. Ed. 2012, 51,
+12176–12192. [CrossRef]
+12.
+Liu, D.; Sun, M.; Zhang, J.; Hu, R.; Fu, W.; Xuanyuan, T.; Liu, W. Single-cell droplet microﬂuidics for biomedical applications.
+Analyst 2022, 147, 2294–2316. [CrossRef]
+13.
+Lagus, T.P.; Edd, J.F. A review of the theory, methods and recent applications of high-throughput single-cell droplet microﬂuidics.
+J. Phys. D Appl. Phys. 2013, 46, 114005. [CrossRef]
+14.
+Chen, Z.; Kheiri, S.; Young, E.W.; Kumacheva, E. Trends in droplet microﬂuidics: From droplet generation to biomedical
+applications. Langmuir 2022, 38, 6233–6248. [CrossRef]
+15.
+Weng, L.; Spoonamore, J.E. Droplet microﬂuidics-enabled high-throughput screening for protein engineering. Micromachines
+2019, 10, 734. [CrossRef] [PubMed]
+16.
+Zhuang, J.; Yin, J.; Lv, S.; Wang, B.; Mu, Y. Advanced “lab-on-a-chip” to detect viruses–Current challenges and future perspectives.
+Biosens. Bioelectron. 2020, 163, 112291. [CrossRef]
+17.
+Gervais, L.; De Rooij, N.; Delamarche, E. Microﬂuidic chips for point-of-care immunodiagnostics. Adv. Mater. 2011, 23, H151–H176.
+[CrossRef]
+18.
+van Berkel, C.; Gwyer, J.D.; Deane, S.; Green, N.; Holloway, J.; Hollis, V.; Morgan, H. Integrated systems for rapid point of care
+(PoC) blood cell analysis. Lab Chip 2011, 11, 1249–1255. [CrossRef]
+19.
+Oblath, E.A.; Henley, W.H.; Alarie, J.P.; Ramsey, J.M. A microﬂuidic chip integrating DNA extraction and real-time PCR for the
+detection of bacteria in saliva. Lab Chip 2013, 13, 1325–1332. [CrossRef] [PubMed]
+20.
+Luppa, P.B.; Müller, C.; Schlichtiger, A.; Schlebusch, H. Point-of-care testing (POCT): Current techniques and future perspectives.
+TrAC Trends Anal. Chem. 2011, 30, 887–898. [CrossRef]
+21.
+Di Carlo, D. Inertial microﬂuidics. Lab Chip 2009, 9, 3038–3046. [CrossRef] [PubMed]
+22.
+Aladese, A.D.; Jeong, H.-H. Recent developments in 3D printing of droplet-based microﬂuidics. BioChip J. 2021, 15, 313–333.
+[CrossRef]
+23.
+Li Jeon, N.; Baskaran, H.; Dertinger, S.K.; Whitesides, G.M.; Van De Water, L.; Toner, M. Neutrophil chemotaxis in linear and
+complex gradients of interleukin-8 formed in a microfabricated device. Nat. Biotechnol. 2002, 20, 826–830. [CrossRef]
+24.
+Bui, M.-P.N.; Li, C.A.; Han, K.N.; Choo, J.; Lee, E.K.; Seong, G.H. Enzyme kinetic measurements using a droplet-based microﬂuidic
+system with a concentration gradient. Anal. Chem. 2011, 83, 1603–1608. [CrossRef] [PubMed]
+25.
+Damean, N.; Olguin, L.F.; Hollfelder, F.; Abell, C.; Huck, W.T. Simultaneous measurement of reactions in microdroplets ﬁlled by
+concentration gradients. Lab Chip 2009, 9, 1707–1713. [CrossRef]
+26.
+Nisisako, T.; Torii, T.; Takahashi, T.; Takizawa, Y. Synthesis of monodisperse bicolored janus particles with electrical anisotropy
+using a microﬂuidic Co-Flow system. Adv. Mater. 2006, 18, 1152–1156. [CrossRef]
+27.
+Alargova, R.G.; Bhatt, K.H.; Paunov, V.N.; Velev, O.D. Scalable synthesis of a new class of polymer microrods by a liquid–liquid
+dispersion technique. Adv. Mater. 2004, 16, 1653–1657. [CrossRef]
+28.
+Tofteberg, T.; Skolimowski, M.; Andreassen, E.; Geschke, O. A novel passive micromixer: Lamination in a planar channel system.
+Microﬂuid. Nanoﬂuidics 2010, 8, 209–215. [CrossRef]
+29.
+Capretto, L.; Cheng, W.; Hill, M.; Zhang, X. Micromixing within microﬂuidic devices. In Microﬂuidics: Technologies and Applications;
+Springer: Berlin/Heidelberg, Germany, 2011; pp. 27–68.
+30.
+Bringer, M.R.; Gerdts, C.J.; Song, H.; Tice, J.D.; Ismagilov, R.F. Microﬂuidic systems for chemical kinetics that rely on chaotic
+mixing in droplets. Philos. Trans. R. Soc. Lond. Ser. A Math. Phys. Eng. Sci. 2004, 362, 1087–1104. [CrossRef]
+31.
+Verpoorte, E.; De Rooij, N.F. Microﬂuidics meets MEMS. Proc. IEEE 2003, 91, 930–953. [CrossRef]
+32.
+Lei, K.-M.; Mak, P.-I.; Law, M.-K.; Martins, R.P. A palm-size µNMR relaxometer using a digital microﬂuidic device and a
+semiconductor transceiver for chemical/biological diagnosis. Analyst 2015, 140, 5129–5137. [CrossRef]
+33.
+Khorasani, M.; Behnam, M.; van den Berg, L.; Backhouse, C.J.; Elliott, D.G. High-voltage CMOS controller for microﬂuidics. IEEE
+Trans. Biomed. Circuits Syst. 2009, 3, 89–96. [CrossRef]
+34.
+Zhao, S.; Yu, D.; Zou, Y.; Yang, C.; Yang, X.; Xiao, Z.; Chen, P.; Qin, F. Integration of CMOS image sensor and microwell array using
+3-D WLCSP technology for biodetector application. IEEE Trans. Compon. Packag. Manuf. Technol. 2019, 9, 624–632. [CrossRef]
+35.
+Matbaechi Ettehad, H.; Soltani Zarrin, P.; Hölzel, R.; Wenger, C. Dielectrophoretic immobilization of yeast cells using CMOS
+integrated microﬂuidics. Micromachines 2020, 11, 501. [CrossRef]
+36.
+Garimella, S.V.; Fleischer, A.S.; Murthy, J.Y.; Keshavarzi, A.; Prasher, R.; Patel, C.; Bhavnani, S.H.; Venkatasubramanian, R.;
+Mahajan, R.; Joshi, Y. Thermal challenges in next-generation electronic systems. IEEE Trans. Compon. Packag. Technol. 2008, 31,
+801–815. [CrossRef]
+37.
+Van Erp, R.; Soleimanzadeh, R.; Nela, L.; Kampitsis, G.; Matioli, E. Co-designing electronics with microﬂuidics for more
+sustainable cooling. Nature 2020, 585, 211–216. [CrossRef] [PubMed]
+
+===PAGE 31===
+Micromachines 2023, 14, 972
+31 of 36
+38.
+Riordon, J.; Sovilj, D.; Sanner, S.; Sinton, D.; Young, E.W. Deep learning with microﬂuidics for biotechnology. Trends Biotechnol.
+2019, 37, 310–324. [CrossRef] [PubMed]
+39.
+Srikanth, S.; Dubey, S.K.; Javed, A.; Goel, S. Droplet based microﬂuidics integrated with machine learning. Sens. Actuators A Phys.
+2021, 332, 113096. [CrossRef]
+40.
+Galan, E.A.; Zhao, H.; Wang, X.; Dai, Q.; Huck, W.T.; Ma, S. Intelligent microﬂuidics: The convergence of machine learning and
+microﬂuidics in materials science and biomedicine. Matter 2020, 3, 1893–1922. [CrossRef]
+41.
+Liu, P.; Mathies, R.A. Integrated microﬂuidic systems for high-performance genetic analysis. Trends Biotechnol. 2009, 27, 572–581.
+[CrossRef]
+42.
+Kovarik, M.L.; Ornoff, D.M.; Melvin, A.T.; Dobes, N.C.; Wang, Y.; Dickinson, A.J.; Gach, P.C.; Shah, P.K.; Allbritton, N.L. Micro
+total analysis systems: Fundamental advances and applications in the laboratory, clinic, and ﬁeld. Anal. Chem. 2013, 85, 451–472.
+[CrossRef] [PubMed]
+43.
+Pamme, N. Magnetism and microﬂuidics. Lab Chip 2006, 6, 24–38. [CrossRef] [PubMed]
+44.
+Plouffe, B.D.; Murthy, S.K.; Lewis, L.H. Fundamentals and application of magnetic particles in cell isolation and enrichment: A
+review. Rep. Prog. Phys. 2014, 78, 016601. [CrossRef] [PubMed]
+45.
+Mizuno, M.; Yamada, M.; Mitamura, R.; Ike, K.; Toyama, K.; Seki, M. Magnetophoresis-integrated hydrodynamic ﬁltration system
+for size-and surface marker-based two-dimensional cell sorting. Anal. Chem. 2013, 85, 7666–7673. [CrossRef]
+46.
+Karabacak, N.M.; Spuhler, P.S.; Fachin, F.; Lim, E.J.; Pai, V.; Ozkumur, E.; Martel, J.M.; Kojic, N.; Smith, K.; Chen, P.-i. Microﬂuidic,
+marker-free isolation of circulating tumor cells from blood samples. Nat. Protoc. 2014, 9, 694–710. [CrossRef]
+47.
+Zhang, P.; Bachman, H.; Ozcelik, A.; Huang, T.J. Acoustic microﬂuidics. Annu. Rev. Anal. Chem. 2020, 13, 17–43. [CrossRef]
+48.
+Gao, Y.; Wu, M.; Lin, Y.; Xu, J. Acoustic microﬂuidic separation techniques and bioapplications: A review. Micromachines 2020,
+11, 921. [CrossRef] [PubMed]
+49.
+Yeo, L.Y.; Friend, J.R. Surface acoustic wave microﬂuidics. Annu. Rev. Fluid Mech. 2014, 46, 379–406. [CrossRef]
+50.
+Wu, Y.; Chattaraj, R.; Ren, Y.; Jiang, H.; Lee, D. Label-free multitarget separation of particles and cells under ﬂow using acoustic,
+electrophoretic, and hydrodynamic forces. Anal. Chem. 2021, 93, 7635–7646. [CrossRef]
+51.
+Leibacher, I.; Reichert, P.; Dual, J. Microﬂuidic droplet handling by bulk acoustic wave (BAW) acoustophoresis. Lab Chip 2015, 15,
+2896–2905. [CrossRef] [PubMed]
+52.
+Viefhues, M. Microﬂuidics in Biotechnology; Springer: Berlin/Heidelberg, Germany, 2020; pp. 191–209.
+53.
+Hossan, M.R.; Dutta, D.; Islam, N.; Dutta, P. Electric ﬁeld driven pumping in microﬂuidic device. Electrophoresis 2018, 39, 702–731.
+[CrossRef]
+54.
+ˇCemažar, J.; Miklavˇciˇc, D.; Kotnik, T. Microﬂuidic devices for manipulation, modiﬁcation and characterization of biological cells
+in electric ﬁelds—A review. J. Microelectron. Electron. Compon. Mater 2013, 43, 143–161.
+55.
+Li, M.; Li, D.; Song, Y.; Li, D. Tunable particle/cell separation across aqueous two-phase system interface by electric pulse in
+microﬂuidics. J. Colloid Interface Sci. 2022, 612, 23–34. [CrossRef]
+56.
+Garcia, P.A.; Ge, Z.; Moran, J.L.; Buie, C.R. Microﬂuidic screening of electric ﬁelds for electroporation. Sci. Rep. 2016, 6, 1–11.
+[CrossRef] [PubMed]
+57.
+Kuswandi, B.; Huskens, J.; Verboom, W. Optical sensing systems for microﬂuidic devices: A review. Anal. Chim. Acta 2007, 601,
+141–155. [CrossRef]
+58.
+Johnson, M.E.; Landers, J.P. Fundamentals and practice for ultrasensitive laser-induced ﬂuorescence detection in microanalytical
+systems. Electrophoresis 2004, 25, 3513–3527. [CrossRef] [PubMed]
+59.
+Applegate, R.W., Jr.; Squier, J.; Vestad, T.; Oakey, J.; Marr, D.W.; Bado, P.; Dugan, M.A.; Said, A.A. Microﬂuidic sorting system
+based on optical waveguide integration and diode laser bar trapping. Lab Chip 2006, 6, 422–426. [CrossRef] [PubMed]
+60.
+Gai, H.; Li, Y.; Yeung, E.S. Optical detection systems on microﬂuidic chips. In Microﬂuidics: Technologies and Applications; Springer:
+Berlin/Heidelberg, Germany, 2011; pp. 171–201.
+61.
+Deal, K.S.; Easley, C.J. Self-regulated, droplet-based sample chopper for microﬂuidic absorbance detection. Anal. Chem. 2012, 84,
+1510–1516. [CrossRef]
+62.
+Ronkainen, N.J.; Halsall, H.B.; Heineman, W.R. Electrochemical biosensors. Chem. Soc. Rev. 2010, 39, 1747–1763. [CrossRef]
+63.
+da Silva, E.T.; Souto, D.E.; Barragan, J.T.; de F. Giarola, J.; de Moraes, A.C.; Kubota, L.T. Electrochemical biosensors in point-of-care
+devices: Recent advances and future trends. ChemElectroChem 2017, 4, 778–794. [CrossRef]
+64.
+Li, T.; Díaz-Real, J.A.; Holm, T. Design of electrochemical microﬂuidic detectors: A review. Adv. Mater. Technol. 2021, 6, 2100569.
+[CrossRef]
+65.
+Mohan, J.M.; Amreen, K.; Javed, A.; Dubey, S.K.; Goel, S. Emerging trends in miniaturized and microﬂuidic electrochemical
+sensing platforms. Curr. Opin. Electrochem. 2022, 33, 100930. [CrossRef]
+66.
+Hwang, S.; LaFratta, C.N.; Agarwal, V.; Yu, X.; Walt, D.R.; Sonkusale, S. CMOS microelectrode array for electrochemical
+lab-on-a-chip applications. IEEE Sens. J. 2009, 9, 609–615. [CrossRef]
+67.
+Khoshmanesh, K.; Tang, S.-Y.; Zhu, J.Y.; Schaefer, S.; Mitchell, A.; Kalantar-Zadeh, K.; Dickey, M.D. Liquid metal enabled
+microﬂuidics. Lab Chip 2017, 17, 974–993. [CrossRef]
+68.
+Kong, T.F.; Peng, W.K.; Luong, T.D.; Nguyen, N.-T.; Han, J. Adhesive-based liquid metal radio-frequency microcoil for magnetic
+resonance relaxometry measurement. Lab Chip 2012, 12, 287–294. [CrossRef] [PubMed]
+
+===PAGE 32===
+Micromachines 2023, 14, 972
+32 of 36
+69.
+Pumera, M.; Merkoçi, A.; Alegret, S. New materials for electrochemical sensing VII. Microﬂuidic chip platforms. TrAC Trends
+Anal. Chem. 2006, 25, 219–235. [CrossRef]
+70.
+Huang, Y.; Mason, A.J. Lab-on-CMOS integration of microﬂuidics and electrochemical sensors. Lab Chip 2013, 13, 3929–3934.
+[CrossRef]
+71.
+Rackus, D.G.; Shamsi, M.H.; Wheeler, A.R. Electrochemistry, biosensors and microﬂuidics: A convergence of ﬁelds. Chem. Soc.
+Rev. 2015, 44, 5320–5340. [CrossRef]
+72.
+Woolley, A.T.; Lao, K.; Glazer, A.N.; Mathies, R.A. Capillary electrophoresis chips with integrated electrochemical detection. Anal.
+Chem. 1998, 70, 684–688. [CrossRef]
+73.
+Kaur, G.; Tomar, M.; Gupta, V. Development of a microﬂuidic electrochemical biosensor: Prospect for point-of-care cholesterol
+monitoring. Sens. Actuators B Chem. 2018, 261, 460–466. [CrossRef]
+74.
+Senel, M.; Dervisevic, E.; Alhassen, S.; Dervisevic, M.; Alachkar, A.; Cadarso, V.J.; Voelcker, N.H. Microﬂuidic electrochemical
+sensor for cerebrospinal ﬂuid and blood dopamine detection in a mouse model of Parkinson’s disease. Anal. Chem. 2020, 92,
+12347–12355. [CrossRef] [PubMed]
+75.
+Xu, T.; Chakrabarty, K. Integrated droplet routing in the synthesis of microﬂuidic biochips. In Proceedings of the 44th annual
+Design Automation Conference, San Diego, CA, USA, June 2007; pp. 948–953.
+76.
+Shamsi, M.H.; Choi, K.; Ng, A.H.; Wheeler, A.R. A digital microﬂuidic electrochemical immunoassay. Lab Chip 2014, 14, 547–554.
+[CrossRef] [PubMed]
+77.
+Rackus, D.G.; Dryden, M.D.; Lamanna, J.; Zaragoza, A.; Lam, B.; Kelley, S.O.; Wheeler, A.R. A digital microﬂuidic device with
+integrated nanostructured microelectrodes for electrochemical immunoassays. Lab Chip 2015, 15, 3776–3784. [CrossRef]
+78.
+Dhiman, T.K.; Lakshmi, G.; Roychoudhury, A.; Jha, S.K.; Solanki, P.R. Ceria-nanoparticles-based microﬂuidic nanobiochip
+electrochemical sensor for the detection of ochratoxin-A. ChemistrySelect 2019, 4, 4867–4873. [CrossRef]
+79.
+Dryden, M.D.; Rackus, D.D.; Shamsi, M.H.; Wheeler, A.R. Integrated digital microﬂuidic platform for voltammetric analysis.
+Anal. Chem. 2013, 85, 8809–8816. [CrossRef] [PubMed]
+80.
+Toh, R.J.; Peng, W.K.; Han, J.; Pumera, M. Haemoglobin electrochemical detection on various reduced graphene surfaces:
+Well-deﬁned glassy carbon electrode outperforms the graphenoids. RSC Adv. 2014, 4, 8050–8054. [CrossRef]
+81.
+Kissinger, P.T.; Heineman, W.R. Cyclic voltammetry. J. Chem. Educ. 1983, 60, 702. [CrossRef]
+82.
+Li, S.; Zhang, C.; Wang, S.; Liu, Q.; Feng, H.; Ma, X.; Guo, J. Electrochemical microﬂuidics techniques for heavy metal ion
+detection. Analyst 2018, 143, 4230–4246. [CrossRef]
+83.
+Gencoglu, A.; Minerick, A.R. Electrochemical detection techniques in micro-and nanoﬂuidic devices. Microﬂuid. Nanoﬂuidics 2014,
+17, 781–807. [CrossRef]
+84.
+Srikanth, S.; Jayapiriya, U.; Dubey, S.K.; Javed, A.; Goel, S. A lab-on-chip platform for simultaneous culture and electrochemical
+detection of bacteria. Iscience 2022, 25, 105388. [CrossRef]
+85.
+Karuwan, C.; Sukthang, K.; Wisitsoraat, A.; Phokharatkul, D.; Patthanasettakul, V.; Wechsatol, W.; Tuantranont, A. Electrochemical
+detection on electrowetting-on-dielectric digital microﬂuidic chip. Talanta 2011, 84, 1384–1389. [CrossRef]
+86.
+Yu, Y.; Chen, J.; Zhou, J. Parallel-plate lab-on-a-chip based on digital microﬂuidics for on-chip electrochemical analysis.
+J. Micromech. Microeng. 2013, 24, 015020. [CrossRef]
+87.
+Grieshaber, D.; MacKenzie, R.; Vörös, J.; Reimhult, E. Electrochemical biosensors-sensor principles and architectures. Sensors
+2008, 8, 1400–1458. [CrossRef]
+88.
+Wang, R.; Wang, X. Sensing of inorganic ions in microﬂuidic devices. Sens. Actuators B Chem. 2021, 329, 129171. [CrossRef]
+89.
+Liao, W.-Y.; Weng, C.-H.; Lee, G.-B.; Chou, T.-C. Development and characterization of an all-solid-state potentiometric biosensor
+array microﬂuidic device for multiple ion analysis. Lab Chip 2006, 6, 1362–1368. [CrossRef]
+90.
+Gallardo-Gonzalez, J.; Baraket, A.; Boudjaoui, S.; Metzner, T.; Hauser, F.; Rößler, T.; Krause, S.; Zine, N.; Streklas, A.; Alcácer, A. A
+fully integrated passive microﬂuidic Lab-on-a-Chip for real-time electrochemical detection of ammonium: Sewage applications.
+Sci. Total Environ. 2019, 653, 1223–1230. [CrossRef]
+91.
+Farzbod, A.; Moon, H. Integration of reconﬁgurable potentiometric electrochemical sensors into a digital microﬂuidic platform.
+Biosens. Bioelectron. 2018, 106, 37–42. [CrossRef]
+92.
+Sempionatto, J.R.; Martin, A.; García-Carmona, L.; Barﬁdokht, A.; Kurniawan, J.F.; Moreto, J.R.; Tang, G.; Shin, A.; Liu, X.; Escarpa,
+A. Skin-worn soft microﬂuidic potentiometric detection system. Electroanalysis 2019, 31, 239–245. [CrossRef]
+93.
+Alizadeh, A.; Burns, A.; Lenigk, R.; Gettings, R.; Ashe, J.; Porter, A.; McCaul, M.; Barrett, R.; Diamond, D.; White, P. A wearable
+patch for continuous monitoring of sweat electrolytes during exertion. Lab Chip 2018, 18, 2632–2641. [CrossRef]
+94.
+Song, Y.; Cheng, D.; Zhao, L. Microﬂuidics: Fundamentals, Devices, and Applications; John Wiley & Sons: Weinheim, Germany, 2018.
+95.
+Lee, I.; Luo, X.; Huang, J.; Cui, X.T.; Yun, M. Detection of cardiac biomarkers using single polyaniline nanowire-based conducto-
+metric biosensors. Biosensors 2012, 2, 205–220. [CrossRef]
+96.
+Venzac, B.; Diakité, M.; Herthnek, D.; Cissé, I.; Bockelmann, U.; Descroix, S.; Malaquin, L.; Viovy, J.-L. On-chip conductometric
+detection of short DNA sequences via electro-hydrodynamic aggregation. Analyst 2018, 143, 190–199. [CrossRef]
+97.
+Wu, W.J.; Liu, S.L.; Yung, P.T. Realization of conductometry on a digital microﬂuidic platform for real-time monitoring of Bacillus
+atrophaeus endospore germination. IEEE Sens. J. 2016, 16, 2244–2250. [CrossRef]
+98.
+Lorenz, W.; Schulze, K. Application of transform-impedance spectrometry. J. Electroanal. Chem. 1975, 65, 141–153. [CrossRef]
+
+===PAGE 33===
+Micromachines 2023, 14, 972
+33 of 36
+99.
+Magar, H.S.; Hassan, R.Y.; Mulchandani, A. Electrochemical impedance spectroscopy (EIS): Principles, construction, and
+biosensing applications. Sensors 2021, 21, 6578. [CrossRef]
+100. Millner, P.; Caygill, R.; Conroy, D.; Shahidan, M. Impedance interrogated afﬁnity biosensors for medical applications: Novel
+targets and mechanistic studies. In Biosensors for Medical Applications; Elsevier: Amsterdam, The Netherlands, 2012; pp. 103–134.
+101. Ben-Yoav, H.; Dykstra, P.H.; Bentley, W.E.; Ghodssi, R. A controlled microﬂuidic electrochemical lab-on-a-chip for label-free
+diffusion-restricted DNA hybridization analysis. Biosens. Bioelectron. 2015, 64, 579–585. [CrossRef] [PubMed]
+102. Feng, Y.; Huang, L.; Zhao, P.; Liang, F.; Wang, W. A microﬂuidic device integrating impedance ﬂow cytometry and electric
+impedance spectroscopy for high-efﬁciency single-cell electrical property measurement. Anal. Chem. 2019, 91, 15204–15212.
+[CrossRef]
+103. Jin, K.; Huang, Q.; Hu, C.; Hu, S.; Li, J. A digital microﬂuidic system with integrated electrochemical impedance detection arrays.
+In Proceedings of the Journal of Physics: Conference Series, Harbin, China, 2022; IOP Publishing: Harbin, China, 2022; Volume
+2196, p. 012005.
+104. Zhang, Y.; Liu, Y. A digital microﬂuidic device integrated with electrochemical impedance spectroscopy for cell-based immunoas-
+say. Biosensors 2022, 12, 330. [CrossRef] [PubMed]
+105. Schmidt-Speicher, L.M.; Länge, K. Microﬂuidic integration for electrochemical biosensor applications. Curr. Opin. Electrochem.
+2021, 29, 100755. [CrossRef]
+106. Mohd Asri, M.A.; Nordin, A.N.; Ramli, N. Low-cost and cleanroom-free prototyping of microﬂuidic and electrochemical
+biosensors: Techniques in fabrication and bioconjugation. Biomicroﬂuidics 2021, 15, 061502. [CrossRef]
+107. Mir, M.; Homs, A.; Samitier, J. Integrated electrochemical DNA biosensors for lab-on-a-chip devices. Electrophoresis 2009, 30,
+3386–3397. [CrossRef]
+108. Zimmerman, W.B. Electrochemical microﬂuidics. Chem. Eng. Sci. 2011, 66, 1412–1425. [CrossRef]
+109. Ates, H.C.; Nguyen, P.Q.; Gonzalez-Macia, L.; Morales-Narváez, E.; Güder, F.; Collins, J.J.; Dincer, C. End-to-end design of
+wearable sensors. Nat. Rev. Mater. 2022, 7, 887–907. [CrossRef]
+110. Bariya, M.; Nyein, H.Y.Y.; Javey, A. Wearable sweat sensors. Nat. Electron. 2018, 1, 160–171. [CrossRef]
+111. Chen, G.; Zheng, J.; Liu, L.; Xu, L. Application of microﬂuidics in wearable devices. Small Methods 2019, 3, 1900688. [CrossRef]
+112. Yeo, J.C.; Lim, C.T. Emergence of microﬂuidic wearable technologies. Lab Chip 2016, 16, 4082–4090. [CrossRef] [PubMed]
+113. Jo, S.; Sung, D.; Kim, S.; Koo, J. A review of wearable biosensors for sweat analysis. Biomed. Eng. Lett. 2021, 11, 117–129. [CrossRef]
+114. Ma, B.; Chi, J.; Xu, C.; Ni, Y.; Zhao, C.; Liu, H. Wearable capillary microﬂuidics for continuous perspiration sensing. Talanta 2020,
+212, 120786. [CrossRef]
+115. Koh, A.; Kang, D.; Xue, Y.; Lee, S.; Pielak, R.M.; Kim, J.; Hwang, T.; Min, S.; Banks, A.; Bastien, P. A soft, wearable microﬂuidic
+device for the capture, storage, and colorimetric sensing of sweat. Sci. Transl. Med. 2016, 8, 366ra165. [CrossRef]
+116. Ozer, T.; McMahon, C.; Henry, C.S. Advances in paper-based analytical devices. Annu. Rev. Anal. Chem. 2020, 13, 85–109.
+[CrossRef] [PubMed]
+117. Economou, A.; Kokkinos, C.; Prodromidis, M. Flexible plastic, paper and textile lab-on-a chip platforms for electrochemical
+biosensing. Lab Chip 2018, 18, 1812–1830. [CrossRef] [PubMed]
+118. Nie, C.; Frijns, A.; Zevenbergen, M.; den Toonder, J. An integrated ﬂex-microﬂuidic-Si chip device towards sweat sensing
+applications. Sens. Actuators B Chem. 2016, 227, 427–437. [CrossRef]
+119. Yang, X.; Yao, H.; Zhao, G.; Ameer, G.A.; Sun, W.; Yang, J.; Mi, S. Flexible, wearable microﬂuidic contact lens with capillary
+networks for tear diagnostics. J. Mater. Sci. 2020, 55, 9551–9561. [CrossRef]
+120. Shay, T.; Dickey, M.D.; Velev, O.D. Hydrogel-enabled osmotic pumping for microﬂuidics: Towards wearable human-device
+interfaces. Lab Chip 2017, 17, 710–716. [CrossRef]
+121. Saha, T.; Fang, J.; Mukherjee, S.; Dickey, M.D.; Velev, O.D. Wearable osmotic-capillary patch for prolonged sweat harvesting and
+sensing. ACS Appl. Mater. Interfaces 2021, 13, 8071–8081. [CrossRef] [PubMed]
+122. Kim, S.B.; Zhang, Y.; Won, S.M.; Bandodkar, A.J.; Sekine, Y.; Xue, Y.; Koo, J.; Harshman, S.W.; Martin, J.A.; Park, J.M. Super-
+absorbent polymer valves and colorimetric chemistries for time-sequenced discrete sampling and chloride analysis of sweat via
+skin-mounted soft microﬂuidics. Small 2018, 14, 1703334. [CrossRef] [PubMed]
+123. Choi, J.; Bandodkar, A.J.; Reeder, J.T.; Ray, T.R.; Turnquist, A.; Kim, S.B.; Nyberg, N.; Hourlier-Fargette, A.; Model, J.B.; Aranyosi,
+A.J. Soft, skin-integrated multifunctional microﬂuidic systems for accurate colorimetric analysis of sweat biomarkers and
+temperature. ACS Sens. 2019, 4, 379–388. [CrossRef] [PubMed]
+124. Kim, S.B.; Koo, J.; Yoon, J.; Hourlier-Fargette, A.; Lee, B.; Chen, S.; Jo, S.; Choi, J.; Oh, Y.S.; Lee, G. Soft, skin-interfaced microﬂuidic
+systems with integrated enzymatic assays for measuring the concentration of ammonia and ethanol in sweat. Lab Chip 2020, 20,
+84–92. [CrossRef] [PubMed]
+125. Ye, S.; Feng, S.; Huang, L.; Bian, S. Recent progress in wearable biosensors: From healthcare monitoring to sports analytics.
+Biosensors 2020, 10, 205. [CrossRef]
+126. Tabasum, H.; Gill, N.; Mishra, R.; Lone, S. Wearable microﬂuidic-based e-skin sweat sensors. RSC Adv. 2022, 12, 8691–8707.
+[CrossRef]
+127. Jia, W.; Bandodkar, A.J.; Valdés-Ramírez, G.; Windmiller, J.R.; Yang, Z.; Ramírez, J.; Chan, G.; Wang, J. Electrochemical tattoo
+biosensors for real-time noninvasive lactate monitoring in human perspiration. Anal. Chem. 2013, 85, 6553–6560. [CrossRef]
+
+===PAGE 34===
+Micromachines 2023, 14, 972
+34 of 36
+128. Gao, W.; Emaminejad, S.; Nyein, H.Y.Y.; Challa, S.; Chen, K.; Peck, A.; Fahad, H.M.; Ota, H.; Shiraki, H.; Kiriya, D. Fully integrated
+wearable sensor arrays for multiplexed in situ perspiration analysis. Nature 2016, 529, 509–514.
+129. Bandodkar, A.J.; Molinnus, D.; Mirza, O.; Guinovart, T.; Windmiller, J.R.; Valdés-Ramírez, G.; Andrade, F.J.; Schöning, M.J.;
+Wang, J. Epidermal tattoo potentiometric sodium sensors with wireless signal transduction for continuous non-invasive sweat
+monitoring. Biosens. Bioelectron. 2014, 54, 603–609. [CrossRef]
+130. Zhang, S.; Zahed, M.A.; Sharifuzzaman, M.; Yoon, S.; Hui, X.; Barman, S.C.; Sharma, S.; Yoon, H.S.; Park, C.; Park, J.Y. A wearable
+battery-free wireless and skin-interfaced microﬂuidics integrated electrochemical sensing patch for on-site biomarkers monitoring
+in human perspiration. Biosens. Bioelectron. 2021, 175, 112844. [CrossRef]
+131. Kim, S.B.; Lee, K.; Raj, M.S.; Lee, B.; Reeder, J.T.; Koo, J.; Hourlier-Fargette, A.; Bandodkar, A.J.; Won, S.M.; Sekine, Y. Soft,
+skin-interfaced microﬂuidic systems with wireless, battery-free electronics for digital, real-time tracking of sweat loss and
+electrolyte composition. Small 2018, 14, 1802876. [CrossRef] [PubMed]
+132. Padash, M.; Enz, C.; Carrara, S. Microﬂuidics by additive manufacturing for wearable biosensors: A review. Sensors 2020, 20, 4236.
+[CrossRef] [PubMed]
+133. Sonner, Z.; Wilder, E.; Heikenfeld, J.; Kasting, G.; Beyette, F.; Swaile, D.; Sherman, F.; Joyce, J.; Hagen, J.; Kelley-Loughnane, N. The
+microﬂuidics of the eccrine sweat gland, including biomarker partitioning, transport, and biosensing implications. Biomicroﬂuidics
+2015, 9, 031301. [CrossRef] [PubMed]
+134. Ghaffari, R.; Rogers, J.A.; Ray, T.R. Recent progress, challenges, and opportunities for wearable biochemical sensors for sweat
+analysis. Sens. Actuators B Chem. 2021, 332, 129447.
+135. Kim, J.; Campbell, A.S.; Wang, J. Wearable non-invasive epidermal glucose sensors: A review. Talanta 2018, 177, 163–170.
+[CrossRef] [PubMed]
+136. Bandodkar, A.J.; Gutruf, P.; Choi, J.; Lee, K.; Sekine, Y.; Reeder, J.T.; Jeang, W.J.; Aranyosi, A.J.; Lee, S.P.; Model, J.B. Battery-free,
+skin-interfaced microﬂuidic/electronic systems for simultaneous electrochemical, colorimetric, and volumetric analysis of sweat.
+Sci. Adv. 2019, 5, eaav3294. [CrossRef] [PubMed]
+137. San Nah, J.; Barman, S.C.; Zahed, M.A.; Sharifuzzaman, M.; Yoon, H.; Park, C.; Yoon, S.; Zhang, S.; Park, J.Y. A wearable
+microﬂuidics-integrated impedimetric immunosensor based on Ti3C2Tx MXene incorporated laser-burned graphene for noninva-
+sive sweat cortisol detection. Sens. Actuators B Chem. 2021, 329, 129206.
+138. Zhang, Y.; Guo, H.; Kim, S.B.; Wu, Y.; Ostojich, D.; Park, S.H.; Wang, X.; Weng, Z.; Li, R.; Bandodkar, A.J. Passive sweat collection
+and colorimetric analysis of biomarkers relevant to kidney disorders using a soft microﬂuidic system. Lab Chip 2019, 19, 1545–1555.
+[CrossRef]
+139. Tiwari, N.; Chatterjee, S.; Kaswan, K.; Chung, J.-H.; Fan, K.-P.; Lin, Z.-H. Recent advancements in sampling, power management
+strategies and development in applications for non-invasive wearable electrochemical sensors. J. Electroanal. Chem. 2022,
+907, 116064. [CrossRef]
+140. Kim, J.; Campbell, A.S.; de Ávila, B.E.-F.; Wang, J. Wearable biosensors for healthcare monitoring. Nat. Biotechnol. 2019, 37,
+389–406. [CrossRef]
+141. Kim, J.; Kim, M.; Lee, M.-S.; Kim, K.; Ji, S.; Kim, Y.-T.; Park, J.; Na, K.; Bae, K.-H.; Kyun Kim, H. Wearable smart sensor systems
+integrated on soft contact lenses for wireless ocular diagnostics. Nat. Commun. 2017, 8, 14997. [CrossRef]
+142. Sempionatto, J.R.; Brazaca, L.C.; García-Carmona, L.; Bolat, G.; Campbell, A.S.; Martin, A.; Tang, G.; Shah, R.; Mishra, R.K.; Kim, J.
+Eyeglasses-based tear biosensing system: Non-invasive detection of alcohol, vitamins and glucose. Biosens. Bioelectron. 2019, 137,
+161–170. [CrossRef] [PubMed]
+143. de Castro, L.F.; de Freitas, S.V.; Duarte, L.C.; de Souza, J.A.C.; Paixão, T.R.; Coltro, W.K. Salivary diagnostics on paper microﬂuidic
+devices and their use as wearable sensors for glucose monitoring. Anal. Bioanal. Chem. 2019, 411, 4919–4928. [PubMed]
+144. Bian, S.; Ye, S.; Yang, S. Application prospects for wearable body surface microﬂuidic system in sports. Wearable Technol. 2022, 3,
+72–84. [CrossRef]
+145. Lee, H.; Choi, T.K.; Lee, Y.B.; Cho, H.R.; Ghaffari, R.; Wang, L.; Choi, H.J.; Chung, T.D.; Lu, N.; Hyeon, T. A graphene-based
+electrochemical device with thermoresponsive microneedles for diabetes monitoring and therapy. Nat. Nanotechnol. 2016, 11,
+566–572. [CrossRef] [PubMed]
+146. Di, J.; Yao, S.; Ye, Y.; Cui, Z.; Yu, J.; Ghosh, T.K.; Zhu, Y.; Gu, Z. Stretch-triggered drug delivery from wearable elastomer ﬁlms
+containing therapeutic depots. ACS Nano 2015, 9, 9407–9415. [CrossRef]
+147. Yi-Qiang, F.; Feng, G.; Mei, W.; Zhuang, J.; Gang, T.; ZHANG, Y.-J. Recent development of wearable microﬂuidics applied in body
+ﬂuid testing and drug delivery. Chin. J. Anal. Chem. 2017, 45, 455–463.
+148. Mahato, K.; Wang, J. Electrochemical sensors: From the bench to the skin. Sens. Actuators B Chem. 2021, 344, 130178. [CrossRef]
+149. Choi, R.Y.; Coyner, A.S.; Kalpathy-Cramer, J.; Chiang, M.F.; Campbell, J.P. Introduction to machine learning, neural networks,
+and deep learning. Transl. Vis. Sci. Technol. 2020, 9, 14.
+150. Janiesch, C.; Zschech, P.; Heinrich, K. Machine learning and deep learning. Electron. Mark. 2021, 31, 685–695. [CrossRef]
+151. Haenlein, M.; Kaplan, A. A brief history of artiﬁcial intelligence: On the past, present, and future of artiﬁcial intelligence. Calif.
+Manag. Rev. 2019, 61, 5–14. [CrossRef]
+152. Bini, S.A. Artiﬁcial intelligence, machine learning, deep learning, and cognitive computing: What do these terms mean and how
+will they impact health care? J. Arthroplast. 2018, 33, 2358–2361. [CrossRef]
+
+===PAGE 35===
+Micromachines 2023, 14, 972
+35 of 36
+153. Hinton, G.E.; Osindero, S.; Teh, Y.-W. A fast learning algorithm for deep belief nets. Neural Comput. 2006, 18, 1527–1554. [CrossRef]
+[PubMed]
+154. Sarker, I.H. Deep learning: A comprehensive overview on techniques, taxonomy, applications and research directions. SN Comput.
+Sci. 2021, 2, 420. [PubMed]
+155. Deng, L.; Yu, D. Deep learning: Methods and applications. In Foundations and Trends® in Signal Processing; Now Foundations and
+Trends, nowpublishers.com: Boston, MA, USA, 2014; Volume 7, pp. 197–387.
+156. Dabbagh, S.R.; Rabbi, F.; Do˘gan, Z.; Yetisen, A.K.; Tasoglu, S. Machine learning-enabled multiplexed microﬂuidic sensors.
+Biomicroﬂuidics 2020, 14, 061506. [CrossRef] [PubMed]
+157. LeCun, Y.; Bengio, Y.; Hinton, G. Deep learning. Nature 2015, 521, 436–444. [CrossRef]
+158. Guo, B.; Lei, C.; Kobayashi, H.; Ito, T.; Yalikun, Y.; Jiang, Y.; Tanaka, Y.; Ozeki, Y.; Goda, K. High-throughput, label-free, single-cell,
+microalgal lipid screening by machine-learning-equipped optoﬂuidic time-stretch quantitative phase microscopy. Cytom. Part A
+2017, 91, 494–502. [CrossRef]
+159. Jiang, Y.; Lei, C.; Yasumoto, A.; Kobayashi, H.; Aisaka, Y.; Ito, T.; Guo, B.; Nitta, N.; Kutsuna, N.; Ozeki, Y. Label-free detection
+of aggregated platelets in blood by machine-learning-aided optoﬂuidic time-stretch microscopy. Lab Chip 2017, 17, 2426–2434.
+[CrossRef]
+160. Singh, D.K.; Ahrens, C.C.; Li, W.; Vanapalli, S.A. Label-free, high-throughput holographic screening and enumeration of tumor
+cells in blood. Lab Chip 2017, 17, 2920–2932. [CrossRef]
+161. Xu, X.; Zhao, L.; Xue, Q.; Fan, J.; Hu, Q.; Tang, C.; Shi, H.; Hu, B.; Tian, J. Dynamic liquid surface enhanced Raman scattering
+platform based on soft tubular microﬂuidics for label-free cell detection. Anal. Chem. 2019, 91, 7973–7979. [CrossRef]
+162. Manak, M.S.; Varsanik, J.S.; Hogan, B.J.; Whitﬁeld, M.J.; Su, W.R.; Joshi, N.; Steinke, N.; Min, A.; Berger, D.; Saphirstein, R.J.
+Live-cell phenotypic-biomarker microﬂuidic assay for the risk stratiﬁcation of cancer patients via machine learning. Nat. Biomed.
+Eng. 2018, 2, 761–772. [CrossRef]
+163. Wang, C.; Wang, C.; Wu, Y.; Gao, J.; Han, Y.; Chu, Y.; Qiang, L.; Qiu, J.; Gao, Y.; Wang, Y. High-Throughput, Living Single-Cell,
+Multiple Secreted Biomarker Proﬁling Using Microﬂuidic Chip and Machine Learning for Tumor Cell Classiﬁcation. Adv. Healthc.
+Mater. 2022, 11, 2102800. [CrossRef] [PubMed]
+164. Alvarez, M.; Rahmani, E.; Jew, B.; Garske, K.M.; Miao, Z.; Benhammou, J.N.; Ye, C.J.; Pisegna, J.R.; Pietiläinen, K.H.; Halperin, E.
+Enhancing droplet-based single-nucleus RNA-seq resolution using the semi-supervised machine learning classiﬁer DIEM. Sci.
+Rep. 2020, 10, 11019. [CrossRef]
+165. Desir, P.; Chen, T.-Y.; Bracconi, M.; Saha, B.; Maestri, M.; Vlachos, D.G. Experiments and computations of microﬂuidic liquid–liquid
+ﬂow patterns. React. Chem. Eng. 2020, 5, 39–50. [CrossRef]
+166. Peng, W.K.; Ng, T.-T.; Loh, T.P. Machine learning assistive rapid, label-free molecular phenotyping of blood with two-dimensional
+NMR correlational spectroscopy. Commun. Biol. 2020, 3, 535. [CrossRef]
+167. Abe, T.; Oh-Hara, S.; Ukita, Y. Adoption of reinforcement learning for the intelligent control of a microﬂuidic peristaltic pump.
+Biomicroﬂuidics 2021, 15, 034101. [CrossRef]
+168. Liang, T.-C.; Zhong, Z. Adaptive droplet routing in digital microﬂuidic biochips using deep reinforcement learning. In Proceedings
+of the 37th International Conference on Machine Learning, Conference, Virtual Format, 2020; pp. 6050–6060.
+169. Dressler, O.J.; Howes, P.D.; Choo, J.; deMello, A.J. Reinforcement learning for dynamic microﬂuidic control. ACS Omega 2018, 3,
+10084–10091. [CrossRef]
+170. Albawi, S.; Mohammed, T.A.; Al-Zawi, S. Understanding of a convolutional neural network. In Proceedings of the 2017
+International Conference on Engineering and Technology (ICET), Antalya, Turkey, 21–23 August 2017; IEEE: Piscataway, NJ,
+USA, 2017; pp. 1–6.
+171. LeCun, Y.; Bottou, L.; Bengio, Y.; Haffner, P. Gradient-based learning applied to document recognition. Proc. IEEE 1998, 86,
+2278–2324. [CrossRef]
+172. Hashemzadeh, H.; Shojaeilangari, S.; Allahverdi, A.; Rothbauer, M.; Ertl, P.; Naderi-Manesh, H. A combined microﬂuidic deep
+learning approach for lung cancer cell high throughput screening toward automatic cancer screening applications. Sci. Rep. 2021,
+11, 1–10. [CrossRef] [PubMed]
+173. Rizzuto, V.; Mencattini, A.; Álvarez-González, B.; Di Giuseppe, D.; Martinelli, E.; Beneitez-Pastor, D.; Mañú-Pereira, M.d.M.;
+Lopez-Martinez, M.J.; Samitier, J. Combining microﬂuidics with machine learning algorithms for RBC classiﬁcation in rare
+hereditary hemolytic anemia. Sci. Rep. 2021, 11, 13553. [CrossRef] [PubMed]
+174. Ghafari, M.; Clark, J.; Guo, H.-B.; Yu, R.; Sun, Y.; Dang, W.; Qin, H. Complementary performances of convolutional and capsule
+neural networks on classifying microﬂuidic images of dividing yeast cells. PLoS ONE 2021, 16, e0246988. [CrossRef] [PubMed]
+175. Lee, K.; Kim, S.-E.; Doh, J.; Kim, K.; Chung, W.K. User-friendly image-activated microﬂuidic cell sorting technique using an
+optimized, fast deep learning algorithm. Lab Chip 2021, 21, 1798–1810. [CrossRef] [PubMed]
+176. Honrado, C.; McGrath, J.S.; Reale, R.; Bisegna, P.; Swami, N.S.; Caselli, F. A neural network approach for real-time particle/cell
+characterization in microﬂuidic impedance cytometry. Anal. Bioanal. Chem. 2020, 412, 3835–3845. [CrossRef] [PubMed]
+177. Kobayashi, H.; Lei, C.; Wu, Y.; Huang, C.-J.; Yasumoto, A.; Jona, M.; Li, W.; Wu, Y.; Yalikun, Y.; Jiang, Y. Intelligent whole-blood
+imaging ﬂow cytometry for simple, rapid, and cost-effective drug-susceptibility testing of leukemia. Lab Chip 2019, 19, 2688–2698.
+[CrossRef] [PubMed]
+
+===PAGE 36===
+Micromachines 2023, 14, 972
+36 of 36
+178. Constantinou, I.; Jendrusch, M.; Aspert, T.; Görlitz, F.; Schulze, A.; Charvin, G.; Knop, M. Self-learning microﬂuidic platform for
+single-cell imaging and classiﬁcation in ﬂow. Micromachines 2019, 10, 311. [CrossRef]
+179. Gopakumar, G.; Babu, K.H.; Mishra, D.; Gorthi, S.S.; Subrahmanyam, G.R.S. Cytopathological image analysis using deep-learning
+networks in microﬂuidic microscopy. JOSA. A Optical. Soc. Am. 2017, 34, 111–121. [CrossRef]
+180. Sarker, I.H. Data science and analytics: An overview from data-driven smart computing, decision-making and applications
+perspective. SN Comput. Sci. 2021, 2, 377. [CrossRef]
+181. Zheng, J.; Cole, T.; Zhang, Y.; Kim, J.; Tang, S.-Y. Exploiting machine learning for bestowing intelligence to microﬂuidics. Biosens.
+Bioelectron. 2021, 194, 113666. [CrossRef]
+182. Sackmann, E.K.; Fulton, A.L.; Beebe, D.J. The present and future role of microﬂuidics in biomedical research. Nature 2014, 507,
+181–189. [CrossRef]
+183. Nahavandi, D.; Alizadehsani, R.; Khosravi, A.; Acharya, U.R. Application of artiﬁcial intelligence in wearable devices: Opportu-
+nities and challenges. Comput. Methods Programs Biomed. 2022, 213, 106541. [CrossRef]
+Disclaimer/Publisher’s Note: The statements, opinions and data contained in all publications are solely those of the individual
+author(s) and contributor(s) and not of MDPI and/or the editor(s). MDPI and/or the editor(s) disclaim responsibility for any injury to
+people or property resulting from any ideas, methods, instructions or products referred to in the content.

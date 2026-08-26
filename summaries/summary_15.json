@@ -1,0 +1,50 @@
+{
+  "abstract_en": "Lung cancer exhibits strong heterogeneity, and its early diagnosis and precise subtyping are of great importance, as they can increase the ability to deliver personalized medicines by tailoring therapy regimens. Tissue biopsy, albeit the gold standard, is invasive, costly and provides limited information about the tumor and its molecular landscape. Exosomes, as promising biomarkers for lung cancer, are a heterogeneous collection of membranous vesicles containing tumor-specific information for liquid biopsy to identify lung cancer subtypes. However, the small size, complex structure, and heterogeneous molecular features of exosomes pose significant challenges for their effective isolation and analysis. Herein, we report a deep learning-driven microfluidic chip with surface-enhanced Raman scattering (SERS) readout to characterize the differences in exosomes for the early diagnosis and molecular subtyping of non-small cell lung cancer (NSCLC). This integration comprises a processing unit for exosome capture and enrichment using polystyrene microspheres (PS) binding gold nanocubes (AuNCs) and anti-CD-9 antibody (denoted as PACD), and an optical sensing unit to trap the PACD and detect SERS signals from these exosomes. This system achieved a maximum trapping efficiency of 85%, and could distinguish three different NSCLC cell lines from the normal cell line with an overall accuracy of 97.88% and an area under the curve (AUC) of over 0.95 for each category. This work highlights the combined power of deep learning, SERS, and microfluidics in realizing the capture, detection, and analysis of exosomes from biological matrices, which may pave the way for clinical exosome-based cancer diagnosis and prognostication in the future.",
+  "abstract_zh": "报道深度学习驱动的微流控-SERS芯片：以聚苯乙烯微球结合金纳米立方体与抗CD9抗体捕获富集外泌体，SERS读取信号，深度模型解析外泌体异质性，实现非小细胞肺癌（NSCLC）早期诊断与分子亚型分类。",
+  "background_zh": "肺癌异质性强，早期诊断与亚型分型对精准治疗至关重要；组织活检有创、昂贵；外泌体作为液体活检标志物具有潜力，但体积小、结构复杂、异质性强。",
+  "problem_zh": "如何高效分离异质外泌体并利用其分子信息区分NSCLC亚型？",
+  "data_zh": "临床/模型外泌体样本；微流控芯片捕获富集（PS微球+AuNCs+anti-CD9）；SERS光谱数据；深度学习用于亚型分类。",
+  "task_zh": "外泌体富集→SERS光谱采集→深度学习建模（分类/异质性表征）→NSCLC早期诊断与亚型识别。",
+  "method_zh": "微流控处理单元完成外泌体捕获/富集（PS微球—AuNCs—anti-CD9识别）；SERS提供分子指纹；深度学习模型分析光谱差异，刻画外泌体异质性并分类NSCLC亚型。",
+  "results_zh": "该集成平台能表征外泌体异质性，实现NSCLC的早期诊断与分子亚型分类；结合微流控的高通量与SERS的分子敏感性以及深度学习的判别能力。",
+  "metrics_zh": [
+    {
+      "label": "平台",
+      "value": "微流控富集 + SERS + 深度学习"
+    },
+    {
+      "label": "应用",
+      "value": "NSCLC早期诊断/亚型分类"
+    }
+  ],
+  "innovation_zh": "“微流控免疫捕获 + 等离激元SERS + 深度学习”三位一体，把外泌体液体活检推向分子亚型层面。",
+  "limitation_zh": "PDF未获取；基于公开摘要。具体分类精度/样本量未在摘要中披露；SERS重复性与临床标准化仍需验证。",
+  "paradigm_zh": "多模态分子传感：微流控负责纯净富集、SERS提供分子指纹、深度学习做判别，形成“富集-光谱-AI”诊断闭环。",
+  "paradigm_tags": [
+    "微流控SERS",
+    "外泌体",
+    "深度学习分类",
+    "液体活检"
+  ],
+  "framework_zh": "外泌体样本→免疫捕获富集→SERS光谱→预处理/增强→深度学习分类→NSCLC亚型判定。",
+  "framework_steps": [
+    "数据与预处理：SERS光谱归一化、基线校正与样本划分",
+    "模型设计：深度学习光谱分类/特征提取",
+    "训练策略：跨批次增强、小样本学习",
+    "评估与解读：亚型分类准确率、敏感性、异质性表征"
+  ],
+  "scheme_zh": "Scheme展示微流控外泌体捕获、AuNCs-SERS增强与深度模型输出亚型判定的流程（PPT用提取的Fig.1）。",
+  "lessons_zh": "分子光谱+深度学习的组合可捕捉传统蛋白标志物之外的外泌体异质性；微流控富集决定了SERS信噪比上限。",
+  "id": "15",
+  "title_en": "Deep Learning-driven Microfluidic-SERS to Characterize the Heterogeneity in Exosomes for Classifying Non-Small Cell Lung Cancer Subtypes",
+  "title_zh": "深度学习驱动的微流控-SERS表征外泌体异质性并分类非小细胞肺癌亚型",
+  "journal": "ACS Sensors",
+  "year": 2025,
+  "doi": "10.1021/acssensors.4c03621",
+  "pmid": null,
+  "pmcid": null,
+  "kind": "diagnostics",
+  "kind_zh": "疾病诊断/POCT",
+  "scheme_image": "papers_figs/15_fig1.png",
+  "pdf_status": "已获取PDF全文精读"
+}

@@ -1,0 +1,15 @@
+# 日志与运行产物
+download*.log
+retry.log
+*.pyc
+__pycache__/
+
+# 论文 PDF 不上传（可用脚本重新下载）
+papers/*.pdf
+
+# 系统/编辑器文件
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/

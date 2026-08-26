@@ -1,0 +1,50 @@
+{
+  "abstract_en": "Drug discovery remains a protracted and capital-intensive process, primarily hindered by inefficiencies in drug screening. Microfluidic technology provides a promising approach for in vitro drug screening, enabling physiologically relevant, high-throughput, and cost-effective analysis by mimicking key aspects of cellular microenvironments. The synergistic integration of artificial intelligence (AI) with microfluidics constitutes a pivotal advancement in biomedical analysis. The convergence of the two facilitates automated data analysis, complex pattern recognition, and intelligent experimental control, thereby accelerating drug screening and contributing to enhanced precision. This review systematically presents the latest advancements in AI-assisted microfluidic drug screening, organized by increasing biological complexity: from single-cell analysis (1D), multicellular arrays (2D), and spheroids (3D), to sophisticated Organ-on-a-chip (OoC, 3D+) platforms. We detail how AI algorithms promote screening throughput, sensitivity, and physiological relevance at each scale. Furthermore, we critically discuss the prevailing challenges, including those related to data, model robustness, interpretability, and system integration. Finally, we outline future directions, highlighting the potential of AI-enhanced microfluidics to further advance precision drug discovery and biomedical research. We believe this timely review will offer a useful reference for researchers working in the interdisciplinary field of AI, microfluidics, and pharmacology.",
+  "abstract_zh": "综述AI与微流控在药物筛选中的融合：从单细胞（1D）、多细胞阵列（2D）、三维球体（3D）到器官芯片（3D+），AI通过自动化数据分析、模式识别与智能实验控制提升通量、准确性与生理相关性。",
+  "background_zh": "药物发现长周期、高成本，传统体外筛选效率低；微流控可模拟细胞微环境实现高通量、低成本筛选，但数据解读与实验控制依赖人工。",
+  "problem_zh": "如何用AI增强微流控药物筛选各层级（单细胞/多细胞/球体/器官芯片）的数据分析与实验智能？",
+  "data_zh": "综述论文：涉及微流控药物筛选实验（细胞图像、多组学、实时监测）与AI算法（ML、CNN、图像分割、多模态）。",
+  "task_zh": "按模型维度（1D/2D/3D/3D+）系统梳理AI×微流控药物筛选的算法、平台与关键挑战。",
+  "method_zh": "按细胞模型维度组织：1D单细胞（异质性、高通量分选）；2D多细胞阵列（CNN无标记、多参数）；3D球体（制备优化、质量控制、无标记活性评估）；3D+器官芯片（多模态/多组学、实时动态监测）。",
+  "results_zh": "AI显著提升药物筛选的通量、准确性与生物学相关性；器官芯片+AI实现多模态数据与实时监测，有望降低动物实验依赖。",
+  "metrics_zh": [
+    {
+      "label": "论文类型",
+      "value": "Acta Pharmaceutica Sinica B 综述"
+    },
+    {
+      "label": "覆盖维度",
+      "value": "1D单细胞→2D阵列→3D球体→3D+器官芯片"
+    }
+  ],
+  "innovation_zh": "以“细胞模型维度”为坐标系梳理AI×微流控药物筛选，突出各维度的算法需求差异。",
+  "limitation_zh": "综述以架构性归纳为主，缺乏定量比较；器官芯片+AI的标准化、可重复性仍是瓶颈。",
+  "paradigm_zh": "多模态智能筛选：把AI作为微流控系统的“分析+控制”中枢，与细胞模型分层（1D→3D+）匹配不同算法，形成全链条智能筛选。",
+  "paradigm_tags": [
+    "综述",
+    "药物筛选",
+    "器官芯片",
+    "多模态AI"
+  ],
+  "framework_zh": "细胞模型（1D/2D/3D/OoC）→数据（图像/组学/实时监测）→AI（分割/分类/预测/控制）→药效/毒性评估→优化迭代。",
+  "framework_steps": [
+    "数据与预处理：多模态细胞图像、活性与组学数据",
+    "模型设计：CNN/ML用于无标记分析、质量控制与预测",
+    "训练策略：跨平台迁移、多组学融合",
+    "评估与解读：药效/毒性指标、生理相关性、通量提升"
+  ],
+  "scheme_zh": "Scheme以1D→2D→3D→3D+的演进轴展示AI微流控药物筛选全景。",
+  "lessons_zh": "AI在药物筛选中的作用随细胞模型复杂度增加而深化；器官芯片+多模态AI是未来体外药筛的核心方向。",
+  "id": "11",
+  "title_en": "AI-integrated microfluidics for drug screening: From single cell to organ-on-a-chip",
+  "title_zh": "AI集成微流控用于药物筛选：从单细胞到器官芯片",
+  "journal": "Acta Pharmaceutica Sinica B",
+  "year": 2026,
+  "doi": "10.1016/j.apsb.2026.01.001",
+  "pmid": null,
+  "pmcid": null,
+  "kind": "organ_chip",
+  "kind_zh": "器官芯片/药物筛选",
+  "scheme_image": "papers_figs/11_fig1.png",
+  "pdf_status": "已获取PDF全文精读"
+}

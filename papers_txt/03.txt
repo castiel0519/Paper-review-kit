@@ -1,0 +1,1099 @@
+===PAGE 1===
+RESEARCH ARTICLE
+www.advancedscience.com
+Deep Learning-Assisted Label-Free Parallel Cell Sorting with
+Digital Microﬂuidics
+Zongliang Guo, Fenggang Li, Hang Li,* Menglei Zhao, Haobing Liu, Haopu Wang,
+Hanqi Hu, Rongxin Fu, Yao Lu, Siyi Hu, Huikai Xie, Hanbin Ma,* and Shuailong Zhang*
+Sorting speciﬁc cells from heterogeneous samples is important for research
+and clinical applications. In this work, a novel label-free cell sorting method is
+presented that integrates deep learning image recognition with microﬂuidic
+manipulation to diﬀerentiate cells based on morphology. Using an
+Active-Matrix Digital Microﬂuidics (AM-DMF) platform, the YOLOv8 object
+detection model ensures precise droplet classiﬁcation, and the Safe Interval
+Path Planning algorithm manages multi-target, collision-free droplet path
+planning. Simulations and experiments revealed that detection model
+precision, concentration ratios, and sorting cycles signiﬁcantly aﬀect recovery
+rates and purity. With HeLa cells and polystyrene beads as samples, the
+method achieved 98.5% sorting precision, 96.49% purity, and an 80% recovery
+over three cycles. After a series of experimental validations, this method can
+also be used to sort HeLa cells from red blood cells, cancer cells from white
+blood cells (represented by HeLa and Jurkat cells), and diﬀerentiate white
+blood cell subtypes (represented by HL-60 cells and Jurkat cells). Cells sorted
+using this method can be lysed directly on chip within their hosting droplets,
+ensuring minimal sample loss and suitability for downstream bioanalysis.
+This innovative AM-DMF cell sorting technique holds signiﬁcant potential to
+advance diagnostics, therapeutics, and fundamental research in cell biology.
+Z. Guo, F. Li, M. Zhao, H. Liu, S. Zhang
+Beijing Advanced Innovation Center for Intelligent Robots and Systems,
+School of Mechatronical Engineering
+Beijing Institute of Technology
+Beijing 100081, China
+E-mail: shuailong.zhang@bit.edu.cn
+H.Li,H.Hu,R.Fu,S.Zhang
+School of Medical Technology
+Beijing Instituteof Technology
+Beijing 100081,China
+E-mail: hang.li@bit.edu.cn
+The ORCID identiﬁcation number(s) for the author(s) of this article
+can be found under https://doi.org/10.1002/advs.202408353
+© 2024 The Author(s). Advanced Science published by Wiley-VCH
+GmbH. This is an open access article under the terms of the Creative
+Commons Attribution License, which permits use, distribution and
+reproduction in any medium, provided the original work is properly cited.
+DOI: 10.1002/advs.202408353
+1. Introduction
+Cell sorting, as a pivotal technique for iso-
+lating speciﬁc cell types or subpopulations
+from heterogeneous populations, plays a
+crucial role in advancing biomedical re-
+search, including cancer diagnostics,[1–3]
+stem cell research,[4,5] and regenerative
+medicine.[6,7] For instance, the precise isola-
+tion of circulating tumor cells (CTCs) from
+liquid biopsy samples directly inﬂuences cy-
+tomics analysis in lesion tracing-based can-
+cer diagnosis.[8] Additionally, in clinical ap-
+plications, label-free cell sorting and sep-
+aration methods without the use of anti-
+bodies are important for low-cost and rapid
+blood-based diseases diagnosis.[9] Hence,
+the development of eﬀective cell-sorting
+technique has profound implications for ad-
+vancing associated research endeavors.[10]
+In recent decades, ﬂuorescence-activated
+cell sorting (FACS) has emerged as a pre-
+dominant technique for cell sorting. Es-
+tablished based on ﬂow cytometry, FACS
+utilizes ﬂuorescent labeling with distinct
+H. Wang, Y. Lu, H. Xie, S. Zhang
+School of Integrated Circuits and Electronics
+Engineering Research Center of Integrated Acousto-Opto-Electronic
+Microsystems (Ministry of Education of China)
+Beijing Institute of Technology
+Beijing 100081, China
+S. Hu, H. Ma
+CAS Key Laboratory of Bio-Medical Diagnostics
+Suzhou Institute of Biomedical Engineering and Technology
+Chinese Academy of Sciences
+Suzhou 215163, China
+E-mail: mahb@sibet.ac.cn
+S.Hu, H.Ma
+ACX Instruments Ltd, St John’s Innovation Centre
+CambridgeCB40WS, UK
+Adv. Sci. 2025, 12, 2408353
+2408353 (1 of 13)
+© 2024 The Author(s). Advanced Science published by Wiley-VCH GmbH
+
+===PAGE 2===
+www.advancedsciencenews.com
+www.advancedscience.com
+excitation wavelengths to identify and sort target cells.[11] In
+combination with complementary methodologies such as sur-
+face acoustic wave manipulation, intracellular markers, and
+microchannel-based microﬂuidics, FACS enables the sorting
+of various cell types, including MCF-7 cells, endocrine cells,
+and K562 cells.[12–15] Additionally, magnet-activated cell sort-
+ing (MACS) has also garnered signiﬁcant attention recently. In
+MACS, cells are tagged with antibodies that are linked to mag-
+netic beads, allowing them to be separated from unlabeled back-
+ground cells by applying a magnetic ﬁeld.[16] This technique has
+been extensively utilized in research ﬁelds such as sperm selec-
+tion, stem cell separation,[17] and bacteria classiﬁcation.[18] How-
+ever, both methods show certain limitations in sorting resolu-
+tion and complexity. For example, FACS compromises the spa-
+tial resolution of images and necessitates extended processing
+time, often resulting in reduced cellular morphological details.
+On the other hand, MACS relies on the labeling of cells with
+magnetic beads, and thus cannot sort multiple cell types simul-
+taneously. Moreover, both techniques involve cell labeling that
+might aﬀect cellular activity and physiological states, potentially
+constraining downstream experiments for various biological ap-
+plications, such as single-cell proteomics.
+To overcome these challenges, innovative cell sorting tech-
+niques, such as label-free image-based cell sorting (IBCS) has at-
+tracted a lot of research interest recently. This approach couples
+microﬂuidics and microarrays with optical imaging to improve
+sorting precision and eﬃciency.[19] Cells are classiﬁed based on
+their morphological features through image processing.[20–27] Al-
+though current IBCS methods, such as microﬂuidic IBCS and
+microarray IBCS (as detailed in Table S1, Supporting Informa-
+tion), facilitate label-free cell sorting, further improvements in
+automation, spatial resolution, and all-in-one cell manipulation
+are still in great need.
+As a highly integrated and fully automated platform for
+biomedical analysis, digital microﬂuidics (DMF) has found ex-
+tensive applications across various domains, including molecu-
+lar diagnostics,[28–31] single-cell-omics,[32–34] blood testing,[35–38]
+etc.[39–42] Traditional DMF devices utilize the electrowetting-on-
+dielectric (EWOD) eﬀect to achieve precise manipulation of
+microliter-sized droplets, facilitating tasks such as movement,
+splitting, and merging the droplets. Established on the principles
+of EWOD, researchers have integrated thin-ﬁlm transistor (TFT)
+technology to develop the active matrix (AM)-DMF consisting of
+tens of thousands of tiny electrodes, which can be used to manip-
+ulate nL even pL droplets.[43,44] In recent years, the maturation
+and widespread adoption of artiﬁcial intelligence (AI) technology
+have led to the integration of microﬂuidics with computer vision
+AI models. This integration has advanced research in ﬂow cytom-
+etry imaging,[45] cell sorting,[46,47] cell viability assessment,[48,49]
+immunoassays,[50] and various other ﬁelds.[51,53]
+Here, we present a novel label-free cell sorting approach that
+integrates deep learning object detection with DMF manipula-
+tion to diﬀerentiate cells based on their morphological features.
+Utilizing an AM-DMF platform (see Figure 1a), we have estab-
+lished a novel YOLOv8 object detection model (prediction work-
+ﬂow and network structure shown in Figure 1c, with details in
+Figure S1, Supporting Information) for accurate classiﬁcation of
+cells within nL droplets, and a Safe Interval Path Planning al-
+gorithm (SIPP) to control the movement of these droplets and
+achieve collision-free cell separation on chip. The sorting process
+mainly consists of ﬁve steps (see Figure 1b), and its eﬃciency can
+be continuously improved by introducing fresh droplets into the
+system (as detailed in Movie S1, Supporting Information). This
+method enables rapid, all-in-one, label-free cell sorting, achiev-
+ing sorting purity greater than 96% and a recovery rate exceeding
+80% for HeLa cells and polystyrene beads (PSBs) mixtures. Fur-
+thermore, we applied this method to sort mixtures of red blood
+cells(RBCs) and HeLa cells, HeLa cells and Jurkat cells, and HL-
+60 cells and Jurkat cells, demonstrating its potential to work with
+diﬀerent cell samples.
+2. Results and Discussion
+2.1. Evaluation of Object Detection Models using Simulation
+The two most important parameters for cell sorting methods
+are rates of recovery and purity.[54] Additionally, for image-based
+approaches, the primary factors inﬂuencing the sorting perfor-
+mance are the precision of the object detection model and the
+concentration ratio of target cells to background cells. To evalu-
+ate these parameters, we performed a series of experimental sim-
+ulations on model samples to assess the inﬂuence of detection
+precision and concentration ratio on recovery and purity.
+First, the distribution of PSBs in droplets were simulated. As
+the electrode of the AM-DMF chip is 250 μm in width and with a
+depth of 50 μm, the total volume of each droplet in the 64-droplet
+array is equivalent to 0.2 μL. Typically, the distribution of cells in
+liquid droplets follows a Poisson distribution, with 𝜆representing
+the average number of cells per droplet.[55] In our mathematical
+modeling (as detailed in the Supporting information), we deﬁned
+a loading concentration of 3.2 × 105 cells per mL. Accordingly, 64
+cells were distributed within the droplets, resulting in an average
+of one cell per droplet. For a 1:1 HeLa cells to PSBs mixture, the
+number of HeLa cells and PSBs in each droplet follows an in-
+dependent and identically distributed (i.i.d) Poisson distribution
+with 𝜆= 1. For a ratio of HeLa cells to PSBs at 1: r, the distribu-
+tion of PSBs follows a Poisson distribution with 𝜆= 1/r.
+To validate the suitability of the derived Poisson distribution
+for modeling the droplets containing PSBs, we conducted on-
+chip experiments. PSBs at diﬀerent concentrations were loaded
+onto the chip, split into single droplet arrays, and analyzed using
+the Chi-square test.[56] As illustrated in Figure 2a, the distribu-
+tion of PSB quantities within droplets follows a Poisson distri-
+bution. The values of 𝜆were determined as 1.219, 2.0625, and
+2.4531 for diﬀerent PSB concentrations, respectively. This result
+suggests that a rise in PSB concentration correlates with an in-
+creased average number of PSBs per droplet. All p-values were
+signiﬁcantly greater than 0.05, validating that the distribution of
+droplets obeys the Poisson distribution.
+Subsequently, simulations were performed to analyze the im-
+pact of sample concentration on the distribution of diﬀerent types
+of droplets throughout the cell sorting process. For 𝜆values rang-
+ing from 0.1 to 2 in increments of 0.1, the mixture concentration
+was adjusted from 0.32 × 105 to 6.4 × 105 cells per mL with an
+increment of 0.32 × 105 cells per mL. The proportions of distinct
+droplet types, including droplets containing only HeLa cells, only
+PSBs, a mix of both, and empty droplets (those without cells and
+PSBs), were quantiﬁed and plotted in Figure 2b. The proportion
+Adv. Sci. 2025, 12, 2408353
+2408353 (2 of 13)
+© 2024 The Author(s). Advanced Science published by Wiley-VCH GmbH
+
+===PAGE 3===
+www.advancedsciencenews.com
+www.advancedscience.com
+Figure 1. Illustration of cell sorting on AM-DMF. (a) System setup. (i) AM-DMF system. (ii) Cross-section view of AM-DMF chip. (iii) Images of the
+droplet captured at diﬀerent heights. (b) Schematic workﬂow of cell sorting on AM-DMF. (c) The structure and prediction workﬂow of YOLOv8 object
+detection model for cell identiﬁcation.
+of droplets with a mix of HeLa cells and PSBs increases sharply
+with increasing concentration. Since the eﬃcacy of cell sorting
+highly depends on the number of droplets containing only the
+target cells, a higher percentage facilitates the isolation of tar-
+get cells with a single sorting process. The increased proportion
+of mixture droplets might result in large number of target cells
+diﬃcult to be sorted, requiring more sorting cycles and leading
+to a lower recovery rate. Conversely, at low concentrations, most
+droplets consist of either only HeLa cells, PSBs, or no objects at
+all, facilitating one round of sorting to capture most target cells.
+This observation indicates that this approach is more suitable for
+samples with low cell concentrations.
+Next, we examined the impact of detection model precision on
+the recovery rate and purity of target cells for a 1:1 HeLa cells-
+PSBs mixture. For cells within each droplet, the object detection
+model has a misclassiﬁcation probability of 1-precision (one mi-
+nus the probability value of precision). We systematically varied
+the precision from 0.525 to 1.000 with a step size of 0.025, con-
+ducting 20 sets of simulation, each repeated 10 times. The re-
+sulting recovery and purity values are presented in Figure 2c.
+Generally, the precision of object detection model markedly in-
+ﬂuences the sorting purity while slightly aﬀects the recovery. It
+shows that higher precision is associated with improved sorting
+purity, whereas lower precision might result in more misclassi-
+ﬁed background cells, reducing sorting purity.
+Further, we set the precision to 0.9 and varied the ratio of HeLa
+cells to PSBs from 5 to 0.5 for 20 sets of simulations, each re-
+peated ten times. The results exhibit that a higher percentage of
+target cells correlates with a higher recovery rate and purity, as
+shown in Figure 2d. Moreover, the ratio of HeLa cells to PSBs
+Adv. Sci. 2025, 12, 2408353
+2408353 (3 of 13)
+© 2024 The Author(s). Advanced Science published by Wiley-VCH GmbH
+
+===PAGE 4===
+www.advancedsciencenews.com
+www.advancedscience.com
+Figure 2. Impact of precision and ratio of target to background cells on the purity and recovery rate. (a) The distribution of PSBs in a droplet array for
+PSB samples at diﬀerent concentrations. Insets show the p-values of K-S test,[57] and 𝜆values for the Poisson distribution curves. (b) The proportion
+of four distinct types of droplets across varying mixture concentrations for a 1:1 HeLa cells-PSBs mixture. (c, d) Inﬂuence of object detection model
+precision and the ratio of HeLa cells to PSBs on sorting purity and recovery rate of HeLa cells.
+more signiﬁcantly impacts the recovery rate than the sorting pu-
+rity. As the modeling demonstrated, the ratio of target cells to
+background directly inﬂuences the droplet content distribution.
+Higher ratios yield more droplets with only HeLa cells or PSBs,
+facilitating the sorting of HeLa cells and consequently enhancing
+the recovery rate. These ﬁndings suggest that a high-precision ob-
+ject detection model is essential for eﬀective cell sorting. It is also
+recommended to preprocess mixture samples to remove back-
+ground cells, such as preliminary enrichment of blood samples
+for sorting CTCs, to improve sorting purity.
+2.2. Comparison and Optimization of Object Detection Models
+To establish and optimize a high-precision object detection
+model, we compared three YOLO-based algorithms, including
+YOLOv8, -v7,[58] and -v5 (https://github.com/ultralytics/yolov5).
+We performed ten repetitions of training for each model with
+diﬀerent parameter sizes (as detailed in Table S2, Supporting
+Information) using the same HeLa-PSBs dataset. Figure 3a–c
+shows the precision and inference time of YOLOv5, v7, and v8
+models with diﬀerent parameter sizes, respectively. Among the
+diﬀerent sizes of YOLOv8, the “small” model was identiﬁed as
+the most eﬃcient, providing high precision with relatively low
+runtime, which is crucial for real-time, high-purity cell sorting.
+Similarly, the YOLOv7-tiny, YOLOv7-middle, YOLOv5-small, and
+YOLOv5-middle performed better than their counterparts of dif-
+ferent sizes. We further compared the precision, inference time,
+and other relevant metrics across these models, as shown in
+Figure 3d. The results demonstrate that YOLOv8 consistently
+outperforms other models, achieving an average precision of
+98.5% and an average runtime of 12 ms per image. These met-
+rics highlight YOLOv8’s eﬀectiveness in achieving high precision
+while maintaining low computational cost.
+In-depth analysis of the training dynamics for YOLOv8 is de-
+picted in Figure 3e through a confusion matrix. This model
+achieves nearly perfect precision across all three categories
+present in the HeLa-PSB dataset: droplets, HeLa cells, and PSBs.
+Adv. Sci. 2025, 12, 2408353
+2408353 (4 of 13)
+© 2024 The Author(s). Advanced Science published by Wiley-VCH GmbH
+
+===PAGE 5===
+www.advancedsciencenews.com
+www.advancedscience.com
+Figure 3. Model training evaluation. (a–c) Inference time and precision for the diﬀerent sizes of the YOLOv5, -v7, and -v8 model, respectively. (d)
+Performance of diﬀerent versions of the YOLO model on metrics of precision, recall, mAP@50, mAP@50-95, and inference time. (e) Confusion matrix
+of YOLOv8s of the training on the HeLa-PSB dataset. The average precision of the three types of objects is 0.985. (f) Trends in each metric when the
+training epoch is 200, and details of training for the next 50 epochs. (g–j) Marginal histogram of circularity and diameter of the sorted HeLa cells and
+PSBs obtained using the deep learning image recognition-based AM-DMF, Countess III assay, and ImageJ, respectively.
+Adv. Sci. 2025, 12, 2408353
+2408353 (5 of 13)
+© 2024 The Author(s). Advanced Science published by Wiley-VCH GmbH
+
+===PAGE 6===
+www.advancedsciencenews.com
+www.advancedscience.com
+The training trajectory over 200 epochs, displayed in Figure 3f,
+shows a gradual reduction in the model’s loss functions and
+a steady increase in both mAP@50 and mAP@50-95 metrics.
+However, a detailed examination reveals a saturation in precision
+during the ﬁnal 50 iterations, suggesting that extending the train-
+ing beyond 200 epochs may not yield signiﬁcant improvements.
+Additional details on the training and extended parameters are
+available in Figures S2 and S6 (Supporting Information).
+2.3. On-Chip Cell Sorting using YOLOv8
+To further evaluate the performance of YOLOv8-based AM-DMF
+cell sorting, we performed additional experiments, aiming to
+compare their capabilities in morphology recognition and cell
+identiﬁcation with those of the conventional Countess III cell
+counter.
+Using the 399 images in the training dataset, we employed the
+YOLOv8 model and Countess III cell counter separately for object
+detection and extracting data on the bounding boxes (Bboxes).
+The marginal histograms in Figure 3g,h depict the diameter and
+circularity distributions of the HeLa cells and PSBs, respectively,
+using the two approaches. The distribution of HeLa cells with
+AM-DMF predominantly fell within a diameter range of 12–
+23 μm and circularity between 85% and 100%. In contrast, the
+Countess III results for HeLa cells were primarily distributed be-
+tween 6 and 27 μm in diameter, with circularity ranging from
+75% to 90%. Similarly, PSBs were predominantly distributed
+within the 90%–100% circularity range and 9.3–11 μm in diam-
+eter using AM-DMF, and within the 75%–90% circularity range
+and 8.7–12.5 μm in diameter using Countess III. This demon-
+strates that a tighter clustering of object diameter and circular-
+ity was observed with our approach, conﬁrming its superior per-
+formance in depicting the true morphological features of HeLa
+cells and PSBs. In general, PSBs, as artiﬁcially engineered mi-
+crobeads, exhibit a more consistent and tightly distributed diam-
+eter (predominantly 9–12.5 μm) and circularity (mainly >90%),
+as compared to HeLa cells, which inherently slightly vary in mor-
+phology, facilitating an eﬀective sorting of the two types of ob-
+jects. In addition, we employed ImageJ to measure the shape
+parameters of 480 PSB and 422 HeLa cells as a standard refer-
+ence for cell shape measurement. The results were compared
+with those obtained using the AI detection model on AM-DMF,
+as shown in Figure 3i,j. The strong alignment between the re-
+sults from our method and the standard ImageJ measurements
+further validates the high accuracy of our AI cell detection model.
+In conclusion, the cell detection outcomes for HeLa cells and
+PSBs on AM-DMF prove signiﬁcantly more precise and aligned
+with actual conditions compared to those generated by the Count-
+ess III cell counter. Thus, our proposed deep learning image
+recognition-based AM-DMF cell sorting approach has demon-
+strated the capability to achieve high-precision detection and clas-
+siﬁcation of target cells.
+2.4. Iterative Cycles for Cell Sorting
+Eﬀective cell sorting can be achieved through iterative cycles.
+By periodically introducing fresh droplets, the cycles of cell sort-
+ing operations have been established for the proposed DMF ap-
+proach (see Figure 4a–d, Movie S2, Supporting Information).
+Since the injected empty droplets do not contain HeLa cells and
+PSBs, they function as diluents, thereby reducing the value of 𝜆
+in the Poisson distribution as well as the number of HeLa cells
+or PSBs in the remained droplets. The following experiment was
+conducted to assess the change of recovery and purity trend. We
+set the ratio to 1 and the precision to 0.985, representing the true
+precision of the YOLOv8s object detection model trained on the
+HeLa-PSB dataset. After replenishing the droplets, we recalcu-
+lated the 𝜆value as the average value of the remaining targets in
+the droplets. We iterated the cell sorting process 1–10 times and
+repeated each experiment 10 times to record recovery and pu-
+rity. The experimental results are visualized in Figure 4e (i) and
+Figure 4h (i).
+As the number of cycles increases, the purity remains steady
+while the recovery rate signiﬁcantly improves. The recovery rate
+is deﬁned as the ratio of collected HeLa cells to all HeLa cells
+in the sample. By introducing replenished droplets in cycles, the
+occurrence of mixed droplets decreases, resulting in more HeLa
+cells being sorted and, hence, an improved recovery rate. Purity is
+deﬁned as the ratio of collected HeLa cells to all collected objects.
+Since each cell sorting process is independent, both the num-
+ber of sorted HeLa cells and the total number of collected objects
+increase with cycles, leading to no signiﬁcant change in purity.
+Overall, three to four iterations are suﬃcient to achieve a recov-
+ery rate of over 80%, which is relatively high. However, the time
+required also increases with the number of cycles. The optimal
+number of cycles should be determined based on speciﬁc appli-
+cation scenarios. Typically, for the sorting of rare cells, a higher
+number of cycles would be preferred to minimize the loss of tar-
+get cells.
+Furthermore, 19 sets of on-chip cell sorting experiments were
+performed with diﬀerent HeLa cell to PSBs ratios and varying
+numbers of cycles. The resulting recovery rates and purities
+are shown in Figure 4e (ii) and Figure 4f (ii), and detailed in
+Table S5 (Supporting Information). The recovery rate substan-
+tially increases with the number of cycles and enhances with an
+increased proportion of target cells, consistent with the above
+simulation results. In contrast, purity remains stable over cycles
+with a slight decreasing trend. This decrease can be attributed to
+the uncertainty in the position of the PSB within the droplet, po-
+tentially causing recognition errors, especially when the PSB is
+at the edge of the droplet, leading to an accumulation of errors
+as the sorting cycle proceeds. Additionally, the recovery rates ob-
+tained from the on-chip experiments were slightly lower than the
+simulation results. This diﬀerence might be caused by various
+factors during the sorting process, such as insuﬃcient replen-
+ishment of droplet volume to generate 8 × 8 droplet arrays and
+incidental loss of droplet manipulation by the AM-DMF chip.
+2.5. Biological Applications
+To apply our proposed cell sorting method in biological studies,
+we tested the sorting of cancer cells from leukocytes, speciﬁcally
+sorting HeLa cells from Jurkat cells (an immortalized cell line
+of human T lymphocytes), and HL-60 cells (a human promye-
+locytic leukemia cell line derived from neutrophils) from Jurkat
+Adv. Sci. 2025, 12, 2408353
+2408353 (6 of 13)
+© 2024 The Author(s). Advanced Science published by Wiley-VCH GmbH
+
+===PAGE 7===
+www.advancedsciencenews.com
+www.advancedscience.com
+Figure 4. Inﬂuence of the number of sorting cycles on cell sorting results. (a–d) Images showing the progression of the cell sorting cycles, captured from
+Movie S1 (Supporting Information). (e). (i–iv) Simulation and experiment results display the sorting purity versus the number of cycles for HeLa-PSB,
+HeLa-RBC, HeLa-Jurkat, and HL-60-Jurkat sorting, respectively. (f). (i–iv) Simulation and experiment results display the trend of sorting recovery rate
+with the number of cycles and ratios in simulation for HeLa-PSB, HeLa-RBC, HeLa-Jurkat, and HL-60-Jurkat sorting, respectively.
+cells, with both HeLa and HL-60 cells present in small quanti-
+ties. Details regarding the dataset construction and model train-
+ing can be found in the “Object Detection Model for Cell Classi-
+ﬁcation” of the Experimental Section. As shown in supplemen-
+tary Figures S4–S9 (Supporting Information), the object detec-
+tion models perform well in recognizing and classifying a variety
+of rare cells, with all precision rates exceeding 95%.
+Using the established models, we performed on-chip cell sort-
+ing at various stages and with three diﬀerent ratios of HeLa cells
+to human RBCs, HeLa cells to Jurkat cells, and HL-60 cells to Ju-
+rkat cells. The sorting results (see Figure 4e(iii–v), 4f(iii–v) and
+Tables S6–S8, Supporting Information) align with the ﬁndings
+from the HeLa-PSB sorting analysis, although there was a slight
+decrease in sorting purity due to the lower precision of the ob-
+ject detection model for cell recognition. Nevertheless, the sort-
+ing purity remained above 90%. These results demonstrate the
+eﬀectiveness of our strategy in isolating various rare mammalian
+cells, including subtypes of blood cells from leukocytes. This in-
+dicates the potential of our DMF approach for complex clinical
+applications, such as circulating tumor cell screening.
+In addition, to improve the sorting performance for rare cells,
+we employed a pre-sorting strategy. A low target cell proportion
+typically implies a high concentration of background cells. Based
+on our ﬁndings (as shown in Figures 2d, 4e(i), 4f(i)), treating the
+background cells as the cells to be sorted results in a high recov-
+ery rate for these cells. This allows the majority of background
+Adv. Sci. 2025, 12, 2408353
+2408353 (7 of 13)
+© 2024 The Author(s). Advanced Science published by Wiley-VCH GmbH
+
+===PAGE 8===
+www.advancedsciencenews.com
+www.advancedscience.com
+Figure 5. On-chip cell lysis processing. (a) HeLa droplets were obtained by cell sorting and lysates were sampled. (b) Merge the two droplets. (c) The
+combined droplets are manipulated to circle and reciprocate so that their contents are well mixed and the lysis reaction is facilitated. (d) Lysis was
+completed and the object detection was performed, revealing no HeLa cells.
+cells to be removed in a single sorting step, signiﬁcantly reduc-
+ing their proportion in the mixture and naturally increasing the
+concentration ratio of target cells. Subsequently, a second round
+of sorting can be performed to sort the desired cells, resulting
+a higher recovery rate. In brief, for rare cell sorting, we employ
+a pre-sorting step to remove background cells and increase the
+proportion of target cells, thereby improving the recovery rate.
+To verify this strategy, we utilized a HeLa cells-RBCs sample
+with a concentration ratio of ≈0.25 for HeLa cells, simulating a
+rare cell sorting scenario. Eight independent sorting each with
+a pre-sorting step were performed. As shown in Table S9 and
+Figure S10 (Supporting Information), the number of background
+cells and the ratio of target cells were signiﬁcantly altered after
+pre-sorting. With a pre-sorting cycle, we achieved recovery im-
+provement of ≈30% (based on the simulation result in Figure 2d)
+for the “rare” HeLa cells.
+As AM-DMF excels in droplet manipulation, we further devel-
+oped a streamlined all-in-one cell sorting and manipulation strat-
+egy by performing on-chip cell lysis. As shown in Figure 5, after
+cell sorting, RIPA lysis buﬀer was introduced on-chip and gen-
+erated a single droplet, which was then merged with the HeLa
+cell droplet, mixed, and ﬁnally lysed the sorted cell. The entire
+process was automated, with the object detection on the droplets
+performed at the beginning and the lysis process performed at
+the end. HeLa cells were detected at the beginning and not at the
+end, conﬁrming the lysis was eﬀectively completed (as detailed in
+Movie S2, Supporting Information). This approach demonstrates
+great potential for downstream analysis of cells such as genomics
+and proteomics research in which cell lysis with minimum sam-
+ple loss is the important ﬁrst step and in great need.
+Further, to verify that droplet manipulation on the AM-DMF
+platform does not aﬀect cell vitality and the number of carried
+cells, additional testing was conducted. We programmed an au-
+tomated movement path and manipulated both PSBs and HeLa
+cells on the chip, allowing them to undergo 30 or 180 min of lin-
+ear movement. The number and vitality of cells in each droplet
+before and after the movement were evaluated and plotted in
+Figure 6. No changes were observed in the number and vitality
+of cells in the droplets before and after manipulation, conﬁrm-
+ing that no cell loss or damage occurred during droplet manipu-
+lation.
+Finally, we investigated and compared a variety of microﬂuidic
+cell sorting methods,[59–67] which are representative of diﬀerent
+cell manipulation principles (e.g., surface acoustic wave, dielec-
+trophoresis, optical tweezers, magnetic ﬁeld, etc.) and diﬀerent
+cell sorting devices, as shown in Table 1. We also compared our
+method with several established machine learning-assisted con-
+tinuous ﬂow cell sorting studies, as presented in Table S10 (Sup-
+porting Information). Compared to these alternatives, the cell
+sorting method proposed in this work uses a label-free approach
+to achieve non-contact manipulation of cells through the control
+of droplets, with each one function as a micro-carrier for the cells.
+Although the throughput and sorting speed (8 groups of samples
+can be sorted simultaneously on one chip, with each group con-
+taining an average of 64 cells, within 2 min, resulting in a max-
+imum sorting speed of 8 × 64/120 = 5 cells per s.) of our pro-
+posed method are somewhat limited by the hardware conditions
+(e.g., droplet moving speed, chip electrode size, etc.) of the AM-
+DMF platform, the method oﬀers several advantages over other
+techniques, such as high purity, cyclable sorting to enhance re-
+covery, label-free sorting, single-cell analysis capability, and fully
+automatic sample preparation for integrated analysis. As a result,
+this approach is well-suited for applications in single-cell histol-
+ogy, single-cell multi-omics, and rare-cell sorting.
+3. Conclusion
+In this study, we introduce a label-free cell sorting technique that
+integrates deep learning image recognition with DMF manipula-
+tion to distinguish cells based on their morphological character-
+istics. By merging the automated parallel single-cell operation of
+AM-DMF with the rapid and precise object detection capabilities
+of the YOLOv8 algorithm, our method facilitates fully automated,
+high-purity, and high-recovery cell sorting with programmable
+nL droplets. The implementation of the safe-interval path plan-
+ning algorithm for droplet arrays ensures eﬃcient spatial sepa-
+ration of droplets according to their contents, thereby enhancing
+the eﬃcacy of cell sorting and the eﬃciency of the system. Ex-
+tensive simulations and experiments were conducted to assess
+the inﬂuence of various parameters on on-chip cell sorting. By
+establishing a mathematical model to approximate the Poisson
+distribution of droplet contents, we evaluated the impact of ob-
+ject detection model precision and PSB-HeLa concentration ra-
+tios on sorting performance. Our results revealed a strong corre-
+lation between precision and purity, with the concentration ratio
+signiﬁcantly aﬀecting the recovery rate. Thus, our approach un-
+derscores the use of a highly accurate target recognition model,
+rendering it particularly suitable for sorting rare cells.
+Adv. Sci. 2025, 12, 2408353
+2408353 (8 of 13)
+© 2024 The Author(s). Advanced Science published by Wiley-VCH GmbH
+
+===PAGE 9===
+www.advancedsciencenews.com
+www.advancedscience.com
+Figure 6. On-chip and oﬀ-chip assessment of the AM-DMF manipulation on cell number loss and vitality. (a,b) On-chip assessment of droplet manip-
+ulation’s impact on cell loss for PSB and HeLa, respectively. (c,d) After 30 and 180 min of on-chip manipulation, the HeLa cells were stained on-chip
+and observed for vitality, respectively. (e) The experimental group was manipulated on-chip for 30 min and then collected using capillary tubes, while
+the control group was collected with capillary tubes immediately after being injected on-chip. Both groups were incubated in 48-well plates for 24 h and
+subsequently stained. (f) The number of live cells in each group was counted in 48-well plates, for which a paired t-sample test was executed, and no
+signiﬁcant diﬀerences were found.
+Table 1. Comparison Between Diﬀerent Cell Sorting Methods.
+Method
+Purity
+Recovery
+Label
+Single-cell
+analysis ability
+Throughput
+Sorting object
+Refs.
+This paper (3 cycles)
+≈100%
+≈80%
+–
++
+≈5 cell per s
+HeLa Cells, PSBs, RBCs, Jurkat
+Cells, and HL-60 cells
+∖
+Standing surface acoustic wave
+92.3%
+98.27%
++
+–
+1200 cells per s
+HeLa cells
+[59]
+MEMS cavitation bubbles
+95.8%
+∖
++
+–
+23 000 cells per s
+Euglena cell and gastric cancer cell
+[60]
+Traveling surface acoustic wave
+>98%
+98%
+–
+–
+1000 cells per s
+PSBs
+[61]
+Dielectrophoresis
+>84%
+67%–84%
+–
+–
+90 cells per s
+Human mesenchymal
+stem cells
+[62]
+Curved channel
+98.4%
+>90%
+–
+–
+3 mL per min
+CTCs and Blood Cells
+[63]
+Curved channel
+91.4%
+WBCs
+91.5%
+CTCs
+89%–92.4%
+–
+–
+2.5 mL per min
+CTCs
+[64]
+Dean ﬂow fractionation for
+size-based separation
+>90%
+∖
+–
+–
+0.13 mL per min
+Neutrophils
+[65]
+Hydrodynamic ﬁltration and
+magnetophoresis
+90%
+∖
++
+–
+100 cells per s
+Human lymphocyte cells
+[66]
+Optical tweezers
+89%
+95%
++
+–
+1 cell per s
+Yeast cells
+[67]
+Adv. Sci. 2025, 12, 2408353
+2408353 (9 of 13)
+© 2024 The Author(s). Advanced Science published by Wiley-VCH GmbH
+
+===PAGE 10===
+www.advancedsciencenews.com
+www.advancedscience.com
+We further trained the YOLOv8 object detection model us-
+ing images of droplets containing cells on the AM-DMF chip,
+constructing a HeLa-PSB dataset. To optimize model precision
+and achieve higher sorting recovery and purity, we compared
+three diﬀerent versions of the YOLO model with varying param-
+eter sizes, ultimately selecting YOLOv8s for its superior preci-
+sion (98.5%) and short prediction time. Analysis of YOLOv8’s
+training process, including the identiﬁcation of suitable training
+epochs and validation using the confusion matrix, further con-
+ﬁrmed its eﬀectiveness. Additionally, we compared the diameter
+and circularity of HeLa cells and PSBs obtained through our ap-
+proach with those from a cell counter. AM-DMF’s morphological
+analysis closely matched the actual distribution, highlighting the
+detection model’s precision and accuracy. Diﬀerences in target
+morphology further underscored the model’s high precision. We
+also examined the eﬀect of the number of sorting cycles on pu-
+rity and recovery, ﬁnding that 3–4 cycles were suﬃcient to achieve
+over 80% recovery and ≈100% purity at a 1:1 ratio. Similarly, we
+acquired images and constructed the HeLa-RBC dataset using
+the same method and veriﬁed the object detection model’s pre-
+cision (97.52%) on it. Subsequently, we conducted several HeLa-
+PSB, HeLa-RBC, HeLa-Jurkat, and HL-60-Jurkat sorting experi-
+ments on-chip, achieving an average purity of 96.49%, 90.46%,
+94.8%, and 95.2%, respectively, along with a three-cycle average
+recovery of ≈80%. We then demonstrated the method’s capability
+for all-in-one cell manipulation post-sorting, exempliﬁed by on-
+chip single-cell lysis. The experiences and system performance
+reported in this work are important to guide future users who
+would like to use such systems for cell sorting and related appli-
+cations.
+In conclusion, the deep learning-assisted AM-DMF method
+oﬀers a robust label-free cell sorting approach with high purity
+and high recovery rates. It shows potential in scenarios involv-
+ing rare cells, such as CTC sorting. As a pioneering endeavor in
+DMF label-free cell sorting, we anticipate further advancements
+and research eﬀorts in this ﬁeld, provide important life science
+tools for various biomedical and clinical applications, and contin-
+uously contributing to advancements in cell-based diagnostics,
+drug development, and fundamental cell biology research.
+4. Experimental Section
+AM-DMF Platform for Cell Manipulation:
+The cell manipulation plat-
+form utilized in this study, known as DM sys, was engineered and assem-
+bled by ACX Instruments Ltd (Cambridge, U.K.) Engineered for fully au-
+tomated and integrated single-cell operations, DMF system can reach a
+droplet volume of 500 pL with an electrode dimension of 125 μm. Lever-
+aging the “one-to-two” droplet splitting method introduced in prior re-
+search, DM sys can swiftly divide a droplet into 8 × 8 single-cell droplet
+arrays within 10 s and execute massively parallel operations, laying the
+groundwork for subsequent cell sorting experiments.[43] As depicted in
+Figure 1a (i), the system comprises three primary components: a motor-
+ized stage controlled by a triaxial motor, a camera equipped with high and
+low-magniﬁcation lenses, and an AM-DMF chip. Taking the AM16K chip
+as an example, it features 128 rows and 128 columns, with a side length of
+4.5 cm, and was outﬁtted with injection holes on the upper glass substrate
+for the medium oil and samples, respectively. The AM-DMF chip was com-
+posed of two glass substrates interposed with two hydrophobic layers, two
+insulation layers, and TFT pixel electrodes sandwiched in between.
+Object Detection Model for Cell Classiﬁcation:
+The cutting-edge
+YOLOv8 algorithm is employed as the object detection model in this re-
+search (https://github.com/ultralytics/ultralytics). YOLOv8, an abbrevia-
+tion for “You Only Look Once version 8,” represents a signiﬁcant advance-
+ment within the YOLO series of object detection models. Building upon
+the successes of its predecessors, YOLOv8 integrates advancements in
+deep learning methodologies to enhance real-time object detection ca-
+pabilities. Operationally, the YOLOv8 object detection model functions
+as follows: Initially, images of droplets containing cells on the AM-DMF
+chip were acquired, pre-processed, and subsequently fed into the YOLOv8
+model for prediction. The model predicts Bboxes which were superim-
+posed on the original images, yielding the desired output.
+Regarding the training process, the initial step involved injecting a pre-
+pared suspension of HeLa cells mixed with PSB (for detailed preparation,
+refer to Section 2.4.) into the AM-DMF chip. Subsequently, the “one-to-
+two” droplet splitting technique was employed to generate single droplet
+arrays. These droplet images were then captured using a 10× objective
+lens and uploaded to Roboﬂow (https://app.roboﬂow.com) for labeling,
+data pre-processing (resized to 640 × 640 pixels in grayscale), and data
+augmentation (Table S4, Supporting Information). Given the uncertainty
+regarding the height of cells within the droplet, the model needed to pos-
+sess the capability to accurately recognize cells at various heights. There-
+fore, for each droplet, three images were captured: one at the focal plane
+of the objective, another 10 μm above the focal plane, and the third 10
+μm below the focal plane, as depicted in Figure 1a (iii). Following the ini-
+tial screening process, a total of 163 images were curated to construct
+the dataset. Subsequent to data augmentation, the dataset expanded to
+489 images, which were then partitioned into a training set (399 images,
+82%), a validation set (60 images, 12%), and a test set (30 images, 6%)
+to form the HeLa-PSB dataset. With image acquisition and data augmen-
+tation, the HeLa-RBC dataset is established (609 images for training, 84
+images for validation, and 56 images for testing), the HeLa-Jurkat dataset
+(1350 images for training, 141 images for validation, and 95 images for
+testing), and the HL-60 dataset (1185 images for training, 140 images for
+validation and 117 images for testing). All simulation experiments and
+model deployments were performed on a workstation equipped with an
+Intel Core i7-12700H @3.70GHz × 20 CPUs, 32 GB RAM, and an NVIDIA
+RTX A2000 8GB Laptop GPU, utilizing Python 3.10.10. All Python scripts
+are available at https://github.com/Aneage/AM-DMF-Cell-Sorting.
+Droplet Path Planning Algorithm:
+In this study, the SIPP[68] is em-
+ployed for the purpose of spatially segregating droplets according to their
+type to facilitate cell sorting. An issue encountered when applying SIPP
+to droplet path planning arises from its original design for unmanned ve-
+hicle path planning. In the context of unmanned vehicle path planning,
+two vehicles with a distance greater than 0 can be considered collision-
+free. However, in droplet path planning, when two droplets were adjacent,
+surface tension causes them to merge, resulting in contamination and di-
+rectly impacting the cell sorting outcome. To address this challenge, the
+safe distance between two droplets were set as 1 electrode and make cor-
+responding modiﬁcations to the SIPP algorithm, and after planning the
+path for each droplet, a dynamic obstacle was set and get its safe inter-
+val according to the SIPP algorithm, thus realizing the collision-free path
+planning for multiple droplets. Following the generation of the droplet ar-
+ray, droplets were identiﬁed using the object detection model, and their
+classiﬁcations were determined. The target electrodes for the respective
+droplets were then set, and the path-planning algorithm was executed.
+(Algorithm 1, Supporting Information)
+Preparation of Samples:
+The HeLa cells were cultured under controlled
+conditions in a cell culture incubator set to 5% CO2, with saturated humid-
+ity, and maintained at 37 °C. The growth medium for the HeLa cells com-
+prised MEM supplemented with 10% FBS, 100 μg mL−1 of penicillin, and
+100 μg mL−1 of streptomycin (Eallbio, China). Prior to the commencement
+of experiments, the cells underwent dissociation and were resuspended
+in fresh complete medium. Both the cell count and cell viability were de-
+termined using an automated cell counter (Countess III, Thermo Fischer
+Scientiﬁc, USA). The cell lines were subcultured every 2–3 days at a density
+of 105 cells mL−1 cm−2. Cell dissociation was facilitated by trypsin (Eall-
+bio, China), followed by centrifugation at 800 rpm for 8 min. Subsequently,
+Adv. Sci. 2025, 12, 2408353
+2408353 (10 of 13)
+© 2024 The Author(s). Advanced Science published by Wiley-VCH GmbH
+
+===PAGE 11===
+www.advancedsciencenews.com
+www.advancedscience.com
+the supernatant was aspirated, and the cells were resuspended in a fresh
+complete medium.
+The study, which involved clinical blood samples and data, was ap-
+proved by the Ethics Committee of Peking Union Medical College Hospital
+(ethics number: I-24PJ1716), and informed consent was obtained from all
+participants. Two milliliters of peripheral blood were collected in tubes, al-
+lowed to sit at room temperature for 1 h, and centrifuged at 100 g for 20
+min. Aspirate the sample supernatant and resuspend the sample using
+PBS to obtain the red blood cell samples. Jurkat cells and HL-60 cells were
+cultured under the same conditions as HeLa cells, using Jurkat complete
+medium (Eallbio, China) and HL-60 complete medium (Eallbio, China), re-
+spectively. The cells were resuspended in PBS after centrifugation at 1050
+rpm for 5 min.
+The morphology of HeLa cells, PSBs, and RBCs diﬀers greatly, allowing
+manual cell counting under a microscope. In contrast, HeLa, Jurkat, and
+HL-60 cells have similar morphologies, with no visibly distinct diﬀerences.
+Therefore, the target cells were ﬂuorescently labeled (live cells staining us-
+ing Calcein-AM, Phygene, China) prior to sorting, and were observed and
+counted under a ﬂuorescence microscope after sorting. It was important
+to note that, although the target cells were stained, the ﬂuorescent labeling
+information was used to diﬀerentiate between two types of cells to avoid
+manual counting errors due to their similarity in shape, not used to assist
+sorting, thereby maintaining the label-free nature of the method.
+The polystyrene beads (PSBs) utilized in the experiments possessed
+an average diameter of 10 μm, with a coeﬃcient of variation of 10%, sus-
+pended in a 2.5% solids (w/v) aqueous solution, and a concentration of
+4.55 × 107 particles per mL (Polybead® Microspheres 10.00 μm, Poly-
+sciences, U.S.A.). Prior to experimentation, the PSB was diluted 100-fold
+using PBS buﬀer (Eallbio, China) and mixed with HeLa cells in an equal
+volume ratio. To ensure stable on-chip manipulation upon injection onto
+the AM-DMF chip, a 0.05% (v/v) P-F68 surfactant (Poloxamer 188, Sigma-
+Aldrich, Germany) was added to the HeLa/PSB mixed suspension. The
+concentration of all the samples in the sorting experiments were obtained
+from the cell counter, while the number of particles used to calculate the
+recovery and purity were manually counted to ensure accuracy.
+Evaluation of Droplet Manipulation on Cells:
+To assess potential cell
+loss or damage during droplet manipulation on the AM-DMF chip, the
+following experiments were performed: HeLa cells and PSB samples were
+injected into the chip, automated movement paths were programmed for
+the droplets, and the droplets were manipulated for 30 min. The number
+of cells contained in each droplet was counted both before and after the
+manipulation and was plotted in Figure 6a,b. To assess cellular vitality and
+functionality after sorting, two tests were conducted. First, the cells are au-
+tomatically manipulated on-chip for 30 min and 180 min, respectively, and
+then loaded ﬂuorescent dye solution on-chip for staining to diﬀerentiate
+between live and dead cells under a ﬂuorescence microscope. The results
+in Figure 6c,d show that no changes in cell vitality were observed after the
+30-min manipulation, while cell vitality slightly decreased after the 180-min
+manipulation, indicated by a weaker ﬂuorescent signal.
+Furthermore, the cell samples were divided into experimental and con-
+trol groups. The experimental group was manipulated on-chip for 30 min
+and then collected using capillary tubes, while the control group was
+collected with capillary tubes immediately after being injected on-chip.
+Both groups were incubated in 48-well plates for 24 h and subsequently
+stained. The number of live cells in each group was counted and shown
+in Figure 6e,f. A paired samples t-test revealed no signiﬁcant diﬀerence in
+the number of live cells between the two groups, indicating that cell via-
+bility and functionality were not aﬀected by the AM-DMF operation. This
+demonstrates that the proposed method maintains cellular vitality well
+during sorting.
+Integrating the methodologies mentioned above and procedures yields
+the comprehensive process of cell sorting on the AM-DMF platform, as
+illustrated in Figure 1. Initially, the sample was injected into the AM-
+DMF chip, where the droplet array was generated via the execution of the
+“one-to-two” droplet splitting method. Subsequently, the droplet array was
+screened under the ﬁeld of view of a 10× objective lens to get droplet clas-
+siﬁcation data using the YOLOv8 object detection model. Following this,
+the droplet path planning algorithm was employed to segregate and re-
+arrange the droplets according to their classiﬁcation. Finally, the sorting
+outcomes were analyzed to obtain information such as purity and recov-
+ery rate. Notably, the whole process can be iterated to enhance the recovery
+rate. After segregating the HeLa droplets, the necessary droplets required
+to reconstitute an 8 × 8 array were calculated, and samples (fresh droplets)
+were added. The remaining droplets were then combined with the fresh
+droplets, and the process of splitting and sorting was repeated. This itera-
+tive procedure facilitates the separation of the two target types within the
+mixed droplets, thereby improving the recovery rate (Movie S1, Algorithm
+2, Supporting Information).
+Supporting Information
+Supporting Information is available from the Wiley Online Library or from
+the author.
+Acknowledgements
+The work was supported by the National Key R&D Program of China
+(Grant Nos. 2023YFE0112400, 2022YFA1207100, 2023YFF0721500), the
+National Natural Science Foundation of China (Grant Nos. 62103050),
+the Beijing Municipal Natural Science Foundation (Grant Nos. 4242060,
+2242018, L246030), the BIT Research and Innovation Promoting Project
+(Grant No. 2023CX01002), the Chongqing Municipal Distinguish Young
+Scholar Program (Grant No. 2024NSCQ-JQX0192), the Henan Province
+Science and Technology Research and Development Joint Project (Grant
+No. 225200810102), Open Research Fund of Guangdong Provincial Key
+Laboratory of Advanced Biomaterials (Southern University of Science and
+Technology, Grant No.KLAB202404002), Open Research Fund of State Key
+Laboratory of Optoelectronic Materials and Technologies (Sun Yat-sen
+University, Grant No. OEMT-2024-KF-03), Open Research Fund of State
+Key Laboratory of Digital Medical Engineering (Southeast University, Grant
+No. 2023-K02). The authors would like to thank the technical support from
+the Peking Union Medical College Hospital (Dr. Tianming Xu), the Biolog-
+ical and Medical Engineering Core Facilities of Beijing Institute of Technol-
+ogy (Mr. Yong Cong and Mrs. Chao Yang), the Micro & Nano Fabrication
+Center of Beijing Institute of Technology (Mr. Hongxing Yin and Mr. Bing
+Xu), and the Analysis and Testing Center of Beijing Institute of Technology.
+Conﬂict of Interest
+The authors declare no conﬂict of interest.
+Data Availability Statement
+The data that support the ﬁndings of this study are available from the cor-
+responding author upon reasonable request.
+Keywords
+artiﬁcial intelligence, cell sorting, digital microﬂuidics, droplet, single cell
+research, label-free
+Received: July 21, 2024
+Revised: October 3, 2024
+Published online: November 5, 2024
+[1] M. J. Smith, A. C. Culhane, M. Donovan, J. C. Coﬀey, B. D. Barry, M.
+A. Kelly, D. G. Higgins, J. H. Wang, W. O. Kirwan, T. G. Cotter, H. P.
+Redmond, Br. J. Cancer. 2009, 100, 1452.
+Adv. Sci. 2025, 12, 2408353
+2408353 (11 of 13)
+© 2024 The Author(s). Advanced Science published by Wiley-VCH GmbH
+
+===PAGE 12===
+www.advancedsciencenews.com
+www.advancedscience.com
+[2] D. J. Eastburn, A. Sciambi, A. R. Abate, Nucleic Acids Res. 2014, 42,
+128.
+[3] P. Y. Chu, C. J. Liao, C. H. Hsieh, H. M. Wang, W. P. Chou, P. H. Chen,
+M. H. Wu, Sens. Actuators. B-Chem. 2019, 283, 621.
+[4] P. O. Bagnaninchi, N. Drummond, Proc. Natl. Acad. Sci. USA 2011,
+108, 6462.
+[5] T. N. G. Adams, A. Y. L. Jiang, P. D. Vyas, L. A. Flanagan, Methods.
+2018, 133, 91.
+[6] T. Kageyama, R. Anakama, H. Togashi, J. Fukuda, J. Biosci. Bioeng.
+2022, 134, 534.
+[7] Y. Takahashi, S. Miyata, Micromachines. 2020, 11, 734.
+[8] X. Y. Fan, C. P. Jia, J. Yang, G. Li, H. J. Mao, Q. H. Jin, J. L. Zhao, Biosens.
+Bioelectron. 2015, 71, 380.
+[9] N. Lu, H. M. Tay, C. Petchakup, L. W. He, L. Y. Gong, K. K. Maw, S. Y.
+Leong, W. W. Lok, H. B. Ong, R. Y. Guo, K. H. H. Li, H. W. Hou, Lab
+Chip. 2023, 23, 1226.
+[10] X. X. Guo, F. H. Lin, C. Y. Yi, J. Song, D. Sun, L. Lin, Z. X. Zhong, Z.
+R. Wu, X. Y. Wang, Y. K. Zhang, J. Li, H. M. Zhang, F. Liu, C. Y. Yang,
+J. Song, Nat. Commun. 2022, 13, 7687.
+[11] L. A. Herzenberg, R. G. Sweet, L. A. Herzenberg, Sci. Am. 1976, 234,
+108.
+[12] Z. C. Ma, Y. N. Zhou, D. J. Collins, Y. Ai, Lab Chip. 2017, 17, 3176.
+[13] U. Moerch, H. S. Nielsen, D. Lundsgaard, M. B. Oleksiewicz, Cytom-
+etry A. 2007, 71, 495.
+[14] Y. L. Qin, L. Wu, J. G. Wang, R. Han, J. Y. Shen, J. S. Wang, S. H. Xu, A.
+L. Paguirigan, J. L. Smith, J. P. Radich, D. T. Chiu, Anal. Chem. 2019,
+91, 6815.
+[15] S. H. Cho, C. H. Chen, F. S. Tsai, J. M. Godin, Y. H. Lo, Lab Chip. 2010,
+10, 1567.
+[16] N. T. Huang, Y. J. Hwong, R. L. Lai, Microﬂuid. Nanoﬂuid. 2018, 22,
+16.
+[17] A. Pacheco, A. Blanco, F. Bronet, M. Cruz, J. García-Fernández, J. A.
+García-Velasco, J. Clin. Med. 2020, 9, 3976.
+[18] S. Oh, S. H. Jung, H. Seo, M. K. Min, B. Kim, Y. K. Hahn, J. H. Kang,
+S. Choi, Sens. Actuators B-Chem. 2018, 272, 324.
+[19] C. A. LaBelle, A. Massaro, B. Cortés-Llanos, C. E. Sims, N. L.
+Allbritton, Trends Biotechnol. 2021, 39, 613.
+[20] N. Nitta, T. Sugimura, A. Isozaki, H. Mikami, K. Hiraki, S. Sakuma, T.
+Iino, F. Arai, T. Endo, Y. Fujiwaki, H. Fukuzawa, M. Hase, T. Hayakawa,
+K. Hiramatsu, Y. Hoshino, M. Inaba, T. Ito, H. Karakawa, Y. Kasai, K.
+Koizumi, S. Lee, C. Lei, M. Li, T. Maeno, S. Matsusaka, D. Murakami,
+A. Nakagawa, Y. Oguchi, M. Oikawa, T. Ota, et al., Cell. 2018, 175,
+266.
+[21] S. Ota, R. Horisaki, Y. Kawamura, M. Ugawa, I. Sato, K. Hashimoto,
+R. Kamesawa, K. Setoyama, S. Yamaguchi, K. Fujiu, K. Waki, H. Noji,
+Science. 2018, 360, 1246.
+[22] N. Nitta, T. Iino, A. Isozaki, M. Yamagishi, Y. Kitahama, S. Sakuma,
+Y. Suzuki, H. Tezuka, M. Oikawa, F. Arai, T. Asai, D. H. Deng,
+H. Fukuzawa, M. Hase, T. Hasunuma, T. Hayakawa, K. Hiraki, K.
+Hiramatsu, Y. Hoshino, M. Inaba, Y. Inoue, T. Ito, M. Kajikawa, H.
+Karakawa, Y. Kasai, Y. Kato, H. Kobayashi, C. Lei, S. Matsusaka, H.
+Mikami, et al., Nat. Commun. 2020, 11, 3452.
+[23] A. Isozaki, H. Mikami, H. Tezuka, H. Matsumura, K. R. Huang, M.
+Akamine, K. Hiramatsu, T. Iino, T. Ito, H. Karakawa, Y. Kasai, Y. Li,
+Y. Nakagawa, S. Ohnuki, T. Ota, Y. Qian, S. Sakuma, T. Sekiya, Y.
+Shirasaki, N. Suzuki, E. Tayyabi, T. Wakamiya, M. Z. Xu, M. Yamagishi,
+H. C. Yan, Q. Yu, S. Yan, D. Yuan, W. Zhang, Y. Q. Zhao, et al., Lab
+Chip. 2020, 20, 2263.
+[24] C. A. LaBelle, R. J. Zhang, P. M. Armistead, N. L. Allbritton, IEEE Trans.
+Biomed. Eng. 2020, 67, 2166.
+[25] K. Lee, S. E. Kim, J. Doh, K. Kim, W. K. Chung, Lab Chip. 2021, 21,
+1798.
+[26] M. Di Trapani, N. Manaresi, G. Medoro, Cytometry A. 2018, 93,
+1260.
+[27] A. A. Nawaz, M. Urbanska, M. Herbig, M. Nötzel, M. Kräter, P.
+Rosendahl, C. Herold, N. Toepfner, M. Kubánková, R. Goswami, S.
+Abuhattum, F. Reichel, P. Müller, A. Taubenberger, S. Girardo, A.
+Jacobi, J. Guck, Nat. Methods. 2020, 17, 595.
+[28] A. Rival, D. Jary, C. Delattre, Y. Fouillet, G. Castellan, A. Bellemin-
+Comte, X. Gidrol, Lab Chip. 2014, 14, 3739.
+[29] L. Wan, M. Z. Li, M. K. Law, P. I. Mak, R. P. Martins, Y. W. Jia, Biosens.
+Bioelectron. 2023, 242, 115711.
+[30] T. Narahari, J. Dahmer, A. Sklavounos, T. Kim, M. Satkauskas, I.
+Clotea, M. Ho, J. Lamanna, C. Dixon, D. G. Rackus, S. J. R. da Silva,
+L. Pena, K. Pardee, A. R. Wheeler, Lab Chip. 2022, 22, 1748.
+[31] R. Shen, A. Lv, S. H. Yi, P. Wang, P. I. Mak, R. P. Martins, Y. W. Jia,
+TrAC Trend Anal. Chem. 2024, 171, 117535.
+[32] J. Lamanna, E. Y. Scott, H. S. Edwards, M. D. Chamberlain, M. D.
+M. Dryden, J. X. Peng, B. Mair, A. Lee, C. Chan, A. A. Sklavounos, A.
+Heﬀernan, F. Abbas, C. Lam, M. E. Olson, J. Moﬀat, A. R. Wheeler,
+Nat. Commun. 2020, 11, 5632.
+[33] X. Zeng, S. W. Jiang, Z. X. Zhong, X. P. Yang, Q. Y. Chen, J. Li, Z. Zhu,
+J. Song, C. Y. Yang, Small Methods. 2024, 8, 2301075.
+[34] X. Zeng, X. X. Guo, S. W. Jiang, X. P. Yang, Z. X. Zhong, S. Y. Liu, Z.
+Zhu, J. Song, C. Y. Yang, Anal. Chem. 2023, 95, 13313.
+[35] C. Dixon, J. Lamanna, A. R. Wheeler, Lab Chip. 2020, 20, 1845.
+[36] T. Komatsu, M. Tokeshi, S. K. Fan, Biosens. Bioelectron. 2022, 195,
+113631.
+[37] D. H. Li, X. Y. Liu, Y. J. Chai, J. Y. Shan, Y. H. Xie, Y. Liang, S. Huang,
+W. D. Zheng, Z. D. Li, Lab Chip. 2022, 22, 709.
+[38] S. C. C. Shih, H. Yang, M. J. Jebrail, R. Fobel, N. McIntosh, O. Y. Al-
+Dirbashi, P. Chakraborty, A. R. Wheeler, Anal. Chem. 2012, 84, 3731.
+[39] C. B. Yang, X. Y. Gan, Y. P. Zeng, Z. R. Xu, L. Q. Xu, C. X. Hu, H. B. Ma,
+B. Chai, S. Y. Hu, Y. J. Chai, Biosens. Bioelectron. 2023, 242, 115723.
+[40] Z. D. Tong, C. J. Shen, Q. S. Li, H. Yin, H. J. Mao, Analyst. 2023, 148,
+1399.
+[41] Z. D. Tong, D. W. Yang, C. J. Shen, C. Li, X. Xu, Q. S. Li, Z. H. Wu, H.
+Ma, F. X. Chen, H. J. Mao, Anal. Chim. Acta. 2024, 1296, 342337.
+[42] M. Z. Li, L. Wan, M. K. Law, L. Meng, Y. W. Jia, P. I. Mak, R. P. Martins,
+Lab Chip. 2022, 22, 537.
+[43] S. Y. Hu, J. M. Ye, S. B. Shi, C. Yang, K. Jin, C. X. Hu, D. P. Wang, H.
+B. Ma, Anal. Chem. 2023, 95, 6905.
+[44] Y. R. Xing, Y. Liu, R. F. Chen, Y. Y. Li, C. Z. Zhang, Y. W. Jiang, Y. Lu, B.
+C. Lin, P. Z. Chen, R. J. Tian, X. M. Liu, X. Cheng, Lab Chip. 2021, 21,
+1886.
+[45] A. Isozaki, J. Harmon, Y. Q. Zhou, S. Li, Y. Nakagawa, M. Hayashi, H.
+Mikami, C. Lei, K. Goda, Lab Chip. 2020, 20, 3074.
+[46] M. Hayashi, S. Ohnuki, Y. T. Tsai, N. Kondo, Y. Q. Zhou, H. Q. Zhang,
+N. T. Ishii, T. B. Ding, M. Herbig, A. Isozaki, Y. Ohya, K. Goda, Lab
+Chip. 2023, 23, 4232.
+[47] Y. Gu, A. C. Zhang, Y. Y. Han, J. Li, C. Chen, Y. H. Lo, Cytometry A.
+2019, 95, 499.
+[48] Y. F. Yao, L. He, L. Y. Mei, Y. Y. Weng, J. Huang, S. B. Wei, R. B. Li,
+S. Tian, P. Liu, X. L. Ruan, D. Wang, F. L. Zhou, C. Lei, Cytometry A.
+2023, 103, 646.
+[49] E. S. Lamoureux, E. Islamzada, M. V. J. Wiens, K. Matthews, S. P.
+Duﬀy, H. S. Ma, Lab Chip. 2021, 22, 26.
+[50] W. Q. Zhao, Y. Zhou, Y. Z. Feng, X. H. Niu, Y. K. Zhao, J. P. Zhao, Y.
+Z. Dong, M. Q. Tan, Y. L. Xianyu, Y. P. Chen, ACS Nano. 2023, 17,
+13700.
+[51] F. Ahmadi, M. Simchi, J. M. Perry, S. Frenette, H. Benali, J. P. Soucy,
+G. Massarweh, S. C. C. Shih, Lab Chip. 2022, 23, 81.
+[52] K. Murakami, S. I. Kubota, K. Tanaka, H. Tanaka, K. Akabane, R.
+Suzuki, Y. Shinohara, H. Takei, S. Hashimoto, Y. Tanaka, S. Hojyo,
+O. Sakamoto, N. Naono, T. Takaai, K. Sato, Y. Kojima, T. Harada, T.
+Hattori, S. T. S. Fuke, I. Yokota, S. Konno, T. Washio, T. Fukuhara,
+T. Teshima, M. Taniguchi, M. Murakami, Lab Chip. 2023, 23,
+4909.
+Adv. Sci. 2025, 12, 2408353
+2408353 (12 of 13)
+© 2024 The Author(s). Advanced Science published by Wiley-VCH GmbH
+
+===PAGE 13===
+www.advancedsciencenews.com
+www.advancedscience.com
+[53] K. Gardner, M. M. Uddin, L. Tran, T. Pham, S. Vanapalli, W. Li, Lab
+Chip. 2022, 22, 4067.
+[54] Y. G. Shen, Y. Yalikun, Y. Tanaka, Sens. Actuators B-Chem. 2019, 282,
+268.
+[55] A. Gross, J. Schöndube, S. Niekrawitz, W. Streule, L. Riegger, R.
+Zengerle, P. Koltay, J. Lab. Autom. 2013, 18, 504.
+[56] J. Cohen, Psychol. Bull. 1992, 112, 155.
+[57] F. J. Massey, J. Am. Stat. Assoc. 1951, 46, 68.
+[58] C. Y. Wang, A. Bochkovskiy, H. Y. M. Liao, presented at IEEE/CVF
+Conference on Computer Vision and Pattern Recognition 2023 2023,
+Cvpr, 7464.
+[59] A. A. Nawaz, Y. C. Chen, N. Narna, R. H. Nissly, L. Q. Ren, A. Ozcelik,
+L. Wang, J. P. McCoy, S. J. Levine, T. J. Huang, Anal. Chem. 2015, 87,
+12051.
+[60] S. Sakuma, Y. Kasai, T. Hayakawa, F. Arai, Lab Chip. 2017, 17, 2760.
+[61] Z. C. Ma, D. J. Collins, Y. Ai, Anal. Chem. 2016, 88, 5316.
+[62] H. J. Song, J. M. Rosano, Y. Wang, C. J. Garson, B. Prabhakarpandian,
+K. Pant, G. J. Klarmann, A. Perantoni, L. M. Alvarez, E. Lai, Lab Chip.
+2015, 15, 1320.
+[63] S. F. Shen, C. Tian, T. B. Li, J. Xu, S. W. Chen, Q. Tu, M. S. Yuan, W. M.
+Liu, J. Y. Wang, Lab Chip. 2017, 17, 3578.
+[64] E. Lin, L. Rivera-Báez, S. Fouladdel, H. J. Yoon, S. Guthrie, J. Wieger,
+Y. Deol, E. Keller, V. Sahai, D. M. Simeone, M. L. Burness, E. Azizi, M.
+S. Wicha, S. Nagrath, Cell Syst. 2017, 5, 295.
+[65] H. W. Hou, C. Petchakup, H. M. Tay, Z. Y. Tam, R. Dalan, D. E. K.
+Chew, K. H. H. Li, B. O. Boehm, Sci. Rep. 2016, 6, 29410.
+[66] M. Mizuno, M. Yamada, R. Mitamura, K. Ike, K. Toyama, M. Seki,
+Anal. Chem. 2013, 85, 7666.
+[67] B. Landenberger, H. Höfemann, S. Wadle, A. Rohrbach, Lab Chip.
+2012, 12, 3177.
+[68] M. Phillips, M. Likhachev, presented at 2011 IEEE International Con-
+ference on Robotics and Automation (ICRA), IEEE, May, 2011.
+Adv. Sci. 2025, 12, 2408353
+2408353 (13 of 13)
+© 2024 The Author(s). Advanced Science published by Wiley-VCH GmbH

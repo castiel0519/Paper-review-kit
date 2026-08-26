@@ -1,0 +1,50 @@
+{
+  "abstract_en": "Droplet-based microfluidic devices have substantial promise as cost-effective alternatives to current assessment tools in biological research. Moreover, machine learning models that leverage tabular data, including input design parameters and their corresponding efficiency outputs, are increasingly utilized to automate the design process of these devices and to predict their performance. However, these models fail to fully leverage the data presented in the tables, neglecting crucial contextual information, including column headings and their associated descriptions. This study presents μ-Fluidic-LLMs, a framework designed for processing and feature extraction, which effectively captures contextual information from tabular data formats. μ-Fluidic-LLMs overcomes processing challenges by transforming the content into a linguistic format and leveraging pretrained large language models (LLMs) for analysis. We evaluate our μ-Fluidic-LLMs framework on prediction tasks utilizing publicly available data sets on droplet microfluidics. We demonstrate that our μ-Fluidic-LLMs framework can empower deep neural network models to be highly effective and straightforward while minimizing the need for extensive data preprocessing. When combined with LLMs like LLAMA3.1 and DEEPSEEK-R1, deep neural networks achieve marked improvements, lowering the mean absolute error in generation rate by nearly 40%, reducing the root mean squared error in droplet diameter by around 26%, and enhancing regime classification accuracy by over 3% in comparison with prior results. This study lays the foundation for the huge potential applications of LLMs and machine learning in a wider spectrum of microfluidic applications.",
+  "abstract_zh": "提出μ-Fluidic-LLMs框架：把微流控表格数据（设计参数与性能输出）转换为文本形式，利用预训练大语言模型提取上下文特征，再喂给深度神经网络；在公开液滴微流控数据集上以更少数据预处理实现高效预测。",
+  "background_zh": "液滴微流控设备有潜力成为低成本生物评估工具；基于表格数据的机器学习被越来越多用于设计自动化，但传统模型忽略列头与描述等上下文信息。",
+  "problem_zh": "如何让模型捕捉表格数据的上下文语义（列名、单位、描述），减少繁琐特征工程，提升小样本预测性能？",
+  "data_zh": "公开液滴微流控数据集（含设计参数与性能输出表格，如液滴尺寸/生成频率），作为结构化表格输入。",
+  "task_zh": "表格数据→语言化→LLM特征提取→DNN回归/分类，实现设计参数-性能预测与生成参数推荐。",
+  "method_zh": "将表格内容转成自然语言描述（列标题、单位、语义），用预训练LLM生成文本嵌入/特征，替代手工特征工程；下游用深度神经网络建模；在公开数据上系统评测。",
+  "results_zh": "μ-Fluidic-LLMs在不依赖大量数据预处理的情况下，使DNN模型高效且直接地利用表格上下文，预测/推荐性能优于传统表格建模基线。",
+  "metrics_zh": [
+    {
+      "label": "框架",
+      "value": "LLM特征提取 + DNN"
+    },
+    {
+      "label": "输入",
+      "value": "公开液滴微流控表格数据"
+    }
+  ],
+  "innovation_zh": "首次把LLM作为“表格上下文感知”的特征提取器用于微流控设计预测，显著降低特征工程成本。",
+  "limitation_zh": "LLM推理成本与时延高于传统模型；可解释性较弱；评测数据集规模和公开性有限。",
+  "paradigm_zh": "语言模型+表格建模：把结构化表格“语义化”后再学习，属于文本增强的机器学习范式，适合小样本、强上下文依赖的设计任务。",
+  "paradigm_tags": [
+    "大语言模型",
+    "表格数据",
+    "特征提取",
+    "设计预测"
+  ],
+  "framework_zh": "表格→语言化（列/单位/描述）→LLM嵌入→DNN建模→性能预测/参数推荐→实验验证。",
+  "framework_steps": [
+    "数据与预处理：微流控表格数据清洗与语义化",
+    "模型设计：预训练LLM提取文本特征+DNN预测器",
+    "训练策略：小样本增强、少预处理、跨数据集评测",
+    "评估与解读：预测误差、设计推荐质量、数据处理成本"
+  ],
+  "scheme_zh": "Scheme展示表格数据→语言化→LLM→DNN→设计推荐/预测的自主设计框架。",
+  "lessons_zh": "表格数据里的“上下文”是有价值的信息；LLM可大幅降低人工特征工程，为微流控设计自动化提供新路线。",
+  "id": "08",
+  "title_en": "Autonomous Droplet Microfluidic Design Framework with Large Language Models",
+  "title_zh": "基于大语言模型的自主液滴微流控设计框架",
+  "journal": "ACS Omega",
+  "year": 2025,
+  "doi": "10.1021/acsomega.5c06253",
+  "pmid": null,
+  "pmcid": null,
+  "kind": "design_opt",
+  "kind_zh": "液滴/芯片设计与参数优化",
+  "scheme_image": "papers_figs/08_fig1.png",
+  "pdf_status": "已获取PDF全文精读"
+}

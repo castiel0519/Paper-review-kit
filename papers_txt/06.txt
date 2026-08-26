@@ -1,0 +1,1734 @@
+===PAGE 1===
+Citation: Tsai, H.-F.; Podder, S.;
+Chen, P.-Y. Microsystem Advances
+through Integration with Artiﬁcial
+Intelligence. Micromachines 2023, 14,
+826. https://doi.org/10.3390/
+mi14040826
+Academic Editors: Nam-Trung
+Nguyen and Daniel Ahmed
+Received: 9 March 2023
+Revised: 4 April 2023
+Accepted: 6 April 2023
+Published: 8 April 2023
+Copyright:
+© 2023 by the authors.
+Licensee MDPI, Basel, Switzerland.
+This article is an open access article
+distributed
+under
+the
+terms
+and
+conditions of the Creative Commons
+Attribution (CC BY) license (https://
+creativecommons.org/licenses/by/
+4.0/).
+micromachines
+Review
+Microsystem Advances through Integration with
+Artiﬁcial Intelligence
+Hsieh-Fu Tsai 1,2,3,*
+, Soumyajit Podder 1
+and Pin-Yuan Chen 1,2,*
+1
+Department of Biomedical Engineering, Chang Gung University, Taoyuan City 333, Taiwan;
+d1131005@cgu.edu.tw
+2
+Department of Neurosurgery, Chang Gung Memorial Hospital, Keelung, Keelung City 204, Taiwan
+3
+Center for Biomedical Engineering, Chang Gung University, Taoyuan City 333, Taiwan
+*
+Correspondence: hftsai@cgu.edu.tw (H.-F.T.); pinyuanc@gmail.com (P.-Y.C.);
+Tel.: +886-3-2118800 (ext. 3079) (H.-F.T.)
+Abstract: Microﬂuidics is a rapidly growing discipline that involves studying and manipulating
+ﬂuids at reduced length scale and volume, typically on the scale of micro- or nanoliters. Under the
+reduced length scale and larger surface-to-volume ratio, advantages of low reagent consumption,
+faster reaction kinetics, and more compact systems are evident in microﬂuidics. However, miniatur-
+ization of microﬂuidic chips and systems introduces challenges of stricter tolerances in designing
+and controlling them for interdisciplinary applications. Recent advances in artiﬁcial intelligence (AI)
+have brought innovation to microﬂuidics from design, simulation, automation, and optimization
+to bioanalysis and data analytics. In microﬂuidics, the Navier–Stokes equations, which are partial
+differential equations describing viscous ﬂuid motion that in complete form are known to not have
+a general analytical solution, can be simpliﬁed and have fair performance through numerical ap-
+proximation due to low inertia and laminar ﬂow. Approximation using neural networks trained by
+rules of physical knowledge introduces a new possibility to predict the physicochemical nature. The
+combination of microﬂuidics and automation can produce large amounts of data, where features and
+patterns that are difﬁcult to discern by a human can be extracted by machine learning. Therefore,
+integration with AI introduces the potential to revolutionize the microﬂuidic workﬂow by enabling
+the precision control and automation of data analysis. Deployment of smart microﬂuidics may be
+tremendously beneﬁcial in various applications in the future, including high-throughput drug dis-
+covery, rapid point-of-care-testing (POCT), and personalized medicine. In this review, we summarize
+key microﬂuidic advances integrated with AI and discuss the outlook and possibilities of combining
+AI and microﬂuidics.
+Keywords: microﬂuidic device; lab-on-a-chip; micro total analysis system; artiﬁcial intelligence;
+machine learning; personalized medicine
+1. Introduction
+The study and control of ﬂuids in channels and systems with perimeters generally
+between a few micrometers to a few millimeters is known as microﬂuidics [1]. The microﬂu-
+idic ﬂows are typically of low Reynolds number, i.e., viscous forces outweigh inertial forces,
+and are thus laminar in nature [2]. The high surface-area-to-volume ratio in microﬂuidics
+enables faster heat and mass transport, which enhances reaction control and speeds up
+reaction time [3]. The microﬂuidics discipline entails the theoretical and technological
+development of accurate manipulation of microscopic ﬂuid volume and examination of
+phenomena occurring within it. Applications using microﬂuidic devices can be found in
+broad domains across biomedicine, chemistry, and material science [4–6].
+A branch of artiﬁcial intelligence called machine learning is concerned with creating
+algorithms that can learn from data and establish the association between data and the
+Micromachines 2023, 14, 826. https://doi.org/10.3390/mi14040826
+https://www.mdpi.com/journal/micromachines
+
+===PAGE 2===
+Micromachines 2023, 14, 826
+2 of 30
+features of interest [7]. Moreover, the iterative update of parameters in machine learning
+algorithms allows their accuracies to increase when the algorithms “learn” from additional
+data. Furthermore, development of artiﬁcial neural networks (ANNs) has advanced
+artiﬁcial intelligence in recent decades, particularly in image and language recognition [8,9].
+In neural networks, inﬂuenced by applied mathematics, physics, and neuroscience, artiﬁcial
+neurons are mathematically modeled and arranged in layers to process information similar
+to how biological neurons would be. During training, the weight of each association
+between neurons is updated by backward propagation to establish the association between
+data and features [10]. In deep learning, as the neural network layers deepen and the
+number of neurons increases, more data are required, but patterns in complex data can be
+recognized [11]. As a result, the training of it becomes more computationally demanding,
+but through the advances of parallel processing offered in the graphics processing unit
+(GPU), the ﬁeld of deep learning continues to thrive and has seen innovation to various
+applications such as self-driving car, security, drug development, and medical image
+diagnosis [12–17].
+Intelligent microﬂuidics, a ﬁeld enabled by the integrating the data processing capabil-
+ity of machine learning and data science with the automation potential in microﬂuidics [18],
+is particularly effective in advancing quantitative biology and rapid medical diagnos-
+tics [19]. Next-generation biomimetic microﬂuidic systems such as organ-on-chips (OoCs)
+have great potential to recapitulate and model human physiological as well as patho-
+physiological processes in vitro. The complex and vast amounts of high-throughput data
+generated on these platforms are also great opportunities for AI.
+In this review, we discuss the development, applications, and outlook of intelligent
+microﬂuidics, where advancements are made through integration between microﬂuidics
+and artiﬁcial intelligence (Figure 1).
+Figure 1. Diagram of microﬂuidic applications integrated with artiﬁcial intelligence (AI). µTAS stands
+for micro-total analysis systems.
+2. AI-Enhanced Smart Platform and Automation
+2.1. Computer-Aided Microsystem Design and Optimization
+Microﬂuidic chips take advantage of physical phenomena at smaller length scales;
+therefore, miniaturization of these devices often requires customized design. Recent ad-
+vances in machine learning have been applied to the design and optimization of microﬂuidic
+systems [20].
+The entire hydraulic circuit and components within it can be analyzed and opti-
+mized using circuit modeling [21–25]. Several machine learning and numerical simu-
+lation methods have been applied to microdevice design for ﬂow sculpturing [26–28],
+micromixing [29–32], microjetting [33], droplet microﬂuidics [34,35], and extensional rheom-
+etry [36]. For example, a convolutional neural network (CNN) is trained to learn the
+
+===PAGE 3===
+Micromachines 2023, 14, 826
+3 of 30
+sculpturing outcome of ﬂow due to micropost locations in the microﬂuidic channel; the sys-
+tem has improved performance over conventional computational ﬂuid dynamics (CFD)-
+based forward models and can potentially predict results when the condition is outside the
+scope of what was used in the training (Figure 2a) [27]. By taking the AI approach, design
+iteration of microﬂuidic chip can be rapidly accelerated.
+Moreover, machine learning techniques can also be applied to the fabrication of
+microsystems. For example, Wang et al. adapted a fully automated CNN computer vi-
+sion system to aid in calibration during 3D printing of microstructure dimensions [37].
+Shchanikov et al. used an ANN to design a bidirectional biointerface with nanoelectronics
+and microﬂuidics [38]. Contemporary numerical simulation software can readily integrate
+with machine learning techniques to iterate microdevice designs, accelerating device devel-
+opment and validation, e.g., the ones used for particle trajectory prediction can be adapted
+for predicting red blood cell (RBC) movements in microchannels [39–41].
+Computational Fluid Dynamics (CFD) Modeling
+In recent years, advances in GPUs have made the training of deep ANNs possible.
+The features in structured data sequences, images, and videos can be quickly learned and
+inferred in modeling ﬂuid dynamics [42–44].
+In continuous-ﬂow microﬂuidics, Cai et al. introduced artiﬁcial intelligence velocime-
+try (AIV), which integrated imaging data with physics-informed neural networks, to mea-
+sure the velocity and stress ﬁelds of blood ﬂow [45]. By utilizing neural networks to
+automatically evaluate experimental data and infer important hemodynamic markers that
+quantify vascular damage, AIV offered a novel paradigm that seamlessly blended pictures,
+experimental data, and underlying physics. Similarly, the ﬂow velocity proﬁle in a shallow
+microﬂuidic channel could also be extracted from the scalar signal transport through a
+deep neural network [46]. In microﬂuidic systems, often a system is in the laminar regime
+with low Reynolds number and high Péclet number, which means that viscous force and
+advection are more dominant than effects from inertia and diffusion. In certain applications,
+such as concentration gradient generation and chemical synthesis, mixing efﬁciency in
+microchannels becomes important. The ﬂuid behavior in microstructure-based passive
+microﬂuidic mixers can be predicted using AI, and designs can be rapidly iterated in
+comparison to conventional physics-coupled numerical simulations where ﬂow ﬁeld and
+chemical transport has to be sequentially solved [29–32,47].
+Multiphase ﬂow is also a discipline that has many applications, such as two-phase
+emulsion, protein extraction in biotechnology, and injection molding in manufacturing.
+The ﬂow pattern in two-phase ﬂuid mixing can be rapidly modeled using neural networks
+trained with physical knowledge and comparable to that by classical CFD solutions, where
+approximation to Navier–Stokes equations requires large amount of computational re-
+sources [48–51]. Moreover, combinatorial multiphase ﬂow can be utilized to assemble
+colloidal materials in microﬂuidics, and machine learning can accelerate the predictability
+of material characteristics for designing such materials [52]. An AI algorithm to predict
+multiphase ﬂuid dynamics can accelerate and aid in the design of microﬂuidic chips for
+these applications.
+2.2. Automation Control in Microsystems
+2.2.1. Flow Control
+The ﬂow in microﬂuidics can be actuated by pumps of different mechanisms, such as
+syringe-driven, peristaltic, pressure-driven, piezoelectric, electro-osmotic, or microvalve-
+based peristaltic micropumps [53]. Dynamic laminar ﬂow control by pistons or syringe
+pumps is required in applications where joining ﬂow boundary location requires precise
+control and syncing. Dressler et al. developed a reinforcement learning-based deep Q
+network that utilized image feedback for rapid and high accuracy ﬂow control and droplet
+size control [54].
+
+===PAGE 4===
+Micromachines 2023, 14, 826
+4 of 30
+Micropumps composed of microvalves or piezoelectric valves often become important
+components due to their ability to integrate into the microdevice and to realize the develop-
+ment of the micro-total analysis system (µTAS) [55]. Abe et al. used reinforcement learning
+for timing control of valve operation in peristaltic micropumps to increase the maximum
+ﬂow rate [56,57]. Integration of multiple microvalves into a fully programmable biochip
+was designed by Shayan et al. [58]. Integration of machine learning techniques with the
+fully programmable platform enables real-time detection of biochip status and detection of
+potential attacks against a real-world bioassay.
+2.2.2. Thermal Control
+The advances in microelectromechanical systems (MEMS) continue to decrease the size
+and increase the power, therefore thermal management on MEMS devices becomes a vital
+component to the system. Due to the small length scale and small thermal resistances in
+microﬂuidics, a microﬂuidic heat sink was applied for cooling MEMS chips [59]. Moreover,
+precise heating or cooling of microﬂuidics is also important for applications in µTAS [60].
+High speed and accurate thermal control of a microﬂuidic platform is made possible by
+the use of an ANN trained on infrared (IR) thermography [61]. Quinn et al. also reported an
+optically controlled thermoﬂuidics platform with machine learning feedback control [62].
+As an alternative to passive thermal measurement using IR thermography, temperature-
+sensitive species can be introduced to the system and report local temperatures in the
+microenvironment, such as nanocrystals or quantum dots. However, the temperature often
+needs to be inferred from photoluminescence data and the accuracy is poor. By applying a
+fully-connected ANN, Lewis et al. demonstrated that improved accuracy and temporal
+resolution of temperature in the local microenvironment were obtained using cadmium
+telluride (CdTe) quantum dots [63].
+Figure 2. Selected examples of AI-enhanced smart platforms and automation. (a) A CNN framework
+to predict the outcome of ﬂow sculpturing by micropillar microstructures [27]. Reproduced under
+Creative Commons Attribution 4.0 International license (CC–BY). (b) A DNN to predict particle
+patterning by surface acoustic waves in a shape library was proposed by Raymond et al. [64]. Re-
+produced under CC–BY license. (c) Machine-learning-empowered design automation of droplet
+microﬂuidics channel [34]. Reproduced under CC–BY license. (d) Machine-learning-assisted classiﬁ-
+cation for droplet manipulation in a magnetic digital microﬂuidic platform [65]. Reproduced under
+CC–BY license.
+
+===PAGE 5===
+Micromachines 2023, 14, 826
+5 of 30
+2.2.3. Particle Manipulation
+In many applications, such as separation, diagnostics, and patterning, particle ma-
+nipulation is often a required process. The low reagent requirements and smaller length
+scale make microﬂuidics a good candidate platform for such applications [66]. The particle
+manipulation can be exerted through electromagnetic, optical, hydrodynamic, or acoustoﬂu-
+idic techniques, while machine learning methods can be further adapted for precise and
+rapid control.
+The particles in the ﬂuid system can be manipulated through ﬂow dynamics. Fang et al.
+used an ANN-based feedback pump control to create a hydrodynamic Stokes trap for
+particle manipulation [67]. Through reinforcement Q-learning, Abe et al. also demonstrated
+that a micropump-based system can learn to control and manipulate a microparticle to
+reside in a predeﬁned target area [57]. Particles in a curved channel or in a straight channel
+ﬁlled with viscoelastic ﬂuids also experienced inertial motion and were manipulated [68,69].
+Recently, Su et al. and Hamdi et al. separately reported AI-accelerated approaches to
+calculate lift coefﬁcient in microﬂuidic channels for inertial focusing based on knowledge
+from the computationally-expensive direct numerical simulation method [70,71].
+Magnetic particles can also be conjugated to a desired biorecognition element, and
+an external magnetic ﬁeld can be applied for magnetophoretic isolation [72]. Koh et al.
+combined magnetophoresis with supervised learning for sorting and puriﬁcation of normal
+sperm based on the slender body theory [73]. Optical power of light can also exert forces on
+microscopic particles in the optical tweezers technique. While conventional control theory
+such as the proportional–integral–derivative controller is commonly adapted, machine
+learning techniques can also be used to increase speed and accuracy when calculating the
+optical force and manipulation [74,75].
+In the ﬁeld of acoustoﬂuidics, where a piezoelectric actuator or platform is used,
+the particles can be spatially manipulated based on their acoustophysical properties, typ-
+ically though a feedback control [76]. Raymond et al. trained a DNN on pictures of
+presolved acoustic ﬁelds to allow rapidly tailored acoustic ﬁelds for patterning microparti-
+cles in microchannel components (Figure 2b) [64]. By using AI to predict the acoustic ﬁeld,
+the design of an acoustoﬂuidics chip can be optimized and automated for tailoring speciﬁc
+applications. While conventional numerical and analytical solutions are used to resolve
+acoustic pressure ﬁelds in designed geometry, the inverse problem can be resolved more
+efﬁciently by taking the DNN approach. Similarly, Yiannacou et al. demonstrated that
+control of a single ultrasound transducer frequency through an epsilon-greedy algorithm
+can be used to control and manipulate the particles [77,78].
+2.2.4. Droplet Control, Detection, and Tracking
+Droplet microﬂuidics is a particular case of multiphase microﬂow, where two or more
+immiscible ﬂuids are split into single or multiple emulsions as tiny liquid reactors for
+bioanalysis, chemical synthesis, cell culture, and more [79,80].
+To produce droplets of desired size, precise control and minimization of variation of
+ﬂow rates are essential [54]. Mahdi and Daoud demonstrated that an ANN can be used to
+predict the size of microdroplets [81]. Lashkaripour et al. proposed a web-based software
+tool, DAFD, with machine learning algorithms to predict droplet formation performance
+with a high level of accuracy in a ﬂow-focusing microﬂuidic chip (Figure 2c) [34]. The ma-
+chine learning algorithm can also automate the microﬂuidic chip design for a speciﬁc
+droplet size desired by the user. In particular, the DAFD software was designed for scien-
+tiﬁc community collaboration, where the machine learning algorithms can learn both from
+the data in the developer’s laboratory and from volunteered data from the community.
+The federated learning approach can aid in creating a universal neural network for data
+collected in different settings [82]. Similarly, Siemenn et al. adapted a Bayesian inference
+with droplet size measurement feedback from images to optimize droplet generation [83].
+The stability of microdroplets can be signiﬁcantly affected by the type of surfactant and
+its concentration. Khor et al. established a convolutional autoencoder model to anticipate
+
+===PAGE 6===
+Micromachines 2023, 14, 826
+6 of 30
+if a droplet would become unstable and break up [84]. Chagot et al. utilized a Bayesian
+regularized ANN and XGBoost algorithms to predict droplet size given ﬂow rate and sur-
+factant concentrations with mean absolute percentage error as low as 3.9%, in comparison
+to other state-of-the-art models [85].
+Droplet segmentation and classiﬁcation in images can be achieved using machine
+learning techniques as well. Various versions of CNN-based You Only Look Once (YOLO)
+object detectors have been used for automated detection of droplets and content within
+them at frame rates of up to 100 frames per second (FPS) [86,87]. Subsequent tracking of
+droplets to extract droplet dynamics is also practiced using deep learning techniques under
+brightﬁeld and ﬂuorescence microscopy [88,89].
+In machine learning, the algorithm learns to establish the association between features
+and data. Therefore, a trained neural network can also predict the experimental conditional
+from image results [90]. For example, the microdroplet images can be predicted by a trained
+deep neural network for the ﬂow rate or concentration used based on the droplet’s size and
+optical property, reaching accuracy within 0.5% [91]. Arjun et al. also reported that droplets
+with various chemical mixing efﬁciencies can be classiﬁed by a trained CNN [92]. Droplet
+freezing and extrapolation of exact temperature for ice nucleation on a microﬂuidic freezer
+platform was made possible using a DNN model with a polarized light detection [93].
+Tang et al. reported an ANN to classify microdroplets containing magnetic particles and
+showed its manipulation with failure-correction capability, demonstrating the superiority
+of ANN compared to conventional magnetic digital microﬂuidic platform [65] (Figure 2d).
+The integration of AI-based image analysis in the automation and control process of the
+digital microﬂuidic platform provides additional advantages of quality assurance and
+online decision making.
+After detection and classiﬁcation of desired droplets, ﬂuid routing or sorting can
+be integrated in the downstream microﬂuidic component to isolate them. Automated
+routing of droplets has been demonstrated using deep reinforcement learning [94] and
+evolutionary algorithms [95]. Alternatively, droplets containing desired products such as
+cells or particles can be sorted as well when the AI for the detection is combined with an
+active component for target puriﬁcation [96–98].
+3. Process Optimization and Discovery
+3.1. Synthetic Reaction Optimization
+One advantage of AI is its ability to sequentially generate a large amount of experimen-
+tal parameters for automated iteration, and it also discerns patterns in the result. Therefore,
+many applications exist that automate microﬂuidics with AI for large-scale experimental
+iteration in medicine, material science, and energy development [18,99].
+For chemical synthesis, machine learning algorithms can be used to automate the
+experiments and optimize based on feedback when combined with robotics [100–102].
+McMullen and Jensen demonstrated an automated microreaction system incorporated
+with silicon-based microﬂuidic devices and machine learning for optimization of synthesis
+without the need for priori information, i.e., a “black-box” optimization, to the reaction
+parameters [103,104] (Figure 3a), which means the microreaction system can be placed in
+continuously self-optimization to ﬁnd the reaction parameters for best product properties
+set by the designer. Rizkin et al. used a machine learning algorithm with IR monitoring to
+automate microchemical reactors in the polymerization of zirconocene [105]. The param-
+eters of the chemical kinetics of a complex reaction can also be modeled with the aid of
+machine learning, leading to a broad technoeconomic outcome.
+3.2. Nanoparticle Synthesis
+Control of ﬂow rate, concentration, and mixing are vital variables for nucleation and
+synthesis of nanoparticles on the microﬂuidic platform and one of the applications adapting
+AI [106]. Krishnadasan et al. adapted a noise-tolerant global search algorithm for a black-
+box optimization of injection rate and temperature for synthesizing CdSe nanoparticles on
+
+===PAGE 7===
+Micromachines 2023, 14, 826
+7 of 30
+a Y-shaped microﬂuidic reactor from CdO and Se precursor solutions [107]. Similarly, ANN
+can be used to extract the condition–property relationship from the combinatorial synthesis
+data and provide conditions to synthesize nanoparticles [108–113], nanotubes [114], nano-
+formulation of pharmaceuticals [115], quantum dots [116,117], liposomes [118], or poly-
+meric microparticles [119,120] (Figure 3b). Diamiati et al. trained an ANN to predict
+particle size of poly(Lactide-co-glycolide) (PLGA) microparticles, a biocompatible drug
+delivery polymer, based on the conditions of the ﬂow focusing synthesis experiments on
+multiple different synthesis platforms. The learnability or the trainability of the AI enables
+the in silico size-dependent design of microparticle synthesis for tailored applications.
+Notably, the trainability of neural networks not only provides an optimization method
+for synthesis in that early stage when the data size is small but can also continue to reﬁne
+through learning the new data and further feedback the optimization [110] (Figure 3c). It
+is expected that more machine learning, in particular generative neural networks, will be
+adapted in nanoparticle synthesis workﬂow in future for designing application-tailored
+nanoparticles in a variety of disciplines, such as medicine, energy, and more.
+Figure 3. Microﬂuidics integrated with machine learning for process optimization and drug discovery.
+(a) An automated microﬂuidic system for automated optimization of chemical synthesis. Reprinted
+with permission from [103]. Copyright 2010 American Chemical Society. The font size have been
+adjusted for sake of clarity. (b) A droplet microﬂuidic platform combined with AI for synthesizing
+poly(Lactide-co-glycolide) microparticles from precipitating out of dichloromethane (DCM) [119].
+Reproduced under CC–BY license. The ﬁgure has been reproduced for sake of clarity. (c) Two-step
+drug synthesis microﬂuidic platform with machine learning optimization [110]. Reproduced under
+CC–BY license. (d) A micromixer microﬂuidic platform combined with generative AI for de novo
+drug design and synthesis [121]. Reproduced under CC BY–NC (noncommercial) license.
+
+===PAGE 8===
+Micromachines 2023, 14, 826
+8 of 30
+3.3. Drug Development
+The automation and miniaturization capabilities of microﬂuidics make it a good can-
+didate for drug synthesis, drug delivery, formulation, and susceptibility testing [122,123].
+Here, we discuss the integration of AI with microﬂuidics for drug design, synthesis, and for-
+mulation. The susceptibility testing application is discussed later in the following section.
+Reinforcement learning provides an in silico means to generatively iterate drug design
+based on input physicochemical properties. Popova et al. utilized such an approach to
+create novel chemical libraries where the neural network can design chemicals by varying
+physical properties [124]. Recently, Grisoni et al. took a similar approach to generatively
+design drugs and further integrate with a microﬂuidic platform to synthesize the agonists
+against the liver X receptor [121] (Figure 3d). Such an automated platform combining AI and
+microﬂuidics introduces a closed-loop iterative optimization of drug design and synthesis
+that reduces human intervention. In the future, the improvement of algorithms with active
+learning could reﬁne and optimize the design and synthesis process continuously. Similarly,
+machine learning used for iterating polymer synthesis and data-driven evaluation can
+accelerate drug formulation development [125].
+4. Micro-Total Analysis System (µTAS) and Clinical Diagnostics
+One major application of microﬂuidics is the automation of chemical analysis and
+clinical diagnostics, especially for point-of-care testing (POCT) [126,127]. In lab-on-chip
+technologies, various experimental processes are integrated and miniaturized onto a single
+microﬂuidic chip [128]. Further enhancement of data analysis and exclusion of potential
+human prejudice by integrating AI sets a feasible path toward realization of a µTAS [129].
+4.1. Disease Diagnosis and Prognosis
+To monitor human physiological status, detection and quantiﬁcation of biomarkers
+using calibrated biosensors are required. Although conventional quantiﬁcation by interpo-
+lation with a reference is standardized, utilization of AI to quantify and detect anomalies
+from pattern recognition in long-term clinical data presents unique opportunities. Combin-
+ing paper microﬂuidics and ANN, the glucose concentration presented by the colorimetric
+method can be quantiﬁed and calibrated with high accuracy, as demonstrated in artiﬁcial
+urine and saliva [130,131].
+Moreover, sensing applications based on image classiﬁcation and recognition are
+particularly suitable for machine learning methods. Munoz et al. reported a machine
+learning method to detect label-free DNA based on fractal structures in subnanoliter
+droplets after loop-mediated isothermal ampliﬁcation (LAMP) [132]. Similarly, optical
+detection of debris containing ambient RNA in droplets and excluded in data preprocessing
+can improve the data quality for single-nucleus RNA sequencing by using a semisupervised
+machine learning technique [133]. Alternatively, machine learning algorithms can also be
+applied to electrical inference of size and detection of ultraﬁne particles with low mean
+error [134].
+Machine learning algorithms are sensitive to changes in cellular optical features due
+to biophysical properties or protein deformation. AI-enhanced microscopic image analysis
+of cells and tissues, therefore, is used for disease diagnosis in clinical settings. Deep-
+learning-assisted classiﬁcation of the adhesion and deformation of RBCs in microchannels
+can be used to diagnose and monitor sickle cell anemia [135–137]. Rizzuto et al. combined
+microﬂuidics and AI-based video analysis to classify RBCs after passing microﬂuidic
+constrictions for diagnosis of hereditary hemolytic anemia [138]. The neural network can
+also predict the rigidity of RBCs directly from brightﬁeld microscopy images. Ellett et al.
+used a microﬂuidic device to quantify the mobility of neutrophils in whole blood in
+combination with machine-learning-based scoring for diagnosis of sepsis with 97% and
+98% sensitivity and speciﬁcity [139].
+
+===PAGE 9===
+Micromachines 2023, 14, 826
+9 of 30
+Similarly, rapid classiﬁcation and quantiﬁcation of cancer cells in various tissues and
+bodily ﬂuids can be accelerated by AI in the ﬁelds of liquid biopsy or digital pathology,
+aiding clinicians and clinical laboratory scientists in disease diagnosis and prognosis, such
+as in leukemia, prostate, breast, brain, and lung cancers [140–145]. Many cells shed from
+primary tumors into patients’ circulatory systems in the form of circulating tumor cells
+(CTCs). The amount of CTCs in patients’ blood, even after treatments, correlates with the
+prognosis, also known as minimum residual disease (MRD). Therefore, concentration of
+CTCs is a novel biomarker for cancer management. The presence of CTCs can be analyzed
+and can predict prognosis with the aid of AI [146,147].
+Mainstream immunochemical biosensors utilize the recognition ability of antibodies
+to detect and quantify biomarkers in various bodily ﬂuids. Integrated with microﬂu-
+idics, McRae et al. developed a compact programmable bionanochip platform (pBNC)
+on which multiplex immunoassays against prostate cancer, ovarian cancer, acute myocar-
+dial infarction, and drugs of abuse were performed on disposable cartridges for POCT
+applications. Afterward, the data were relayed to machine learning algorithms for further
+diagnosis based on previously trained data (Figure 4a) [148–150]. Furthermore, optical-
+based immunoassay readout can be resolved with the aid of machine learning. Song et al.
+reported a digital-enzyme-linked immunosorbent assay (ELISA) microarray for multiplex
+quantiﬁcation of cytokines in patients who underwent cancer therapy [151] (Figure 4b).
+The turnaround time of the 12-plex assay was within 40 min by taking advantage of the
+microwell-based microarray and automated AI image analysis for biomarker quantiﬁcation.
+Immunochemical methods, however, suffer limitations such as interference to ligand–
+antibody interaction and the concentration-dependent hook effect, limiting the sensitivity,
+speciﬁcity, and linear range of detection [152]. Utilizing machine learning algorithms has
+also been shown to drastically improve the assay speciﬁcity and quantiﬁcation of very high
+target concentration in surface-enhanced Raman spectrometric immunoassay and particle
+agglutination immunoassay [153–155].
+In recent decades, the use of microﬂuidics for clinical testing has seen much growth
+due to increased adaption of POCT. At the same time, deep learning methods spur rapid
+development of AI across broad disciplines and applications. Humankind then met the
+challenge of a global pandemic at a scale not seen since the 1918 Spanish ﬂu, the coron-
+avirus disease 2019 (COVID-19), caused by severe acute respiratory syndrome coronavirus
+2 (SARS-CoV-2) [156,157]. The rapid spread of the disease came with devastating conse-
+quences where healthcare systems were stretched to limits, state economies were stalled,
+and social norms were disrupted. Microﬂuidics was quickly adapted to develop quick
+turnaround of immunological as well as molecular antigen tests for rapid identiﬁcation and
+diagnosis of exposed citizens and patients [158–160] for subsequent quarantine to curb the
+spread of the infectious disease. For example, Bhuiyan et al. developed an AI-controlled
+programmable microﬂuidic platform to perform ELISA immunoassays for cardiovascular
+disease diagnosis and SARS-CoV-2 diagnosis [161,162]. Many microﬂuidic POCT sensing
+platforms are also integrated with AI for analysis. Combining information and communica-
+tion technologies (ICTs) with microﬂuidics, such as interfacing a smartphone with POCT
+devices, provide a solution for rapid testing in low-resource settings where gold-standard
+molecular diagnostics may not be easily available [163–166].
+The combination of rapid testing offered by microﬂuidics and automated data analysis
+by AI has immense potential for proactive management of emerging infectious diseases.
+Not only can new diagnostics tests be rapidly developed after identiﬁcation of antigen
+for future emerging infectious disease, but development of vaccines and drugs could be
+accelerated as well, through automation by microﬂuidics and AI [167–170].
+
+===PAGE 10===
+Micromachines 2023, 14, 826
+10 of 30
+Figure 4. Micro- total analysis systems integrated with machine learning for clinical diagnostics.
+(a) A compact programmable microﬂuidic platform capable of performing multiplex immunoassay
+for POCT applications. Reprinted with permission from [150]. Copyright 2016 American Chemical
+Society. (b) A digital ELISA microarray for cytokine quantiﬁcation with CNN-guided image process-
+ing. Reprinted with permission from [151] with permission from Elsevier. (c) A microﬂuidic platform
+with a convolutional neural network to predict drug efﬁcacy based on the viability of cultured cancer
+spheres. Reprinted with permission from [171]. Copyright 2019 American Chemical Society. (d) A
+wearable sensor platform with AI data analysis for motion classiﬁcation [172]. Reproduced under
+CC–BY license.
+4.2. Drug Susceptibility Testing
+Integrated microsystems can not only isolate target cells for analysis, but they also
+integrate with mixing functions to investigate the susceptibility of target cells to pharma-
+ceutical agents, an important parameter for clinical decisions. One common application is
+the liquid biopsy. Kobayashi et al. showed that by combining microﬂuidic ﬂow cytometry,
+time-stretch microscopy, and machine learning enables high-throughput, label-free analysis
+drug susceptibility of breast cancer, leukemia cells, and platelets in as little as a 500 µL
+sample [173–175].
+Other major applications for drug susceptibility testing in clinical settings are thera-
+peutic drug monitoring (TDM) and antimicrobial susceptibility testing (AST), where AI
+algorithms have begun to be adapted for monitoring and prediction [176,177]. Particu-
+larly for conventional AST, the time-to-result is of the essence for patient care. Therefore,
+automated microﬂuidic platforms in conjugation with optical detection and deep learning-
+powered analysis to rapidly detect bacteria, as well as screening and identifying appropriate
+antibiotics choices and therapeutic ranges, are driven by clinical needs [178–181].
+Three-dimensional tissue models such as spheroids have the potential of mimicking
+tissue heterogeneity and drug transport in the microenvironment of an organism. However,
+3D tissues have poor optical transmission in the visible light regions, making optical
+
+===PAGE 11===
+Micromachines 2023, 14, 826
+11 of 30
+characterization and evaluation difﬁcult, especially for conventional computer vision
+algorithms. Deep learning models learn the features of target structures through pattern
+recognition in images; therefore, they have great potential in image analysis for 3D tissue
+images. Zhang et al. developed an automatic microﬂuidic chip in combination with CNN-
+based image screening for evaluating drug susceptibility through viability prediction of
+tumor spheres (Figure 4c) [171]. The effective drug changes the morphology and optical
+quality of the spheroids, and AI models learn to associate the image with phenotypic results.
+Therefore, the AI models are capable of predicting phenotype based on label-free images.
+The trainability and predictive potential of deep learning in combination with microﬂuidic
+drug testing platform could be a promising alternative to animal testing [182].
+4.3. Smart Wearables
+Microsystems engineered through semiconductor processes are often rigid; therefore,
+they are limited from conformal sampling on organisms despite portability. When lab-on-
+chip systems are engineered on ﬂexible substrates such as silicone or polyimides, such
+wearable microsystems enable long-term seamless biosampling and measurements [126]
+where conventional medical devices are often limited. Zhang and Tao showed that soft
+electrical sensors adhered on skin in combination with machine learning enabled long-term
+electrophysiological measurements [183]. In the management of cardiovascular diseases,
+early detection of abnormal electrical signals empowered by AI also has tremendous
+interests [184]. Similar needs in long-term monitoring of glucose in diabetes mellitus (DM)
+patients could also beneﬁt from the combination of wearable devices and machine learning
+to predict the onset of hyperglycemia on the ﬂy [185,186].
+Soft sensors attached to the human body permit the measurement of pressure, force,
+and strain to infer biomechanics. Machine learning algorithms can be used to calibrate sen-
+sors [187,188] as well as tracking and predicting human gaits and motions (Figure 4d) [172,189].
+Joining a multitude of sensors with Internet connectivity with AI at the core of data analysis
+offers a promising future in personalized healthcare [190].
+5. AI Approach for Quantitative Biology
+Machine learning algorithms can discern patterns in complex and noisy biological data;
+therefore, advances have been made recently in the ﬁeld of cell analysis and personalized
+medicine by adopting AI for quantitative biology [191].
+5.1. Cell Analysis
+Counting, classifying, and sorting of cells are essential processes that have been long
+adopted in microﬂuidics and not only used in clinical diagnostics but also in basic research.
+Integration with AI further extends the data processing ability, such as prediction and
+pattern recognition for phenotype identiﬁcation in cell data, which initiated a new era of
+intelligent microﬂuidics [192].
+5.1.1. Cell Counting and Classiﬁcation
+The number of suspended cells in a solution can be counted conventionally through
+optical detection, electrical resistance (Coulter method), or impedance [193]. Machine
+learning algorithms such as support vector machine (SVM), logistic regression, or ANN can
+extract cell features in optical images [194], lens-free holographic images [195], electrical
+data [196], or a combination of two [197] for counting and classiﬁcation.
+In combination with a brightﬁeld or ﬂuorescence microﬂuidic ﬂow cytometer, cells can
+be counted, classiﬁed, and tracked at high speed using supervised learning as well as unsu-
+pervised learning models [198–202]. Heo et al. showed that a supervised learning pipeline
+combining a fully-connected regression network and CNN distinguished K562 leukemia
+cells and RBCs with mean average precision (mAP) as high as 93.3% at 500 FPS [198]. Deep
+learning models trained for virtually enhancing resolution can also be combined with
+
+===PAGE 12===
+Micromachines 2023, 14, 826
+12 of 30
+low-resolution, high-speed microﬂuidic ﬂow cytometry for counting and classifying algae,
+mammalian cells, and yeasts [201].
+Minute optical property differences in cells which are difﬁcult to discern by the naked
+eye can be classiﬁed by machine learning algorithms after proper training. Rossi et al.
+showed that CD4 and CD8 T lymphocytes can be differentiated by their scattered light due
+to biophysical property differences [203]. Polarization microscopy can also be conjugated
+with machine learning for the detection and classiﬁcation of non-small-cell lung cancer
+cells without any staining [204].
+In quantitative phase imaging (QPI) techniques, phase differences contributed by
+differences in refractive index of various cellular components can be quantiﬁed using
+digital holographic microscopy [205], lens-free holographic microscopy [206], interferome-
+try [207,208], or time-stretched microscopy [209], both in 2D and 3D [210]. Conventional
+algorithms for phase retrieval are often time-consuming because image data can be noisy.
+Using machine learning, optical properties such as absorption, scattering, and refractive in-
+dexes can be used to extract biophysical information of cells such as dry mass. Without any
+labeling, only minute differences exist between nucleated white blood cells (WBCs) and can-
+cer cells. Hirotsu et al. demonstrated that deep learning can assist label-free identiﬁcation of
+cancer cells from WBCs, with the area under the curve of receiving operating characteristics
+(ROCs) reaching 95.7% [208]. Especially in time-stretched microscopy, broadband optical
+pulses image cells without any label at extremely high frame rates through photodiode
+readout and reconstruction [211–215]. Leukemia cells, RBCs, algae, and platelets can be
+classiﬁed by CNNs at extremely high ﬂow speed (>10,000 cells per second) inside microﬂu-
+idic ﬂow cytometry with high accuracy (>96%) [216]. High-speed, time-stretched imaging
+can also couple with high-speed microﬂuidic cell classiﬁcation and real-time label-free
+electrostatic cell sorting enabled by powerful GPU processing (Figure 5a) [213].
+Electrodes can readily be fabricated with microﬂuidic channels and used for detection
+of cells by resistance or impedance detection. Machine learning algorithms can be further
+integrated into data analysis to classify objects based on their resistance or impedance
+characteristics [217–221]. Joshi et al. combined ink-jet printed microﬂuidics with machine
+learning algorithms to classify and differentiate three types of cancer cells based on their
+impedance proﬁles [217]. A deep learning algorithm with closed-loop feedback can regulate
+precise cell impedance measurement and classiﬁcation [219]. Similarly, Feng et al. combined
+a microﬂuidic impedance ﬂow cytometry with machine learning, showing capability of
+classifying ﬁve different cancer cells based on their membrane capacitance, cytoplasm,
+conductivity, and radius, with an accuracy of 91.5% [220].
+5.1.2. Cell Sorting
+Flow cytometry is a cornerstone for high-throughput single cell classiﬁcation with
+applications across clinical diagnostics and basic biomedical research. Further coupling the
+selection function for interested target populations provide many downstream applications,
+such as single cell molecular analysis, immunoassay, and selective cultivation [222].
+Machine-learning-powered cell classiﬁcation in brightﬁeld and ﬂuorescence ﬂow cy-
+tometry can be integrated with a microﬂuidic ﬂow cell with piezoelectric or pneumatic
+actuators to hydrodynamically collect cells or droplets of interest from classiﬁcation in
+real time [97,223–225]. By adapting lightweight CNNs, high-speed electronics, and GPUs,
+real-time image classiﬁcation and precise timing control for cell sorting have been realized.
+Aforementioned ultrahigh-speed QPI imaging systems integrated with sorting functions
+have been demonstrated, reaching accuracy above 94% at 100 events per second [226–228]
+(Figure 5b). By using machine learning to classify sperm and predict their DNA fragmenta-
+tion index, a sperm sorter was developed that has broad applications in fertility medicine
+as well as in the veterinary industry [229].
+Other cell sorting methods, such as magnetic sorting and dielectrophoretic cell sorting,
+have also been reported to integrate machine learning [230,231]. In particular, magnetic
+immunoseparation is a well-adapted concentration and puriﬁcation method for clinical
+
+===PAGE 13===
+Micromachines 2023, 14, 826
+13 of 30
+diagnostics as well as biotechnology. Uslu et al. showed that SVM algorithms can assist
+identiﬁcation of leukemia cells captured with light-obstructing magnetic particles with a
+precision of 91.6% under 40× objective [230]. Moreover, magnetic particles are often hard
+to remove completely after the sorting is completed. By using machine learning for image
+analysis and classiﬁcation, the residual amount of magnetic particles can also be quantiﬁed.
+5.1.3. Cell Phenotype Analysis
+The possibility of deep learning is demonstrated by its ability to extract the features
+related to minute optical differences contributed by biological microstructures. Fluorescence
+images of subcellular structures can be predicted with CNNs from cell images taken
+under brightﬁeld microscopy without any staining [232–234]. Style transfer from one
+staining to another staining is also proven [235]. Such in silico labeling can also be applied
+to high-speed QPI-based microﬂuidic ﬂow cytometry [236]. Moreover, deep learning
+methods have demonstrated high-quality segmentation, and they can further extract
+features regarding phenotypes.
+The mechanical deformability and relaxation of cells can be probed by microﬂuidic
+shear ﬂow or microstructure constriction [237–239]. By further applying analysis empow-
+ered with machine learning, the mechanical properties of cells can be predicted from optical
+images with accuracy reaching over 90% [137,240].
+The health state of cells in microﬂuidic platforms for drug screening can also be
+predicted and have vast applications in drug susceptibility testing, immunotherapy efﬁ-
+cacy testing, and drug resistance monitoring [241–243]. For example, to maintain cellular
+homeostasis, the timing and frequency of cellular metabolism, DNA duplication, and divi-
+sion are tightly regulated in the cell cycle in four phases: gap 1 (G1), synthesis (S), gap 2
+(G2), and mitosis (M). Conventionally, identiﬁcation of the cell cycle requires staining of
+cells against molecular markers for nucleic acid and various essential proteins for DNA
+replication [244]. By training CNNs on training data annotated from ﬂuorescence infor-
+mation, the CNNs can be used to classify cell cycles and even predict them in brightﬁeld
+images [245–248]. With the combination of microﬂuidic trapping, such a platform can
+have broad applications for predicting cell cycle phenotypes in drug screening and basic
+research [249,250]. Aspert et al. used microﬂuidic and deep learning for high-throughput
+tracking of single cell division and emergence of mutants [250] (Figure 5c). By adapting
+deep learning, analysis of the survival and phenotype changes of large amounts of single
+cell data could be automated, greatly saving time, minimizing human bias, and increasing
+statistical power.
+Cellular senescence upon exposure to reactive oxygen species, a key contributor to ag-
+ing, is also a phenotype that requires quantiﬁcation by staining, typically against senescence-
+associated beta-galactosidase activity. CNNs have also been demonstrated to predict cellu-
+lar senescence based on the morphology or optical quality of the cell in brightﬁeld [251,252].
+By expanding the AI for phenotype prediction, cellular phenotypes in biomimetic microen-
+vironments established by microﬂuidics have broad potential applications.
+5.1.4. Spatiotemporal Cellular Dynamics Analysis
+Deep learning methods, especially CNNs, are particularly effective in image segmenta-
+tion across brightﬁeld and ﬂuorescence microscopy, outperforming conventional computer
+vision methods [253–255]. Accurate segmentation accompanied by precise tracking enables
+the accurate analysis of complex cellular dynamics in a stack of timelapse images and
+contributes to quantitative understanding of cellular processes. For example, Bove et al.
+used CNN classiﬁcation and Bayesian inference tracking for understanding the role of cell
+competition in epithelial tissue maintenance [256]. Accurate segmentation by deep learning
+also beneﬁts tracking cell migration in both 2D and 3D [257–260].
+Through coupling with microﬂuidics, cellular dynamics can be studied in detail in
+dedicated microenvironments compatible with high-resolution imaging. Single bacterium
+
+===PAGE 14===
+Micromachines 2023, 14, 826
+14 of 30
+evolution and bacteria population dynamics can be experimentally modeled on microﬂuidic
+devices and analyzed using machine learning models [261–264].
+Figure 5. Microsystems integrated with AI for cell analysis. (a) An optoﬂuidic time-stretch QPI cell
+sorter based on high-speed, label-free cell classiﬁcation and sorting empowered by deep learning [213].
+Reproduced under CC–BY license. (b) Frequency-multiplexed microscopy coupled with real-time ma-
+chine learning processing and piezoelectric actuator for high-speed cell sorting. Reprinted from [226]
+with permission from Elsevier. (c) A microﬂuidic cell trap with AI phenotype prediction for yeast
+division tracking and survival analysis [250]. Reproduced under CC–BY license. (d) A deep learning
+framework to automatically classify cell cycles and track lineage trees [265]. Reproduced under
+CC–BY license.
+Wang et al. used a deep learning-based segmentation with Bayesian ﬁltering to
+track migration of cells of a 3D angiogenic vessel with an accuracy of 86.4% [266]. Cell
+migration guided by physical or chemical gradients can be studied with high-throughput
+microﬂuidic platforms, while AI-empowered tracking relieves humans from the tedious
+task. Quantiﬁcation of cell migration and growth kinetics can be analyzed with reduced
+risk of human bias [267,268]. Furthermore, accurate cell tracking across multiple cell
+divisions enables building of lineage trees, and is capable of revealing the population
+dynamic information of cells throughout the experimental period. Ulicna et al. combined
+residual U-net, CNN classiﬁcation, and Bayesian tracking to reconstruct the cellular lineages
+in thousands of hours of timelapse data and identiﬁed cell cycling heterogeneity and
+correlated cyclings between cells of similar generation [265] (Figure 5d). Similar machine
+learning inference can also be applied to resolving temporal dynamics of multicellular
+organoids at single-cell level in 3D [269,270].
+5.2. Personalized Medicine
+Advances in quantitative biology in modern biomedical research spur the development
+of personalized medicine, a discipline where biological variation is recognized and tailored
+
+===PAGE 15===
+Micromachines 2023, 14, 826
+15 of 30
+care is aimed towards every individual [271]. Microﬂuidics and AI as an integrated solution
+has great potential and opportunity for personalized medicine.
+Automated microﬂuidics and POCT devices can be deployed for dedicated patients
+for rapid turnaround of personalized molecular diagnostics results. Moreover, patient-
+derived cells, tissues, and induced pluripotent stem cells (iPSCs) can be incorporated on a
+microﬂuidic platform, also known as an organ-on-chip (OoC), recreating patient-speciﬁc
+multicellular microenvironments [272]. The OoC has broad potential, from being a clinical
+diagnostics vehicle to a personalized drug development tool as well as a fundamental
+biomedical research platform. By using human- or patient-derived cells and tissues, the re-
+sults are more clinically translatable, and AI-empowered analysis can deliver prediction
+of prognosis and therapy outcome [273]. Furthermore, the OoC could potentially replace
+animal studies, resolving decades-long dilemmas in research ethics [274,275].
+5.2.1. Integration with Molecular Bioinformatics
+Microﬂuidic technologies have been adapted for genomics and transcriptomics studies,
+both in the core of the sequencing platform, such as sequencing ﬂow cells of next-generation
+sequencing (NGS), and sample and library preparation, such as single cell isolation using
+droplet microﬂuidics [276,277]. Because many of the techniques use Poisson statistics,
+by adopting machine learning algorithms in bioinformatic pipelines, the quality of library
+preparation and data quality can be improved and helps advance multiomics studies such
+as spatial transcriptomics and metabolomics [191,278,279]. For example, Ko et al. applied
+nanoﬂuidics and machine learning to predict cancer in mice and patients using exosomal
+mRNA proﬁles learned through linear discriminant analysis [280].
+5.2.2. Organ-on-Chips as Human Mimetic Models
+Organ-on-chips (OoCs) aim to recreate multicellular complex environments in vitro
+on microﬂuidic platforms to recapitulate the complex tissue interaction with physical
+and chemical gradients existing in the biological microenvironment [281]. Many OoCs
+adapting human-derived primary cells, stem cells, or cell lines have been developed for
+different organs models, such as brain [282,283], thyroid [284], heart [285], stomach [286],
+intestine [287], lungs [288,289], liver [290], kidneys [291], pancreas [292], and bladder [293].
+The complexity of OoC platforms offers many opportunities for automation and
+data analysis, both of which can beneﬁt a lot from AI [294]. In particular, when patient-
+speciﬁc tissues or iPSC-differentiated cells are used, OoCs have the potential to recapitulate
+the human physiology and deliver personalized medicine without the need for animal
+testing [295–297].
+Due to the excellence in image segmentation and predictive potential, AI has started to
+be integrated with OoC platforms for image analysis, correlation, and prediction of clinical
+results. Paek et al. created a bone OoC as a drug-testing platform for osteoporosis. CNN-
+based image segmentation provided quantitative measurements of beta-catenin translo-
+cation to evaluate the efﬁcacy of the osteoporosis suppressive antibody [298] (Figure 6a).
+Likewise, a blood–brain niche (BBN) chip was developed to model the extravasation of
+breast cancer cells into a brain-mimetic niche [299,300]. The invasion of cancer cells through
+an endothelial cell sheet was evaluated by confocal 3D tomography, and several machine
+learning algorithms were benchmarked to classify the metastatic potential of the cancer
+cells. The ANN was found to outperform other machine learning algorithms (Figure 6b).
+Chong et al. developed a microﬂuidic multicellular coculture array for testing skin sensitiv-
+ity to drugs [301]. By combining SVM and principle component analysis on image results
+for several apoptosis markers, adverse cutaneous drug reactions can be predicted with the
+accuracy of 87.5% and the speciﬁcity of 75%. The predictive evaluation could have huge
+potential in personalized medicine to aid in preventing severe adverse reactions, such as
+Steven Johnson syndrome and toxic epidermal necrolysis syndrome.
+Alternatively, a sheet of muscle cells placedon a microﬂuidic stretching platform can
+be quantitatively studied with the assistance of AI. Recurrent neural networks (RNNs) with
+
+===PAGE 16===
+Micromachines 2023, 14, 826
+16 of 30
+long short-term memory (LTSM) blocks were used to predict the subsequent dynamics of
+muscle cells from one time point in conjunction with a CNN to predict the phenotype of
+them [302] (Figure 6c).
+The complexity of the immune-tumor niche also makes it a key topic suitable for
+combined approach by OoC and AI analysis [303]. The interaction between dendritic cells
+and leukocytes with cancer cells in a 3D microﬂuidic coculture platform can be accurately
+segmented and tracked with the aid of deep learning [304–307]. Nguyen et al. constructed
+an immune-competent OoC that reconstitutes cancer, immune, endothelial cells, and ﬁ-
+broblasts altogether for studying immune–tumor interactions and immunomodulation of
+cancer-associated ﬁbroblasts [306] (Figure 6d). The synergy between OoC and AI shows a
+promising future of personalized medicine.
+5.2.3. Personalized Drug Development
+One key concept of personalized medicine is recognizing that individuals have biolog-
+ical variations both in biochemistry and drug responses [308]. Utilization of AI for person-
+alized drug optimization by both drug selection and dosage has been promising [309,310].
+A microﬂuidic POCT device for MRD and an OoC for tracking cancer migratory abilities
+were demonstrated for evaluation of patient-speciﬁc cancer drug efﬁcacy by combining
+AI analysis [311,312]. It is expected that we will see more examples and applications
+combining microﬂuidic biomimetic models integrated with AI analysis and prediction in
+the future, such as integrated lab-on-chip devices for personalized diagnosis, medicine
+formation, and even drug delivery [313].
+Figure 6. Organ-on-chip platforms integrated with AI analysis. (a) A bone-on-chip for osteoporosis
+drug testing and development [298]. Reproduced under CC–BY license. (b) A blood–brain niche
+OoC for predicting the metastatic probability of brain cancer [299,300]. Adapted with permission
+from [300]. (c) A muscle-on-chip with AI image analysis for quantitative understanding of muscular
+cell phenotypes. Reprinted with permission from [302]. (d) An OoC to reconstitute immunocompetent
+tumor microenvironment in breast cancer [305,306]. Reproduced under CC–BY license. (e) A skin-on-
+chip for predicting adverse cutaneous drug reactions [301]. Components in the ﬁgure were designed
+by macrovector; brgfx/Freepik.
+6. Discussion and Outlook
+Microﬂuidics is a rapidly advancing ﬁeld that involves manipulating small ﬂuid
+volumes at the microscale. One of the key challenges in this ﬁeld is the ability to control and
+
+===PAGE 17===
+Micromachines 2023, 14, 826
+17 of 30
+analyze the complex ﬂuid dynamics that occur on such a small scale. In recent years, there
+has been growing interest in integrating AI with microﬂuidics to address this challenge. AI
+has the potential to revolutionize microﬂuidics by enabling the development of intelligent
+control systems that can adapt to changing conditions in real-time. Additionally, AI-
+based image analysis techniques can automatically detect, classify, and track objects of
+interests in microﬂuidic systems, providing valuable insights as well as prediction of their
+dynamics. The integration of AI with microﬂuidics could lead to the development of
+more sophisticated lab-on-a-chip diagnostic devices, more efﬁcient and effective drug
+delivery systems, and more versatile monitoring platforms. AI-empowered image analysis
+delivers quantitative analysis of cells and tissues in complex OoCs and opens a new era in
+quantitative biology and personalized medicine.
+Overall, the advantages of integrating AI with microﬂuidics include automation,
+efﬁciency, and quantitative analysis in data processing, as well as cost effectiveness due to
+the low reagent consumption of microﬂuidics. AI can perform large-scale iterations and
+automation of planning and executing experimental parameters. The trainability of AI
+empowered it to ﬂexibly learn from data and predict even when a priori annotation is not
+always available. The neural networks especially outperform conventional algorithms in
+image and language recognition, which are often abundant in biomedical and clinical data,
+opening possibilities to automate quantitative analysis of data that was conventionally
+difﬁcult to analyze.
+However, some challenges must be addressed. Firstly, robust AI algorithms and
+reliable data inputs are necessary for successful integration. While recent advancements
+have demonstrated the power of AI algorithms, they are often considered a “black-box”
+due to their lack of explainability. To build trustworthy AI-integrated microﬂuidic systems,
+it is crucial to prioritize explainability and validation because quality assurance and risk
+management are of the utmost importance in medical instrumentation. Secondly, AI
+operations can be computationally expensive; both training and interference demand
+immense parallel processing power. Therefore, energy efﬁciency and deployability for
+particular applications and their environments are essential. For example, when integrating
+with a microﬂuidic POCT system in a low-resource setting, such as a rural area with
+intermittent power supply, a lightweight AI on an edge computing platform may be crucial
+for successful integration. Additionally, data size is a critical factor in AI performance,
+which scales proportionally with the amount of the data. While combining the automation
+capability of microﬂuidics and MEMS with data from existing methods for training AI
+systems can be challenging, data fusion could provide a uniﬁed and comprehensive dataset
+that enables AI systems for more reliable predictive analysis. Cooperation within the
+scientiﬁc community for data sharing and training AI systems with federated learning can
+also address the challenges of both explainability and deployability.
+In summary, by integrating the compact and versatile microﬂuidic platforms with the
+intelligent control and analysis with AI, we expect new breakthroughs in healthcare in the
+near future, but caveats must be taken to validate the AI system for any applications and
+evaluate potential risks.
+Author Contributions: Conceptualization, S.P. and H.-F.T.; writing—original draft preparation, S.P.,
+P.-Y.C. and H.-F.T.; writing—review and editing, H.-F.T.; supervision, H.-F.T.; funding acquisition,
+H.-F.T. All authors have read and agreed to the published version of the manuscript.
+Funding: This research was funded by National Science and Technology Council, Taiwan under
+grant number NSTC 111-2222-E-182-004.
+Data Availability Statement: No new data were created or analyzed in this study.
+Conﬂicts of Interest: The authors declare no conﬂict of interest.
+
+===PAGE 18===
+Micromachines 2023, 14, 826
+18 of 30
+Abbreviations
+The following abbreviations are used in this manuscript:
+AI
+Artiﬁcial Intelligence
+AIV
+Artiﬁcial Intelligence Velocimetry
+ANN
+Artiﬁcial Neural Network
+AST
+Antimicrobial Susceptibility Testing
+CC-BY
+Creative Commons Attribution 4.0 License
+CFD
+Computational Fluid Dynamics
+CNN
+Convolutional Neural Network
+CTC
+Circulating Tumor Cells
+DM
+Diabetes Mellitus
+ELISA
+Enzyme-Linked ImmunoSorbent Assay
+FPS
+Frames Per Second
+GPU
+Graphics Processing Unit
+ICT
+Information and Communication Technology
+iPSC
+Induced Pluripotent Stem Cell
+IR
+Infrared
+LAMP
+Loop-mediated isothermal AMPliﬁcation
+MEMS
+Microelectromechanical systems
+MRD
+Minimum Residual Disease
+µTAS
+Micro-Total Analysis System
+OoC
+Organ-on-Chip
+POCT
+Point-Of-Care Testing
+QPI
+Quantitative Phase Imaging
+RBC
+Red Blood Cell
+RNN
+Recurrent Neural Network
+SNR
+Signal-to-Noise Ratio
+SVM
+Support Vector Machine
+TDM
+Therapeutic Drug Monitoring
+WBC
+White Blood Cell
+YOLO
+You Only Look Once
+References
+1.
+Whitesides, G.M. The origins and the future of microﬂuidics. Nature 2006, 442, 368–373. [CrossRef] [PubMed]
+2.
+Stone, H.A. Introduction to Fluid Dynamics for Microﬂuidic Flows. In CMOS Biotechnology; Lee, H.; Westervelt, R.M.; Ham, D.,
+Eds.; Series on Integrated Circuits and Systems; Springer: Boston, MA, USA, 2007; pp. 5–30.
+3.
+deMello, A.J. Control and detection of chemical reactions in microﬂuidic systems. Nature 2006, 442, 394–402. [CrossRef] [PubMed]
+4.
+Velve-Casquillas, G.; Le Berre, M.; Piel, M.; Tran, P.T. Microﬂuidic tools for cell biological research. Nano Today 2010, 5, 28–47.
+[CrossRef] [PubMed]
+5.
+Liu, Y.; Jiang, X. Why microﬂuidics? Merits and trends in chemical synthesis. Lab Chip 2017, 17, 3960–3978. [CrossRef] [PubMed]
+6.
+Nielsen, J.B.; Hanson, R.L.; Almughamsi, H.M.; Pang, C.; Fish, T.R.; Woolley, A.T. Microﬂuidics: Innovations in Materials and
+Their Fabrication and Functionalization. Anal. Chem. 2020, 92, 150–168. [CrossRef]
+7.
+Jordan, M.I.; Mitchell, T.M. Machine learning: Trends, perspectives, and prospects. Science 2015, 349, 255–260. [CrossRef]
+8.
+Uhrig, R. Introduction to artiﬁcial neural networks. In Proceedings of the IECON ’95-21st Annual Conference on IEEE Industrial
+Electronics, Orlando, FL, USA, 6–10 November 1995; Volume 1, pp. 33–37. [CrossRef]
+9.
+Schmidhuber, J. Deep learning in neural networks: An overview. Neural Netw. 2015, 61, 85–117. [CrossRef]
+10.
+Bishop, C.M. Neural networks and their applications. Rev. Sci. Instrum. 1994, 65, 1803–1832. [CrossRef]
+11.
+Ben-Nun, T.; Hoeﬂer, T. Demystifying Parallel and Distributed Deep Learning: An In-depth Concurrency Analysis. ACM Comput.
+Surv. 2019, 52, 65:1–65:43. [CrossRef]
+12.
+Rao, Q.; Frtunikj, J. Deep learning for self-driving cars: Chances and challenges. In Proceedings of the 1st International Workshop
+on Software Engineering for AI in Autonomous Systems (SEFAIS ’18), Gothenburg, Sweden, 28 May 2018; Association for
+Computing Machinery: New York, NY, USA, 2018; pp. 35–38. [CrossRef]
+13.
+Johnson, J. Artiﬁcial intelligence & future warfare: Implications for international security. Def. Secur. Anal. 2019, 35, 147–169.
+[CrossRef]
+14.
+Yu, T.C.; Chou, W.C.; Yeh, C.Y.; Yang, C.K.; Huang, S.C.; Tien, F.M.; Yao, C.Y.; Cheng, C.L.; Chuang, M.K.; Tien, H.F.; et al.
+Automatic Bone Marrow Cell Identiﬁcation and Classiﬁcation By Deep Neural Network. Blood 2019, 134, 2084. [CrossRef]
+
+===PAGE 19===
+Micromachines 2023, 14, 826
+19 of 30
+15.
+Lu, M.Y.; Williamson, D.F.K.; Chen, T.Y.; Chen, R.J.; Barbieri, M.; Mahmood, F. Data-efﬁcient and weakly supervised computational
+pathology on whole-slide images. Nat. Biomed. Eng. 2021, 5, 555–570. [CrossRef] [PubMed]
+16.
+Chen, C.L.; Chen, C.C.; Yu, W.H.; Chen, S.H.; Chang, Y.C.; Hsu, T.I.; Hsiao, M.; Yeh, C.Y.; Chen, C.Y. An annotation-free
+whole-slide training approach to pathological classiﬁcation of lung cancer types using deep learning. Nat. Commun. 2021, 12, 1193.
+[CrossRef] [PubMed]
+17.
+Podder, S.; Bhattacharjee, S.; Roy, A.; Podder, S.; Bhattacharjee, S.; Roy, A. An efﬁcient method of detection of COVID-19 using
+Mask R-CNN on chest X-Ray images. AIMS Biophys. 2021, 8, 281–290. [CrossRef]
+18.
+Galan, E.A.; Zhao, H.; Wang, X.; Dai, Q.; Huck, W.T.S.; Ma, S. Intelligent Microﬂuidics: The Convergence of Machine Learning
+and Microﬂuidics in Materials Science and Biomedicine. Matter 2020, 3, 1893–1922. [CrossRef]
+19.
+Bai, Y.; Gao, M.; Wen, L.; He, C.; Chen, Y.; Liu, C.; Fu, X.; Huang, S. Applications of Microﬂuidics in Quantitative Biology.
+Biotechnol. J. 2018, 13, 1700170. [CrossRef]
+20.
+McIntyre, D.; Lashkaripour, A.; Fordyce, P.; Densmore, D. Machine learning for microﬂuidic design and control. Lab Chip 2022,
+22, 2925–2937. [CrossRef]
+21.
+Renner, G.; Ekárt, A. Genetic algorithms in computer aided design. Comput.-Aided Des. 2003, 35, 709–726. [CrossRef]
+22.
+Oh, K.W.; Lee, K.; Ahn, B.; Furlani, E.P. Design of pressure-driven microﬂuidic networks using electric circuit analogy. Lab Chip
+2012, 12, 515–545. [CrossRef]
+23.
+Xu, H.; Liu, R.; Choudhary, A.; Chen, W. A Machine Learning-Based Design Representation Method for Designing Heterogeneous
+Microstructures. J. Mech. Des. 2015, 137. [CrossRef]
+24.
+Bhargava, K.C.; Thompson, B.; Iqbal, D.; Malmstadt, N. Predicting the behavior of microﬂuidic circuits made from discrete
+elements. Sci. Rep. 2015, 5, 15609. [CrossRef] [PubMed]
+25.
+Tsur, E.E. Computer-Aided Design of Microﬂuidic Circuits. Annu. Rev. Biomed. Eng. 2020, 22, 285–307. [CrossRef] [PubMed]
+26.
+Lore, K.G.; Stoecklein, D.; Davies, M.; Ganapathysubramanian, B.; Sarkar, S. Hierarchical Feature Extraction for Efﬁcient Design
+of Microﬂuidic Flow Patterns. In Proceedings of the 1st International Workshop on Feature Extraction: Modern Questions and
+Challenges at NIPS2015, Montreal, Canada, 11 December, 2015; PMLR: Cambridge, MA, USA, 2015; pp. 213–225.
+27.
+Stoecklein, D.; Lore, K.G.; Davies, M.; Sarkar, S.; Ganapathysubramanian, B. Deep Learning for Flow Sculpting: Insights into
+Efﬁcient Learning using Scientiﬁc Simulation Data. Sci. Rep. 2017, 7, 46368. [CrossRef]
+28.
+Lee, X.Y.; Balu, A.; Stoecklein, D.; Ganapathysubramanian, B.; Sarkar, S. Flow Shape Design for Microﬂuidic Devices Using Deep
+Reinforcement Learning. arXiv 2018. [CrossRef]
+29.
+Granados-Ortiz, F.J.; Ortega-Casanova, J. Machine learning-aided design optimization of a mechanical micromixer. Phys. Fluids
+2021, 33, 063604. [CrossRef]
+30.
+Wang, J.; Zhang, N.; Chen, J.; Su, G.; Yao, H.; Ho, T.Y.; Sun, L. Predicting the ﬂuid behavior of random microﬂuidic mixers using
+convolutional neural networks. Lab Chip 2021, 21, 296–309. [CrossRef]
+31.
+Maionchi, D.d.O.; Ainstein, L.; dos Santos, F.P.; de Souza Júnior, M.B. Computational ﬂuid dynamics and machine learning as
+tools for optimization of micromixers geometry. Int. J. Heat Mass Transf. 2022, 194, 123110. [CrossRef]
+32.
+Zhang, N.; Liu, Z.; Wang, J. Machine-Learning-Enabled Design and Manipulation of a Microﬂuidic Concentration Gradient
+Generator. Micromachines 2022, 13, 1810. [CrossRef] [PubMed]
+33.
+Balabanov, A.V.; Kasimov, A.M.; Popov, A.I.; Fateev, V.Y. MNM-Modelling and Creating Designs of Discrete Microﬂuidics. In
+Proceedings of the 2021 14th International Conference Management of Large-Scale System Development (MLSD), Moscow,
+Russian, 27–29 September 2021; pp. 1–4. [CrossRef]
+34.
+Lashkaripour, A.; Rodriguez, C.; Mehdipour, N.; Mardian, R.; McIntyre, D.; Ortiz, L.; Campbell, J.; Densmore, D. Machine
+learning enables design automation of microﬂuidic ﬂow-focusing droplet generation. Nat. Commun. 2021, 12, 25. [CrossRef]
+35.
+Shahab, M.; Rengaswamy, R. Reinforcement-Learning designs droplet microﬂuidic networks.
+Comput. Chem. Eng. 2022,
+161, 107787. [CrossRef]
+36.
+Haward, S.J.; Oliveira, M.S.N.; Alves, M.A.; McKinley, G.H. Optimized Cross-Slot Flow Geometry for Microﬂuidic Extensional
+Rheometry. Phys. Rev. Lett. 2012, 109, 128301. [CrossRef] [PubMed]
+37.
+Wang, J.; Liang, K.; Zhang, N.; Yao, H.; Ho, T.Y.; Sun, L. Automated calibration of 3D-printed microﬂuidic devices based on
+computer vision. Biomicroﬂuidics 2021, 15, 024102. [CrossRef] [PubMed]
+38.
+Shchanikov, S.; Zuev, A.; Bordanov, I.; Danilin, S.; Lukoyanov, V.; Korolev, D.; Belov, A.; Pigareva, Y.; Gladkov, A.; Pimashkin, A.;
+et al. Designing a bidirectional, adaptive neural interface incorporating machine learning capabilities and memristor-enhanced
+hardware. Chaos Solitons Fractals 2021, 142, 110504. [CrossRef]
+39.
+Bachratý, H.; Bachratá, K.; Chovanec, M.; Janˇcigová, I.; Smiešková, M.; Kovalˇcíková, K. Applications of machine learning for
+simulations of red blood cells in microﬂuidic devices. BMC Bioinform. 2020, 21, 90. [CrossRef] [PubMed]
+40.
+Zhang, N.; Liang, K.; Liu, Z.; Sun, T.; Wang, J. ANN-Based Instantaneous Simulation of Particle Trajectories in Microﬂuidics.
+Micromachines 2022, 13, 2100. [CrossRef]
+41.
+Ahmed, F.; Shimizu, M.; Wang, J.; Sakai, K.; Kiwa, T. Optimization of Microchannels and Application of Basic Activation
+Functions of Deep Neural Network for Accuracy Analysis of Microﬂuidic Parameter Data.
+Micromachines 2022, 13, 1352.
+[CrossRef] [PubMed]
+42.
+Kutz, J.N. Deep learning in ﬂuid dynamics. J. Fluid Mech. 2017, 814, 1–4. [CrossRef]
+
+===PAGE 20===
+Micromachines 2023, 14, 826
+20 of 30
+43.
+Brunton, S.L.; Noack, B.R.; Koumoutsakos, P. Machine Learning for Fluid Mechanics. Annu. Rev. Fluid Mech. 2020, 52, 477–508.
+[CrossRef]
+44.
+Kochkov, D.; Smith, J.A.; Alieva, A.; Wang, Q.; Brenner, M.P.; Hoyer, S. Machine learning–accelerated computational ﬂuid
+dynamics. Proc. Natl. Acad. Sci. USA 2021, 118, e2101784118. [CrossRef]
+45.
+Cai, S.; Li, H.; Zheng, F.; Kong, F.; Dao, M.; Karniadakis, G.E.; Suresh, S. Artiﬁcial intelligence velocimetry and microaneurysm-on-
+a-chip for three-dimensional analysis of blood ﬂow in physiology and disease. Proc. Natl. Acad. Sci. USA 2021, 118, e2100697118.
+[CrossRef]
+46.
+Zeng, X.; Xue, C.D.; Chen, K.J.; Li, Y.J.; Qin, K.R. Deep-learning-assisted extraction of height-averaged velocity from scalar signal
+transport in a shallow microﬂuidic channel. Microﬂuid. Nanoﬂuidics 2022, 26, 36. [CrossRef]
+47.
+Chen, Q.; Deng, J.; Luo, G. Micromixing Performance and Residence Time Distribution in a Miniaturized Magnetic Reactor:
+Experimental Investigation and Machine Learning Modeling. Ind. Eng. Chem. Res. 2023, 62, 3577–3591. [CrossRef]
+48.
+Sharma, H.; Das, G.; Samanta, A.N. ANN–based prediction of two-phase gas– liquid ﬂow patterns in a circular conduit. AIChE J.
+2006, 52, 3018–3028. [CrossRef]
+49.
+Giri Nandagopal, M.S.; Selvaraju, N. Prediction of Liquid–Liquid Flow Patterns in a Y-Junction Circular Microchannel Using
+Advanced Neural Network Techniques. Ind. Eng. Chem. Res. 2016, 55, 11346–11362. [CrossRef]
+50.
+Nandagopal, M.S.G.; Abraham, E.; Selvaraju, N. Advanced neural network prediction and system identiﬁcation of liquid-liquid
+ﬂow patterns in circular microchannels with varying angle of conﬂuence. Chem. Eng. J. 2017, 309, 850–865. [CrossRef]
+51.
+Desir, P.; Chen, T.Y.; Bracconi, M.; Saha, B.; Maestri, M.; Vlachos, D.G. Experiments and computations of microﬂuidic liquid–liquid
+ﬂow patterns. React. Chem. Eng. 2019, 5, 39–50. [CrossRef]
+52.
+Abbasi Moud, A. Recent advances in utility of artiﬁcial intelligence towards multiscale colloidal based materials design. Colloid
+Interface Sci. Commun. 2022, 47, 100595. [CrossRef]
+53.
+Iverson, B.D.; Garimella, S.V. Recent advances in microscale pumping technologies: A review and evaluation.
+Microﬂuid.
+Nanoﬂuidics 2008, 5, 145–174. [CrossRef]
+54.
+Dressler, O.J.; Howes, P.D.; Choo, J.; deMello, A.J. Reinforcement Learning for Dynamic Microﬂuidic Control. ACS Omega 2018,
+3, 10084–10091. [CrossRef]
+55.
+Au, A.K.; Lai, H.; Utela, B.R.; Folch, A. Microvalves and Micropumps for BioMEMS. Micromachines 2011, 2, 179–220. [CrossRef]
+56.
+Abe, T.; Oh-hara, S.; Ukita, Y. Adoption of reinforcement learning for the intelligent control of a microﬂuidic peristaltic pump.
+Biomicroﬂuidics 2021, 15, 034101. [CrossRef] [PubMed]
+57.
+Abe, T.; Oh-hara, S.; Ukita, Y. Integration of reinforcement learning to realize functional variability of microﬂuidic systems.
+Biomicroﬂuidics 2022, 16, 024106. [CrossRef]
+58.
+Shayan, M.; Bhattacharjee, S.; Song, Y.A.; Chakrabarty, K.; Karri, R. Toward Secure Microﬂuidic Fully Programmable Valve Array
+Biochips. IEEE Trans. Very Large Scale Integr. (VLSI) Syst. 2019, 27, 2755–2766. [CrossRef]
+59.
+Hajmohammadi, M.R.; Alipour, P.; Parsa, H. Microﬂuidic effects on the heat transfer enhancement and optimal design of
+microchannels heat sinks. Int. J. Heat Mass Transf. 2018, 126, 808–815. [CrossRef]
+60.
+Miralles, V.; Huerre, A.; Malloggi, F.; Jullien, M.C. A Review of Heating and Temperature Control in Microﬂuidic Systems:
+Techniques and Applications. Diagnostics 2013, 3, 33–67. [CrossRef]
+61.
+Rizkin, B.A.; Popovich, K.; Hartman, R.L. Artiﬁcial Neural Network control of thermoelectrically-cooled microﬂuidics using
+computer vision based on IR thermography. Comput. Chem. Eng. 2019, 121, 584–593. [CrossRef]
+62.
+Quinn, D.; Thalheim, T.; Cichos, F. Microﬂuidics with feedback control and machine learning (Conference Presentation). In
+Proceedings of the Emerging Topics in Artiﬁcial Intelligence (ETAI) 2022, San Diego, CA, USA, 21–25 August 2022; SPIE:
+Bellingham, WA, USA: 2022; Volume PC12204, p. PC122040S. [CrossRef]
+63.
+Lewis, C.; Erikson, J.W.; Sanchez, D.A.; McClure, C.E.; Nordin, G.P.; Munro, T.R.; Colton, J.S. Use of Machine Learning with
+Temporal Photoluminescence Signals from CdTe Quantum Dots for Temperature Measurement in Microﬂuidic Devices. ACS
+Appl. Nano Mater. 2020, 3, 4045–4053. [CrossRef] [PubMed]
+64.
+Raymond, S.J.; Collins, D.J.; O’Rorke, R.; Tayebi, M.; Ai, Y.; Williams, J. A deep learning approach for designed diffraction-based
+acoustic patterning in microchannels. Sci. Rep. 2020, 10, 8745. [CrossRef] [PubMed]
+65.
+Tang, Y.; Duan, F.; Zhou, A.; Kanitthamniyom, P.; Luo, S.; Hu, X.; Jiang, X.; Vasoo, S.; Zhang, X.; Zhang, Y. Image-based real-time
+feedback control of magnetic digital microﬂuidics by artiﬁcial intelligence-empowered rapid object detector for automated
+in vitro diagnostics. Bioeng. Transl. Med. 2022, e10428. [CrossRef]
+66.
+Zhang, S.; Wang, Y.; Onck, P.; den Toonder, J. A concise review of microﬂuidic particle manipulation methods. Microﬂuid.
+Nanoﬂuidics 2020, 24, 24. [CrossRef]
+67.
+Fang, W.Z.; Xiong, T.; Pak, O.S.; Zhu, L. Data-Driven Intelligent Manipulation of Particles in Microﬂuidics. Adv. Sci. 2022,
+10, 2205382. [CrossRef]
+68.
+Bazaz, S.R.; Mashhadian, A.; Ehsani, A.; Saha, S.C.; Krüger, T.; Warkiani, M.E. Computational inertial microﬂuidics: A review.
+Lab Chip 2020, 20, 1023–1048. [CrossRef] [PubMed]
+69.
+Del Giudice, F. A Review of Microﬂuidic Devices for Rheological Characterisation. Micromachines 2022, 13, 167. [CrossRef]
+70.
+Su, J.; Chen, X.; Zhu, Y.; Hu, G. Machine learning assisted fast prediction of inertial lift in microchannels.
+Lab Chip 2021,
+21, 2544–2556. [CrossRef] [PubMed]
+
+===PAGE 21===
+Micromachines 2023, 14, 826
+21 of 30
+71.
+Hamdi, E.; Dezhkam, R.; Shamloo, A.; Mashhadian, A. microAI: A machine learning tool for fast calculation of lift coefﬁcients in
+microchannels. arXiv 2022. [CrossRef]
+72.
+Zhang, Y.; Zhou, A.; Chen, S.; Lum, G.Z.; Zhang, X. A perspective on magnetic microﬂuidics: Towards an intelligent future.
+Biomicroﬂuidics 2022, 16, 011301. [CrossRef]
+73.
+Koh, J.B.Y.; Shen, X.; Marcos. Supervised Learning to Predict Sperm Sorting by Magnetophoresis. Magnetochemistry 2018, 4, 31.
+[CrossRef]
+74.
+Ciriza, D.B.; Magazzù, A.; Callegari, A.; Iatì, M.A.; Volpe, G.; Maragò, O.M. Machine learning to enhance the calculation of
+optical forces in the geometrical optics approximation. In Proceedings of the Biophotonics Congress 2021, Washington, DC, USA,
+12–16 April 2021, Optica Publishing Group, Washington, DC, USA, 2021; p. AF2D.3. [CrossRef]
+75.
+Zhao, J.; Hou, H.; Huang, Q.Y.; Zhong, X.G.; Zheng, P.S. Design of Optical Tweezers Manipulation Control System Based on
+Novel Self-Organizing Fuzzy Cerebellar Model Neural Network. Appl. Sci. 2022, 12, 9655. [CrossRef]
+76.
+Harshbarger, C.L.; Gerlt, M.S.; Ghadamian, J.A.; Bernardoni, D.C.; Snedeker, J.G.; Dual, J. Optical feedback control loop for the
+precise and robust acoustic focusing of cells, micro- and nanoparticles. Lab Chip 2022, 22, 2810–2819. [CrossRef]
+77.
+Yiannacou, K.; Sariola, V. Controlled Manipulation and Active Sorting of Particles Inside Microﬂuidic Chips Using Bulk Acoustic
+Waves and Machine Learning. Langmuir 2021, 37, 4192–4199. [CrossRef]
+78.
+Yiannacou, K.; Sharma, V.; Sariola, V. Programmable Droplet Microﬂuidics Based on Machine Learning and Acoustic Manipulation.
+Langmuir 2022, 38, 11557–11564. [CrossRef]
+79.
+Teh, S.Y.; Lin, R.; Hung, L.H.; Lee, A.P. Droplet microﬂuidics. Lab Chip 2008, 8, 198–220. [CrossRef]
+80.
+Pouyanfar, N.; Harofte, S.Z.; Soltani, M.; Siavashy, S.; Asadian, E.; Ghorbani-Bidkorbeh, F.; Keçili, R.; Hussain, C.M. Artiﬁcial
+intelligence-based microﬂuidic platforms for the sensitive detection of environmental pollutants: Recent advances and prospects.
+Trends Environ. Anal. Chem. 2022, 34, e00160. [CrossRef]
+81.
+Mahdi, Y.; Daoud, K. Microdroplet size prediction in microﬂuidic systems via artiﬁcial neural network modeling for water-in-oil
+emulsion formulation. J. Dispers. Sci. Technol. 2017, 38, 1501–1508. [CrossRef]
+82.
+Crowson, M.G.; Moukheiber, D.; Arévalo, A.R.; Lam, B.D.; Mantena, S.; Rana, A.; Goss, D.; Bates, D.W.; Celi, L.A. A systematic
+review of federated learning applications for biomedical data. PLoS Digit. Health 2022, 1, e0000033. [CrossRef] [PubMed]
+83.
+Siemenn, A.E.; Shaulsky, E.; Beveridge, M.; Buonassisi, T.; Hashmi, S.M.; Drori, I. A Machine Learning and Computer Vision
+Approach to Rapidly Optimize Multiscale Droplet Generation. ACS Appl. Mater. Interfaces 2022, 14, 4668–4679. [CrossRef]
+84.
+Khor, J.W.; Jean, N.; Luxenberg, E.S.; Ermon, S.; Tang, S.K.Y. Using machine learning to discover shape descriptors for predicting
+emulsion stability in a microﬂuidic channel. Soft Matter 2019, 15, 1361–1372. [CrossRef]
+85.
+Chagot, L.; Quilodrán-Casas, C.; Kalli, M.; Kovalchuk, N.M.; Simmons, M.J.H.; Matar, O.K.; Arcucci, R.; Angeli, P. Surfactant-laden
+droplet size prediction in a ﬂow-focusing microchannel: A data-driven approach. Lab Chip 2022, 22, 3848–3859. [CrossRef]
+86.
+Gardner, K.; Uddin, M.M.; Tran, L.; Pham, T.; Vanapalli, S.; Li, W. Deep learning detector for high precision monitoring of cell
+encapsulation statistics in microﬂuidic droplets. Lab Chip 2022, 22, 4067–4080. [CrossRef]
+87.
+Rutkowski, G.P.; Azizov, I.; Unmann, E.; Dudek, M.; Grimes, B.A. Microﬂuidic droplet detection via region-based and single-pass
+convolutional neural networks with comparison to conventional image analysis methodologies.
+Mach. Learn. Appl. 2022,
+7, 100222. [CrossRef]
+88.
+Vaithiyanathan, M.; Safa, N.; Melvin, A.T. FluoroCellTrack: An algorithm for automated analysis of high-throughput droplet
+microﬂuidic data. PLoS ONE 2019, 14, e0215337. [CrossRef]
+89.
+Durve, M.; Tiribocchi, A.; Bonaccorso, F.; Montessori, A.; Lauricella, M.; Bogdan, M.; Guzowski, J.; Succi, S. DropTrack – automatic
+droplet tracking using deep learning for microﬂuidic applications. Phys. Fluids 2022, 34, 082003. [CrossRef]
+90.
+Zhuang, Y.; Cheng, S.; Kovalchuk, N.; Simmons, M.; Matar, O.K.; Guo, Y.K.; Arcucci, R. Ensemble latent assimilation with deep
+learning surrogate model: application to drop interaction in a microﬂuidics device. Lab Chip 2022, 22, 3187–3202. [CrossRef]
+91.
+Hadikhani, P.; Borhani, N.; H. Hashemi, S.M.; Psaltis, D. Learning from droplet ﬂows in microﬂuidic channels using deep neural
+networks. Sci. Rep. 2019, 9, 8114. [CrossRef]
+92.
+Arjun, A.; Ajith, R.R.; Kumar Ranjith, S. Mixing characterization of binary-coalesced droplets in microchannels using deep neural
+network. Biomicroﬂuidics 2020, 14, 034111. [CrossRef]
+93.
+Roy, P.; House, M.L.; Dutcher, C.S. A Microﬂuidic Device for Automated High Throughput Detection of Ice Nucleation of
+Snomax®. Micromachines 2021, 12, 296. [CrossRef]
+94.
+Liang, T.C.; Zhong, Z.; Bigdeli, Y.; Ho, T.Y.; Chakrabarty, K.; Fair, R. Adaptive Droplet Routing in Digital Microﬂuidic Biochips
+Using Deep Reinforcement Learning.
+In Proceedings of the 37th International Conference on Machine Learning, Virtual,
+13–18 July 2020; PMLR: Cambridge, MA, USA, 2020; pp. 6050–6060.
+95.
+Jiang, C.; Yang, R.Q.; Yuan, B. An evolutionary algorithm with indirect representation for droplet routing in digital microﬂuidic
+biochips. Eng. Appl. Artif. Intell. 2022, 115, 105305. [CrossRef]
+96.
+Chu, A.; Nguyen, D.; Talathi, S.S.; Wilson, A.C.; Ye, C.; Smith, W.L.; Kaplan, A.D.; Duoss, E.B.; Stolaroff, J.K.; Giera, B. Automated
+detection and sorting of microencapsulation via machine learning. Lab Chip 2019, 19, 1808–1817. [CrossRef] [PubMed]
+97.
+Anagnostidis, V.; Sherlock, B.; Metz, J.; Mair, P.; Hollfelder, F.; Gielen, F. Deep learning guided image-based droplet sorting for
+on-demand selection and analysis of single cells and 3D cell cultures. Lab Chip 2020, 20, 889–900. [CrossRef] [PubMed]
+98.
+Howell, L.; Anagnostidis, V.; Gielen, F. Multi-Object Detector YOLOv4-Tiny Enables High-Throughput Combinatorial and
+Spatially-Resolved Sorting of Cells in Microdroplets. Adv. Mater. Technol. 2022, 7, 2101053. [CrossRef]
+
+===PAGE 22===
+Micromachines 2023, 14, 826
+22 of 30
+99.
+Liu, L.; Bi, M.; Wang, Y.; Liu, J.; Jiang, X.; Xu, Z.; Zhang, X. Artiﬁcial intelligence-powered microﬂuidics for nanomedicine and
+materials synthesis. Nanoscale 2021, 13, 19352–19366. [CrossRef]
+100. Reizman, B.J.; Jensen, K.F. Feedback in Flow for Accelerated Reaction Development. Acc. Chem. Res. 2016, 49, 1786–1796.
+[CrossRef]
+101. Granda, J.M.; Donina, L.; Dragone, V.; Long, D.L.; Cronin, L. Controlling an organic synthesis robot with machine learning to
+search for new reactivity. Nature 2018, 559, 377–381. [CrossRef] [PubMed]
+102. Zhong, J.; Riordon, J.; Wu, T.C.; Edwards, H.; Wheeler, A.R.; Pardee, K.; Aspuru-Guzik, A.; Sinton, D. When robotics met ﬂuidics.
+Lab Chip 2020, 20, 709–716. [CrossRef]
+103. McMullen, J.P.; Jensen, K.F. An Automated Microﬂuidic System for Online Optimization in Chemical Synthesis. Org. Process Res.
+Dev. 2010, 14, 1169–1176. [CrossRef]
+104. McMullen, J.P.; Stone, M.T.; Buchwald, S.L.; Jensen, K.F. An Integrated Microreactor System for Self-Optimization of a Heck
+Reaction: From Micro- to Mesoscale Flow Systems. Angew. Chem. Int. Ed. 2010, 49, 7076–7080. [CrossRef]
+105. Rizkin, B.A.; Shkolnik, A.S.; Ferraro, N.J.; Hartman, R.L. Combining automated microﬂuidic experimentation with machine
+learning for efﬁcient polymerization design. Nat. Mach. Intell. 2020, 2, 200–209. [CrossRef]
+106. Chen, X.; Lv, H. Intelligent control of nanoparticle synthesis on microﬂuidic chips with machine learning. NPG Asia Mater. 2022,
+14, 1–20. [CrossRef]
+107. Krishnadasan, S.; Brown, R.J.C.; deMello, A.J.; deMello, J.C. Intelligent routes to the controlled synthesis of nanoparticles.
+Lab Chip 2007, 7, 1434–1441. [CrossRef] [PubMed]
+108. Orimoto, Y.; Watanabe, K.; Yamashita, K.; Uehara, M.; Nakamura, H.; Furuya, T.; Maeda, H. Application of Artiﬁcial Neural
+Networks to Rapid Data Analysis in Combinatorial Nanoparticle Syntheses. J. Phys. Chem. C 2012, 116, 17885–17896. [CrossRef]
+109. Ahrberg, C.D.; Wook Choi, J.; Geun Chung, B. Automated droplet reactor for the synthesis of iron oxide/gold core-shell
+nanoparticles. Sci. Rep. 2020, 10, 1737. [CrossRef]
+110. Mekki-Berrada, F.; Ren, Z.; Huang, T.; Wong, W.K.; Zheng, F.; Xie, J.; Tian, I.P.S.; Jayavelu, S.; Mahfoud, Z.; Bash, D.; et al.
+Two-step machine learning enables optimized nanoparticle synthesis. Npj Comput. Mater. 2021, 7, 1–10. [CrossRef]
+111. Tao, H.; Wu, T.; Kheiri, S.; Aldeghi, M.; Aspuru-Guzik, A.; Kumacheva, E. Self-Driving Platform for Metal Nanoparticle Synthesis:
+Combining Microﬂuidics and Machine Learning. Adv. Funct. Mater. 2021, 31, 2106725. [CrossRef]
+112. Volk, A.A.; Epps, R.W.; Abolhasani, M. Accelerated Development of Colloidal Nanomaterials Enabled by Modular Microﬂuidic
+Reactors: Toward Autonomous Robotic Experimentation. Adv. Mater. 2021, 33, 2004495. [CrossRef]
+113. Wahl, C.B.; Aykol, M.; Swisher, J.H.; Montoya, J.H.; Suram, S.K.; Mirkin, C.A. Machine learning–accelerated design and synthesis
+of polyelemental heterostructures. Sci. Adv. 2021, 7, eabj5505. [CrossRef]
+114. Wang, S.; Shen, Z.; Shen, Z.; Dong, Y.; Li, Y.; Cao, Y.; Zhang, Y.; Guo, S.; Shuai, J.; Yang, Y.; et al. Machine-learning micropattern
+manufacturing. Nano Today 2021, 38, 101152. [CrossRef]
+115. Ali, H.S.M.; Blagden, N.; York, P.; Amani, A.; Brook, T. Artiﬁcial neural networks modelling the prednisolone nanoprecipitation
+in microﬂuidic reactors. Eur. J. Pharm. Sci. 2009, 37, 514–522. [CrossRef]
+116. Kirmani, A.R.; Luther, J.M.; Abolhasani, M.; Amassian, A. Colloidal Quantum Dot Photovoltaics: Current Progress and Path to
+Gigawatt Scale Enabled by Smart Manufacturing. ACS Energy Lett. 2020, 5, 3069–3100. [CrossRef]
+117. Chen, G.; Zhu, X.; Xing, C.; Wang, Y.; Xu, X.; Bao, J.; Huang, J.; Zhao, Y.; Wang, X.; Zhou, X.; et al. Machine Learning-Assisted
+Microﬂuidic Synthesis of Perovskite Quantum Dots. Adv. Photonics Res. 2022, 4, 2200230. [CrossRef]
+118. Rebollo, R.; Oyoun, F.; Corvis, Y.; El-Hammadi, M.M.; Saubamea, B.; Andrieux, K.; Mignet, N.; Alhareth, K. Microﬂuidic
+Manufacturing of Liposomes: Development and Optimization by Design of Experiment and Machine Learning. ACS Appl. Mater.
+Interfaces 2022, 14, 39736–39745. [CrossRef] [PubMed]
+119. Damiati, S.A.; Rossi, D.; Joensson, H.N.; Damiati, S. Artiﬁcial intelligence application for rapid fabrication of size-tunable PLGA
+microparticles in microﬂuidics. Sci. Rep. 2020, 10, 19517. [CrossRef] [PubMed]
+120. Damiati, S.A.; Damiati, S. Microﬂuidic Synthesis of Indomethacin-Loaded PLGA Microparticles Optimized by Machine Learning.
+Front. Mol. Biosci. 2021, 8, 595. [CrossRef] [PubMed]
+121. Grisoni, F.; Huisman, B.J.H.; Button, A.L.; Moret, M.; Atz, K.; Merk, D.; Schneider, G. Combining generative artiﬁcial intelligence
+and on-chip synthesis for de novo drug design. Sci. Adv. 2021, 7, eabg3338. [CrossRef] [PubMed]
+122. Schneider, G. Automating drug discovery. Nat. Rev. Drug Discov. 2018, 17, 97–113. [CrossRef] [PubMed]
+123. Liu, Y.; Sun, L.; Zhang, H.; Shang, L.; Zhao, Y. Microﬂuidics for Drug Development: From Synthesis to Evaluation. Chem. Rev.
+2021, 121, 7468–7529. [CrossRef]
+124. Popova, M.; Isayev, O.; Tropsha, A. Deep reinforcement learning for de novo drug design. Sci. Adv. 2018, 4, eaap7885. [CrossRef]
+125. Bannigan, P.; Bao, Z.; Hickman, R.J.; Aldeghi, M.; Häse, F.; Aspuru-Guzik, A.; Allen, C. Machine learning models to accelerate the
+design of polymeric long-acting injectables. Nat. Commun. 2023, 14, 35. [CrossRef]
+126. Mejía-Salazar, J.R.; Rodrigues Cruz, K.; Materón Vásques, E.M.; Novais de Oliveira, O., Jr. Microﬂuidic Point-of-Care Devices:
+New Trends and Future Prospects for eHealth Diagnostics. Sensors 2020, 20, 1951. [CrossRef]
+127. Zare Harofte, S.; Soltani, M.; Siavashy, S.; Raahemifar, K. Recent Advances of Utilizing Artiﬁcial Intelligence in Lab on a Chip for
+Diagnosis and Treatment. Small 2022, 18, 2203169. [CrossRef]
+128. Romao, V.C.; Martins, S.A.M.; Germano, J.; Cardoso, F.A.; Cardoso, S.; Freitas, P.P. Lab-on-Chip Devices: Gaining Ground Losing
+Size. ACS Nano 2017, 11, 10659–10664. [CrossRef]
+
+===PAGE 23===
+Micromachines 2023, 14, 826
+23 of 30
+129. Dabbagh, S.R.; Rabbi, F.; Do˘gan, Z.; Yetisen, A.K.; Tasoglu, S. Machine learning-enabled multiplexed microﬂuidic sensors.
+Biomicroﬂuidics 2020, 14, 061506. [CrossRef]
+130. Lee, W.; Gonzalez, A.; Arguelles, P.; Guevara, R.; Gonzalez-Guerrero, M.J.; Gomez, F.A. Thread/paper- and paper-based
+microﬂuidic devices for glucose assays employing artiﬁcial neural networks. Electrophoresis 2018, 39, 1443–1451. [CrossRef]
+[PubMed]
+131. Mercan, Ö.B.; Kılıç, V.; ¸Sen, M. Machine learning-based colorimetric determination of glucose in artiﬁcial saliva with different
+reagents using a smartphone coupled µPAD. Sens. Actuators Chem. 2021, 329, 129037. [CrossRef]
+132. Muñoz, H.E.; Riche, C.T.; Kong, J.E.; van Zee, M.; Garner, O.B.; Ozcan, A.; Di Carlo, D. Fractal LAMP: Label-Free Analysis of
+Fractal Precipitate for Digital Loop-Mediated Isothermal Nucleic Acid Ampliﬁcation. ACS Sens. 2020, 5, 385–394. [CrossRef]
+[PubMed]
+133. Alvarez, M.; Rahmani, E.; Jew, B.; Garske, K.M.; Miao, Z.; Benhammou, J.N.; Ye, C.J.; Pisegna, J.R.; Pietiläinen, K.H.; Halperin, E.;
+et al. Enhancing droplet-based single-nucleus RNA-seq resolution using the semi-supervised machine learning classiﬁer DIEM.
+Sci. Rep. 2020, 10, 11019. [CrossRef]
+134. Lee, T.H.; Kwon, H.B.; Song, W.Y.; Lee, S.S.; Kim, Y.J. Microﬂuidic ultraﬁne particle dosimeter using an electrical detection
+method with a machine-learning-aided algorithm for real-time monitoring of particle density and size distribution. Lab Chip
+2021, 21, 1503–1516. [CrossRef] [PubMed]
+135. Alapan, Y.; Kim, C.; Adhikari, A.; Gray, K.E.; Gurkan-Cavusoglu, E.; Little, J.A.; Gurkan, U.A. Sickle cell disease biochip: A
+functional red blood cell adhesion assay for monitoring sickle cell disease. Transl. Res. 2016, 173, 74–91.e8. [CrossRef]
+136. Praljak, N.; Iram, S.; Goreke, U.; Singh, G.; Hill, A.; Gurkan, U.A.; Hinczewski, M. Integrating deep learning with microﬂuidics
+for biophysical classiﬁcation of sickle red blood cells adhered to laminin. PLoS Comput. Biol. 2021, 17, e1008946. [CrossRef]
+137. Lamoureux, E.S.; Islamzada, E.; Wiens, M.V.J.; Matthews, K.; Duffy, S.P.; Ma, H. Assessing red blood cell deformability from
+microscopy images using deep learning. Lab Chip 2021, 22, 26–39. [CrossRef]
+138. Rizzuto, V.; Mencattini, A.; Álvarez González, B.; Di Giuseppe, D.; Martinelli, E.; Beneitez-Pastor, D.; Mañú-Pereira, M.d.M.;
+Lopez-Martinez, M.J.; Samitier, J. Combining microﬂuidics with machine learning algorithms for RBC classiﬁcation in rare
+hereditary hemolytic anemia. Sci. Rep. 2021, 11, 13553. [CrossRef]
+139. Ellett, F.; Jorgensen, J.; Marand, A.L.; Liu, Y.M.; Martinez, M.M.; Sein, V.; Butler, K.L.; Lee, J.; Irimia, D. Diagnosis of sepsis from a
+drop of blood by measurement of spontaneous neutrophil motility in a microﬂuidic assay. Nat. Biomed. Eng. 2018, 2, 207–214.
+[CrossRef]
+140. Kalmady, K.S.; Kamath, A.S.; Gopakumar, G.; Subrahmanyam, G.R.K.S.; Gorthi, S.S. Improved Transfer Learning through
+Shallow Network Embedding for Classiﬁcation of Leukemia Cells. In Proceedings of the 2017 Ninth International Conference on
+Advances in Pattern Recognition (ICAPR), Bangalore, India, 27–30 December 2017; pp. 1–6. [CrossRef]
+141. Gopakumar, G.; Hari Babu, K.; Mishra, D.; Gorthi, S.S.; Sai Subrahmanyam, G.R.K. Cytopathological image analysis using
+deep-learning networks in microﬂuidic microscopy. J. Opt. Soc. Am. A Opt. Image Sci. Vis. 2017, 34, 111–121. [CrossRef] [PubMed]
+142. Manak, M.S.; Varsanik, J.S.; Hogan, B.J.; Whitﬁeld, M.J.; Su, W.R.; Joshi, N.; Steinke, N.; Min, A.; Berger, D.; Saphirstein, R.J.; et al.
+Live-cell phenotypic-biomarker microﬂuidic assay for the risk stratiﬁcation of cancer patients via machine learning. Nat. Biomed.
+Eng. 2018, 2, 761–772. [CrossRef] [PubMed]
+143. Soldati, G.; Del Ben, F.; Brisotto, G.; Biscontin, E.; Bulfoni, M.; Piruska, A.; Steffan, A.; Turetta, M.; Della Mea, V. Microﬂuidic
+droplets content classiﬁcation and analysis through convolutional neural networks in a liquid biopsy workﬂow. Am. J. Transl.
+Res. 2018, 10, 4004–4016. [PubMed]
+144. Hashemzadeh, H.; Shojaeilangari, S.; Allahverdi, A.; Rothbauer, M.; Ertl, P.; Naderi-Manesh, H. A combined microﬂuidic deep
+learning approach for lung cancer cell high throughput screening toward automatic cancer screening applications. Sci. Rep. 2021,
+11, 9804. [CrossRef]
+145. Ayensa-Jiménez, J.; Doweidar, M.H.; Sanz-Herrera, J.A.; Doblare, M. Understanding glioblastoma invasion using physically-
+guided neural networks with internal variables. PLoS Comput. Biol. 2022, 18, e1010019. [CrossRef]
+146. Ni, W.; Hu, B.; Zheng, C.; Tong, Y.; Wang, L.; Li, Q.q.; Tong, X.; Han, Y. Automated analysis of acute myeloid leukemia minimal
+residual disease using a support vector machine. Oncotarget 2016, 7, 71915–71921. [CrossRef]
+147. Turan, B.; Masuda, T.; Lei, W.; Noor, A.M.; Horio, K.; Saito, T.I.; Miyata, Y.; Arai, F. A pillar-based microﬂuidic chip for T-cells and
+B-cells isolation and detection with machine learning algorithm. ROBOMECH J. 2018, 5, 27. [CrossRef]
+148. McRae, M.P.; Simmons, G.W.; Wong, J.; Shadfan, B.; Gopalkrishnan, S.; Christodoulides, N.; McDevitt, J.T. Programmable
+bio-nano-chip system: A ﬂexible point-of-care platform for bioscience and clinical measurements. Lab Chip 2015, 15, 4020–4031.
+[CrossRef]
+149. Christodoulides, N.; De La Garza, R.; Simmons, G.W.; McRae, M.P.; Wong, J.; Newton, T.F.; Smith, R.; Mahoney III, J.J.; Hohenstein,
+J.; Gomez, S.; et al. Application of programmable bio-nano-chip system for the quantitative detection of drugs of abuse in oral
+ﬂuids. Drug Alcohol Depend. 2015, 153, 306–313. [CrossRef]
+150. McRae, M.P.; Simmons, G.; Wong, J.; McDevitt, J.T. Programmable Bio-nanochip Platform: A Point-of-Care Biosensor System
+with the Capacity To Learn. Acc. Chem. Res. 2016, 49, 1359–1368. [CrossRef] [PubMed]
+151. Song, Y.; Zhao, J.; Cai, T.; Stephens, A.; Su, S.H.; Sandford, E.; Flora, C.; Singer, B.H.; Ghosh, M.; Choi, S.W.; et al. Machine
+learning-based cytokine microarray digital immunoassay analysis. Biosens. Bioelectron. 2021, 180, 113088. [CrossRef] [PubMed]
+
+===PAGE 24===
+Micromachines 2023, 14, 826
+24 of 30
+152. Ross, G.M.S.; Filippini, D.; Nielen, M.W.F.; Salentijn, G.I. Unraveling the Hook Effect: A Comprehensive Study of High Antigen
+Concentration Effects in Sandwich Lateral Flow Immunoassays. Anal. Chem. 2020, 92, 15587–15595. [CrossRef] [PubMed]
+153. Banaei, N.; Moshfegh, J.; Mohseni-Kabir, A.; Houghton, J.M.; Sun, Y.; Kim, B. Machine learning algorithms enhance the speciﬁcity
+of cancer biomarker detection using SERS-based immunoassays in microﬂuidic chips. RSC Adv. 2019, 9, 1859–1868. [CrossRef]
+[PubMed]
+154. Luo, Y.; Joung, H.A.; Esparza, S.; Rao, J.; Garner, O.; Ozcan, A. Quantitative particle agglutination assay for point-of-care testing
+using mobile holographic imaging and deep learning. Lab Chip 2021, 21, 3550–3558. [CrossRef] [PubMed]
+155. Chen, H.; Kim, S.; Hardie, J.M.; Thirumalaraju, P.; Gharpure, S.; Rostamian, S.; Udayakumar, S.; Lei, Q.; Cho, G.; Kanakasabapathy,
+M.K.; et al. Deep learning-assisted sensitive detection of fentanyl using a bubbling-microchip. Lab Chip 2022, 22, 4531–4540.
+[CrossRef] [PubMed]
+156. Dhama, K.; Khan, S.; Tiwari, R.; Sircar, S.; Bhat, S.; Malik, Y.S.; Singh, K.P.; Chaicumpa, W.; Bonilla-Aldana, D.K.; Rodriguez-
+Morales, A.J. Coronavirus Disease 2019–COVID-19. Clin. Microbiol. Rev. 2020, 33, e00028-20. [CrossRef]
+157. Wiersinga, W.J.; Rhodes, A.; Cheng, A.C.; Peacock, S.J.; Prescott, H.C. Pathophysiology, Transmission, Diagnosis, and Treatment
+of Coronavirus Disease 2019 (COVID-19): A Review. JAMA 2020, 324, 782–793. [CrossRef]
+158. Funari, R.; Chu, K.Y.; Shen, A.Q. Detection of antibodies against SARS-CoV-2 spike protein by gold nanospikes in an opto-
+microﬂuidic chip. Biosens. Bioelectron. 2020, 169, 112578. [CrossRef]
+159. Jamiruddin, M.R.; Meghla, B.A.; Islam, D.Z.; Tisha, T.A.; Khandker, S.S.; Khondoker, M.U.; Haq, M.A.; Adnan, N.; Haque, M.
+Microﬂuidics Technology in SARS-CoV-2 Diagnosis and Beyond: A Systematic Review. Life 2022, 12, 649. [CrossRef]
+160. Li, Q.; Zhou, X.; Wang, Q.; Liu, W.; Chen, C. Microﬂuidics for COVID-19: From Current Work to Future Perspective. Biosensors
+2023, 13, 163. [CrossRef]
+161. Bhuiyan, N.H.; Hong, J.H.; Uddin, M.J.; Shim, J.S. Artiﬁcial Intelligence-Controlled Microﬂuidic Device for Fluid Automation
+and Bubble Removal of Immunoassay Operated by a Smartphone. Anal. Chem. 2022, 94, 3872–3880. [CrossRef] [PubMed]
+162. Bhuiyan, N.H.; Uddin, M.J.; Lee, J.; Hong, J.H.; Shim, J.S. An Internet-of-Disease System for COVID-19 Testing Using Saliva by an
+AI-Controlled Microﬂuidic ELISA Device. Adv. Mater. Technol. 2022, 7, 2101690. [CrossRef] [PubMed]
+163. Xia, T.; Fu, Y.Q.; Jin, N.; Chazot, P.; Angelov, P.; Jiang, R. AI-enabled Microscopic Blood Analysis for Microﬂuidic COVID-19
+Hematology. In Proceedings of the 2020 5th International Conference on Computational Intelligence and Applications (ICCIA),
+Beijing, China, 19–21 June 2020; pp. 98–102. [CrossRef]
+164. Gao, Z.; Song, Y.; Hsiao, T.Y.; He, J.; Wang, C.; Shen, J.; MacLachlan, A.; Dai, S.; Singer, B.H.; Kurabayashi, K.; et al. Machine-
+Learning-Assisted Microﬂuidic Nanoplasmonic Digital Immunoassay for Cytokine Storm Proﬁling in COVID-19 Patients. ACS
+Nano 2021, 15, 18023–18036. [CrossRef] [PubMed]
+165. Potter, C.J.; Hu, Y.; Xiong, Z.; Wang, J.; McLeod, E. Point-of-care SARS-CoV-2 sensing using lens-free imaging and a deep
+learning-assisted quantitative agglutination assay. Lab Chip 2022, 22, 3744–3754. [CrossRef]
+166. Wang, B.; Li, Y.; Zhou, M.; Han, Y.; Zhang, M.; Gao, Z.; Liu, Z.; Chen, P.; Du, W.; Zhang, X.; et al. Smartphone-based platforms
+implementing microﬂuidic detection with image-based artiﬁcial intelligence. Nat. Commun. 2023, 14, 1341. [CrossRef]
+167. Kumar, A.; Parihar, A.; Panda, U.; Parihar, D.S. Microﬂuidics-Based Point-of-Care Testing (POCT) Devices in Dealing with Waves
+of COVID-19 Pandemic: The Emerging Solution. ACS Appl. Bio Mater. 2022, 5, 2046–2068. [CrossRef]
+168. Ramezankhani, R.; Solhi, R.; Chai, Y.C.; Vosough, M.; Verfaillie, C. Organoid and microﬂuidics-based platforms for drug screening
+in COVID-19. Drug Discov. Today 2022, 27, 1062–1076. [CrossRef]
+169. Chiu, H.Y.R.; Hwang, C.K.; Chen, S.Y.; Shih, F.Y.; Han, H.C.; King, C.C.; Gilbert, J.R.; Fang, C.C.; Oyang, Y.J. Machine learning for
+emerging infectious disease ﬁeld responses. Sci. Rep. 2022, 12, 328. [CrossRef]
+170. Tran, N.K.; Albahra, S.; May, L.; Waldman, S.; Crabtree, S.; Bainbridge, S.; Rashidi, H. Evolving Applications of Artiﬁcial
+Intelligence and Machine Learning in Infectious Diseases Testing. Clin. Chem. 2022, 68, 125–133. [CrossRef]
+171. Zhang, Z.; Chen, L.; Wang, Y.; Zhang, T.; Chen, Y.C.; Yoon, E. Label-Free Estimation of Therapeutic Efﬁcacy on 3D Cancer Spheres
+Using Convolutional Neural Network Image Analysis. Anal. Chem. 2019, 91, 14093–14100. [CrossRef] [PubMed]
+172. Lin, S.; Hu, S.; Song, W.; Gu, M.; Liu, J.; Song, J.; Liu, Z.; Li, Z.; Huang, K.; Wu, Y.; et al. An ultralight, ﬂexible, and biocompatible
+all-ﬁber motion sensor for artiﬁcial intelligence wearable electronics. Npj Flex. Electron. 2022, 6, 1–8. [CrossRef]
+173. Kobayashi, H.; Lei, C.; Wu, Y.; Mao, A.; Jiang, Y.; Guo, B.; Ozeki, Y.; Goda, K. Label-free detection of cellular drug responses by
+high-throughput bright-ﬁeld imaging and machine learning. Sci. Rep. 2017, 7, 12454. [CrossRef]
+174. Kobayashi, H.; Lei, C.; Wu, Y.; Huang, C.J.; Yasumoto, A.; Jona, M.; Li, W.; Wu, Y.; Yalikun, Y.; Jiang, Y.; et al.
+Intelligent
+whole-blood imaging ﬂow cytometry for simple, rapid, and cost-effective drug-susceptibility testing of leukemia. Lab Chip 2019,
+19, 2688–2698. [CrossRef] [PubMed]
+175. Zhou, Y.; Yasumoto, A.; Lei, C.; Huang, C.J.; Kobayashi, H.; Wu, Y.; Yan, S.; Sun, C.W.; Yatomi, Y.; Goda, K. Intelligent classiﬁcation
+of platelet aggregates by agonist type. eLife 2020, 9, e52938. [CrossRef] [PubMed]
+176. Lv, J.; Deng, S.; Zhang, L. A review of artiﬁcial intelligence applications for antimicrobial resistance. Biosaf. Health 2021, 3, 22–31.
+[CrossRef]
+177. Poweleit, E.A.; Vinks, A.A.; Mizuno, T. Artiﬁcial Intelligence and Machine Learning Approaches to Facilitate Therapeutic Drug
+Management and Model-Informed Precision Dosing. Ther. Drug Monit. 2022, 45, 143–150. [CrossRef]
+178. Yu, H.; Jing, W.; Iriya, R.; Yang, Y.; Syal, K.; Mo, M.; Grys, T.E.; Haydel, S.E.; Wang, S.; Tao, N. Phenotypic Antimicrobial
+Susceptibility Testing with Deep Learning Video Microscopy. Anal. Chem. 2018, 90, 6314–6322. [CrossRef]
+
+===PAGE 25===
+Micromachines 2023, 14, 826
+25 of 30
+179. Kim, K.; Kim, S.; Jeon, J.S. Visual Estimation of Bacterial Growth Level in Microﬂuidic Culture Systems. Sensors 2018, 18, 447.
+[CrossRef]
+180. Svensson, C.M.; Shvydkiv, O.; Dietrich, S.; Mahler, L.; Weber, T.; Choudhary, M.; Tovar, M.; Figge, M.T.; Roth, M. Coding of
+Experimental Conditions in Microﬂuidic Droplet Assays Using Colored Beads and Machine Learning Supported Image Analysis.
+Small 2019, 15, 1802384. [CrossRef]
+181. Rauf, S.; Tashkandi, N.; de Oliveira Filho, J.I.; Oviedo-Osornio, C.I.; Danish, M.S.; Hong, P.Y.; Salama, K.N. Digital E. coli Counter:
+A Microﬂuidics and Computer Vision-Based DNAzyme Method for the Isolation and Speciﬁc Detection of E. coli from Water
+Samples. Biosensors 2022, 12, 34. [CrossRef] [PubMed]
+182. Alves, V.M.; Auerbach, S.S.; Kleinstreuer, N.; Rooney, J.P.; Muratov, E.N.; Rusyn, I.; Tropsha, A.; Schmitt, C. Curated Data
+In—Trustworthy In Silico Models Out: The Impact of Data Quality on the Reliability of Artiﬁcial Intelligence Models as
+Alternatives to Animal Testing. Altern. Lab. Anim. 2021, 49, 73–82. [CrossRef] [PubMed]
+183. Zhang, Y.; Tao, T.H. Skin-Friendly Electronics for Acquiring Human Physiological Signatures. Adv. Mater. 2019, 31, 1905767.
+[CrossRef]
+184. Huang, J.D.; Wang, J.; Ramsey, E.; Leavey, G.; Chico, T.J.A.; Condell, J. Applying Artiﬁcial Intelligence to Wearable Sensor Data to
+Diagnose and Predict Cardiovascular Disease: A Review. Sensors 2022, 22, 8002. [CrossRef]
+185. Rodríguez-Rodríguez, I.; Rodríguez, J.V.; Chatzigiannakis, I.; Zamora Izquierdo, M.A. On the Possibility of Predicting Glycaemia
+‘On the Fly’ with Constrained IoT Devices in Type 1 Diabetes Mellitus Patients. Sensors 2019, 19, 4538. [CrossRef] [PubMed]
+186. Sankhala, D.; Sardesai, A.U.; Pali, M.; Lin, K.C.; Jagannath, B.; Muthukumar, S.; Prasad, S. A machine learning-based on-demand
+sweat glucose reporting platform. Sci. Rep. 2022, 12, 2442. [CrossRef]
+187. Han, S.; Kim, T.; Kim, D.; Park, Y.L.; Jo, S. Use of Deep Learning for Characterization of Microﬂuidic Soft Sensors. IEEE Robot.
+Autom. Lett. 2018, 3, 873–880. [CrossRef]
+188. Kim, D.; Kim, M.; Kwon, J.; Park, Y.L.; Jo, S. Semi-Supervised Gait Generation with Two Microﬂuidic Soft Sensors. IEEE Robot.
+Autom. Lett. 2019, 4, 2501–2507. [CrossRef]
+189. Wang, Y.; Shan, G.; Li, H.; Wang, L. A Wearable-Sensor System with AI Technology for Real-Time Biomechanical Feedback
+Training in Hammer Throw. Sensors 2023, 23, 425. [CrossRef]
+190. Zhang, Y.; Hu, Y.; Jiang, N.; Yetisen, A.K. Wearable artiﬁcial intelligence biosensor networks. Biosens. Bioelectron. 2023, 219, 114825.
+[CrossRef]
+191. Helmy, M.; Smith, D.; Selvarajoo, K. Systems biology approaches integrated with artiﬁcial intelligence for optimized metabolic
+engineering. Metab. Eng. Commun. 2020, 11, e00149. [CrossRef] [PubMed]
+192. Riordon, J.; Sovilj, D.; Sanner, S.; Sinton, D.; Young, E.W.K. Deep Learning with Microﬂuidics for Biotechnology. Trends Biotechnol.
+2019, 37, 310–324. [CrossRef]
+193. Raji, H.; Tayyab, M.; Sui, J.; Mahmoodi, S.R.; Javanmard, M. Biosensors and machine learning for enhanced detection, stratiﬁcation,
+and classiﬁcation of cells: A review. Biomed. Microdevices 2022, 24, 26. [CrossRef]
+194. Yang Yu, B.; Elbuken, C.; Ren, C.L.; Huissoon, J.P. Image processing and classiﬁcation algorithm for yeast cell morphology in a
+microﬂuidic chip. J. Biomed. Opt. 2011, 16, 066008. [CrossRef]
+195. Huang, X.; Guo, J.; Wang, X.; Yan, M.; Kang, Y.; Yu, H. A Contact-Imaging Based Microﬂuidic Cytometer with Machine-Learning
+for Single-Frame Super-Resolution Processing. PLoS ONE 2014, 9, e104539. [CrossRef] [PubMed]
+196. Wang, N.; Liu, R.; Asmare, N.; Chu, C.H.; Sarioglu, A.F. Processing code-multiplexed Coulter signals via deep convolutional
+neural networks. Lab Chip 2019, 19, 3292–3304. [CrossRef] [PubMed]
+197. Chen, J.; Zheng, Y.; Tan, Q.; Shojaei-Baghini, E.; Zhang, Y.L.; Li, J.; Prasad, P.; You, L.; Wu, X.Y.; Sun, Y. Classiﬁcation of cell types
+using a microﬂuidic device for mechanical and electrical measurement on single cells. Lab Chip 2011, 11, 3174–3181. [CrossRef]
+198. Heo, Y.J.; Lee, D.; Kang, J.; Lee, K.; Chung, W.K. Real-time Image Processing for Microscopy-based Label-free Imaging Flow
+Cytometry in a Microﬂuidic Chip. Sci. Rep. 2017, 7, 11651. [CrossRef]
+199. Constantinou, I.; Jendrusch, M.; Aspert, T.; Görlitz, F.; Schulze, A.; Charvin, G.; Knop, M. Self-Learning Microﬂuidic Platform for
+Single-Cell Imaging and Classiﬁcation in Flow. Micromachines 2019, 10, 311. [CrossRef]
+200. Mikami, H.; Kawaguchi, M.; Huang, C.J.; Matsumura, H.; Sugimura, T.; Huang, K.; Lei, C.; Ueno, S.; Miura, T.; Ito, T.; et al.
+Virtual-freezing ﬂuorescence imaging ﬂow cytometry. Nat. Commun. 2020, 11, 1162. [CrossRef]
+201. Huang, K.; Matsumura, H.; Zhao, Y.; Herbig, M.; Yuan, D.; Mineharu, Y.; Harmon, J.; Findinier, J.; Yamagishi, M.; Ohnuki, S.; et al.
+Deep imaging ﬂow cytometry. Lab Chip 2022, 22, 876–889. [CrossRef]
+202. Ahmad, A.; Sala, F.; Paiè, P.; Candeo, A.; D’Annunzio, S.; Zippo, A.; Frindel, C.; Osellame, R.; Bragheri, F.; Bassi, A.; et al. On
+the robustness of machine learning algorithms toward microﬂuidic distortions for cell classiﬁcation via on-chip ﬂuorescence
+microscopy. Lab Chip 2022, 22, 3453–3463. [CrossRef] [PubMed]
+203. Rossi, D.; Dannhauser, D.; Telesco, M.; Netti, P.A.; Causa, F. CD4+ versus CD8+ T-lymphocyte identiﬁcation in an integrated
+microﬂuidic chip using light scattering and machine learning. Lab Chip 2019, 19, 3888–3898. [CrossRef] [PubMed]
+204. Wang, Y.; Wang, J.; Meng, J.; Ding, G.; Shi, Z.; Wang, R.; Zhang, X. Detection of non-small cell lung cancer cells based on
+microﬂuidic polarization microscopic image analysis. Electrophoresis 2019, 40, 1202–1211. [CrossRef]
+205. Singh, D.K.; Ahrens, C.C.; Li, W.; Vanapalli, S.A. Label-free, high-throughput holographic screening and enumeration of tumor
+cells in blood. Lab Chip 2017, 17, 2920–2932. [CrossRef] [PubMed]
+
+===PAGE 26===
+Micromachines 2023, 14, 826
+26 of 30
+206. Feizi, A.; Zhang, Y.; Greenbaum, A.; Guziak, A.; Luong, M.; Chan, R.Y.L.; Berg, B.; Ozkan, H.; Luo, W.; Wu, M.; et al. Rapid,
+portable and cost-effective yeast cell viability and concentration analysis using lensfree on-chip microscopy and machine learning.
+Lab Chip 2016, 16, 4350–4358. [CrossRef]
+207. Nissim, N.; Dudaie, M.; Barnea, I.; Shaked, N.T. Real-Time Stain-Free Classiﬁcation of Cancer Cells and Blood Cells Using
+Interferometric Phase Microscopy and Machine Learning. Cytom. Part A 2021, 99, 511–523. [CrossRef]
+208. Hirotsu, A.; Kikuchi, H.; Yamada, H.; Ozaki, Y.; Haneda, R.; Kawata, S.; Murakami, T.; Matsumoto, T.; Hiramatsu, Y.; Kamiya,
+K.; et al. Artiﬁcial intelligence-based classiﬁcation of peripheral blood nucleated cells using label-free imaging ﬂow cytometry.
+Lab Chip 2022, 22, 3464–3474. [CrossRef]
+209. Wu, J.L.; Xu, Y.Q.; Xu, J.J.; Wei, X.M.; Chan, A.C.; Tang, A.H.; Lau, A.K.; Chung, B.M.; Cheung Shum, H.; Lam, E.Y.; et al. Ultrafast
+laser-scanning time-stretch imaging at visible wavelengths. Light. Sci. Appl. 2017, 6, e16196. [CrossRef]
+210. Pirone, D.; Sirico, D.; Miccio, L.; Bianco, V.; Mugnano, M.; Ferraro, P.; Memmolo, P. Speeding up reconstruction of 3D tomograms
+in holographic ﬂow cytometry via deep learning. Lab Chip 2022, 22, 793–804. [CrossRef]
+211. Jiang, Y.; Lei, C.; Yasumoto, A.; Kobayashi, H.; Aisaka, Y.; Ito, T.; Guo, B.; Nitta, N.; Kutsuna, N.; Ozeki, Y.; et al. Label-free
+detection of aggregated platelets in blood by machine-learning-aided optoﬂuidic time-stretch microscopy.
+Lab Chip 2017,
+17, 2426–2434. [CrossRef]
+212. Guo, B.; Lei, C.; Kobayashi, H.; Ito, T.; Yalikun, Y.; Jiang, Y.; Tanaka, Y.; Ozeki, Y.; Goda, K. High-throughput, label-free, single-cell,
+microalgal lipid screening by machine-learning-equipped optoﬂuidic time-stretch quantitative phase microscopy. Cytom. Part A
+2017, 91, 494–502. [CrossRef] [PubMed]
+213. Li, Y.; Mahjoubfar, A.; Chen, C.L.; Niazi, K.R.; Pei, L.; Jalali, B. Deep Cytometry: Deep learning with Real-time Inference in Cell
+Sorting and Flow Cytometry. Sci. Rep. 2019, 9, 11088. [CrossRef]
+214. Lee, K.C.; Wang, M.; Cheah, K.S.; Chan, G.C.; So, H.K.; Wong, K.K.; Tsia, K.K. Quantitative Phase Imaging Flow Cytometry for
+Ultra-Large-Scale Single-Cell Biophysical Phenotyping. Cytom. Part A 2019, 95, 510–520. [CrossRef] [PubMed]
+215. Yip, G.G.K.; Lo, M.C.K.; Yan, W.; Lee, K.C.M.; Lai, Q.T.K.; Wong, K.K.Y.; Tsia, K.K. Multimodal FACED imaging for large-scale
+single-cell morphological proﬁling. APL Photonics 2021, 6, 070801. [CrossRef]
+216. Wu, Y.; Zhou, Y.; Huang, C.J.; Huang, C.J.; Kobayashi, H.; Kobayashi, H.; Yan, S.; Ozeki, Y.; Wu, Y.; Sun, C.W.; et al. Intelligent
+frequency-shifted optoﬂuidic time-stretch quantitative phase imaging. Opt. Express 2020, 28, 519–532. [CrossRef]
+217. Joshi, K.; Javani, A.; Park, J.; Velasco, V.; Xu, B.; Razorenova, O.; Esfandyarpour, R. A Machine Learning-Assisted Nanoparticle-
+Printed Biochip for Real-Time Single Cancer Cell Analysis. Adv. Biosyst. 2020, 4, 2000160. [CrossRef]
+218. Honrado, C.; McGrath, J.S.; Reale, R.; Bisegna, P.; Swami, N.S.; Caselli, F. A neural network approach for real-time particle/cell
+characterization in microﬂuidic impedance cytometry. Anal. Bioanal. Chem. 2020, 412, 3835–3845. [CrossRef]
+219. Wang, N.; Liu, R.; Asmare, N.; Chu, C.H.; Civelekoglu, O.; Sarioglu, A.F. Closed-loop feedback control of microﬂuidic cell
+manipulation via deep-learning integrated sensor networks. Lab Chip 2021, 21, 1916–1928. [CrossRef]
+220. Feng, Y.; Cheng, Z.; Chai, H.; He, W.; Huang, L.; Wang, W. Neural network-enhanced real-time impedance ﬂow cytometry for
+single-cell intrinsic characterization. Lab Chip 2022, 22, 240–249. [CrossRef]
+221. Caselli, F.; Reale, R.; Ninno, A.D.; Spencer, D.; Morgan, H.; Bisegna, P. Deciphering impedance cytometry signals with neural
+networks. Lab Chip 2022, 22, 1714–1722. [CrossRef]
+222. Robinson, J.P. Flow cytometry: Past and future. BioTechniques 2022, 72, 159–169. [CrossRef] [PubMed]
+223. Gu, Y.; Zhang, A.C.; Han, Y.; Li, J.; Chen, C.; Lo, Y.H. Machine Learning Based Real-Time Image-Guided Cell Sorting and
+Classiﬁcation. Cytometry. Part A J. Int. Soc. Anal. Cytol. 2019, 95, 499–509. [CrossRef]
+224. Sesen, M.; Whyte, G. Image-Based Single Cell Sorting Automation in Droplet Microﬂuidics. Sci. Rep. 2020, 10, 8736. [CrossRef]
+[PubMed]
+225. Lee, K.; Kim, S.E.; Doh, J.; Kim, K.; Chung, W.K. User-friendly image-activated microﬂuidic cell sorting technique using an
+optimized, fast deep learning algorithm. Lab Chip 2021, 21, 1798–1810. [CrossRef]
+226. Nitta, N.; Sugimura, T.; Isozaki, A.; Mikami, H.; Hiraki, K.; Sakuma, S.; Iino, T.; Arai, F.; Endo, T.; Fujiwaki, Y.; et al. Intelligent
+Image-Activated Cell Sorting. Cell 2018, 175, 266–276.e13. [CrossRef] [PubMed]
+227. Zhang, Y.; Ouyang, M.; Ray, A.; Liu, T.; Kong, J.; Bai, B.; Kim, D.; Guziak, A.; Luo, Y.; Feizi, A.; et al. Computational cytometer
+based on magnetically modulated coherent imaging and deep learning. Light. Sci. Appl. 2019, 8, 91. [CrossRef] [PubMed]
+228. Isozaki, A.; Mikami, H.; Tezuka, H.; Matsumura, H.; Huang, K.; Akamine, M.; Hiramatsu, K.; Iino, T.; Ito, T.; Karakawa, H.; et al.
+Intelligent image-activated cell sorting 2.0. Lab Chip 2020, 20, 2263–2273. [CrossRef]
+229. McCallum, C.; Riordon, J.; Wang, Y.; Kong, T.; You, J.B.; Sanner, S.; Lagunov, A.; Hannam, T.G.; Jarvi, K.; Sinton, D. Deep
+learning-based selection of human sperm with high DNA integrity. Commun. Biol. 2019, 2, 1–10. [CrossRef] [PubMed]
+230. Uslu, F.; Icoz, K.; Tasdemir, K.; Yilmaz, B. Automated quantiﬁcation of immunomagnetic beads and leukemia cells from optical
+microscope images. Biomed. Signal Process. Control 2019, 49, 473–482. [CrossRef]
+231. White, A.M.; Zhang, Y.; Shamul, J.G.; Xu, J.; Kwizera, E.A.; Jiang, B.; He, X. Deep Learning-Enabled Label-Free On-Chip Detection
+and Selective Extraction of Cell Aggregate-Laden Hydrogel Microcapsules. Small 2021, 17, 2100491. [CrossRef] [PubMed]
+232. Christiansen, E.M.; Yang, S.J.; Ando, D.M.; Javaherian, A.; Skibinski, G.; Lipnick, S.; Mount, E.; O’Neil, A.; Shah, K.; Lee, A.K.;
+et al. In Silico Labeling: Predicting Fluorescent Labels in Unlabeled Images. Cell 2018, 173, 792–803.e19. [CrossRef]
+233. Ounkomol, C.; Seshamani, S.; Maleckar, M.M.; Collman, F.; Johnson, G.R. Label-free prediction of three-dimensional ﬂuorescence
+images from transmitted-light microscopy. Nat. Methods 2018, 15, 917–920. [CrossRef] [PubMed]
+
+===PAGE 27===
+Micromachines 2023, 14, 826
+27 of 30
+234. Kim, D.; Min, Y.; Oh, J.M.; Cho, Y.K. AI-powered transmitted light microscopy for functional analysis of live cells. Sci. Rep. 2019,
+9, 18428. [CrossRef] [PubMed]
+235. Bai, B.; Yang, X.; Li, Y.; Zhang, Y.; Pillar, N.; Ozcan, A. Deep learning-enabled virtual histological staining of biological samples.
+Light. Sci. Appl. 2023, 12, 57. [CrossRef]
+236. Ugawa, M.; Kawamura, Y.; Toda, K.; Teranishi, K.; Morita, H.; Adachi, H.; Tamoto, R.; Nomaru, H.; Nakagawa, K.; Sugimoto, K.;
+et al. In silico-labeled ghost cytometry. eLife 2021, 10, e67660. [CrossRef]
+237. Yang, D.; Zhou, Y.; Zhou, Y.; Han, J.; Ai, Y. Biophysical phenotyping of single cells using a differential multiconstriction
+microﬂuidic device with self-aligned 3D electrodes. Biosens. Bioelectron. 2019, 133, 16–23. [CrossRef]
+238. Xiao, W.; Xin, L.; Cao, R.; Wu, X.; Tian, R.; Che, L.; Sun, L.; Ferraro, P.; Pan, F. Sensing morphogenesis of bone cells under
+microﬂuidic shear stress by holographic microscopy and automatic aberration compensation with deep learning. Lab Chip 2021,
+21, 1385–1394. [CrossRef]
+239. Soelistyo, C.J.; Vallardi, G.; Charras, G.; Lowe, A.R. Learning biophysical determinants of cell fate with deep neural networks.
+Nat. Mach. Intell. 2022, 4, 636–644. [CrossRef]
+240. Combs, C.; Seith, D.D.; Bovyn, M.J.; Gross, S.P.; Xie, X.; Siwy, Z.S. Deep learning assisted mechanotyping of individual cells
+through repeated deformations and relaxations in undulating channels. Biomicroﬂuidics 2022, 16, 014104. [CrossRef]
+241. Sarkar, S.; Kang, W.; Jiang, S.; Li, K.; Ray, S.; Luther, E.; Ivanov, A.R.; Fu, Y.; Konry, T. Machine learning-aided quantiﬁcation of
+antibody-based cancer immunotherapy by natural killer cells in microﬂuidic droplets. Lab Chip 2020, 20, 2317–2327. [CrossRef]
+[PubMed]
+242. Ao, Z.; Cai, H.; Wu, Z.; Hu, L.; Nunez, A.; Zhou, Z.; Liu, H.; Bondesson, M.; Lu, X.; Lu, X.; et al. Microﬂuidics guided by deep
+learning for cancer immunotherapy screening. Proc. Natl. Acad. Sci. 2022, 119, e2214569119. [CrossRef] [PubMed]
+243. Honrado, C.; Salahi, A.; Adair, S.J.; Moore, J.H.; Bauer, T.W.; Swami, N.S. Automated biophysical classiﬁcation of apoptotic
+pancreatic cancer cell subpopulations by using machine learning approaches with impedance cytometry.
+Lab Chip 2022,
+22, 3708–3720. [CrossRef]
+244. Whitﬁeld, M.L.; Sherlock, G.; Saldanha, A.J.; Murray, J.I.; Ball, C.A.; Alexander, K.E.; Matese, J.C.; Perou, C.M.; Hurt, M.M.;
+Brown, P.O.; et al. Identiﬁcation of Genes Periodically Expressed in the Human Cell Cycle and Their Expression in Tumors. Mol.
+Biol. Cell 2002, 13, 1977–2000. [CrossRef]
+245. Song, H.; Wang, Y.; Rosano, J.M.; Prabhakarpandian, B.; Garson, C.; Pant, K.; Lai, E. A microﬂuidic impedance ﬂow cytometer for
+identiﬁcation of differentiation state of stem cells. Lab Chip 2013, 13, 2300–2310. [CrossRef] [PubMed]
+246. Eulenberg, P.; Köhler, N.; Blasi, T.; Filby, A.; Carpenter, A.E.; Rees, P.; Theis, F.J.; Wolf, F.A. Reconstructing cell cycle and disease
+progression using deep learning. Nat. Commun. 2017, 8, 463. [CrossRef]
+247. Rappez, L.; Rakhlin, A.; Rigopoulos, A.; Nikolenko, S.; Alexandrov, T. DeepCycle reconstructs a cyclic cell cycle trajectory from
+unsegmented cell images using convolutional neural networks. Mol. Syst. Biol. 2020, 16, e9474. [CrossRef]
+248. He, Y.R.; He, S.; Kandel, M.E.; Lee, Y.J.; Hu, C.; Sobh, N.; Anastasio, M.A.; Popescu, G. Cell Cycle Stage Classiﬁcation Using Phase
+Imaging with Computational Speciﬁcity. ACS Photonics 2022, 9, 1264–1273. [CrossRef]
+249. Ghafari, M.; Clark, J.; Guo, H.B.; Yu, R.; Sun, Y.; Dang, W.; Qin, H. Complementary performances of convolutional and capsule
+neural networks on classifying microﬂuidic images of dividing yeast cells. PLoS ONE 2021, 16, e0246988. [CrossRef]
+250. Aspert, T.; Hentsch, D.; Charvin, G. DetecDiv, a generalist deep-learning platform for automated cell division tracking and
+survival analysis. eLife 2022, 11, e79519. [CrossRef]
+251. Kusumoto, D.; Seki, T.; Sawada, H.; Kunitomi, A.; Katsuki, T.; Kimura, M.; Ito, S.; Komuro, J.; Hashimoto, H.; Fukuda, K.; et al.
+Anti-senescent drug screening by deep learning-based morphology senescence scoring. Nat. Commun. 2021, 12, 257. [CrossRef]
+[PubMed]
+252. Heckenbach, I.; Mkrtchyan, G.V.; Ezra, M.B.; Bakula, D.; Madsen, J.S.; Nielsen, M.H.; Oró, D.; Osborne, B.; Covarrubias, A.J.; Idda,
+M.L.; et al. Nuclear morphology is a deep learning biomarker of cellular senescence. Nat. Aging 2022, 2, 742–755. [CrossRef]
+253. Ronneberger, O.; Fischer, P.; Brox, T. U-Net: Convolutional Networks for Biomedical Image Segmentation. In Proceedings of the
+Medical Image Computing and Computer-Assisted Intervention–MICCAI 2015, Munich, Germany, 5–9 October 2015; Navab,
+N., Hornegger, J., Wells, W.M., Frangi, A.F., Eds.; Springer International Publishing: Cham, Switzerland, 2015; Lecture Notes in
+Computer Science; pp. 234–241. [CrossRef]
+254. Valen, D.A.V.; Kudo, T.; Lane, K.M.; Macklin, D.N.; Quach, N.T.; DeFelice, M.M.; Maayan, I.; Tanouchi, Y.; Ashley, E.A.; Covert,
+M.W. Deep Learning Automates the Quantitative Analysis of Individual Cells in Live-Cell Imaging Experiments. PLoS Comput.
+Biol. 2016, 12, e1005177. [CrossRef]
+255. Tsai, H.F.; Gajda, J.; Sloan, T.F.W.; Rares, A.; Shen, A.Q. Usiigaci: Instance-aware cell tracking in stain-free phase contrast
+microscopy enabled by machine learning. SoftwareX 2019, 9, 230–237. [CrossRef]
+256. Bove, A.; Gradeci, D.; Fujita, Y.; Banerjee, S.; Charras, G.; Lowe, A.R. Local cellular neighborhood controls proliferation in cell
+competition. Mol. Biol. Cell 2017, 28, 3215–3228. [CrossRef] [PubMed]
+257. Wen, C.; Miura, T.; Voleti, V.; Yamaguchi, K.; Tsutsumi, M.; Yamamoto, K.; Otomo, K.; Fujie, Y.; Teramoto, T.; Ishihara, T.; et al.
+3DeeCellTracker, a deep learning-based pipeline for segmenting and tracking cells in 3D time lapse images. eLife 2021, 10, e59187.
+[CrossRef]
+258. Wang, A.; Zhang, Q.; Han, Y.; Megason, S.; Hormoz, S.; Mosaliganti, K.R.; Lam, J.C.K.; Li, V.O.K. A novel deep learning-based 3D
+cell segmentation framework for future image-based disease detection. Sci. Rep. 2022, 12, 342. [CrossRef]
+
+===PAGE 28===
+Micromachines 2023, 14, 826
+28 of 30
+259. Padovani, F.; Mairhörmann, B.; Falter-Braun, P.; Lengefeld, J.; Schmoller, K.M. Segmentation, tracking and cell cycle analysis of
+live-cell imaging data with Cell-ACDC. BMC Biol. 2022, 20, 174. [CrossRef]
+260. Ershov, D.; Phan, M.S.; Pylvänäinen, J.W.; Rigaud, S.U.; Le Blanc, L.; Charles-Orszag, A.; Conway, J.R.W.; Laine, R.F.; Roy, N.H.;
+Bonazzi, D.; et al. TrackMate 7: Integrating state-of-the-art segmentation algorithms into tracking pipelines. Nat. Methods 2022,
+19, 829–832. [CrossRef]
+261. Alnahhas, R.N.; Winkle, J.J.; Hirning, A.J.; Karamched, B.; Ott, W.; Josi´c, K.; Bennett, M.R. Spatiotemporal Dynamics of Synthetic
+Microbial Consortia in Microﬂuidic Devices. ACS Synth. Biol. 2019, 8, 2051–2058. [CrossRef]
+262. Lugagne, J.B.; Lin, H.; Dunlop, M.J. DeLTA: Automated cell segmentation, tracking, and lineage reconstruction using deep
+learning. PLoS Comput. Biol. 2020, 16, e1007673. [CrossRef] [PubMed]
+263. O’Connor, O.M.; Alnahhas, R.N.; Lugagne, J.B.; Dunlop, M.J. DeLTA 2.0: A deep learning pipeline for quantifying single-cell
+spatial and temporal dynamics. PLoS Comput. Biol. 2022, 18, e1009797. [CrossRef] [PubMed]
+264. Koldaeva, A.; Tsai, H.F.; Shen, A.Q.; Pigolotti, S. Population genetics in microchannels. Proc. Natl. Acad. Sci. 2022, 119, e2120821119.
+[CrossRef]
+265. Ulicna, K.; Vallardi, G.; Charras, G.; Lowe, A.R. Automated Deep Lineage Tree Analysis Using a Bayesian Single Cell Tracking
+Approach. Front. Comput. Sci. 2021, 3, 734559. [CrossRef]
+266. Wang, M.; Ong, L.L.S.; Dauwels, J.; Asada, H.H. Multicell migration tracking within angiogenic networks by deep learning-based
+segmentation and augmented Bayesian ﬁltering. J. Med. Imaging 2018, 5, 024005. [CrossRef]
+267. Tsai, H.F.; IJspeert, C.; Shen, A.Q.
+Voltage-gated ion channels mediate the electrotaxis of glioblastoma cells in a hybrid
+PMMA/PDMS microdevice. APL Bioeng. 2020, 4, 036102. [CrossRef]
+268. Stallmann, D.; Göpfert, J.P.; Schmitz, J.; Grünberger, A.; Hammer, B. Towards an automatic analysis of CHO-K1 suspension
+growth in microﬂuidic single-cell cultivation. Bioinformatics 2021, 37, 3632–3639. [CrossRef] [PubMed]
+269. Kok, R.N.U.; Hebert, L.; Huelsz-Prince, G.; Goos, Y.J.; Zheng, X.; Bozek, K.; Stephens, G.J.; Tans, S.J.; Zon, J.S.v. OrganoidTracker:
+Efﬁcient cell tracking using machine learning and manual error correction. PLoS ONE 2020, 15, e0240802. [CrossRef]
+270. Sugawara, K.; Çevrim, Ç.; Averof, M. Tracking cell lineages in 3D by incremental deep learning. eLife 2022, 11, e69380. [CrossRef]
+271. Johnson, K.B.; Wei, W.Q.; Weeraratne, D.; Frisse, M.E.; Misulis, K.; Rhee, K.; Zhao, J.; Snowdon, J.L. Precision Medicine, AI, and
+the Future of Personalized Health Care. Clin. Transl. Sci. 2021, 14, 86–93. [CrossRef]
+272. Guo, S.C.; Tao, S.C.; Dawn, H. Microﬂuidics-based on-a-chip systems for isolating and analysing extracellular vesicles. J. Extracell.
+Vesicles 2018, 7, 1508271. [CrossRef]
+273. Ayuso, J.M.; Virumbrales-Muñoz, M.; Lang, J.M.; Beebe, D.J. A role for microﬂuidic systems in precision medicine. Nat. Commun.
+2022, 13, 3086. [CrossRef]
+274. Van Norman, G.A. Limitations of Animal Studies for Predicting Toxicity in Clinical Trials: Part 2: Potential Alternatives to the
+Use of Animals in Preclinical Trials. JACC Basic Transl. Sci. 2020, 5, 387–397. [CrossRef] [PubMed]
+275. van Berlo, D.; van de Steeg, E.; Amirabadi, H.E.; Masereeuw, R. The potential of multi-organ-on-chip models for assessment of
+drug disposition as alternative to animal testing. Curr. Opin. Toxicol. 2021, 27, 8–17. [CrossRef]
+276. Ma, S.; Murphy, T.W.; Lu, C. Microﬂuidics for genome-wide studies involving next generation sequencing. Biomicroﬂuidics 2017,
+11, 021501. [CrossRef]
+277. Zhou, W.m.; Yan, Y.y.; Guo, Q.r.; Ji, H.; Wang, H.; Xu, T.t.; Makabel, B.; Pilarsky, C.; He, G.; Yu, X.y.; et al. Microﬂuidics applications
+for high-throughput single cell sequencing. J. Nanobiotechnol. 2021, 19, 312. [CrossRef] [PubMed]
+278. Lamanna, J.; Scott, E.Y.; Edwards, H.S.; Chamberlain, M.D.; Dryden, M.D.M.; Peng, J.; Mair, B.; Lee, A.; Chan, C.; Sklavounos,
+A.A.; et al. Digital microﬂuidic isolation of single cells for -Omics. Nat. Commun. 2020, 11, 5632. [CrossRef]
+279. Heydari, A.A.; Sindi, S.S. Deep learning in spatial transcriptomics: Learning from the next next-generation sequencing. Biophys.
+Rev. 2023, 4, 011306. [CrossRef]
+280. Ko, J.; Bhagwat, N.; Yee, S.S.; Ortiz, N.; Sahmoud, A.; Black, T.; Aiello, N.M.; McKenzie, L.; O’Hara, M.; Redlinger, C.; et al.
+Combining Machine Learning and Nanoﬂuidic Technology To Diagnose Pancreatic Cancer Using Exosomes. ACS Nano 2017,
+11, 11182–11193. [CrossRef]
+281. Low, L.A.; Mummery, C.; Berridge, B.R.; Austin, C.P.; Tagle, D.A. Organs-on-chips: Into the next decade. Nat. Rev. Drug Discov.
+2021, 20, 345–361. [CrossRef] [PubMed]
+282. Wang, Y.; Wang, L.; Guo, Y.; Zhu, Y.; Qin, J. Engineering stem cell-derived 3D brain organoids in a perfusable organ-on-a-chip
+system. RSC Adv. 2018, 8, 1677–1685. [CrossRef] [PubMed]
+283. Yi, H.G.; Jeong, Y.H.; Kim, Y.; Choi, Y.J.; Moon, H.E.; Park, S.H.; Kang, K.S.; Bae, M.; Jang, J.; Youn, H.; et al. A bioprinted
+human-glioblastoma-on-a-chip for the identiﬁcation of patient-speciﬁc responses to chemoradiotherapy. Nat. Biomed. Eng. 2019,
+3, 509–519. [CrossRef] [PubMed]
+284. Carvalho, D.J.; Kip, A.M.; Romitti, M.; Nazzari, M.; Tegel, A.; Stich, M.; Krause, C.; Caiment, F.; Costagliola, S.; Moroni, L.; et al.
+Thyroid-on-a-Chip: An Organoid Platform for In Vitro Assessment of Endocrine Disruption. Adv. Healthc. Mater. 2022, 2201555.
+[CrossRef]
+285. Zhang, F.; Qu, K.Y.; Zhou, B.; Luo, Y.; Zhu, Z.; Pan, D.J.; Cui, C.; Zhu, Y.; Chen, M.L.; Huang, N.P. Design and fabrication of
+an integrated heart-on-a-chip platform for construction of cardiac tissue from human iPSC-derived cardiomyocytes and in situ
+evaluation of physiological function. Biosens. Bioelectron. 2021, 179, 113080. [CrossRef]
+
+===PAGE 29===
+Micromachines 2023, 14, 826
+29 of 30
+286. Lee, K.K.; McCauley, H.A.; Broda, T.R.; Kofron, M.J.; Wells, J.M.; Hong, C.I. Human stomach-on-a-chip with luminal ﬂow and
+peristaltic-like motility. Lab Chip 2018, 18, 3079–3085. [CrossRef] [PubMed]
+287. Kasendra, M.; Tovaglieri, A.; Sontheimer-Phelps, A.; Jalili-Firoozinezhad, S.; Bein, A.; Chalkiadaki, A.; Scholl, W.; Zhang, C.;
+Rickner, H.; Richmond, C.A.; et al. Development of a primary human Small Intestine-on-a-Chip using biopsy-derived organoids.
+Sci. Rep. 2018, 8, 2871. [CrossRef] [PubMed]
+288. Chen, M.B.; Whisler, J.A.; Fröse, J.; Yu, C.; Shin, Y.; Kamm, R.D. On-chip human microvasculature assay for visualization and
+quantiﬁcation of tumor cell extravasation dynamics. Nat. Protoc. 2017, 12, 865–880. [CrossRef]
+289. Dellaquila, A.; Thomée, E.K.; McMillan, A.H.; Lesher-Pérez, S.C. Chapter 4—Lung-on-a-chip platforms for modeling disease
+pathogenesis. In Organ-on-a-Chip; Hoeng, J., Bovard, D., Peitsch, M.C., Eds.; Academic Press: Cambridge, MA, USA, 2020;
+pp. 133–180.
+290. Banaeiyan, A.A.; Theobald, J.; Paukštyte, J.; Wölﬂ, S.; Adiels, C.B.; Goksör, M. Design and fabrication of a scalable liver-lobule-on-
+a-chip microphysiological platform. Biofabrication 2017, 9, 015014. [CrossRef] [PubMed]
+291. Ashammakhi, N.; Wesseling-Perry, K.; Hasan, A.; Elkhammas, E.; Zhang, Y.S. Kidney-on-a-chip: Untapped opportunities. Kidney
+Int. 2018, 94, 1073–1086. [CrossRef] [PubMed]
+292. Silva, P.N.; J. Green, B.; M. Altamentova, S.; V. Rocheleau, J. A microﬂuidic device designed to induce media ﬂow throughout
+pancreatic islets while limiting shear-induced damage. Lab Chip 2013, 13, 4374–4384. [CrossRef]
+293. Sharma, K.; Dhar, N.; Thacker, V.V.; Simonet, T.M.; Signorino-Gelo, F.; Knott, G.W.; McKinney, J.D. Dynamic persistence of UPEC
+intracellular bacterial communities in a human bladder-chip model of urinary tract infection. eLife 2021, 10, e66481. [CrossRef]
+294. Polini, A.; Moroni, L. The convergence of high-tech emerging technologies into the next stage of organ-on-a-chips. Biomater.
+Biosyst. 2021, 1, 100012. [CrossRef] [PubMed]
+295. De Chiara, F.; Ferret-Miñana, A.; Ramón-Azcón, J. The Synergy between Organ-on-a-Chip and Artiﬁcial Intelligence for the Study
+of NAFLD: From Basic Science to Clinical Research. Biomedicines 2021, 9, 248. [CrossRef] [PubMed]
+296. Petreus, T.; Cadogan, E.; Hughes, G.; Smith, A.; Pilla Reddy, V.; Lau, A.; O’Connor, M.J.; Critchlow, S.; Ashford, M.;
+Oplustil O’Connor, L. Tumour-on-chip microﬂuidic platform for assessment of drug pharmacokinetics and treatment response.
+Commun. Biol. 2021, 4, 1–11. [CrossRef]
+297. Li, J.; Chen, J.; Bai, H.; Wang, H.; Hao, S.; Ding, Y.; Peng, B.; Zhang, J.; Li, L.; Huang, W. An Overview of Organs-on-Chips Based
+on Deep Learning. Research, 2022, 2022, 9869518. . [CrossRef] [PubMed]
+298. Paek, K.; Kim, S.; Tak, S.; Kim, M.K.; Park, J.; Chung, S.; Park, T.H.; Kim, J.A. A high-throughput biomimetic bone-on-a-chip
+platform with artiﬁcial intelligence-assisted image analysis for osteoporosis drug testing. Bioeng. Transl. Med. 2023, 8, e10313.
+[CrossRef] [PubMed]
+299. Oliver, C.R.; Altemus, M.A.; Westerhof, T.M.; Cheriyan, H.; Cheng, X.; Dziubinski, M.; Wu, Z.; Yates, J.; Morikawa, A.; Heth,
+J.; et al. A platform for artiﬁcial intelligence based identiﬁcation of the extravasation potential of cancer cells into the brain
+metastatic niche. Lab Chip 2019, 19, 1162–1173. [CrossRef]
+300. Oliver, C.R.; Westerhof, T.M.; Castro, M.G.; Merajver, S.D. Quantifying the Brain Metastatic Tumor Micro-Environment using an
+Organ-On-A Chip 3D Model, Machine Learning, and Confocal Tomography. J. Vis. Exp. JoVE 2020, 162, e61654. [CrossRef]
+301. Chong, L.H.; Ching, T.; Farm, H.J.; Grenci, G.; Chiam, K.H.; Toh, Y.C. Integration of a microﬂuidic multicellular coculture array
+with machine learning analysis to predict adverse cutaneous drug reactions. Lab Chip 2022, 22, 1890–1904. [CrossRef]
+302. Jena, B.P.; Gatti, D.L.; Arslanturk, S.; Pernal, S.; Taatjes, D.J. Human skeletal muscle cell atlas: Unraveling cellular secrets utilizing
+‘muscle-on-a-chip’, differential expansion microscopy, mass spectrometry, nanothermometry and machine learning. Micron 2019,
+117, 55–59. [CrossRef]
+303. Shannon, M.J.; Mace, E.M. Natural Killer Cell Integrins and Their Functions in Tissue Residency. Front. Immunol. 2021, 12, 647358.
+[CrossRef] [PubMed]
+304. Parlato, S.; De Ninno, A.; Molfetta, R.; Toschi, E.; Salerno, D.; Mencattini, A.; Romagnoli, G.; Fragale, A.; Roccazzello, L.;
+Buoncervello, M.; et al. 3D Microﬂuidic model for evaluating immunotherapy efﬁcacy by tracking dendritic cell behaviour
+toward tumor cells. Sci. Rep. 2017, 7, 1093. [CrossRef] [PubMed]
+305. Biselli, E.; Agliari, E.; Barra, A.; Bertani, F.R.; Gerardino, A.; De Ninno, A.; Mencattini, A.; Di Giuseppe, D.; Mattei, F.; Schiavoni,
+G.; et al. Organs on chip approach: A tool to evaluate cancer -immune cells interactions. Sci. Rep. 2017, 7, 12737. [CrossRef]
+[PubMed]
+306. Nguyen, M.; De Ninno, A.; Mencattini, A.; Mermet-Meillon, F.; Fornabaio, G.; Evans, S.S.; Cossutta, M.; Khira, Y.; Han, W.;
+Sirven, P.; et al.
+Dissecting Effects of Anti-cancer Drugs and Cancer-Associated Fibroblasts by On-Chip Reconstitution of
+Immunocompetent Tumor Microenvironments. Cell Rep. 2018, 25, 3884–3893.e3. [CrossRef]
+307. Comes, M.C.; Casti, P.; Mencattini, A.; Di Giuseppe, D.; Mermet-Meillon, F.; De Ninno, A.; Parrini, M.C.; Businaro, L.; Di Natale,
+C.; Martinelli, E. The inﬂuence of spatial and temporal resolutions on the analysis of cell-cell interaction: A systematic study for
+time-lapse microscopy applications. Sci. Rep. 2019, 9, 6789. [CrossRef] [PubMed]
+308. Mathur, L.; Ballinger, M.; Utharala, R.; Merten, C.A. Microﬂuidics as an Enabling Technology for Personalized Cancer Therapy.
+Small 2020, 16, 1904321. [CrossRef] [PubMed]
+309. Blasiak, A.; Khong, J.; Kee, T. CURATE.AI: Optimizing Personalized Medicine with Artiﬁcial Intelligence. SLAS Technol. 2020,
+25, 95–105. [CrossRef] [PubMed]
+
+===PAGE 30===
+Micromachines 2023, 14, 826
+30 of 30
+310. Blasiak, A.; Truong, A.T.L.; Wang, P.; Hooi, L.; Chye, D.H.; Tan, S.B.; You, K.; Remus, A.; Allen, D.M.; Chai, L.Y.A.; et al.
+IDentif.AI-Omicron: Harnessing an AI-Derived and Disease-Agnostic Platform to Pinpoint Combinatorial Therapies for Clinically
+Actionable Anti-SARS-CoV-2 Intervention. ACS Nano 2022, 16, 15141–15154. [CrossRef] [PubMed]
+311. Ahuja, K.; Rather, G.M.; Lin, Z.; Sui, J.; Xie, P.; Le, T.; Bertino, J.R.; Javanmard, M. Toward point-of-care assessment of patient
+response: A portable tool for rapidly assessing cancer drug efﬁcacy using multifrequency impedance cytometry and supervised
+machine learning. Microsyst. Nanoeng. 2019, 5, 1–11. [CrossRef]
+312. Mencattini, A.; Di Giuseppe, D.; Comes, M.C.; Casti, P.; Corsi, F.; Bertani, F.R.; Ghibelli, L.; Businaro, L.; Di Natale, C.; Parrini,
+M.C.; et al. Discovering the hidden messages within cell trajectories using a deep learning approach for in vitro evaluation of
+cancer drug treatments. Sci. Rep. 2020, 10, 7653. [CrossRef]
+313. Owh, C.; Ho, D.; Loh, X.J.; Xue, K. Towards machine learning for hydrogel drug delivery systems. Trends Biotechnol. 2023,
+41, 476–479. [CrossRef] [PubMed]
+Disclaimer/Publisher’s Note: The statements, opinions and data contained in all publications are solely those of the individual
+author(s) and contributor(s) and not of MDPI and/or the editor(s). MDPI and/or the editor(s) disclaim responsibility for any injury to
+people or property resulting from any ideas, methods, instructions or products referred to in the content.

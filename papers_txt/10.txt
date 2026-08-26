@@ -1,0 +1,2138 @@
+===PAGE 1===
+Intelligent Microfluidics: The Convergence of Machine Learning and Microfluidics in Materials
+Science and Biomedicine
+Galan, E.A.; Zhao, H; Wang, X.; Dai, Q.; Huck, W.T.S.; Ma, S.
+2020, Article / Letter to editor (Matter, 3, 6, (2020), pp. 1893-1922)
+Doi link to publisher: https://doi.org/10.1016/j.matt.2020.08.034
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Version of the following full text: Publisher’s version
+Published under the terms of article 25fa of the Dutch copyright act. Please follow this link for the
+Terms of Use: https://repository.ubn.ru.nl/page/termsofuse
+Downloaded from: https://hdl.handle.net/2066/227680
+Download date: 2026-08-25
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Note:
+To cite this publication please use the final published version (if applicable).
+
+===PAGE 2===
+Review
+Intelligent Microﬂuidics: The Convergence
+of Machine Learning and Microﬂuidics
+in Materials Science and Biomedicine
+Edgar A. Galan,1,2 Haoran Zhao,1,2 Xukang Wang,3 Qionghai Dai,2,3,4 Wilhelm T.S. Huck,5
+and Shaohua Ma1,2,4,*
+SUMMARY
+Microﬂuidics permit the automated manipulation of ﬂuids at the
+microscale with high throughput and spatiotemporal precision,
+enabling the generation of large, multidimensional datasets. Ma-
+chine intelligence provides powerful predictive tools with the ability
+to learn from data. The analysis of microﬂuidics-generated data via
+machine learning has been applied in a variety of contexts, achieving
+impressive results. Here, we elaborate on the potential of operating
+microﬂuidic platforms via closed-loop data-driven models by
+leveraging multimodal monitoring and data-acquisition instrumen-
+tation. We believe this approach will provide a robust framework
+for fundamental explorations in materials science and biomedicine,
+with implications in ﬁelds such as drug discovery, nanomaterials,
+in vitro organ modeling, and developmental biology. We identify
+challenges and propose research strategies in the context of the
+prediction and optimization of chemical reactions and materials syn-
+theses and the development of the next generation of more robust
+and functional organs-on-chips and emerging organoids-on-chips.
+INTRODUCTION
+The success of the miniaturization of microelectronics and computers inspired the
+initial developments in microﬂuidics.1 Analogously, microﬂuidic chips now offer
+the capabilities of entire laboratories in small footprints.2 Microﬂuidics operate by
+manipulating liquids within networks of microchannels with dimensions on the order
+of micrometers. Fluids can take the form of monophasic and multiphasic ﬂows or
+discrete microdroplets in the femto- to microliter scale (1015 to 106 L). Owing to
+their small dimensions, microﬂuidic systems display a range of unique physical char-
+acteristics.3 As viscous forces dominate over inertial forces, ﬂows at low Reynolds
+number exhibit laminar proﬁles. Thus, mass, momentum, and heat transport in the
+direction normal to the ﬂow are restricted to the molecular mechanisms of diffusivity,
+viscosity, and thermal conductivity, respectively. The superior heat and mass trans-
+port enabled by the high surface-area-to-volume ratio allows for high control over
+reaction conditions and shorter reaction times.4 Moreover, simple microfabrication
+techniques using polydimethylsiloxane5 permit quick fabrication of chips with
+inherent chemical inertness, thermostability, and low toxicity. Therefore, the trans-
+lation of techniques and analyses from the macro- to the microscale confers attrac-
+tive advantages such as parallelization, multiplexing, high throughput, high spatio-
+temporal precision, and substantially reduced sample and energy consumption. This
+versatility has resulted in landmark technologies such as lab-on-a-chip for high-
+throughput single-cell analyses,6 droplet barcoding for high-throughput DNA and
+Progress and potential
+The synergistic convergence of
+microﬂuidics and machine
+learning enables ample and
+varied applications. Microﬂuidic
+chips are economical devices
+capable of extracting large
+amounts of data with minimal
+reagent consumption. Meanwhile,
+machine learning offers
+computational tools with the
+ability to learn from data and
+make accurate predictions to
+guide and optimize scientiﬁc
+research. Currently, microﬂuidic
+devices are mostly operated
+manually and data are analyzed
+post experiment. The
+development and integration of
+on-chip multimodal
+instrumentation will give rise to
+the next generation of
+autonomous platforms operated
+via data-driven models. This
+review summarizes progress on
+the monitoring and control of
+microﬂuidic systems via machine
+learning, discusses advances on
+the implementation of
+microﬂuidics and machine
+learning in materials science and
+biomedicine, and identiﬁes
+challenges and opportunities for
+research in the emerging ﬁeld of
+intelligent microﬂuidics.
+Matter 3, 1893–1922, December 2, 2020 ª 2020 Elsevier Inc. 1893
+ll
+
+===PAGE 3===
+RNA sequencing,7,8 organ-on-a-chip9 and organoids10 for drug discovery11 and
+personalized medicine,12 and microreactors4 for the synthesis of materials13 and
+the study of chemical reactions.14
+Artiﬁcial intelligence has seen a rapid growth during the last decade, offering statis-
+tical models capable of accurate predictions to accelerate research discoveries with
+minimal human intervention. Machine learning is an approach to artiﬁcial intelli-
+gence based on a framework of algorithms that learn from data without requiring
+direct programming. Discrete computing elements, so-called artiﬁcial neurons,15–
+17 compose networks18 that enable construction of feature representations from
+high-dimensional inputs and generalization of knowledge to be applied in unseen
+scenarios. Deep learning, an emergent class of machine learning, leverages complex
+neural networks composed of multiple representation layers to enable autonomous
+interpretation of raw data, achieving unprecedented prediction accuracy. Deep
+learning has revolutionized ﬁelds such as computer vision and natural language pro-
+cessing.19 In the chemical and biological sciences, artiﬁcial intelligence is reshaping
+research methodologies for applications such as chemical exploration,20,21 predic-
+tion of chemical reactivity22 and reaction performance,23 prediction and design of
+synthetic24,25 and retrosynthetic routes,26 automated reaction optimization,27 accel-
+erated materials discovery,28–30 materials characterization,31 label-free cell classiﬁ-
+cation,32,33 detection of DNA modiﬁcations,34 study of oncogenic differentiation,35
+prediction of protein structure,36 and diagnosis of medical images,37,38 providing
+scientists with powerful tools for feature extraction, classiﬁcation, and prediction.
+Microﬂuidics has become integral to the chemical and biological sciences.39–41 Its
+high throughput enables the automated generation of large and detailed datasets.
+As a result, manual classiﬁcation and labeling have become unfeasible for applica-
+tions that produce complex, multidimensional data. This represents a fertile scenario
+for the implementation of artiﬁcial intelligence. Machine-learning-based data anal-
+ysis and microﬂuidics complement each other and provide a robust framework for
+scientiﬁc exploration. This approach has recently been exploited with great success
+in materials science for automated particle synthesis and optimization,42 and the
+study of complex chemical reactions;14 and in biomedicine, for intelligent image-
+activated cell sorting,43 prediction of risk stratiﬁcation of cancer,44 and the label-
+free detection of aggregated platelets,45 circulating tumor cells,46 and exosomes;47
+while both ﬁelds beneﬁt from technologies such as the automated detection and
+sorting of microencapsulation.48
+While most applications leveraging machine intelligence in microﬂuidics focus on
+data analysis post experiment, there are beneﬁts and opportunities in the use of ma-
+chine intelligence to design and operate microﬂuidic devices. Basic developments
+have been demonstrated in recent years, including the monitoring and control of
+volumetric ﬂow rates to mitigate the effects of long-term operation,49 the determi-
+nation of the chemical composition and ﬂuid properties of microdroplets,50 the pre-
+diction of microdroplet size51 and stability,52 and the computer-aided design of
+microﬂuidic chips to generate ﬂow shapes on demand.53
+Here, we discuss the progress leading to the convergence of microﬂuidics and arti-
+ﬁcial intelligence. We introduce the emergence of intelligent approaches for data-
+driven design and operation of microﬂuidic systems. We then focus on the predic-
+tion of organic synthetic and retrosynthetic routes, automated high-throughput
+experimentation platforms in chemistry, and modeling of artiﬁcial biological organs,
+which hold great relevance in ﬁelds such as drug discovery,54 functional materials,55
+1Shenzhen International Graduate School (SIGS),
+Tsinghua University, Shenzhen, China
+2Tsinghua-Berkeley Shenzhen Institute (TBSI),
+Tsinghua University, Shenzhen, China
+3Department of Automation, Tsinghua University,
+Beijing, China
+4Institute of Brain and Cognitive Sciences,
+Tsinghua University, Beijing, China
+5Institute of Molecules and Materials, Radboud
+University, Nijmegen, The Netherlands
+*Correspondence:
+ma.shaohua@sz.tsinghua.edu.cn
+https://doi.org/10.1016/j.matt.2020.08.034
+ll
+1894 Matter 3, 1893–1922, December 2, 2020
+Review
+
+===PAGE 4===
+and developmental biology.56 Finally, we provide perspectives on these topics and
+elucidate challenges and opportunities for research.
+We observe that as chemistry and materials science embrace the use of machine
+intelligence, the adoption of microﬂuidic chips as platforms for high-throughput exper-
+imentation could further accelerate chemical exploration and synthesis at reduced costs.
+Meanwhile, as microﬂuidics have contributed to the birth of organs-on-chips57 and
+organoids-on-chips,58 the imminent integration of machine intelligence represents an
+unexploited resource that is expected to expand avenues for fundamental research
+and increase the robustness and functionality of current models. Both these technolo-
+gies will beneﬁt from the adoption of data-driven intelligent microﬂuidic platforms
+integrating microscopy, spectroscopy, and multisensing instrumentation speciﬁc to
+the microﬂuidics environment. This approach will beneﬁt applications such as the design
+and discovery of materials and synthetic routes, the study and optimization of chemical
+reactions, the modeling and control of organs/organoids-on-chips, and the study of the
+mechanisms of organogenesis (Figure 1).
+THE CONVERGENCE OF MICROFLUIDICS AND MACHINE
+INTELLIGENCE
+The multiplexing capacity and high throughput of microﬂuidics coupled to various
+monitoring techniques such as optical imaging, spectroscopy, or electrochemical
+sensing enable data acquisition at unprecedented rates. The increasing accuracy
+of laboratory instrumentation and the range of available techniques that can be
+Figure 1. Applications of Intelligent Microﬂuidics in Materials Science and Biomedicine
+ll
+Matter 3, 1893–1922, December 2, 2020 1895
+Review
+
+===PAGE 5===
+integrated into microﬂuidic platforms result in large datasets of multidimensional
+data. Machine learning can exploit such information to autonomously detect pat-
+terns in complex nonlinear spaces and assist researchers to derive meaningful in-
+sights. Artiﬁcial neural networks18 are fundamental machine-learning algorithms
+that will be referred to numerous times during this review. Figure 2B depicts this
+concept with the schematic of a typical feedforward network, where each neuron
+is computed as the linear combination of the weights of the neurons in the previous
+layer (Figure 2A). For a comprehensive introduction to machine learning, we direct
+the reader to an excellent book by Goodfellow et al.59
+The Emergence of Data-Driven Microﬂuidics
+Microﬂuidic devices currently rely on researchers to empirically set the initial condi-
+tions of operation and then monitor and tune parameters throughout experiments to
+reach and maintain stable conditions that generate reproducible data. Inconsistent
+experimental conditions in polydimethylsiloxane-based microﬂuidic devices can be
+introduced by multiple factors including fabrication discrepancies, clogging, bubble
+formation, chemical impurities, or effects of long-term operation such as tempera-
+ture and pressure ﬂuctuations, surface fouling,60 and substrate deformation.61
+These variations can affect chemical synthesis by changing solution concentrations62
+or biological analyses because of adsorption of hydrophobic small molecules.63
+A
+B
+Figure 2. Artiﬁcial Neural Networks
+(A) Schematic of a discrete computing linear element (neuron) that receives the inputs x1,/,xn with
+associated weights w1,/,wn and computes a weighed sum over all inputs as Pn
+i = 1 = wixi + ::: +
+wnxn. The net input sum passes through a sigmoid activation function that outputs a real number
+within G1, with respect to a threshold value t = 0.
+(B) Schematic of a neural network with one output layer and one hidden layer receiving the inputs
+x1,/,xn with weights W. Each element h1,/,hn in the hidden layer is computed as a nonlinear
+transformation of all the inputs and has a vector of associated weights w. The network has y1,/,yn
+outputs, which take the values of all the elements in the hidden layer as inputs.
+ll
+1896 Matter 3, 1893–1922, December 2, 2020
+Review
+
+===PAGE 6===
+In this section, we discuss emergent research on the use of machine intelligence
+coupled with optical microscopy in microﬂuidic chips. This approach has been
+used to predict droplet size51 and stability,52 to determine droplet chemical compo-
+sition and ﬂuid properties,50 and to monitor and rectify ﬂow rates and droplet sizes
+to avoid undesired effects derived from long-term operation or bubble formation.49
+Real-Time Control of the Microﬂuidic Environment
+Autoencoders convert multiple inputs into low-dimensional feature representations
+(codes) that can be processed and subsequently decoded to reconstruct the in-
+puts.64 These algorithms are mainly employed in unsupervised machine-learning
+models, where unsupervised refers to approaches that do not require labeled
+data. Khor et al.52 utilized a deep convolutional autoencoder to learn the shape of
+droplets in a concentrated emulsion as an eight-dimensional code and used it to
+predict whether the droplets would break or stabilize (Figure 3). Four out of the eight
+dimensions in the code could be interpreted as drop skewness, elongation, throat
+size, and surface curvature; these parameters were demonstrated to play a signiﬁ-
+cant role in determining emulsion stability.
+Meanwhile, the control of volumetric ﬂow rates in a microﬂuidic channel via machine
+learning was explored by Dressler et al.49 The authors employed both a deep
+Q-Network,65 a deep neural network leveraging end-to-end reinforcement learning,
+and a model-free episodic control,66 an algorithm inspired on hippocampal learning
+and memory. Reinforcement learning is an approach to training algorithms based on
+a system of cumulative rewards.67 The authors trained their models by randomly varying
+the ﬂow rates of the dispersed and continuous phases of a double laminar ﬂow and a wa-
+ter-in-oil emulsion within a range of 0.5–10 mL/min. An optical microscope enabled the
+algorithms to monitor the volumetric ﬂow rates. At each iteration, a scalar reward was
+assigned in function of the current and the desired interface location or droplet size
+and, accordingly, the algorithms increased or decreased the ﬂow rates of each phase
+in 0.5-mL/min steps. In this way, the two models learned optimal ﬂow rates and were
+able to position an interface at an arbitrary location in a double laminar ﬂow (Figures
+4A, 4C, and 4E) and control the sizes of water-in-oil droplets (Figures 4B, 4D, and 4F).
+Two trained human testers performed the same tasks, and their performance was
+compared with that of the algorithms. In the control of the interface location, the
+Figure 3. Prediction of Drop Instability in a Microﬂuidics Device
+(A) Schematic of a microﬂuidic device in ﬂow-focusing geometry.
+(B) Series of images depicting a (red) droplet undergoing instability and break-up within a
+concentrated emulsion. The scalebar is 30 mm.
+(C) Schematic of the machine-learning process for the prediction of drop instability.
+Adapted with permission from Khor et al.52 Copyright 2019, The Royal Society of Chemistry.
+ll
+Matter 3, 1893–1922, December 2, 2020 1897
+Review
+
+===PAGE 7===
+deep Q-Network increased its performance algorithmically up to human level over
+27 h. Meanwhile, the model-free episodic control reached peak performance within
+2 h, stabilizing at 90% of human level. In the control of droplet sizes, both algorithms
+achieved consistent above human-level performance, but the model-free episodic
+control achieved it within few minutes while the deep Q-Network required 20 h of
+training. It is noted that the network architecture played a signiﬁcant role in the per-
+formance of each speciﬁc task, suggesting that it is advisable to implement and test
+different models to ﬁnd the most appropriate to solve a given task.
+Convolutional neural networks68 transform inputs into stacks of feature maps using
+a combination of convolutional and pooling layers to enable powerful image
+recognition. Hadikhani et al.50 used a deep convolutional neural network to
+predict the volumetric ﬂow rate and the concentrations of each component in wa-
+ter/isopropanol droplets within a microﬂuidic chip. The network was trained on im-
+ages of droplets at different ﬂow rates and water/isopropanol concentrations,
+which allowed it to learn to recognize morphological features associated with
+ﬂow rate and isopropanol dilution. The authors suggested that this approach could
+be used to assess the chemical compositions of different mixtures in droplet micro-
+reactors or to predict other ﬂuid properties such as surface tension or viscosity;
+these parameters are important in the synthesis of a variety of microparti-
+cles.13,69–74 The prediction of ﬂuid properties has also been approached from a
+different perspective. Mahdi and Daoud51 demonstrated that a deep neural
+network can predict the droplet sizes in a water-in-oil emulsion by using the
+dimensionless capillary and Reynolds numbers of the two phases as inputs. These
+numbers are associated with the ﬂow rate, diameter of the microchannel, and ﬂuid
+properties such as viscosity and surface tension. These studies suggest that is plau-
+sible to infer several ﬂuid properties in microﬂuidic chips through a combination of
+optical monitoring and neural networks.
+Figure 4. Control of the Volumetric Flow in a Microﬂuidic Chip via Reinforcement Learning
+(A and B) Schematic of a microﬂuidic channel in (A) coﬂowing conﬁguration, generating a double
+laminar ﬂow, and (B) ﬂow-focusing conﬁguration, generating microdroplets. The dotted line
+denotes the sampling area; the distance d is the parameter to optimize.
+(C and D) Example image frames captured during the training phase from the microchannels in (C)
+coﬂowing and (D) ﬂow-focusing conﬁgurations. The scalebars are 150 mm.
+(E and F) Examples of complete reward characterizations as a function of the ﬂow rates of the
+dispersed (fr1) and continuous phase (fr2) for the (E) control of an interface location and (F) droplet
+sizes.
+Adapted with permission from Dressler et al.49 Copyright 2018, American Chemical Society.
+ll
+1898 Matter 3, 1893–1922, December 2, 2020
+Review
+
+===PAGE 8===
+We noticed that both Dressler et al.49 and Hadikhani et al.50 reported that their pre-
+dictive models did not maintain accuracy across devices, despite these having iden-
+tical designs. This can be attributed to fabrication discrepancies, surface treatment
+variations, surface-wetting effects, polydimethylsiloxane aging, and even tubing
+connections and microscope positioning. Training the algorithms on multiple de-
+vices could mitigate this issue, although the researchers did not explore this possi-
+bility. In summary, it has been demonstrated that optical monitoring coupled to ma-
+chine intelligence can be employed to predict ﬂuid properties and enable the
+closed-loop control of parameters within microﬂuidic chips. It is worth noting the
+following. (1) The works discussed herein required only the use of a standard optical
+microscope and a camera as the data-acquisition instrumentation, (2) although these
+tasks could be performed using simpler algorithms. For instance, basic measure-
+ments on ﬂuids within microﬂuidic channels such as ﬂow speed or droplet size can
+be performed by video processing75 while volumetric ﬂow rates can be controlled
+via a robust controller76 or a classic proportional-integral-derivative controller. (3)
+Nevertheless, the signiﬁcance of these works lies in the proof-of-concept of the
+use of machine learning to solve practical problems in the microﬂuidics environment.
+Similar approaches could be later translated to the solution of more complex tasks.
+Deep-Learning-Aided Device Design: Flow Sculpting
+We have discussed the use of machine learning to predict or rectify parameters dur-
+ing the operation of microﬂuidic devices. In addition, it is also possible to predict
+optimal device designs that deliver bespoke behaviors. This concept has recently
+been demonstrated in the domain of ﬂow sculpting.77 Flow sculpting is a technique
+for shaping the cross-section of ﬂows within microﬂuidic channels via ﬂuid inertia. It
+ﬁnds applications in nanomaterials manufacture or microﬂuidic manipulation, for
+example in the generation of microﬁbers and microstructures with arbitrary tridi-
+mensional geometries73,78,79 or in the selective transport of microparticle-laden
+ﬂows around cells or particles.80
+Flow sculpting uses micropillars inside a microchannel to passively shape the cross-sec-
+tion of a ﬂow in an inertial regime deﬁned by a Reynolds number of 1 < Re < 100. The
+induced deformations under these conditions are time independent, being only a func-
+tion of the channel and pillar geometries, pillar locations, and the Reynolds number of
+the ﬂuid.77 Figure 5A illustrates the concept of ﬂow sculpting, where a sequence of mi-
+cropillars is arranged along a microchannel and deforms the ﬂuid cross-section to
+generate a speciﬁc ﬂow shape. Provided with enough space between pillars, the
+induced deformations on the ﬂuid cross-section are commutative, i.e., pillar-induced de-
+formations are independent and cumulative; individual pillars can thus be arranged in
+sequences where their effects add successively and their order does not inﬂuence the
+resultant ﬂow shape. Therefore, a library of pillar and channel geometries, pillar locations
+within the microchannel, and their inﬂuence on a ﬂuid cross-section can be precomputed
+and stored for rapid access. However, a full library of the design space is still computa-
+tionally infeasible, since, for a sequence of ns pillars, the total of possible combinations is
+deﬁned as nc = nns
+p , where np is the number of different pillar conﬁgurations. To over-
+come this issue, Stoecklein et al.53 used high-dimensional model representation81 to
+generate a sample from the design space of possible ﬂow-sculpting outputs from a com-
+bination of eight pillar diameters in four possible locations (32 total pillar conﬁgurations)
+with sequences of seven pillars (nc z 34 3 109). Principal component analysis82 was used
+to reduce the dimensionality of the space to solve the many-to-one problem inherent to
+this system (i.e., many different pillar combinations can generate a certain ﬂow shape;
+principal component analysis projects outputs in a space where similar ﬂow shapes
+are close to each other). Finally, advection maps of simulated cross-sectional ﬂow shapes
+ll
+Matter 3, 1893–1922, December 2, 2020 1899
+Review
+
+===PAGE 9===
+were used to train a deep convolutional neural network to aid the design of microﬂuidic
+chips that produce a demanded ﬂow shape (Figure 5B).
+One of the advantages of deep learning for solving similar problems in microﬂuidics
+is that the design space is ﬁnite and time independent. For example, the space
+deﬁned by Stoecklein et al.53 has a number of solutions that can be precomputed
+and depend on the quantity of elements (e.g., pillars, geometries, and locations).
+We can observe that: (1) techniques for intelligent sampling and nonlinear dimen-
+sionality reduction can be adopted to reduce computational costs while maintaining
+a high accuracy in the prediction of outputs outside the training set; (2) deep learning
+can solve similar scientiﬁc inverse problems that have no analytical solution or cer-
+tainty of a unique solution; (3) similar methodologies can be implemented not
+only in the design of microﬂuidic devices, but also in the operation of reconﬁgurable
+microﬂuidic devices; and (4) although reconﬁgurability in microﬂuidics is yet to be
+achieved, machine learning could be the key to quickly reaping the beneﬁts of re-
+conﬁgurable devices by automatically modulating parameters of operation as a
+function of different conﬁgurations.
+Machine Intelligence and Microﬂuidics in Chemistry and Materials Science
+In this section, we ﬁrst elaborate on the use of machine-learning statistical models
+trained on scientiﬁc databases, which has proved valuable, but highlight the neces-
+sity of generating standardized data. Next, we introduce the implementation of
+data-driven robotic platforms for chemical exploration, which lead to the require-
+ments for further optimization and miniaturization. The use of microﬂuidics as
+data-driven platforms for high-throughput experimentation in chemical synthesis
+represents a nascent yet highly promising ﬁeld; the current progress is discussed
+at the end of this section.
+Figure 5. Prediction of Pillar Sequences for On-Demand Flow Shapes via Deep Learning
+(A) Schematic of three inlet ﬂows within a microchannel. The deformations induced by each pillar in
+the sequence contribute to a net deformation at the end of the microchannel.
+(B) Pixel representations of ﬂow cross-sections (advection maps) are input to a convolutional neural
+network. Convolutional and pooling layers extract features that can be mapped to micropillar
+sequences that generate speciﬁc ﬂow shapes.
+Adapted with permission from Stoecklein et al.53 Copyright 2017, Springer Nature.
+ll
+1900 Matter 3, 1893–1922, December 2, 2020
+Review
+
+===PAGE 10===
+Computer-Aided Synthesis
+The rational synthesis of molecules is a fundamental task in organic chemistry and
+materials science. For this, one must be able to predict chemical reactions in both
+ways, that is, to determine the reaction mechanism and product from a set of starting
+molecules (synthesis) as well as determining the required molecules and reaction
+mechanism to yield a target product (retrosynthesis). Since the number of organic
+chemical compounds that could potentially exist is nearly inﬁnite, the development
+of predictive tools for synthetic routes is a nontrivial challenge of great importance in
+organic chemistry.
+Chemometrics, a ﬁeld of science founded on the mining and statistical analysis of
+large quantities of chemical multivariate data, originated in the late 1960s,83 quickly
+followed by the integration of machine-intelligence-based statistical models to solve
+a variety of problems in chemistry, including the design of organic synthetic routes.84
+Early algorithms relied on empirical calculations and manual coding of reactivity
+rules by experienced chemists,85 an approach that achieved impressive results,
+but limited scalability and automation.
+In the previous decade, artiﬁcial neural networks were introduced as a solution to
+learn from published databases to predict chemical reactions. For example, Kayala
+et al.86 considered a mechanistic approach using graph-based molecular represen-
+tations to describe chemical reactions as electronic interactions between idealized
+molecular orbitals. A feedforward network was trained on a set of manually coded
+reaction rules and, given a set of reactants and conditions, the model could predict
+the productive mechanism with an accuracy of 89.05% (Figure 6A). Molecular ﬁnger-
+prints are number sequences representing a series of descriptors that encode fea-
+tures describing the structure of molecules (e.g., the presence of amides or the types
+of carbon bonds) (Figure 6B). Wei et al.87 concatenated the ﬁngerprints of reactants
+and reagents and used these data as the input for a neural network, which classiﬁed
+reactions of alkyl halides and alkenes and predicted the structure of the product with
+accuracies of 85% and 50%, respectively (Figure 6C). Recently, Sandfort et al.22
+advanced the ﬁeld of molecular ﬁngerprints with a model based only on the molec-
+ular structure of the reactant, from which a series of 24 features was extracted (Fig-
+ure 6D). This simplistic approach in combination with random forest, a supervised
+algorithm for both classiﬁcation and regression,88 enabled the prediction of
+HOMO-LUMO (highest occupied molecular orbital-lowest unoccupied molecular
+orbital) gaps, enantioselectivities, yields, and relative conversion.
+Graph neural networks leverage representations based on the distances between
+pairs of nodes in graphical data and are useful in modeling complex structures.36
+Segler and Waller90 constructed a knowledge graph of 14.4 million molecules and
+8.2 million reactions reported in the literature using extended-connectivity ﬁnger-
+prints.91 The data were used to train a graph-based neural network, which predicted
+reaction products with an accuracy of 67.5%. The authors later combined the exten-
+ded-connectivity ﬁngerprints with graph expert rules and a deep neural network
+trained on 3.5 million published reactions (Figure 6E).26 This improved the predic-
+tion of synthesis and retrosynthesis, with accuracies of 95% and 97%, respectively.
+Segler et al.25 subsequently evaluated the combination of their previous symbolic
+rules with Monte Carlo tree search,92 an algorithm for ﬁnding optimal decisions
+through the random sampling of the domain space to construct search trees. The au-
+thors trained a deep neural network on all reactions published in organic chemistry
+and compared its performance with a state-of-the-art rule-based system, predicting
+as many molecules but in much shorter times.
+ll
+Matter 3, 1893–1922, December 2, 2020 1901
+Review
+
+===PAGE 11===
+Figure 6. Approaches to Molecule Representation and Reaction Prediction
+(A) Mechanistic reaction prediction. Electron sources and sinks within reactants are identiﬁed, and electron-ﬁlled and electron-unﬁlled unreactive sites
+are predicted and ﬁltered out. Filled and unﬁlled molecular orbitals are combined, and the reactions are ranked based on productivity scores.
+(B) Generation of molecular ﬁngerprints. A vector of structural descriptors is constructed from yes/no (0 or 1) queries about a series of molecule features.
+(C) Fingerprint-based reaction prediction. Reactant and reagent ﬁngerprints are concatenated and input to a neural network that predicts the
+probability of reaction types and products.
+(D) Multiple ﬁngerprint features. Multiple molecular ﬁngerprints are concatenated to predict a range of reaction outcomes from a single representation.
+(E) Neural-symbolic approach. Synthetic and retrosynthetic transformation rules are predicted from occurring functional groups using counted
+extended-connectivity ﬁngerprints (ECFP4).
+(F) Edit-based model. Representations based on four edits (Hs lost, Hs gained, bonds lost, and bonds gained) are summed and used to rank possible
+reaction types.
+Adapted with permission from: (A) Kayala et al.86 Copyright 2011, American Chemical Society. (B and D) Sandfort et al.22 Copyright 2020, Elsevier Inc. (C)
+Wei et al.87 Copyright 2016, American Chemical Society. (E) Segler and Waller.26 Copyright 2017, Wiley-VCH Verlag GmbH & Co. KGaA, Weinheim. (F)
+Coley et al.89 Copyright 2017, American Chemical Society.
+ll
+1902 Matter 3, 1893–1922, December 2, 2020
+Review
+
+===PAGE 12===
+A challenge in mining databases is that reaction parameters are inconsistently re-
+ported and results are biased toward high-yield reactions. Therefore, neural net-
+works are undertrained on what constitutes an unproductive reaction. Coley
+et al.89 approached this issue by supplementing a dataset with automatically gener-
+ated unproductive reactions. Molecule representations were based on atom
+bonding occurring at the reaction core (Figure 6F), while reaction templates were
+selected based on the products that could be produced given a set of reactants—
+a process called forward enumeration. The reactions that could yield the products
+but were not reported in the literature were included in the training set as unproduc-
+tive reactions. This approach showed an accuracy of 71.8% for the prediction of
+products.
+Despite extensive work and consistent progress on the use of machine intelligence
+to predict synthetic routes, signiﬁcant challenges remain. For example, Kayala
+et al.86 obtained their data from a rule-based system based on an undergraduate
+chemistry curriculum, and although the results reported by Segler and Waller26
+are impressive, their hybrid model also relied on reaction rules. Scaling rule-based
+systems requires to manually revisit a large quantity of existing rules to add excep-
+tions. Also, these models cannot generalize, being only able to predict reactions
+within the rule set. The work by Wei et al.87 covered only 16 basic reaction types
+involving alkanes containing 10 or fewer carbon atoms with a single functional
+group. Meanwhile, the models of both Wei et al.87 and Segler and Waller90 were
+restricted to predict binary reactions. Coley et al.89 used forward enumeration
+with only the 1,689 most frequent reaction templates from a total of 140,284 tem-
+plates. Additionally, parameters such as temperature, pressure, solvents, and reac-
+tion times, as well as reactant, catalyst, and reagent concentration, were excluded
+from the training set amid the inconsistency of their presence in the database. We
+conclude that: (1) the lack of sufﬁciently detailed and standardized data on existing
+scientiﬁc databases represents a challenge that limits the scalability and predictive
+power of machine learning models; (2) while forward reaction templates are a pop-
+ular solution to quickly categorize reaction types, the coverage of the model is
+restricted by the quality and quantity of the templates selected, compromising
+generalizability; and (3) devising representations for chemical reactivity with high
+physical relevance is an open challenge with opportunities for improvement.
+Automated Experimentation via Modular Robots
+The discovery and optimization of chemical synthesis is a costly and time-consuming
+process that involves signiﬁcant manual labor. The past few years saw new ap-
+proaches that made use of robots guided by machine-intelligence statistical models
+to automate the exploration and discovery of chemical syntheses. Coley et al.93
+extended their previous work89 with the development of a robotic platform for the
+automated execution of predicted synthetic routes via ﬂow chemistry. A feedfor-
+ward network was trained on reactions and templates from a chemical database to
+generalize known reactions to new substrates through retrosynthetic transforma-
+tions and modulation of the reaction conditions. A robotic arm assembled modular
+components and reagent lines into the ﬂow path for the execution of speciﬁc reac-
+tion types on demand. However, this approach still requires the supervision and
+input of additional details by an expert chemist.
+A desirable feature in the automated exploration and discovery of chemical reactions is
+the capability of systems to be trained and optimized using self-generated standardized
+experimental data. Granda et al.21 developed a robot integrating real-time nuclear
+magnetic resonance, mass spectrometry, and attenuated total-reﬂection infrared
+ll
+Matter 3, 1893–1922, December 2, 2020 1903
+Review
+
+===PAGE 13===
+spectroscopy for the automatic monitoring and classiﬁcation of reaction mixtures (Fig-
+ures 7A and 7B). The robot was equipped with six reaction vessels, which allowed it to
+perform 36 experiments per day. First, random reactions were performed and classiﬁed
+binarily as reactive or nonreactive based on their spectra by using a support-vector
+machine.94 This information was stored in a database. A linear discriminant analysis
+algorithm95 was then trained on the resultant data to construct the chemical space of
+the reaction, while empty space (unexplored reactivity) was predicted. The robot thus
+performed and analyzed the reaction with the highest probabilistic score for reactivity.
+The model was retrained with the data from the last reaction performed (highest reac-
+tivity), and the whole process was iterated as required (Figure 7C).
+Figure 7. Automated Chemical Exploration via Modular Robots
+(A) Schematic of the conﬁguration of the chemical inputs (valves represented as colored dots),
+reaction vessels, and online analytical instrumentation. A solvent (MeCN) is used as an example.
+(B) Photograph of the robotic platform. The spectra of reaction mixtures are recorded via
+atmospheric pressure chemical ionization (APCI)-mass spectrometry (MS), nuclear magnetic
+resonance (NMR), and attenuated total-reﬂection infrared spectroscopy (ATR-IR).
+(C) The platform starts a search by performing a set of random reactions while analytical
+instrumentation monitors the reaction outcomes. A support-vector machine (SVM) classiﬁes
+reaction mixtures as reactive or nonreactive to construct the reaction space and stores the results in
+a database. A linear discriminant analysis (LDA) algorithm infers the distribution of probabilities for
+the entire chemical space to determine the reaction with the highest yield, which is then performed
+and analyzed by the robot.
+Adapted with permission from Granda et al.21 Copyright 2018, Springer Nature.
+ll
+1904 Matter 3, 1893–1922, December 2, 2020
+Review
+
+===PAGE 14===
+In advancing the paradigm of automated intelligent chemical exploration and syn-
+thesis, Steiner et al.24 implemented a modular robotic system driven by a chemical
+programming language to convert the key four stages of organic synthesis protocols
+(reaction, workup, isolation, and puriﬁcation) into abstract representations. The
+‘‘Chemputer’’ is a chemical search engine composed of automated bench equip-
+ment and closed-loop machine-learning-based data processing. The platform
+performs reactions in round-bottomed ﬂasks and uses a combination of both unsu-
+pervised and supervised algorithms—principal component analysis and a support-
+vector machine with partial least-square discriminant analysis59—to explore the
+chemical space and determine optimal reaction conditions. This represents a step
+toward a universal format to describe chemical reactions and execute them automat-
+ically on a batch scale. Reactions published in the literature can be added to the
+database after being coded in the Chemputer’s programming language.
+The exploration and discovery of synthetic routes also allows the invention and syn-
+thesis of materials with user-deﬁned properties. Li et al.96 developed the ‘‘Materials
+Acceleration Operation System,’’ a platform for automated materials characteriza-
+tion and synthesis. The system can be trained remotely via virtual reality and can
+also be operated and monitored online through a web interface. It also uses its
+unique programming language and compiler to code reaction protocols, while rein-
+forcement learning optimizes the reactions by searching for the experimental
+conditions that yield the demanded material properties. The modules for materials
+characterization included in-line photoluminescence, optical absorption spectros-
+copy, computer vision, and X-ray diffraction. With fabrication modules such as a
+three-dimensional (3D) printer, vacuum and gas chambers, light irradiation, and
+various forms of liquid handling, these components can be set up on demand by a
+robotic arm.
+We can observe that these robotic platforms still rely signiﬁcantly on human input,
+training, and veriﬁcation. For instance, Duros et al.97 compared the performance
+of robots with that of humans in the context of the discovery of gigantic polyoxome-
+talate clusters. A random forest classiﬁer searching for crystallization space proved
+nine times more productive when compared with a random search, and six times
+more productive than a human manual search. However, the researchers later found
+that a combination of machine learning with human intuition was more efﬁcient than
+either one alone,98 outlining the current importance of assisting scientists rather
+than substituting them.
+Microﬂuidics as Platforms for High-Throughput Experimentation
+The processes of chemical exploration and materials synthesis often require hun-
+dreds to thousands of experiments to derive meaningful results. For example, it is
+estimated that about 560 experiments are needed to explore the synthetic space
+of a new perovskite compound. This number grows exponentially as more precur-
+sors are considered; however, it can be more than halved by leveraging machine-
+learning approaches.28 Meanwhile, microﬂuidics are capable of accelerating organic
+reactions in microdroplets.99 As shown by Fallah-Araghi et al.,100 the reaction rate
+(product concentration per unit of time) is inversely proportional to the droplet
+radius. The authors went on to demonstrate the acceleration of the synthesis of a
+ﬂuorescent imine conﬁned in 2.5-pL droplets by a factor of 45 compared with its
+bulk counterpart.100
+The small dimensions in microchannels facilitate the control of phenomena such
+as heat and mass transport, allowing for rapid heating, cooling, or mixing, and
+ll
+Matter 3, 1893–1922, December 2, 2020 1905
+Review
+
+===PAGE 15===
+precisely deﬁned reaction conditions.4 Therefore, microﬂuidic chips can effectively
+mimic the physics of batch and industrial-scale processes while enabling one to
+optimize, visualize, and study reactions in more detail. While the self-optimization
+of microﬂuidic reactors has been demonstrated via Simplex101 or Kriging algo-
+rithms,102 machine learning can provide advantages such as generalization and
+the ability to study the reaction parameters. Zhou et al.42 utilized deep reinforce-
+ment learning to develop a self-optimized microﬂuidic droplet reactor. The system
+was demonstrated for four reactions involving two reagents that were mixed and
+sprayed with an electrospray ionization source at a high voltage and pressure.
+The reaction yields were monitored via mass spectrometry while the ﬂow rate,
+voltage, and pressure were optimized (all other reaction conditions remained con-
+stant). This information allowed the achievement of optimal reaction conditions
+within 30 min by using a stochastic recurrent neural network, an architecture de-
+signed to maintain the history of sequences through iterations.103 The algorithm
+was pretrained on simulated reaction data and started the optimization search
+from a randomized exploration, followed by the calculation of the unexplored re-
+action space from a probability distribution. The model showed the ability to
+generalize by learning from similar or even dissimilar reaction mechanisms. This
+enabled the researchers to decipher the roles of the parameters inﬂuencing the
+yield—i.e., ﬂow rate, voltage, and pressure.
+Some reactions are associated with considerable hazards and environmental
+footprints. Recently, Rizkin et al.14 developed an automated high-throughput mi-
+croﬂuidic reactor with integrated in situ infrared thermography and used it to
+study a polymerization reaction (Figure 8). By employing kinetic modeling and
+Bayesian regularization backpropagation104 (a technique used for determining
+the relevance of network inputs to turn off irrelevant weights and prevent over-
+ﬁtting) the authors demonstrated the rapid estimation of the reaction space to-
+pology of a zirconocene-based alkene polymerization catalyst, which allowed
+them to investigate its fundamental kinetic parameters. The authors were able
+to reduce the chemical waste by two orders of magnitude and the chemical dis-
+covery process from weeks to hours while limiting the manual handling of haz-
+ardous chemicals.
+Although the design of microﬂuidic reactors has been limited to speciﬁc reactions,
+it could be possible to miniaturize the concept of a universal platform demon-
+strated with the Chemputer.105 Microﬂuidic valves, pumps, and mixers are easily
+fabricated,106 while a variety of materials is available to fulﬁll speciﬁc reaction re-
+quirements.107 However, while there have been advances in modular microﬂuidics
+through the development of discrete elements,108 efforts toward a data-driven uni-
+versal microﬂuidic reactor are yet to commence. We conclude the following. (1)
+The rapid prototyping, low production costs, and low reagent consumption
+make microﬂuidics appropriate platforms for data-driven chemical exploration
+and synthesis optimization. However, the combination of microﬂuidics and ma-
+chine learning is at an early, though rapidly growing, stage. (2) The development
+of modular microﬂuidic components to perform common reactions or single reac-
+tion steps will enable the development of reconﬁgurable platforms in a fashion
+similar to that which can be implemented using ﬂow and batch chemistry equip-
+ment. (3) This approach will boost the interest on using microﬂuidic devices as
+high-throughput experimentation platforms on chemistry and materials science
+and facilitate the construction of a universal microﬂuidic reactor. (4) Meanwhile,
+machine learning is prepared to exploit newly generated datasets to predict and
+optimize chemical reactions.23,28,109,110
+ll
+1906 Matter 3, 1893–1922, December 2, 2020
+Review
+
+===PAGE 16===
+Machine Intelligence and Microﬂuidics in Biomedicine
+The importance and implications of materials science and biomedicine in modern
+society are vast and tightly related.39–41 For instance, the joint development of these
+technologies and their convergence with machine intelligence holds great relevance
+Figure 8. Microﬂuidic System for High-Throughput Chemical Experimentation
+(A) Process ﬂow diagram of an automated thermographic microreactor. Left to right: inlet
+manifolds with solvent tank, ultra-high purity (UHP) nitrogen supply, electromagnetic dosing
+pumps (DP), reagent reservoirs (R), pressure controller (EF OB2), mass ﬂow meters (EF), bypass
+valves, infrared (IR) camera, vacuum enclosure, and outlet manifold.
+(B) Computer-aided design of a microﬂuidic chip for the study of metallocene catalysts. The device
+includes a reactor, ﬂuid interface connections, Peltier cells for heating/cooling, and a liquid cooling
+block for thermal stability.
+Adapted with permission from Rizkin et al.14 Copyright 2020, Springer Nature.
+ll
+Matter 3, 1893–1922, December 2, 2020 1907
+Review
+
+===PAGE 17===
+in ﬁelds such as personalized medicine and drug discovery.54 Microﬂuidics provides
+a toolbox to construct high-throughput experimentation platforms for both chemical
+synthesis4 and drug screening,111 while machine learning closes the loop with a
+data-driven framework for automation and optimization. The ability to predict and
+optimize the synthesis of complex organic molecules is essential to the discovery
+and mass production of pharmaceutical compounds, while organs-on-chips and or-
+ganoids-on-chips serve as high-throughput screening platforms that can evaluate
+the efﬁcacy and safety of drug compounds.112 In this section, we brieﬂy elaborate
+on general progress on the combination of machine intelligence and microﬂuidics
+in biomedicine. We then focus on organs/organoids-on-chips and introduce emer-
+gent research incorporating machine intelligence.
+Machine-Learning-Based Recognition and Sorting in Microﬂuidic Chips
+In biomedicine, the recent decade has seen the rise in popularity of applying ma-
+chine-learning approaches to microﬂuidics-generated data.113 Liquid biopsies are
+a minimally invasive alternative to tissue biopsies that can be processed in microﬂui-
+dic chips. Emergent technologies leveraging machine learning and optical probing
+in microﬂuidic chips for label-free disease diagnoses are quickly gaining popularity.
+For example, Singh et al.46 used a combination of microﬂuidics, machine learning,
+and holographic microscopy for the label-free detection of circulating tumor cells
+in blood. The platform screened cells ﬂowing through a microchannel and gener-
+ated a digital ﬁngerprint for each cell based on their diameter and intensity proﬁles.
+As little as 10 cancer cells per milliliter could be detected with an error of 0.001%.
+Exosomes are nanosized extracellular vesicles released by cells that can contain ge-
+netic information. Ko et al.47 demonstrated the label-free screening of plasma sam-
+ples to diagnose pancreatic cancer at its early stages by using a microﬂuidic chip
+integrating immunomagnetic sorting114 to capture exosomes into nanopore traps
+and an on-chip quantitative polymerase chain reaction to sequence exosomal
+mRNA. Linear discriminant analysis95 was used to ﬁnd mRNA signatures to predict
+whether the sample was obtained from a cancer-bearing individual.
+Alternatively, cells from tissue biopsies can be dissociated and cultured in a micro-
+ﬂuidic chip for high-throughput analyses at the single-cell level. Manak et al.44 ob-
+tained phenotypic biomarkers for breast and prostate cancer cells via automated
+live- and ﬁxed-cell microscopy. Machine vision algorithms quantiﬁed the biomarkers
+in the images, and the resulting data were classiﬁed by a machine-learning statistical
+model to predict cancer severity and the risk of postsurgical adverse pathologies.
+Meanwhile, similar approaches translate to the diagnosis of other types of disorders.
+For example, Jiang et al.45 demonstrated the label-free morphology-based detec-
+tion of aggregated platelets in blood to predict the diagnosis of thrombotic
+disorders. By imaging single cells via optoﬂuidic time-stretch microscopy,115 a ma-
+chine-learning algorithm could differentiate aggregated platelets from single plate-
+lets and white blood cells with an accuracy of 96.6%.
+The combination of machine learning and microﬂuidics is also revolutionizing tradi-
+tional ﬂow cytometry. Recently, Isozaki et al.43 demonstrated an intelligent image-
+activated cell sorting microﬂuidic chip capable of sorting single live cells from het-
+erogeneous populations in a high-throughput manner by combining hydrodynamic
+cell focusing, optical microscopy, ﬂuorescence-activated cell sorting, and a deep
+convolutional neural network. This technology holds the potential to unravel hetero-
+geneous relations between cellular genotype and phenotype, mapping morpho-
+chemical features to gene expression and cell behavior to identify new drug targets
+or abnormal cell populations in disease.
+ll
+1908 Matter 3, 1893–1922, December 2, 2020
+Review
+
+===PAGE 18===
+Machine Intelligence for In Vitro Organ Modeling: Organs- and Organoids-on-
+a-Chip
+The convergence of microﬂuidic chip fabrication and tissue engineering gave rise to
+organs-on-a-chip.9 These platforms proved more precise than traditional well plate-
+based cell culture techniques for mimicking physiologically relevant organ func-
+tions.116 Microﬂuidics enables the culture of deﬁned distributions of cell varieties
+in engineered cytoarchitectures, provides dynamic control of the microenvironment
+to recreate mechanobiological stimuli,117 and introduces controlled perfusion to
+mimic vascular and interstitial ﬂows. These features provide essential cues to reca-
+pitulate cell-cell, cell-tissue, and tissue-tissue interactions, which inﬂuence organ
+development and function by preserving natural gene expression, morphology,
+polarity, and cellular crosstalk. Hence, the accurate reproduction of these in vivo
+physiological signals in vitro is among the most critical challenges to develop
+organ-on-a-chip models. To date, a number of organ models have been demon-
+strated including brain,118 heart,119 intestine,120 kidney,121 liver,122 lung,112 and tu-
+mor.123 An ultimate aim is to interconnect multiple organs to simulate systemic
+behaviors in so-called body- or human-on-a-chip systems.124
+Organoids are in vitro organ models based on self-organized, stem cell-derived or-
+ganotypic multicellular constructs.10 Their ability to reproduce organ function and
+microarchitecture, along with their high production scalability125 and long viability
+(over a year126), makes them promising platforms for modeling organ homeostasis,
+development, and disease.56,127 Their applications include the study of viral infec-
+tions,128 genetic and neurodegenerative diseases,129,130 and drug screening;11
+additionally, organoids can be transplanted as therapeutic agents for regenerative
+medicine with the ability to replace native tissues and regenerate damaged or-
+gans.131 Figure 9 illustrates different strategies to obtain organs-on-chips and orga-
+noids. The main difference between these models is that organs-on-chips are con-
+structed by deliberately arranging stem cells or differentiated organ-speciﬁc cells
+on artiﬁcial microstructures that mimic the local organotypic architecture (Figure 9A),
+whereas organoids are self-organized constructs usually grown either from embry-
+onic or induced pluripotent stem cells129 (Figure 9B) or from normal132 or tumor tis-
+sues133 (Figure 9C).
+Precise dynamic cues from the biochemical and biophysical microenvironment are
+necessary for normal organogenesis. The use of microﬂuidic platforms for the pro-
+duction, control, and analysis of organoids has emerged to address the need for
+controllable culture conditions and automation while intrinsically increasing
+throughput and scalability. The convergence of microﬂuidics and organoids origi-
+nated the organoids-on-a-chip technology.58 These systems allow the high-
+throughput screening of drug compounds in physiologically relevant organ models
+that have been demonstrated to successfully capture intra- and interpatient hetero-
+geneity12 or predict the responses of parental tumors to chemotherapy.135 This fa-
+cilitates the preclinical evaluation of patient-speciﬁc responses to therapies, with
+the potential to accelerate the discovery and development of new compounds while
+reducing the time, costs, and variability associated with cell and animal models.
+The potential beneﬁts of integrating machine intelligence into artiﬁcial biological or-
+gans have been hinted at by researchers previously.136,137 Nowadays, this conver-
+gence represents an emerging ﬁeld, and although real-time monitoring and control
+has not yet been achieved, researchers are starting to make use of machine-learning
+algorithms in applications such as organoid characterization138 and prediction of
+drug toxicity.139
+ll
+Matter 3, 1893–1922, December 2, 2020 1909
+Review
+
+===PAGE 19===
+With the biomedical data available in public repositories growing rapidly and the devel-
+opment of powerful techniques for high-throughput single-cell sequencing, machine in-
+telligence becomes increasingly promising to tackle the complex challenges associated
+with the analysis of the highly heterogeneous and multidimensional omics data.138,140
+Wu et al.138 utilized machine learning to assess the cellular diversity of human pluripotent
+stem cell-derived kidney organoids generated from two popular protocols,141,142 which
+allowed comparison and optimization of the culturing conditions (Figure 10). The au-
+thors performed single-cell transcriptomics to measure the gene activity of 83,130 cells
+from 65 organoids. In brief, cells were dissociated, encapsulated, labeled, and
+sequenced via microﬂuidics droplet barcoding7,8 to produce a library of barcoded ge-
+nomes that are traceable to their cells of origin.143 Principal component analysis with
+graph-based clustering was then used to categorize cell types based on their gene
+expression, revealing that 10%–20% of nonrenal cells, mostly neurons, were present
+in the organoids. Pseudotemporal ordering144 allowed the authors to trace back lineage
+relationships during organoid differentiation to identify the factors inﬂuencing fate deci-
+sion, i.e., transcription factors, ligands, and receptors. They found that inhibiting the
+brain-derived neurotrophic factor reduced the population of off-target cells in kidney or-
+ganoids by 90%. A random forest classiﬁer was then used to compare the organoids with
+fetal and adult human kidney single-cell RNA datasets, evidencing a lack of maturation in
+organoid cells. The authors went on to explore whether longer incubation could improve
+cell maturation; however, this rather promoted the generation of more off-target cells,
+suggesting the need to determine appropriate culturing conditions that promote orga-
+noid maturation.
+Figure 9. Strategies for Establishing Organs-on-Chips and Organoids
+(A) Induced pluripotent stem cells (iPSCs) or differentiated cells (e.g., kidney) are seeded into a
+microstructure that recapitulates the microenvironment of a minimal functional organ unit,
+generally through a combination of micropatterned substrates,120 biochemical and biophysical
+stimuli,112,119 and medium perfusion.122
+(B) iPSC-derived organoids can be grown from isolated embryonic stem cells (ESC) or from
+ﬁbroblasts reprogrammed into iPSCs.129 Different cell varieties can be obtained by selective
+differentiation into organ-speciﬁc cells such as brain,134 kidney,121 or intestine.120
+(C) Adult stem cell-derived organoids can be established by culturing cells derived from normal132
+or tumor tissue biopsies133 obtained from the organ of interest.
+ll
+1910 Matter 3, 1893–1922, December 2, 2020
+Review
+
+===PAGE 20===
+Machine learning has also been applied to evaluate neurotoxicity and diagnose neuro-
+degenerative disorders using in vitro disease models. Monzel et al.139 established a
+neurotoxin-induced Parkinson’s disease human midbrain organoid model and used ma-
+chine learning to assess the neurotoxic effect of 6-hydroxydopamine, a compound that
+disrupts the dopaminergic system.145 The authors treated the organoids with different
+concentrations of 6-hydroxydopamine. High-content morphological screening enabled
+the quantitation of dopaminergic neurons and neuronal complexity in the organoids to
+obtain a dataset of image-based phenotypic cell proﬁles. Principal component analysis
+revealed the contributions of the different experimental factors on the features in the da-
+taset. These data were then used to train a random forest classiﬁer to predict the treat-
+ment condition of the organoids as a function of the concentration of hydroxydopamine
+used, achieving an accuracy of 85%. Furthermore, the authors tested the model on a da-
+taset obtained from Parkinson’s disease patient-derived organoids, achieving an accu-
+racy of 89%–93%. These results suggest the potential for clinical translation.
+Further research on neurodegenerative disorders should integrate the analysis of
+protein structures36 and DNA molecules.34 The accurate prediction of structures is
+Figure 10. Characterization and Optimization of Human Pluripotent Stem Cell-Derived Kidney
+Organoids
+Human kidney organoids are generated through the protocols developed by Morizane and
+Bonventre142 and Takasato et al.141 Cells are characterized and compared with adult human kidney
+cells according to single-cell RNA sequencing and genome-wide association studies (GWAS).
+Pseudotemporal ordering144 reconstructs lineage relationships to identify the transcription factors,
+ligands, and receptors associated with the differentiation of induced pluripotent stem (iPS) cells
+into off-target types. Suppression of these factors reduces the generation of nonrenal cells.
+Adapted with permission from Wu et al.138 Copyright 2018, Elsevier Inc.
+ll
+Matter 3, 1893–1922, December 2, 2020 1911
+Review
+
+===PAGE 21===
+important because it can provide insights into the enzymatic function of proteins or
+on substrate, antigen, DNA, and RNA binding. Additionally, structural abnormalities
+can lead to neurodegenerative diseases such as Alzheimer’s or Parkinson’s. Besides
+the discussed emergent research, other sectors of the scientiﬁc community are
+beginning to pay attention to the combination of machine learning and in vitro organ
+models. Biopharmaceutical companies such as SEngine Precision Medicine and
+Atomwise are betting on joint ventures to advance drug discovery and personalized
+medicine by using artiﬁcial intelligence for drug screening in patient-derived orga-
+noids. Funding bodies are also becoming increasingly aware of the potential of
+this convergence. For example, in 2019, the Dementia Australia Research Founda-
+tion and the Yulgilbar Alzheimer’s Research Program established a grant for ‘‘the
+use of brain organoids and artiﬁcial intelligence for understanding dementia.’’
+PERSPECTIVES
+Machine intelligence provides a solid toolbox of algorithms that can solve problems
+relevant to the microﬂuidics environment. Publicly available software packages are
+enabling researchers to quickly build statistical models without necessitating an
+expert background in programming or mathematics. Popular frameworks such as
+Torch7,146 Theano,147 Caffe,148 and TensorFlow149 provide interfaces that allow
+users to stack pre-existing components and modules including complete ready-
+to-use neural networks or even pretrained networks, which allows the implementa-
+tion of functional models in a few steps. On the other hand, microﬂuidic devices
+can be quickly manufactured using simple microfabrication techniques,5 while mod-
+ern tridimensional manufacturing techniques and functionalized materials permit
+the construction of more complex prototypes to expand the range of applica-
+tions.40,107,150 The microﬂuidics environment is highly tunable; its simpler physics
+compared with macroscale systems allows the study of fundamental phenomena
+within precisely controlled settings.3,151 The convergence of microﬂuidics and ma-
+chine intelligence inherits the strengths from both technologies, providing a frame-
+work for simultaneous high-throughput experimentation and powerful data analysis.
+As a result, researchers from various backgrounds are embracing the integration of
+these technologies into an increasing number of applications.
+The transparency of polydimethylsiloxane permits facile optical probing. This makes
+it practical to implement applications using simple and economic setups. For
+instance, we have seen that an optical microscope, a camera, and modest
+computing hardware already unlock many possibilities such as label-free cell and
+molecule classiﬁcation,33 determination of ﬂuid properties49,52 and chemical
+composition,50 or particle monitoring, microencapsulation, and various manipula-
+tions.48 These emergent technologies can be readily implemented in both chemical
+microreactors and organ/organoid-on-a-chip platforms.
+The prediction and optimization of chemical reactions is a long-standing and com-
+plex problem that impacts a variety of scientiﬁc ﬁelds in which the synthesis of mol-
+ecules and materials with user-deﬁned properties is required, e.g., drug discovery,
+nanomedicine, or biomaterials. Meanwhile, organs- and organoids-on-chips are
+technologies with extensive opportunities for improvement that have important im-
+plications in drug development, personalized and regenerative medicine, and
+developmental biology. We suggest that both these technologies will greatly
+beneﬁt from the adoption of data-driven intelligent microﬂuidic platforms, which
+must be accompanied by the development of microscopy, spectroscopy, and multi-
+sensing instrumentation speciﬁc to the microﬂuidics environment.
+ll
+1912 Matter 3, 1893–1922, December 2, 2020
+Review
+
+===PAGE 22===
+Intelligent Microﬂuidics in Materials Discovery and Synthesis
+The use of chemical microreactors with machine intelligence will not replace chem-
+ists in the near term, but rather assist them in automating time-consuming, repeti-
+tive, or hazardous tasks. This will allow chemists to direct their energy toward
+more innovative activities. The proportion of scientists adopting machine intelli-
+gence into their laboratories will increase with the appearance of highly generaliz-
+able artiﬁcial neural networks that can be implemented without extensive retraining.
+Progress in cloud computing and the growth of computational power will also repre-
+sent main contributors. Microﬂuidics leveraging machine-intelligence algorithms are
+thus expected to provide chemists with user-friendly platforms for high-throughput
+experimentation that can be implemented without demanding great expertise in
+machine learning to extract meaningful results.
+Figure 11 depicts an intelligent microﬂuidics platform that could support microreactors
+or organs/organoids-on-chips. The integration of modular components such as optical
+probing, spectrometers, and microscopes can enable monitoring of a variety of reac-
+tions. The resultant data can then be analyzed via machine learning to optimize and
+study the contributions of experimental parameters,14,42 for example via reinforcement
+learning. Mass spectrometry,42 nuclear magnetic resonance,21 Raman spectroscopy,152
+or infrared spectroscopy153 can be used to monitor reactions in real time,154 while bright-
+ﬁeld microscopy can be used to monitor ﬂow rates,49 ﬂuid properties,52 chemical
+composition,50 or mixing.155 Other techniques must be adapted depending on the
+application; for example, infrared thermography was demonstrated effectively monitor
+Figure 11. Intelligent Microﬂuidic Platform
+Schematic of an intelligent microﬂuidic platform including microﬂuidic chips coupled to
+miniaturized instrumentation such as an in situ bio-electrochemical multisensor platform,160 optical
+probing, mass spectrometry,42 spectroscopy (e.g., nuclear magnetic resonance,21 Raman,152 or
+infrared),153 and microscopy (e.g., brightﬁeld or ﬂuorescent). Data are collected and analyzed using
+machine learning to optimize and study experimental parameters such as solvent, reagents,
+reactants, temperature, and pressure in microreactors, or biochemical (e.g., reagents, drugs, or
+growth factors) and biophysical stimuli (e.g., substrate modiﬁcations,161 shear forces,112
+electrical162 or optogenetic stimulation)163 in organs/organoids-on-chips.
+ll
+Matter 3, 1893–1922, December 2, 2020 1913
+Review
+
+===PAGE 23===
+a zirconocene polymerization catalyst.14 There are efforts toward the development of
+miniaturized spectrometers156 and coupling microﬂuidic chips to traditional mass spec-
+trometers.157,158 However, interfacing microﬂuidic chips for real-time online analysis still
+represents a challenge.159
+The Necessity for Microﬂuidics-Friendly Instrumentation
+The development of instrumentation speciﬁc to the microﬂuidics environment, such
+as mass spectrometry, high-performance liquid chromatography, nuclear magnetic
+resonance, and infrared, ultraviolet-visible, or Raman spectroscopy, could promote
+the adoption of microﬂuidic chips for chemical exploration and materials synthesis.
+Electrospray ionization techniques are a popular alternative; however, online moni-
+toring still poses technical challenges. Meanwhile, machine learning has been
+demonstrated to predict chemical composition and ﬂuid properties from simple
+and inexpensive brightﬁeld microscopy. The power of applications leveraging ma-
+chine intelligence with microﬂuidics will increase with the development and adop-
+tion of more sophisticated spectroscopy, microscopy, and multisensing instrumen-
+tation to monitor reactions on chips. Deep-learning architectures are particularly
+ﬁt to make use of the large amounts of high-dimensional data that can be produced.
+This could potentially contribute to the establishment of more effective reaction
+representations.
+Developing Modular and Reconﬁgurable Devices
+The use of microﬂuidics as platforms for the study of materials synthesis and chem-
+ical reactions offers unparalleled beneﬁts such as reduced reagent consumption and
+precise control over the reaction conditions. However, the widespread adoption of
+microﬂuidic technologies depends on the development of modular components for
+single chemical operations and reconﬁgurable devices. Modular design and recon-
+ﬁgurability are prerequisites for scalable systems that can easily integrate new oper-
+ations to support speciﬁc reaction types on demand. Progress in the development of
+discrete elements,108 novel functional substrates,107 and computer-assisted addi-
+tive manufacturing150 could accelerate the development of standardized microﬂui-
+dic components.
+Challenges to Computer-Aided Synthesis
+The mining of databases is still a valuable resource for building pretrained neural
+networks that could be shared among scientiﬁc communities and be readily used
+by non-experts. Additionally, these models can provide initial guesses for synthetic
+routes in intelligent microreactors, reducing the quantity of experiments to be per-
+formed. However, devising a non-black-box standard for meaningful representa-
+tions of chemical reactivity remains an open challenge. For instance, the popular
+use of forward reaction templates and expert rules has proved powerful but only
+in predicting reaction types and products contained in the training sets, compro-
+mising generalizability and the potential to invent new synthetic routes. Representa-
+tions and algorithms based on atom mapping require a deeper understanding of
+atom mapping itself, which is currently not an entirely solved problem, although
+several recent molecular ﬁngerprints generated from graph data are very promising.
+Nonetheless, the opportunities for novel developments on this aspect of machine
+intelligence applied to chemical reactions abound.
+Intelligent Microﬂuidics for the Design and Testing of Patient-Speciﬁc Therapies
+and Pharmaceutical Compounds
+We foresee the interconnection of microreactors and organ/organoid-on-a-chip
+platforms to create closed-loop drug-design pipelines based on real-time online
+ll
+1914 Matter 3, 1893–1922, December 2, 2020
+Review
+
+===PAGE 24===
+synthesis and screening. The synthesis parameters and drug-delivery modalities
+could be ﬁne-tuned in real time (e.g., compound concentrations or chemical struc-
+tures). Meanwhile, in vitro organ models could provide the feedback necessary to
+assess drug effects and interactions. For example, this approach could be used to
+optimize drug ratios, concentrations, timings, and compositions, based on the re-
+sponses of patient-derived organs/organoids-on-chips. Current pipelines for the
+design and screening of pharmaceutical compounds could be dramatically
+improved, while the efﬁcacy and safety of treatments (e.g., chemotherapy) could
+be evaluated more precisely before patients undergo treatment.
+The Future of Organs/Organoids-on-Chips
+Park et al.58 recently discussed crucial challenges to constructing more physiologi-
+cally relevant organoid models, outlining the necessity to be able to control the
+biochemical and biophysical microenvironment and to reduce the variability in the
+production process. A few studies have proposed engineering and microfabrication
+solutions to these issues.125 We propose that automated multisensor, spectroscopy,
+and microscopy monitoring systems, along with the modulation of microenviron-
+mental
+parameters
+via
+machine-intelligence
+data-driven
+optimization,
+can
+contribute an essential role in overcoming some of these challenges. Figure 11 de-
+picts an intelligent microﬂuidic platform where modular organs- and organoids-on-
+chips can be interconnected. In this system, soluble protein biomarkers can be
+measured by integrating an online in situ bio-electrochemical multisensor platform.
+For example, Zhang et al.160 developed a device to monitor the soluble protein bio-
+markers albumin, glutathione S-transferase a, and the cardiac biomarker creatine ki-
+nase MB secreted by a liver-and-heart organoid system in response to chronic drug
+administration. In addition, simple optical probing setups using light-emitting di-
+odes can be used to monitor absorbance and determine a variety of metabolites
+and biomarkers including glucose,164 lactate,165 pH,160 or oxygen levels.160 Other
+technologies such as laser-induced ﬂuorescence detection166 and online mass spec-
+trometry153,167 can be employed for real-time multianalyte detection to assess me-
+dium composition, nutrient concentration, drug uptake, or physiological responses
+to stimuli. The choice of techniques depends on the application; for example, Sant-
+bergen et al.168 evaluated drug and toxin (verapamil and ergotamine) permeability
+by coupling an intestine-on-a-chip with ultra-performance liquid chromatography
+quadrupole time-of-ﬂight mass spectrometry, while the detection of an unknown
+cell by-product was also demonstrated. Miniaturized microscopes can obtain
+time-lapse images for cell-tracking and morphological analyses.169 Biochemical
+(e.g., reagents, drugs, or growth factors) and biophysical microenvironmental pa-
+rameters (e.g., substrate modiﬁcations,161 shear forces,112 electrical162 or optoge-
+netic stimulation163) can be systematically modulated to evaluate physiological re-
+sponses. All these data can be collected and processed using machine-learning
+algorithms to study and optimize experimental parameters based on closed-loop
+feedback. However, crucial challenges remain such as designing modular compo-
+nents of facile assembly, developing spectrometric techniques appropriate to spe-
+ciﬁc organ microenvironments, or expanding the range of biosensing elements (an-
+tibodies and aptamers). These recommendations are in consideration of the
+complexity of obtaining measurements in liquid phases153 or inside incubators,
+and the high proportion of proteins in cell media diluting analytes of interest. Addi-
+tionally, acquiring low-noise data is paramount, as current machine-learning algo-
+rithms cannot compensate for insufﬁcient or low-quality data. To our knowledge,
+the approach described has yet not been achieved. We believe this will unlock
+many exciting applications in the study of organogenesis and enable construction
+ll
+Matter 3, 1893–1922, December 2, 2020 1915
+Review
+
+===PAGE 25===
+of more robust and functional in vitro organ models. Moreover, the solutions to the
+current challenges may not be too far down the road.
+Challenges to Instrumenting Organs/Organoids-on-Chips
+Organs- and organoids-on-chips can also beneﬁt from the development of specialized,
+miniaturized instrumentation to interface with real-time on-chip monitoring systems. In
+addition, advanced tridimensional imaging170,171 could be integrated in these systems
+to obtain detailed information down to the single-cell level. The generated datasets can
+then be exploited using deep convolutional neural networks for feature extraction. Op-
+tical and electrochemical monitoring techniques are noninvasive and thus appropriate
+for long-term operation in vitro. However, one of the challenges to instrumenting or-
+gans/organoids-on-chips is to design monitoring devices resistant to fouling60 (espe-
+cially for electrochemical sensors) and in small footprints, which would allow them to op-
+erate in a stable manner while exposed to cell media or inside incubators.172
+Organs/Organoids-on-Chips Require Tailored Algorithms
+Organ- and organoid-on-a-chip platforms require tailored algorithms and pretrain-
+ing strategies to prevent overﬁtting. This is because learning must take place using
+few samples and within relatively short periods of training. For instance, the quantity
+of data that can practically be extracted from these systems is much lower compared
+with other domains (e.g., training data in Atari games could include sets of 200
+million frames).173 Acquiring the same quantity of data would require years of
+training at frame rates of a few hertz, which are more appropriate for monitoring bio-
+logical systems. However, we believe that specialized architectures and techniques
+for model regularization can readily mitigate this issue.174–177
+Increasing the Lifespan and Physiological Relevance of Organoids
+Long-term culture of human primary and stem cells usually results in cell death or
+mutations. It has also been shown that prolonged organoid incubation does not
+lead to cell maturation, but rather generates unwanted cell types.138 The cell micro-
+environment is critical to retaining physiologically relevant organ functions and re-
+sponses to drugs and therapies. Microﬂuidic platforms provide a means to automate
+the fabrication, manipulation, and monitoring of organoids in a high-throughput
+manner, while reinforcement learning can be used to establish optimal media com-
+positions and dynamic culture conditions for speciﬁc cell types, potentially extend-
+ing the lifespan and functionality of current in vitro organ models. Human-on-a-chip
+systems could beneﬁt from this approach by selectively recirculating media with
+different compositions to speciﬁc regions containing different cell varieties. For
+example, light is a promising actuation stimulus that provides high spatiotemporal
+control of ﬂows within microﬂuidic chips.178 Meanwhile, continuous perfusion in
+complex microchannel networks could take advantage of proven algorithms to
+dislodge bubbles or maintain a constant medium supply.49
+Decreasing Organoid Heterogeneity
+Signiﬁcant heterogeneity in organoids arises from the difﬁculty of recapitulating the self-
+organizing cues that direct organogenesis. This poses a challenge to performing mean-
+ingful statistical analyses and replicating research results. Additionally, highly hetero-
+genic samples increase the data required to train machine-learning models and limits
+their predictive capacity. In addition to geometrically deﬁned substrates,125 real-time
+spectrometry168 as well as optical and electrochemical monitoring via in situ multisensor
+platforms160couldhelptoreducethevariability inorganoidproductionbyoptimizingthe
+biochemical and biophysical properties of the microenvironment via closed-loop rein-
+forcement learning, based on multiple biomarkers (e.g., morphology, cell diversity, or
+ll
+1916 Matter 3, 1893–1922, December 2, 2020
+Review
+
+===PAGE 26===
+secreted molecules). This approach could be used not only to optimize organoid devel-
+opment but also to streamline drug screening by the integration of microreactors. How-
+ever, coupling spectrometers and other instrumentation to organs-on-chips for online
+measurement remains a challenge.157,159 Also, the development and assembly of multi-
+sensor platforms is a laborious and highly complex process.160 The future fabrication of
+miniaturizedmodular componentswillencourage their implementation byenablingtheir
+facile integration into current setups.
+Unraveling the Mechanisms of Organogenesis
+Organoids are usually grown by manual sequential addition of growth factors to acti-
+vate morphogenetic signaling pathways that contribute to the self-organization pro-
+cess. The growth factor concentrations and timings are often determined empiri-
+cally. Microﬂuidics can generate precise morphogen gradients179 while time-lapse
+microscopy coupled to cell-tracking algorithms can be used to enable the visualiza-
+tion of cell migration and differentiation.169 The combination of these technologies
+with online biomarker monitoring180–182 can enable one to devise optimal spatio-
+temporal morphogen concentrations that better recapitulate the process of organ-
+ogenesis. Techniques to reduce the dimensionality of data64 further enable the
+study of the contribution of isolated experimental factors in relation to functional
+outcomes. This approach could contribute to understanding the underlying mecha-
+nisms governing embryo and organ development.
+Directing the Development of Speciﬁc Tissues and Organ Structures
+Organoids will reach a point in development where diffusion cannot support their meta-
+bolic demands, hampering their growth potential. Advances in artiﬁcial vasculature
+coupledtointelligentcultureconditionscouldincreasethesizesandfunctionalityoforgan
+models.For example, it is possible to establish 3D perfused vascular networks from endo-
+thelial cells.123 It is also known that endogenous electric ﬁelds direct cell migration and
+upregulate angiogenesis.162 In the absence of a deep understanding or the ability to con-
+trol the complex processes of embryogenesis and organogenesis, we propose that the
+spatiotemporal modulation of exogenous electric ﬁelds optimized via reinforcement
+learning could provide an improved understanding of the construction of optimal 3D
+vascular networks. Similar approaches can be employed to devise optimal mechanobio-
+logical and biochemical stimuli to promote the development of other types of tissues in
+organoids. We believe the proposed strategy complements current reverse-engineering
+approaches by providing a framework to develop artiﬁcial biological organ models from
+the bottom up. The development and adoption of intelligent microﬂuidics is expected to
+strengthen our understanding and our ability to exploit the intrinsic properties of cells to
+self-organize.
+CONCLUSION
+The synergistic combination of microﬂuidic chips and machine-learning algorithms
+has created an emerging yet rapidly growing ﬁeld that promises to expand avenues
+for fundamental research in the chemical and biological sciences. Both of these
+ﬁelds are expected to beneﬁt from the adoption of intelligent microﬂuidic platforms.
+We dared to suggest potential applications and directions for research in the hope
+of inspiring researchers to explore the exciting possibilities enabled by the conver-
+gence of microﬂuidics and machine intelligence.
+ACKNOWLEDGMENTS
+This work was supported by the National Natural Science Foundation of China
+(61971255),
+the
+Shenzhen
+Science
+and
+Technology
+Innovation
+Committee
+ll
+Matter 3, 1893–1922, December 2, 2020 1917
+Review
+
+===PAGE 27===
+(KQJSCX20180327143623167), the Tsinghua-Berkeley Shenzhen Institute (Scientiﬁc
+Research Start-up Fund), and the Shenzhen Development and Reform Commission
+([2017]1434).
+AUTHOR CONTRIBUTIONS
+Conceptualization, S.M. and E.A.G.; Investigation and Writing – Original Draft,
+E.A.G.; Writing – Review & Editing, E.A.G., S.M., W.T.S.H., Q.D., H.Z., and X.W.;
+Funding Acquisition and Supervision, S.M.
+REFERENCES
+1. Manz, A., Harrison, D.J., Verpoorte, E.M.J.,
+Fettinger, J.C., Paulus, A., Ludi, H., and
+Widmer, H.M. (1992). Planar chips technology
+for miniaturization and integration of
+separation techniques into monitoring
+systems—capillary electrophoresis on a chip.
+J. Chromatogr. A 593, 253–258.
+2. Whitesides, G.M. (2006). The origins and the
+future of microﬂuidics. Nature 442, 368–373.
+3. Squires, T.M., and Quake, S.R. (2005).
+Microﬂuidics: ﬂuid physics at the nanoliter
+scale. Rev. Mod. Phys. 77, 977–1026.
+4. deMello, A.J. (2006). Control and detection of
+chemical reactions in microﬂuidic systems.
+Nature 442, 394–402.
+5. Duffy, D.C., McDonald, J.C., Schueller, O.J.,
+and Whitesides, G.M. (1998). Rapid
+prototyping of microﬂuidic systems in
+poly(dimethylsiloxane). Anal. Chem. 70,
+4974–4984.
+6. Matuła, K., Rivello, F., and Huck, W.T.S. (2020).
+Single-cell analysis using droplet
+microﬂuidics. Adv. Biosys. 4, 1900188.
+7. Macosko, E.Z., Basu, A., Satija, R., Nemesh, J.,
+Shekhar, K., Goldman, M., Tirosh, I., Bialas,
+A.R., Kamitaki, N., Martersteck, E.M., et al.
+(2015). Highly parallel genome-wide
+expression proﬁling of individual cells using
+nanoliter droplets. Cell 161, 1202–1214.
+8. Klein, A.M., Mazutis, L., Akartuna, I.,
+Tallapragada, N., Veres, A., Li, V., Peshkin, L.,
+Weitz, D.A., and Kirschner, M.W. (2015).
+Droplet barcoding for single-cell
+transcriptomics applied to embryonic stem
+cells. Cell 161, 1187–1201.
+9. Bhatia, S.N., and Ingber, D.E. (2014).
+Microﬂuidic organs-on-chips. Nat.
+Biotechnol. 32, 760–772.
+10. Schutgens, F., and Clevers, H. (2020). Human
+organoids: tools for understanding biology
+and treating diseases. Annu. Rev. Pathol. 15,
+211–234.
+11. Broutier, L., Mastrogiovanni, G., Verstegen,
+M.M.A., Francies, H.E., Gavarro, L.M.,
+Bradshaw, C.R., Allen, G.E., Arnes-Benito, R.,
+Sidorova, O., Gaspersz, M.P., et al. (2017).
+Human primary liver cancer-derived organoid
+cultures for disease modeling and drug
+screening. Nat. Med. 23, 1424–1435.
+12. Kopper, O., de Witte, C.J., Lo˜ hmussaar, K.,
+Valle-Inclan, J.E., Hami, N., Kester, L.,
+Balgobind, A.V., Korving, J., Proost, N.,
+Begthel, H., et al. (2019). An organoid
+platform for ovarian cancer captures intra-
+and interpatient heterogeneity. Nat. Med. 25,
+838–849.
+13. Shang, L.R., Fu, F.F., Cheng, Y., Wang, H., Liu,
+Y.X., Zhao, Y.J., and Gu, Z.Z. (2015). Photonic
+crystal microbubbles as suspension barcodes.
+J. Am. Chem. Soc. 137, 15533–15539.
+14. Rizkin, B.A., Shkolnik, A.S., Ferraro, N.J., and
+Hartman, R.L. (2020). Combining automated
+microﬂuidic experimentation with machine
+learning for efﬁcient polymerization design.
+Nat. Mach. Intell. 2, 200–209.
+15. McCulloch, W.S., and Pitts, W. (1943). A
+logical calculus of the ideas immanent in
+nervous activity. Bull. Math. Biophys. 5,
+115–133.
+16. Rosenblatt, F. (1958). The perceptron: a
+probabilistic model for information storage
+and organization in the brain. Psychol. Rev.
+65, 386–408.
+17. Widrow, B., and Hoff, M.E. (1960). Adaptive
+switching circuits. In 1960 IRE WESCON
+Convention Record (IRE), pp. 96–104.
+18. Krogh, A. (2008). What are artiﬁcial neural
+networks? Nat. Biotechnol. 26, 195–197.
+19. LeCun, Y., Bengio, Y., and Hinton, G. (2015).
+Deep learning. Nature 521, 436–444.
+20. Gromski, P.S., Henson, A.B., Granda, J.M.,
+and Cronin, L. (2019). How to explore
+chemical space using algorithms and
+automation. Nat. Rev. Chem. 3, 119–128.
+21. Granda, J.M., Donina, L., Dragone, V., Long,
+D.L., and Cronin, L. (2018). Controlling an
+organic synthesis robot with machine learning
+to search for new reactivity. Nature 559,
+377–381.
+22. Sandfort, F., Strieth-Kalthoff, F., Ku¨ hnemund,
+M., Beecks, C., and Glorius, F. (2020). A
+structure-based platform for predicting
+chemical reactivity. Chem 6, 1379–1390.
+23. Ahneman, D.T., Estrada, J.G., Lin, S.S.,
+Dreher, S.D., and Doyle, A.G. (2018).
+Predicting reaction performance in C-N cross-
+coupling using machine learning. Science
+360, 186–190.
+24. Steiner, S., Wolf, J., Glatzel, S., Andreou, A.,
+Granda, J.M., Keenan, G., Hinkley, T., Aragon-
+Camarasa, G., Kitson, P.J., Angelone, D., et al.
+(2019). Organic synthesis in a modular robotic
+system driven by a chemical programming
+language. Science 363, eaav2211.
+25. Segler, M.H.S., Preuss, M., and Waller, M.P.
+(2018). Planning chemical syntheses with
+deep neural networks and symbolic AI.
+Nature 555, 604–610.
+26. Segler, M.H.S., and Waller, M.P. (2017).
+Neural-symbolic machine learning for
+retrosynthesis and reaction prediction. Chem.
+Eur. J. 23, 5966–5971.
+27. Clayton, A.D., Schweidtmann, A.M., Clemens,
+G., Manson, J.A., Taylor, C.J., Nino, C.G.,
+Chamberlain, T.W., Kapur, N., Blacker, A.J.,
+Lapkin, A.A., et al. (2020). Automated self-
+optimisation of multi-step reaction and
+separation processes using machine learning.
+Chem. Eng. J. 384, 123340.
+28. Kirman, J., Johnston, A., Kuntz, D.A., Askerka,
+M., Gao, Y., Todorovic, P., Ma, D., Prive´ , G.G.,
+and Sargent, E.H. (2020). Machine-learning-
+accelerated perovskite crystallization. Matter
+2, 938–947.
+29. Voznyy, O., Levina, L., Fan, J.Z., Askerka, M.,
+Jain, A., Choi, M.J., Ouellette, O., Todorovic,
+P., Sagar, L.K., and Sargent, E.H. (2019).
+Machine learning accelerates discovery of
+optimal colloidal quantum dot synthesis. ACS
+Nano 13, 11122–11128.
+30. Noh, J., Kim, J., Stein, H.S., Sanchez-
+Lengeling, B., Gregoire, J.M., Aspuru-Guzik,
+A., and Jung, Y. (2019). Inverse design of
+solid-state materials via a continuous
+representation. Matter 1, 1370–1384.
+31. Swanson, K., Trivedi, S., Lequieu, J., Swanson,
+K., and Kondor, R. (2020). Deep learning for
+automated classiﬁcation and characterization
+of amorphous materials. Soft Matter 16,
+435–446.
+32. Blasi, T., Hennig, H., Summers, H.D., Theis,
+F.J., Cerveira, J., Patterson, J.O., Davies, D.,
+Filby, A., Carpenter, A.E., and Rees, P. (2016).
+Label-free cell cycle analysis for high-
+throughput imaging ﬂow cytometry. Nat.
+Commun. 7, 10256.
+33. McCallum, C., Riordon, J., Wang, Y., Kong, T.,
+You, J.B., Sanner, S., Lagunov, A., Hannam,
+T.G., Jarvi, K., and Sinton, D. (2019). Deep
+learning-based selection of human sperm
+with high DNA integrity. Commun. Biol. 2,
+250.
+34. Liu, Q., Fang, L., Yu, G., Wang, D., Xiao, C.-L.,
+and Wang, K. (2019). Detection of DNA base
+modiﬁcations by deep recurrent neural
+network on oxford nanopore sequencing
+data. Nat. Commun. 10, 2449.
+35. Malta, T.M., Sokolov, A., Gentles, A.J.,
+Burzykowski, T., Poisson, L., Weinstein, J.N.,
+Kaminska, B., Huelsken, J., Omberg, L.,
+Gevaert, O., et al. (2018). Machine learning
+ll
+1918 Matter 3, 1893–1922, December 2, 2020
+Review
+
+===PAGE 28===
+identiﬁes stemness features associated with
+oncogenic dedifferentiation. Cell 173,
+338–354.
+36. Senior, A.W., Evans, R., Jumper, J.,
+Kirkpatrick, J., Sifre, L., Green, T., Qin, C.L., Z?
+dek, A., Nelson, A.W.R., Bridgland, A., et al.
+(2019). Protein structure prediction using
+multiple deep neural networks in the 13th
+critical assessment of protein structure
+prediction (CASP13). Proteins 87, 1141–1148.
+37. Wang, Y., Ji, M., Jiang, S., Wang, X., Wu, J.,
+Duan, F., Fan, J., Huang, L., Ma, S., Fang, L.,
+et al. (2020). Augmenting vascular disease
+diagnosis by vasculature-aware unsupervised
+learning. Nat. Mach. Intell. 2, 337–346.
+38. Cheng, J., Han, Z., Mehra, R., Shao, W.,
+Cheng, M., Feng, Q., Ni, D., Huang, K.,
+Cheng, L., and Zhang, J. (2020).
+Computational analysis of pathological
+images enables a better diagnosis of TFE3
+Xp11.2 translocation renal cell carcinoma.
+Nat. Commun. 11, 1778.
+39. Chiu, D.T., deMello, A.J., Di Carlo, D., Doyle,
+P.S., Hansen, C., Maceiczyk, R.M., and
+Wootton, R.C.R. (2017). Small but perfectly
+formed? Successes, challenges, and
+opportunities for microﬂuidics in the chemical
+and biological sciences. Chem 2, 201–223.
+40. Dixit, C.K., Kadimisetty, K., and Rusling, J.
+(2018). 3D-Printed miniaturized ﬂuidic tools in
+chemistry and biology. TrAC Trends Analyt.
+Chem. 106, 37–52.
+41. Mashaghi, S., Abbaspourrad, A., Weitz, D.A.,
+and van Oijen, A.M. (2016). Droplet
+microﬂuidics: a tool for biology, chemistry and
+nanotechnology. TrAC Trends Analyt. Chem.
+82, 118–125.
+42. Zhou, Z.P., Li, X.C., and Zare, R.N. (2017).
+Optimizing chemical reactions with deep
+reinforcement learning. ACS Cent. Sci. 3,
+1337–1344.
+43. Isozaki, A., Mikami, H., Tezuka, H.,
+Matsumura, H., Huang, K., Akamine, M.,
+Hiramatsu, K., Iino, T., Ito, T., Karakawa, H.,
+et al. (2020). Intelligent image-activated cell
+sorting 2.0. Lab Chip 20, 2263–2273.
+44. Manak, M.S., Varsanik, J.S., Hogan, B.J.,
+Whitﬁeld, M.J., Su, W.R., Joshi, N., Steinke,
+N., Min, A., Berger, D., Saphirstein, R.J., et al.
+(2018). Live-cell phenotypic-biomarker
+microﬂuidic assay for the risk stratiﬁcation of
+cancer patients via machine learning. Nat.
+Biomed. Eng. 2, 761–772.
+45. Jiang, Y., Lei, C., Yasumoto, A., Kobayashi, H.,
+Aisaka, Y., Ito, T., Guo, B., Nitta, N., Kutsuna,
+N., Ozeki, Y., et al. (2017). Label-free
+detection of aggregated platelets in blood by
+machine-learning-aided optoﬂuidic time-
+stretch microscopy. Lab Chip 17, 2426–2434.
+46. Singh, D.K., Ahrens, C.C., Li, W., and
+Vanapalli, S.A. (2017). Label-free, high-
+throughput holographic screening and
+enumeration of tumor cells in blood. Lab Chip
+17, 2920–2932.
+47. Ko, J., Bhagwat, N., Yee, S.S., Ortiz, N.,
+Sahmoud, A., Black, T., Aiello, N.M.,
+McKenzie, L., O’Hara, M., Redlinger, C., et al.
+(2017). Combining machine learning and
+nanoﬂuidic technology to diagnose
+pancreatic cancer using exosomes. ACS
+Nano 11, 11182–11193.
+48. Chu, A., Nguyen, D., Talathi, S.S., Wilson,
+A.C., Ye, C., Smith, W.L., Kaplan, A.D., Duoss,
+E.B., Stolaroff, J.K., and Giera, B. (2019).
+Automated detection and sorting of
+microencapsulation via machine learning. Lab
+Chip 19, 1808–1817.
+49. Dressler, O.J., Howes, P.D., Choo, J., and
+deMello, A.J. (2018). Reinforcement learning
+for dynamic microﬂuidic control. ACS Omega
+3, 10084–10091.
+50. Hadikhani, P., Borhani, N., SM, H.H., and
+Psaltis, D. (2019). Learning from droplet ﬂows
+in microﬂuidic channels using deep neural
+networks. Sci. Rep. 9, 8114.
+51. Mahdi, Y., and Daoud, K. (2017). Microdroplet
+size prediction in microﬂuidic systems via
+artiﬁcial neural network modeling for water-
+in-oil emulsion formulation. J. Disper. Sci.
+Technol. 38, 1501–1508.
+52. Khor, J.W., Jean, N., Luxenberg, E.S., Ermon,
+S., and Tang, S.K.Y. (2019). Using machine
+learning to discover shape descriptors for
+predicting emulsion stability in a microﬂuidic
+channel. Soft Matter 15, 1361–1372.
+53. Stoecklein, D., Lore, K.G., Davies, M., Sarkar,
+S., and Ganapathysubramanian, B. (2017).
+Deep learning for ﬂow sculpting: insights into
+efﬁcient learning using scientiﬁc simulation
+data. Sci. Rep. 7, 46368.
+54. Ekins, S., Puhl, A.C., Zorn, K.M., Lane, T.R.,
+Russo, D.P., Klein, J.J., Hickey, A.J., and Clark,
+A.M. (2019). Exploiting machine learning for
+end-to-end drug discovery and development.
+Nat. Mater. 18, 435–441.
+55. Meredig, B. (2019). Five high-impact research
+areas in machine learning for materials
+science. Chem. Mater. 31, 9579–9581.
+56. Lancaster, M.A., and Knoblich, J.A. (2014).
+Organogenesis in a dish: modeling
+development and disease using organoid
+technologies. Science 345, 1247125.
+57. Zhang, B.Y., Korolj, A., Lai, B.F.L., and Radisic,
+M. (2018). Advances in organ-on-a-chip
+engineering. Nat. Rev. Mater. 3, 257–278.
+58. Park, S.E., Georgescu, A., and Huh, D. (2019).
+Organoids-on-a-chip. Science 364, 960–965.
+59. Goodfellow, I., Bengio, Y., and Courville, A.
+(2016). Deep Learning (MIT Press).
+60. Schoenitz, M., Grundemann, L., Augustin, W.,
+and Scholl, S. (2015). Fouling in
+microstructured devices: a review. Chem.
+Commun. 51, 8213–8228.
+61. Dangla, R., Gallaire, F., and Baroud, C.N.
+(2010). Microchannel deformations due to
+solvent-induced PDMS swelling. Lab Chip 10,
+2972–2978.
+62. Toepke, M.W., and Beebe, D.J. (2006). PDMS
+absorption of small molecules and
+consequences in microﬂuidic applications.
+Lab Chip 6, 1484–1486.
+63. Regehr, K.J., Domenech, M., Koepsel, J.T.,
+Carver, K.C., Ellison-Zelski, S.J., Murphy, W.L.,
+Schuler, L.A., Alarid, E.T., and Beebe, D.J.
+(2009). Biological implications of
+polydimethylsiloxane-based microﬂuidic cell
+culture. Lab Chip 9, 2132–2139.
+64. Hinton, G.E., and Salakhutdinov, R.R. (2006).
+Reducing the dimensionality of data with
+neural networks. Science 313, 504–507.
+65. Mnih, V., Kavukcuoglu, K., Silver, D., Rusu,
+A.A., Veness, J., Bellemare, M.G., Graves, A.,
+Riedmiller, M., Fidjeland, A.K., Ostrovski, G.,
+et al. (2015). Human-level control through
+deep reinforcement learning. Nature 518,
+529–533.
+66. Blundell, C., Uria, B., Pritzel, A., Li, Y.,
+Ruderman, A., Leibo, J.Z., Rae, J., Wierstra,
+D., and Hassabis, D. (2016). Model-free
+episodic control. arXiv 1606.04460v1
+[stat.ML].
+67. Sutton, R.S., and Barto, A.G. (2018).
+Reinforcement Learning: An Introduction
+(MIT Press).
+68. Krizhevsky, A., Sutskever, I., and Hinton, G.E.
+(2012). Imagenet classiﬁcation with deep
+convolutional neural networks. Neural Info.
+Process. Syst. 2, 1097–1105.
+69. Ma, S.H. (2019). Engineering inverse opals
+with enclosed voids via bottom-up assembly
+of double emulsions. Chem. Eng. Sci. 205,
+414–419.
+70. Kanai, T., Nakai, H., Yamada, A., Fukuyama,
+M., and Weitz, D.A. (2019). Preparation of
+monodisperse hybrid gel particles with
+various morphologies via ﬂow rate and
+temperature control. Soft Matter 15, 6934–
+6937.
+71. Zhang, H.B., Cui, W.G., Qu, X.M., Wu, H.Y.,
+Qu, L.L., Zhang, X., Makila, E., Salonen, J.,
+Zhu, Y.Q., Yang, Z., et al. (2019).
+Photothermal-responsive nanosized hybrid
+polymersome as versatile therapeutics
+codelivery nanovehicle for effective tumor
+suppression. Proc. Natl. Acad. Sci. U S A 116,
+7744–7749.
+72. Nie, Z.H., Li, W., Seo, M., Xu, S.Q., and
+Kumacheva, E. (2006). Janus and ternary
+particles generated by microﬂuidic synthesis:
+design, synthesis, and self-assembly. J. Am.
+Chem. Soc. 128, 9408–9412.
+73. Paulsen, K.S., Di Carlo, D., and Chung, A.J.
+(2015). Optoﬂuidic fabrication for 3D-shaped
+particles. Nat. Commun. 6, 6976.
+74. Yu, Y., Shang, L., Guo, J., Wang, J., and Zhao,
+Y. (2018). Design of capillary microﬂuidics for
+spinning cell-laden microﬁbers. Nat. Protoc.
+13, 2557–2579.
+75. Chong, Z.Z., Tor, S.B., Ganan-Calvo, A.M.,
+Chong, Z.J., Loh, N.H., Nguyen, N.T., and
+Tan, S.H. (2016). Automated droplet
+measurement (ADM): an enhanced video
+processing software for rapid droplet
+measurements. Microﬂuid. Nanoﬂuid. 20, 66.
+76. Heo, Y.J., Kang, J., Kim, M.J., and Chung,
+W.K. (2016). Tuning-free controller to
+accurately regulate ﬂow rates in a microﬂuidic
+network. Sci. Rep. 6, 23273.
+77. Amini, H., Sollier, E., Masaeli, M., Xie, Y.,
+Ganapathysubramanian, B., Stone, H.A., and
+Di Carlo, D. (2013). Engineering ﬂuid ﬂow
+using sequenced microstructures. Nat.
+Commun. 4, 1826.
+ll
+Matter 3, 1893–1922, December 2, 2020 1919
+Review
+
+===PAGE 29===
+78. Nunes, J.K., Wu, C.Y., Amini, H., Owsley, K., Di
+Carlo, D., and Stone, H.A. (2014). Fabricating
+shaped microﬁbers with inertial microﬂuidics.
+Adv. Mater. 26, 3712–3717.
+79. Wu, C.Y., Owsley, K., and Di Carlo, D. (2015).
+Rapid software-based design and optical
+transient liquid molding of microparticles.
+Adv. Mater. 27, 7970–7978.
+80. Sollier, E., Amini, H., Go, D.E., Sandoz, P.A.,
+Owsley, K., and Di Carlo, D. (2015). Inertial
+microﬂuidic programming of microparticle-
+laden ﬂows for solution transfer around cells
+and particles. Microﬂuid. Nanoﬂuid. 19,
+53–65.
+81. Rabitz, H., and Alis, O.F. (1999). General
+foundations of high-dimensional model
+representations. J. Math. Chem. 25, 197–233.
+82. Lever, J., Krzywinski, M., and Altman, N.
+(2017). Principal component analysis. Nat.
+Methods 14, 641–642.
+83. Brereton, R.G. (2014). A short history of
+chemometrics: a personal view.
+J. Chemometrics 28, 749–760.
+84. Corey, E.J., and Wipke, W.T. (1969).
+Computer-assisted design of complex
+organic syntheses. Science 166, 178–192.
+85. Satoh, H., and Funatsu, K. (1995). Sophia, a
+knowledge base-guided reaction prediction
+system - utilization of a knowledge-base
+derived from a reaction database. J. Chem.
+Inf. Comp. Sci. 35, 34–44.
+86. Kayala, M.A., Azencott, C.A., Chen, J.H., and
+Baldi, P. (2011). Learning to predict chemical
+reactions. J. Chem. Inf. Model. 51, 2209–2222.
+87. Wei, J.N., Duvenaud, D., and Aspuru-Guzik,
+A. (2016). Neural networks for the prediction
+of organic chemistry reactions. ACS Cent. Sci.
+2, 725–732.
+88. Breiman, L. (2001). Random forests. Mach.
+Learn. 45, 5–32.
+89. Coley, C.W., Barzilay, R., Jaakkola, T.S.,
+Green, W.H., and Jensen, K.F. (2017).
+Prediction of organic reaction outcomes
+using machine learning. ACS Cent. Sci. 3,
+434–443.
+90. Segler, M.H.S., and Waller, M.P. (2017).
+Modelling chemical reasoning to predict and
+invent reactions. Chem. Eur. J. 23, 6118–6128.
+91. Rogers, D., and Hahn, M. (2010). Extended-
+connectivity ﬁngerprints. J. Chem. Inf. Model.
+50, 742–754.
+92. Silver, D., Huang, A., Maddison, C.J., Guez,
+A., Sifre, L., van den Driessche, G.,
+Schrittwieser, J., Antonoglou, I.,
+Panneershelvam, V., Lanctot, M., et al. (2016).
+Mastering the game of go with deep neural
+networks and tree search. Nature 529,
+484–489.
+93. Coley, C.W., Thomas, D.A., 3rd, Lummiss,
+J.A.M., Jaworski, J.N., Breen, C.P., Schultz, V.,
+Hart, T., Fishman, J.S., Rogers, L., Gao, H.,
+et al. (2019). A robotic platform for ﬂow
+synthesis of organic compounds informed by
+AI planning. Science 365, eaax1566.
+94. Cortes, C., and Vapnik, V. (1995). Support-
+vector networks. Mach. Learn. 20, 273–297.
+95. Coomans, D., Jonckheer, M., Massart, D.L.,
+Broeckaert, I., and Blockx, P. (1978). The
+application of linear discriminant analysis in
+the diagnosis of thyroid diseases. Anal. Chim.
+Acta 103, 409–415.
+96. Li, J., Tu, Y., Liu, R., Lu, Y., and Zhu, X. (2020).
+Toward ‘‘on-demand’’ materials synthesis and
+scientiﬁc discovery through intelligent robots.
+Adv. Sci. 7, 1901957.
+97. Duros, V., Grizou, J., Xuan, W., Hosni, Z.,
+Long, D.L., Miras, H.N., and Cronin, L. (2017).
+Human versus robots in the discovery and
+crystallization of gigantic polyoxometalates.
+Angew. Chem. Int. Ed. 56, 10815–10820.
+98. Duros, V., Grizou, J., Sharma, A., Mehr,
+S.H.M., Bubliauskas, A., Frei, P., Miras, H.N.,
+and Cronin, L. (2019). Intuition-enabled
+machine learning beats the competition when
+joint human-robot teams perform inorganic
+chemical experiments. J. Chem. Inf. Model.
+59, 2664–2671.
+99. Yan, X., Bain, R.M., and Cooks, R.G. (2016).
+Organic reactions in microdroplets: reaction
+acceleration revealed by mass spectrometry.
+Angew. Chem. Int. Ed. 55, 12960–12972.
+100. Fallah-Araghi, A., Meguellati, K., Baret, J.C.,
+El Harrak, A., Mangeat, T., Karplus, M.,
+Ladame, S., Marques, C.M., and Grifﬁths, A.D.
+(2014). Enhanced chemical synthesis at soft
+interfaces: a universal reaction-adsorption
+mechanism in microcompartments. Phys. Rev.
+Lett. 112, 028301.
+101. Ahrberg, C.D., Wook Choi, J., and Geun
+Chung, B. (2020). Automated droplet reactor
+for the synthesis of iron oxide/gold core-shell
+nanoparticles. Sci. Rep. 10, 1737.
+102. Bezinge, L., Maceiczyk, R.M., Lignos, I.,
+Kovalenko, M.V., and deMello, A.J. (2018).
+Pick a color MARIA: adaptive sampling
+enables the rapid identiﬁcation of complex
+perovskite nanocrystal compositions with
+deﬁned emission characteristics. ACS Appl.
+Mater. Interfaces 10, 18869–18878.
+103. Jordan, M.I. (1997). Serial order: a parallel
+distributed processing approach. In Neural-
+Network Models of Cognition: Biobehavioral
+Foundations, vol. 121, J.W. Donahoe and M.
+Dorsel, eds. Advances in Psychology
+(Elsevier), pp. 471–495.
+104. MacKay, D.J.C. (1992). A practical Bayesian
+framework for backpropagation networks.
+Neural Comput. 4, 448–472.
+105. Gromski, P.S., Granda, J.M., and Cronin, L.
+(2020). Universal chemical synthesis and
+discovery with ‘the chemputer’. Trends Chem.
+2, 4–12.
+106. Unger, M.A., Chou, H.-P., Thorsen, T.,
+Scherer, A., and Quake, S.R. (2000).
+Monolithic microfabricated valves and pumps
+by multilayer soft lithography. Science 288,
+113–116.
+107. Nielsen, J.B., Hanson, R.L., Almughamsi,
+H.M., Pang, C., Fish, T.R., and Woolley, A.T.
+(2020). Microﬂuidics: innovations in materials
+and their fabrication and functionalization.
+Anal. Chem. 92, 150–168.
+108. Bhargava, K.C., Thompson, B., Iqbal, D., and
+Malmstadt, N. (2015). Predicting the behavior
+of microﬂuidic circuits made from discrete
+elements. Sci. Rep. 5, 15609.
+109. Zahrt, A.F., Henle, J.J., Rose, B.T., Wang, Y.,
+Darrow, W.T., and Denmark, S.E. (2019).
+Prediction of higher-selectivity catalysts by
+computer-driven workﬂow and machine
+learning. Science 363, eaau5631.
+110. Beker, W., Gajewska, E.P., Badowski, T., and
+Grzybowski, B.A. (2019). Prediction of major
+regio-, site-, and diastereoisomers in Diels–
+Alder reactions by using machine-learning:
+the importance of physically meaningful
+descriptors. Angew. Chem. Int. Ed. 58, 4515–
+4519.
+111. Esch, E.W., Bahinski, A., and Huh, D. (2015).
+Organs-on-chips at the frontiers of drug
+discovery. Nat. Rev. Drug Discov. 14, 248–260.
+112. Benam, K.H., Villenave, R., Lucchesi, C.,
+Varone, A., Hubeau, C., Lee, H.H., Alves, S.E.,
+Salmon, M., Ferrante, T.C., Weaver, J.C., et al.
+(2016). Small airway-on-a-chip enables
+analysis of human lung inﬂammation and drug
+responses in vitro. Nat. Methods 13, 151–157.
+113. Riordon, J., Sovilj, D., Sanner, S., Sinton, D.,
+and Young, E.W.K. (2019). Deep learning with
+microﬂuidics for biotechnology. Trends
+Biotechnol. 37, 310–324.
+114. Issadore, D., Shao, H., Chung, J., Newton, A.,
+Pittet, M., Weissleder, R., and Lee, H. (2011).
+Self-assembled magnetic ﬁlter for highly
+efﬁcient immunomagnetic separation. Lab
+Chip 11, 147–151.
+115. Lei, C., Kobayashi, H., Wu, Y., Li, M., Isozaki,
+A., Yasumoto, A., Mikami, H., Ito, T., Nitta, N.,
+Sugimura, T., et al. (2018). High-throughput
+imaging ﬂow cytometry by optoﬂuidic time-
+stretch microscopy. Nat. Protoc. 13, 1603–
+1631.
+116. Zheng, F., Fu, F., Cheng, Y., Wang, C., Zhao,
+Y., and Gu, Z. (2016). Organ-on-a-chip
+systems: microengineering to biomimic living
+systems. Small 12, 2253–2282.
+117. Huh, D., Leslie, D.C., Matthews, B.D., Fraser,
+J.P., Jurek, S., Hamilton, G.A., Thorneloe, K.S.,
+McAlexander, M.A., and Ingber, D.E. (2012). A
+human disease model of drug toxicity-
+induced pulmonary edema in a lung-on-a-
+chip microdevice. Sci. Transl. Med. 4,
+159ra147.
+118. Pellegrini, L., Bonﬁo, C., Chadwick, J., Begum,
+F., Skehel, M., and Lancaster, M.A. (2020).
+Human CNS barrier-forming organoids with
+cerebrospinal ﬂuid production. Science 369,
+eaaz5626.
+119. Marsano, A., Conﬁcconi, C., Lemme, M.,
+Occhetta, P., Gaudiello, E., Votta, E., Cerino,
+G., Redaelli, A., and Rasponi, M. (2016).
+Beating heart on a chip: a novel microﬂuidic
+platform to generate functional 3D cardiac
+microtissues. Lab Chip 16, 599–610.
+120. Workman, M.J., Mahe, M.M., Trisno, S.,
+Poling, H.M., Watson, C.L., Sundaram, N.,
+Chang, C.-F., Schiesser, J., Aubert, P., Stanley,
+E.G., et al. (2017). Engineered human
+pluripotent-stem-cell-derived intestinal
+tissues with a functional enteric nervous
+system. Nat. Med. 23, 49–59.
+121. Schutgens, F., Rookmaaker, M.B., Margaritis,
+T., Rios, A., Ammerlaan, C., Jansen, J., Gijzen,
+ll
+1920 Matter 3, 1893–1922, December 2, 2020
+Review
+
+===PAGE 30===
+L., Vormann, M., Vonk, A., Viveen, M., et al.
+(2019). Tubuloids derived from human adult
+kidney and urine for personalized disease
+modeling. Nat. Biotechnol. 37, 303–313.
+122. Schepers, A., Li, C., Chhabra, A., Seney, B.T.,
+and Bhatia, S. (2016). Engineering a
+perfusable 3D human liver platform from iPS
+cells. Lab Chip 16, 2644–2653.
+123. Shirure, V.S., Bi, Y., Curtis, M.B., Lezia, A.,
+Goedegebuure, M.M., Goedegebuure, S.P.,
+Aft, R., Fields, R.C., and George, S.C. (2018).
+Tumor-on-a-chip platform to investigate
+progression and drug sensitivity in cell lines
+and patient-derived organoids. Lab Chip 18,
+3687–3702.
+124. Sung, J.H., Wang, Y.I., Sriram, N.N., Jackson,
+M., Long, C., Hickman, J.J., and Shuler, M.L.
+(2019). Recent advances in body-on-a-chip
+systems. Anal. Chem. 91, 330–351.
+125. Brandenberg, N., Hoehnel, S., Kuttler, F.,
+Homicsko, K., Ceroni, C., Ringel, T., Gjorevski,
+N., Schwank, G., Coukos, G., Turcatti, G., et al.
+(2020). High-throughput automated organoid
+culture via stem-cell aggregation in
+microcavity arrays. Nat. Biomed. Eng. 4,
+863–874.
+126. Sato, T., Vries, R.G., Snippert, H.J., van de
+Wetering, M., Barker, N., Stange, D.E., van Es,
+J.H., Abo, A., Kujala, P., Peters, P.J., et al.
+(2009). Single Lgr5 stem cells build crypt-villus
+structures in vitro without a mesenchymal
+niche. Nature 459, 262–265.
+127. Clevers, H. (2016). Modeling development
+and disease with organoids. Cell 165, 1586–
+1597.
+128. Lamers, M.M., Beumer, J., van der Vaart, J.,
+Knoops, K., Puschhof, J., Breugem, T.I.,
+Ravelli, R.B.G., Paul van Schayck, J., Mykytyn,
+A.Z., Duimel, H.Q., et al. (2020). SARS-CoV-2
+productively infects human gut enterocytes.
+Science 369, 50–54.
+129. Lancaster, M.A., Renner, M., Martin, C.-A.,
+Wenzel, D., Bicknell, L.S., Hurles, M.E.,
+Homfray, T., Penninger, J.M., Jackson, A.P.,
+and Knoblich, J.A. (2013). Cerebral organoids
+model human brain development and
+microcephaly. Nature 501, 373–379.
+130. Ghatak, S., Dolatabadi, N., Trudler, D., Zhang,
+X., Wu, Y., Mohata, M., Ambasudhan, R.,
+Talantova, M., and Lipton, S.A. (2019).
+Mechanisms of hyperexcitability in
+alzheimer’s disease hiPSC-derived neurons
+and cerebral organoids vs isogenic controls.
+Elife 8, e50333.
+131. Sampaziotis, F., Justin, A.W., Tysoe, O.C.,
+Sawiak, S., Godfrey, E.M., Upponi, S.S.,
+Gieseck, R.L., de Brito, M.C., Berntsen, N.L.,
+Gomez-Vazquez, M.J., et al. (2017).
+Reconstruction of the mouse extrahepatic
+biliary tree using primary human extrahepatic
+cholangiocyte organoids. Nat. Med. 23,
+954–963.
+132. Hu, H., Gehart, H., Artegiani, B., C, L.O.-I.,
+Dekkers, F., Basak, O., van Es, J., Chuva de
+Sousa Lopes, S.M., Begthel, H., Korving, J.,
+et al. (2018). Long-term expansion of
+functional mouse and human hepatocytes as
+3D organoids. Cell 175, 1591–1606.
+133. Sachs, N., de Ligt, J., Kopper, O., Gogola, E.,
+Bounova, G., Weeber, F., Balgobind, A.V.,
+Wind, K., Gracanin, A., Begthel, H., et al.
+(2018). A living biobank of breast cancer
+organoids captures disease heterogeneity.
+Cell 172, 373–386.
+134. Velasco, S., Kedaigle, A.J., Simmons, S.K.,
+Nash, A., Rocha, M., Quadrato, G., Paulsen,
+B., Nguyen, L., Adiconis, X., Regev, A., et al.
+(2019). Individual brain organoids
+reproducibly form cell diversity of the human
+cerebral cortex. Nature 570, 523–527.
+135. Ooft, S.N., Weeber, F., Dijkstra, K.K., McLean,
+C.M., Kaing, S., van Werkhoven, E., Schipper,
+L., Hoes, L., Vis, D.J., van de Haar, J., et al.
+(2019). Patient-derived organoids can predict
+response to chemotherapy in metastatic
+colorectal cancer patients. Sci. Transl. Med.
+11, eaay2574.
+136. Wikswo, J.P., Block, F.E., 3rd, Cliffel, D.E.,
+Goodwin, C.R., Marasco, C.C., Markov, D.A.,
+McLean, D.L., McLean, J.A., McKenzie, J.R.,
+Reiserer, R.S., et al. (2013). Engineering
+challenges for instrumenting and controlling
+integrated organ-on-chip systems. IEEE
+Trans. Biomed. Eng. 60, 682–690.
+137. Clevers, H., Lancaster, M.A., and Takebe, T.
+(2017). Q&A: Advances in organoid
+technology: Hans Clevers, Madeline
+Lancaster, and Takanori Takebe. Cell Stem
+Cell 20, 759–762.
+138. Wu, H., Uchimura, K., Donnelly, E.L., Kirita, Y.,
+Morris, S.A., and Humphreys, B.D. (2018).
+Comparative analysis and reﬁnement of
+human PSC-derived kidney organoid
+differentiation with single-cell
+transcriptomics. Cell Stem Cell 23, 869–
+881.e868.
+139. Monzel, A.S., Hemmer, K., Kaoma, T., Smits,
+L.M., Bolognin, S., Lucarelli, P., Rosety, I.,
+Zagare, A., Antony, P., Nickels, S.L., et al.
+(2020). Machine learning-assisted
+neurotoxicity prediction in human midbrain
+organoids. Parkinsonism Relat. Disord. 75,
+105–109.
+140. Quadrato, G., Nguyen, T., Macosko, E.Z.,
+Sherwood, J.L., Min Yang, S., Berger, D.R.,
+Maria, N., Scholvin, J., Goldman, M., Kinney,
+J.P., et al. (2017). Cell diversity and network
+dynamics in photosensitive human brain
+organoids. Nature 545, 48–53.
+141. Takasato, M., Er, P.X., Chiu, H.S., and Little,
+M.H. (2016). Generation of kidney organoids
+from human pluripotent stem cells. Nat.
+Protoc. 11, 1681–1692.
+142. Morizane, R., and Bonventre, J.V. (2017).
+Generation of nephron progenitor cells and
+kidney organoids from human pluripotent
+stem cells. Nat. Protoc. 12, 195–207.
+143. Lan, F., Demaree, B., Ahmed, N., and Abate,
+A.R. (2017). Single-cell genome sequencing at
+ultra-high-throughput with microﬂuidic
+droplet barcoding. Nat. Biotechnol. 35,
+640–646.
+144. Qiu, X., Mao, Q., Tang, Y., Wang, L., Chawla,
+R., Pliner, H.A., and Trapnell, C. (2017).
+Reversed graph embedding resolves
+complex single-cell trajectories. Nat.
+Methods 14, 979–982.
+145. Ungerstedt, U. (1968). 6-Hydroxy-Dopamine
+induced degeneration of central monoamine
+neurons. Eur. J. Pharmacol. 5, 107–110.
+146. Collobert, R., Kavukcuoglu, K., and Farabet,
+C. (2011). Torch7: a Matlab-like Environment
+for Machine Learning. In BigLearn, NIPS
+Workshop.
+147. Bastien, F., Lamblin, P., Pascanu, R., Bergstra,
+J., Goodfellow, I., Bergeron, A., Bouchard, N.,
+Warde-Farley, D., and Bengio, Y. (2012).
+Theano: new features and speed
+improvements. arXiv 1211.5590v1 [cs.SC].
+148. Jia, Y.Q., Shelhamer, E., Donahue, J., Karayev,
+S., Long, J., Girshick, R., Guadarrama, S., and
+Darrell, T. (2014). Caffe: Convolutional
+Architecture for Fast Feature Embedding. In
+Proceedings of the 22nd ACM International
+Conference on Multimedia (ACM),
+pp. 675–678.
+149. Abadi, M., Agarwal, A., Barham, P., Brevdo,
+E., Chen, Z., Citro, C., Corrado, G.S., Davis, A.,
+Dean, J., Devin, M., et al. (2016). Tensorﬂow:
+large-scale machine learning on
+heterogeneous distributed systems. arXiv
+1603.04467v2 [cs.DC].
+150. Naderi, A., Bhattacharjee, N., and Folch, A.
+(2019). Digital manufacturing for microﬂuidics.
+Annu. Rev. Biomed. Eng. 21, 325–364.
+151. Dressler, O.J., Solvas, X.C.I., and deMello,
+A.J. (2017). Chemical and biological dynamics
+using droplet-based microﬂuidics. Annu. Rev.
+Anal. Chem. 10, 1–24.
+152. Meier, T.A., Beulig, R.J., Klinge, E., Fuss, M.,
+Ohla, S., and Belder, D. (2015). On-chip
+monitoring of chemical syntheses in
+microdroplets via surface-enhanced Raman
+spectroscopy. Chem. Commun. 51, 8588–
+8591.
+153. Loutherback, K., Chen, L., and Holman, H.Y.
+(2015). Open-channel microﬂuidic membrane
+device for long-term FT-IR spectromicroscopy
+of live adherent cells. Anal. Chem. 87, 4601–
+4606.
+154. Blanazs, A., Bristow, T.W.T., Coombes, S.R.,
+Corry, T., Nunn, M., and Ray, A.D. (2017).
+Coupling and optimisation of online nuclear
+magnetic resonance spectroscopy and mass
+spectrometry for process monitoring to cover
+the broad range of process concentration.
+Magn. Reson. Chem. 55, 274–282.
+155. Huebner, A.M., Abell, C., Huck, W.T.S.,
+Baroud, C.N., and Hollfelder, F. (2011).
+Monitoring a reaction at submillisecond
+resolution in picoliter volumes. Anal. Chem.
+83, 1462–1468.
+156. Tang, Y., Xu, Q., Li, D., and Xu, W. (2020). A
+mini mass spectrometer with a low noise
+faraday detector. Analyst 145, 3892–3898.
+157. Wang, X., Yi, L., Mukhitov, N., Schrell, A.M.,
+Dhumpa, R., and Roper, M.G. (2015).
+Microﬂuidics-to-mass spectrometry: a review
+of coupling methods and applications.
+J. Chromatogr. A 1382, 98–116.
+158. Oedit, A., Vulto, P., Ramautar, R., Lindenburg,
+P.W., and Hankemeier, T. (2015). Lab-on-a-
+chip hyphenation with mass spectrometry:
+strategies for bioanalytical applications. Curr.
+Opin. Biotechnol. 31, 79–85.
+159. Gao, D., Liu, H., Jiang, Y., and Lin, J.-M. (2013).
+Recent advances in microﬂuidics combined
+with mass spectrometry: technologies and
+applications. Lab Chip 13, 3309–3322.
+ll
+Matter 3, 1893–1922, December 2, 2020 1921
+Review
+
+===PAGE 31===
+160. Zhang, Y.S., Aleman, J., Shin, S.R., Kilic, T.,
+Kim, D., Mousavi Shaegh, S.A., Massa, S.,
+Riahi, R., Chae, S., Hu, N., et al. (2017).
+Multisensor-integrated organs-on-chips
+platform for automated and continual in situ
+monitoring of organoid behaviors. Proc. Natl.
+Acad. Sci. U.S.A. 114, E2293–E2302.
+161. Discher, D.E., Janmey, P., and Wang, Y.L.
+(2005). Tissue cells feel and respond to the
+stiffness of their substrate. Science 310, 1139–
+1143.
+162. Song, B., Gu, Y., Pu, J., Reid, B., Zhao, Z., and
+Zhao, M. (2007). Application of direct current
+electric ﬁelds to cells and tissues in vitro and
+modulation of wound electric ﬁeld in vivo.
+Nat. Protoc. 2, 1479–1489.
+163. Steinbeck, J.A., Jaiswal, M.K., Calder, E.L.,
+Kishinevsky, S., Weishaupt, A., Toyka, K.V.,
+Goldstein, P.A., and Studer, L. (2016).
+Functional connectivity under optogenetic
+control allows modeling of human
+neuromuscular disease. Cell Stem Cell 18,
+134–143.
+164. Hassan, S.-u., Nightingale, A.M., and Niu, X.
+(2016). Continuous measurement of
+enzymatic kinetics in droplet ﬂow for point-of-
+care monitoring. Analyst 141, 3266–3273.
+165. Leong, C.L., Coleman, S., Nightingale, A.M.,
+Hassan, S.-u., Voegeli, D., Boutelle, M.G., and
+Niu, X. (2019). Lactate monitoring in droplet
+microﬂuidics: a cautionary tale in assay
+miniaturisation. Anal. Methods 11, 6119–6123.
+166. Tovar, M., Hengoju, S., Weber, T., Mahler, L.,
+Choudhary, M., Becker, T., and Roth, M.
+(2019). One sensor for multiple colors:
+ﬂuorescence analysis of microdroplets in
+microbiological screenings by frequency-
+division multiplexing. Anal. Chem. 91, 3055–
+3061.
+167. Mao, S., Zhang, J., Li, H., and Lin, J.-M. (2013).
+Strategy for signaling molecule detection by
+using an integrated microﬂuidic device
+coupled with mass spectrometry to study cell-
+to-cell communication. Anal. Chem. 85,
+868–876.
+168. Santbergen, M.J.C., van der Zande, M.,
+Gerssen, A., Bouwmeester, H., and Nielen,
+M.W.F. (2020). Dynamic in vitro intestinal
+barrier model coupled to chip-based liquid
+chromatography mass spectrometry for oral
+bioavailability studies. Anal. Bioanal. Chem.
+412, 1111–1122.
+169. Mencattini, A., Mattei, F., Schiavoni, G.,
+Gerardino, A., Businaro, L., Di Natale, C., and
+Martinelli, E. (2019). From petri dishes to
+organ on chip platform: the increasing
+importance of machine learning and image
+analysis. Front. Pharmacol. 10, 100.
+170. Galland, R., Grenci, G., Aravind, A., Viasnoff,
+V., Studer, V., and Sibarita, J.B. (2015). 3D
+high- and super-resolution imaging using
+single-objective SPIM. Nat. Methods 12,
+641–644.
+171. Inavalli, V., Lenz, M.O., Butler, C., Angibaud,
+J., Compans, B., Levet, F., Tonnesen, J.,
+Rossier, O., Giannone, G., Thoumine, O., et al.
+(2019). A super-resolution platform for
+correlative live single-molecule imaging and
+STED microscopy. Nat. Methods 16, 1263–
+1268.
+172. Santbergen, M.J.C., van Der Zande, M.,
+Bouwmeester, H., and Nielen, M.W.F. (2019).
+Online and in situ analysis of organs-on-a-
+chip. TrAC Trends Analyt. Chem. 115,
+138–146.
+173. van Hasselt, H., Guez, A., and Silver, D. (2016).
+Deep reinforcement learning with double Q-
+learning. In Proceedings of the Thirtieth AAAI
+Conference on Artiﬁcial Intelligence (AAAI
+Press), pp. 2094–2100.
+174. Srivastava, N., Hinton, G., Krizhevsky, A.,
+Sutskever, I., and Salakhutdinov, R. (2014).
+Dropout: a simple way to prevent neural
+networks from overﬁtting. J. Mach. Learn. Res.
+15, 1929–1958.
+175. Salakhutdinov, R., and Hinton, G. (2012). An
+efﬁcient learning procedure for deep
+Boltzmann machines. Neural Comput. 24,
+1967–2006.
+176. Bengio, Y. (2012). Practical Recommendations
+for Gradient-Based Training of Deep
+Architectures (Springer).
+177. Bengio, Y., Lanblin, P., Popovici, D., and
+Larochelle, H. (2007). Greedy layer-wise
+training of deep networks. In Advances in
+Neural Information Processing Systems 19
+(NIPS 2006), B. Scho¨ lkopf, J.C. Platt, and T.
+Hoffman, eds. (MIT Press), pp. 153–160.
+178. Baigl, D. (2012). Photo-actuation of liquids for
+light-driven microﬂuidics: state of the art and
+perspectives. Lab Chip 12, 3637–3653.
+179. Manfrin, A., Tabata, Y., Paquet, E.R., Vuaridel,
+A.R., Rivest, F.R., Naef, F., and Lutolf, M.P.
+(2019). Engineered signaling centers for the
+spatially controlled patterning of human
+pluripotent stem cells. Nat. Methods 16,
+640–648.
+180. Lin, X., Chen, Q., Liu, W., Zhang, J., Wang, S.,
+Lin, Z., and Lin, J.-M. (2015). Oxygen-induced
+cell migration and on-line monitoring
+biomarkers modulation of cervical cancers on
+a microﬂuidic system. Sci. Rep. 5, 9643.
+181. Zhang, W., He, Z., Yi, L., Mao, S., Li, H., and
+Lin, J.-M. (2018). A dual-functional microﬂuidic
+chip for on-line detection of interleukin-8
+based on rolling circle ampliﬁcation. Biosens.
+Bioelectron. 102, 652–660.
+182. Shin, S.R., Zhang, Y.S., Kim, D.-J., Manbohi,
+A., Avci, H., Silvestri, A., Aleman, J., Hu, N.,
+Kilic, T., Keung, W., et al. (2016). Aptamer-
+based microﬂuidic electrochemical biosensor
+for monitoring cell-secreted trace cardiac
+biomarkers. Anal. Chem. 88, 10019–10027.
+ll
+1922 Matter 3, 1893–1922, December 2, 2020
+Review

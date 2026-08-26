@@ -1,0 +1,58 @@
+{
+  "abstract_en": "In situ FPGA deployment of knowledge-distilled CNNs achieves 14.5 µs inference for real-time label-free cell sorting with 40× faster detection-to-trigger time than SOTA, enabling clinical-grade lymphocyte classification via 5000-fold compression.",
+  "abstract_zh": "将知识蒸馏CNN部署到FPGA原位推理，实现14.5 μs的实时无标记细胞分选；检测-触发时间比现有SOTA快40倍，经5000倍压缩后达到临床级淋巴细胞分类。",
+  "background_zh": "无标记实时细胞分选要求极低推理延迟与高吞吐，云端/GPU难以满足现场闭环控制需求；深度模型通常过大、过慢。",
+  "problem_zh": "如何在保证分类精度的同时把深度模型压缩并部署到边缘硬件，使检测-决策-触发延迟满足实时分选？",
+  "data_zh": "淋巴/白细胞流动成像数据集，用于CNN蒸馏与压缩；临床级分类作为评测目标。",
+  "task_zh": "知识蒸馏压缩CNN→FPGA原位部署→实时检测与细胞触发分选。",
+  "method_zh": "知识蒸馏将大模型压缩（约5000倍），部署于FPGA进行原位推理；与微流控分选器耦合，实现检测-触发闭环。",
+  "results_zh": "推理延迟14.5 μs，检测-触发时间较SOTA快40倍，达到临床级淋巴细胞分类与实时分选需求。",
+  "metrics_zh": [
+    {
+      "label": "推理延迟",
+      "value": "14.5 μs"
+    },
+    {
+      "label": "检测-触发加速",
+      "value": "40× vs SOTA"
+    },
+    {
+      "label": "模型压缩",
+      "value": "约5000×"
+    },
+    {
+      "label": "应用",
+      "value": "临床级淋巴细胞分类/实时分选"
+    }
+  ],
+  "innovation_zh": "把知识蒸馏与FPGA边缘推理结合，定义“实时无标记细胞分选”的硬件-算法协同新基准。",
+  "limitation_zh": "PDF未获取；基于公开摘要。具体分类准确率、细胞类型覆盖与FPGA资源占用未在摘要中给出。",
+  "paradigm_zh": "边缘AI+硬件加速：模型压缩（蒸馏）与FPGA并行推理结合，把深度学习放到传感端，实现微秒级在线决策。",
+  "paradigm_tags": [
+    "知识蒸馏",
+    "FPGA加速",
+    "实时分选",
+    "边缘AI"
+  ],
+  "framework_zh": "大规模预训练CNN→知识蒸馏压缩→FPGA量化部署→微流控信号触发→实时分类与分选。",
+  "framework_steps": [
+    "数据与预处理：流动细胞成像数据、类别标注",
+    "模型设计：教师-学生蒸馏、FPGA适配量化",
+    "训练策略：压缩率-精度权衡、硬件在环调优",
+    "评估与解读：推理延迟、检测-触发时间、分类准确率"
+  ],
+  "scheme_zh": "Scheme展示CNN蒸馏、FPGA推理板卡与微流控分选器的实时闭环（PPT用占位图）。",
+  "lessons_zh": "实时微流控AI的瓶颈常在推理延迟而非算法精度；蒸馏+FPGA是临床级实时分选的可行路线。",
+  "id": "16",
+  "title_en": "Real-time cell sorting with scalable in situ FPGA-accelerated deep learning",
+  "title_zh": "基于可扩展原位FPGA加速深度学习的实时细胞分选",
+  "journal": "Digital Discovery",
+  "year": 2026,
+  "doi": "10.1039/D5DD00345H",
+  "pmid": null,
+  "pmcid": null,
+  "kind": "droplet_class",
+  "kind_zh": "液滴分类与分选（图像级）",
+  "scheme_image": "papers_figs/16_fig1.png",
+  "pdf_status": "未获取全文PDF：基于公开摘要与题录精读"
+}

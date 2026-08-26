@@ -1,0 +1,58 @@
+{
+  "abstract_en": "This study applied deep reinforcement learning (DRL) with the Proximal Policy Optimization (PPO) algorithm within a two-dimensional computational fluid dynamics (CFD) model to achieve closed-loop control in microfluidics. The objective was to achieve the desired droplet size with minimal variability in a microfluidic capillary flow-focusing device. An artificial neural network was utilized to map sensing signals (flow pressure and droplet size) to control actions (continuous phase inlet pressure). To validate the numerical model, simulation results were compared with experimental data, which demonstrated a good agreement with errors below 11%. The PPO algorithm effectively controlled droplet size across various targets (50, 60, 70, and 80 μm) with different levels of precision. The optimized DRL + CFD framework successfully achieved droplet size control within a coefficient of variation (CV%) below 5% for all targets, outperforming the case without control. Furthermore, the adaptability of the PPO agent to external disturbances was extensively evaluated. By subjecting the system to sinusoidal mechanical vibrations with frequencies ranging from 10 Hz to 10 KHz and amplitudes between 50 and 500 Pa, the PPO algorithm demonstrated efficacy in handling disturbances within limits, highlighting its robustness. Overall, this study showcased the implementation of the DRL+CFD framework for designing and investigating novel control algorithms, advancing the field of droplet microfluidics control research.",
+  "abstract_zh": "在二维CFD模型内用近端策略优化（PPO）深度强化学习实现微流控闭环控制：以神经网络把传感信号（流动压力与液滴尺寸）映射为控制动作（连续相入口压力），实现目标液滴尺寸（50/60/70/80 μm）的最小变异控制；仿真与实验偏差<11%，控制后CV<5%，并抗外部振动干扰。",
+  "background_zh": "液滴微流控可控制许多过程，但液滴尺寸对压力/流量扰动敏感，人工调节难以自适应。",
+  "problem_zh": "如何让微流控系统在存在扰动的情况下自动调节连续相压力，使液滴尺寸稳定在目标值？",
+  "data_zh": "二维CFD数值模型数据（流动聚焦装置），与实验对比验证（误差<11%）；目标尺寸50–80 μm；外部扰动为10 Hz–10 kHz正弦机械振动。",
+  "task_zh": "训练DRL智能体实现闭环液滴尺寸控制，并评估对不同目标尺寸与扰动的鲁棒性。",
+  "method_zh": "PPO算法在CFD环境内训练；ANN把“流动压力+当前液滴尺寸”映射到“连续相入口压力”控制动作；用目标尺寸与CV作为奖励/指标；对比无控制基线并做扰动测试。",
+  "results_zh": "所有目标尺寸（50/60/70/80 μm）的CV<5%，优于无控制情况；仿真-实验偏差<11%；PPO对10 Hz–10 kHz正弦振动扰动具有良好适应性。",
+  "metrics_zh": [
+    {
+      "label": "仿真-实验误差",
+      "value": "<11%"
+    },
+    {
+      "label": "液滴尺寸CV",
+      "value": "<5% (所有目标)"
+    },
+    {
+      "label": "目标尺寸",
+      "value": "50/60/70/80 μm"
+    },
+    {
+      "label": "扰动测试",
+      "value": "10 Hz–10 kHz 正弦振动"
+    }
+  ],
+  "innovation_zh": "把DRL与CFD数字孪生结合实现微流控闭环控制，并系统评估抗扰能力。",
+  "limitation_zh": "PDF未获取；基于公开摘要。训练依赖仿真环境，向实际芯片迁移需进一步校准；仅2D模型。",
+  "paradigm_zh": "数字孪生+强化学习：以CFD仿真为“可交互环境”，DRL（PPO）在模拟中学会控制策略，再迁移到物理系统。",
+  "paradigm_tags": [
+    "深度强化学习PPO",
+    "数字孪生",
+    "闭环控制",
+    "CFD"
+  ],
+  "framework_zh": "CFD仿真环境→状态（压力/液滴尺寸）→PPO策略→动作（连续相压力）→目标尺寸/CV奖励→扰动鲁棒性评估。",
+  "framework_steps": [
+    "数据与预处理：CFD建模与实验标定（误差<11%）",
+    "模型设计：PPO+ANN状态-动作映射",
+    "训练策略：多目标尺寸训练、扰动在线评估",
+    "评估与解读：CV%、目标偏差、抗扰性能对比无控制"
+  ],
+  "scheme_zh": "Scheme展示CFD环境、DRL智能体传感-控制回路与液滴尺寸目标的数字孪生闭环（PPT用占位图）。",
+  "lessons_zh": "真实系统难以大量试错时，数字孪生+RL是先训练、后迁移的高效路径；控制目标是“最小变异”比“绝对尺寸”更稳健。",
+  "id": "18",
+  "title_en": "Deep reinforcement learning-based digital twin for droplet microfluidics control",
+  "title_zh": "基于深度强化学习的液滴微流控数字孪生控制",
+  "journal": "Physics of Fluids",
+  "year": 2023,
+  "doi": "10.1063/5.0159981",
+  "pmid": null,
+  "pmcid": null,
+  "kind": "design_opt",
+  "kind_zh": "液滴/芯片设计与参数优化",
+  "scheme_image": "papers_figs/18_fig1.png",
+  "pdf_status": "未获取全文PDF：基于公开摘要与题录精读"
+}

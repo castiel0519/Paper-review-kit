@@ -1,0 +1,720 @@
+{
+  "project": "ml_microfluidics_review",
+  "title": "机器学习与人工智能在微流控中的应用：SCI论文精读调研",
+  "papers": [
+    {
+      "id": "01",
+      "title": "Design automation of microfluidic single and double emulsion droplets with machine learning",
+      "title_zh": "机器学习实现微流控单乳液与双乳液液滴的设计自动化",
+      "authors": "Ali Lashkaripour; David P. McIntyre; Suzanne G. K. Calhoun; Karl Krauth; Douglas M. Densmore; Polly M. Fordyce",
+      "journal": "Nature Communications",
+      "year": 2023,
+      "doi": "10.1038/s41467-023-44068-3",
+      "pmid": null,
+      "pmcid": null,
+      "kind": "design_opt",
+      "kind_zh": "液滴/芯片设计与参数优化",
+      "notes": "ML辅助液滴生成条件与结构设计自动化",
+      "verified": {
+        "crossref": {
+          "title": "Design automation of microfluidic single and double emulsion droplets with machine learning",
+          "journal": "Nature Communications",
+          "year": null,
+          "authors": "Ali Lashkaripour; David P. McIntyre; Suzanne G. K. Calhoun; Karl Krauth; Douglas M. Densmore; Polly M. Fordyce"
+        },
+        "openalex": {
+          "title": "Design automation of microfluidic single and double emulsion droplets with machine learning",
+          "journal": "Nature Communications",
+          "year": 2024,
+          "citations": 87,
+          "is_oa": true,
+          "oa_status": "gold",
+          "oa_pdf": "",
+          "oa_landing": "https://doi.org/10.1038/s41467-023-44068-3"
+        }
+      }
+    },
+    {
+      "id": "02",
+      "title": "Transforming microfluidics for single-cell analysis with robotics and artificial intelligence",
+      "title_zh": "机器人与人工智能推动微流控单细胞分析变革",
+      "authors": "Jinxiong Cheng; Rajiv Anne; Yu-Chih Chen",
+      "journal": "Lab on a Chip",
+      "year": 2025,
+      "doi": "10.1039/D5LC00216H",
+      "pmid": null,
+      "pmcid": "PMC12587405",
+      "kind": "single_cell",
+      "kind_zh": "单细胞分析与机器人",
+      "notes": "机器人+AI自动化单细胞微流控平台综述",
+      "verified": {
+        "crossref": {
+          "title": "Transforming microfluidics for single-cell analysis with robotics and artificial intelligence",
+          "journal": "Lab on a Chip",
+          "year": null,
+          "authors": "Jinxiong Cheng; Rajiv Anne; Yu-Chih Chen"
+        },
+        "openalex": {
+          "title": "Transforming microfluidics for single-cell analysis with robotics and artificial intelligence",
+          "journal": "Lab on a Chip",
+          "year": 2025,
+          "citations": 12,
+          "is_oa": true,
+          "oa_status": "hybrid",
+          "oa_pdf": "https://pubs.rsc.org/en/content/articlepdf/2025/lc/d5lc00216h",
+          "oa_landing": "https://doi.org/10.1039/d5lc00216h"
+        },
+        "europepmc": {
+          "title": "Transforming microfluidics for single-cell analysis with robotics and artificial intelligence.",
+          "journal": "Lab on a chip",
+          "year": "2025",
+          "doi": "10.1039/d5lc00216h",
+          "pmid": "41190506",
+          "pmcid": "PMC12587405",
+          "fulltexts": [
+            "https://doi.org/10.1039/d5lc00216h",
+            "https://europepmc.org/articles/PMC12587405"
+          ]
+        }
+      }
+    },
+    {
+      "id": "03",
+      "title": "Deep Learning-Assisted Label-Free Parallel Cell Sorting with Digital Microfluidics",
+      "title_zh": "深度学习辅助的基于数字微流控的无标记并行细胞分选",
+      "authors": "",
+      "journal": "Advanced Science",
+      "year": 2025,
+      "doi": "10.1002/advs.202408353",
+      "pmid": "39497614",
+      "pmcid": null,
+      "kind": "dmf",
+      "kind_zh": "数字微流控",
+      "notes": "深度神经网络+数字微流控无标记细胞分选",
+      "verified": {
+        "europepmc": {
+          "title": "Deep Learning-Assisted Label-Free Parallel Cell Sorting with Digital Microfluidics.",
+          "journal": "Advanced science (Weinheim, Baden-Wurttemberg, Germany)",
+          "year": "2025",
+          "doi": "10.1002/advs.202408353",
+          "pmid": "39497614",
+          "pmcid": "PMC11906218",
+          "fulltexts": [
+            "https://onlinelibrary.wiley.com/doi/pdfdirect/10.1002/advs.202408353",
+            "https://doi.org/10.1002/advs.202408353",
+            "https://europepmc.org/articles/PMC11906218",
+            "https://europepmc.org/articles/PMC11906218?pdf=render"
+          ]
+        }
+      }
+    },
+    {
+      "id": "04",
+      "title": "Computer vision meets microfluidics: a label-free method for high-throughput cell analysis",
+      "title_zh": "计算机视觉遇见微流控：高通量细胞分析的无标记方法",
+      "authors": "Shizheng Zhou; Bingbing Chen; Edgar S. Fu; Hong Yan",
+      "journal": "Microsystems & Nanoengineering",
+      "year": 2023,
+      "doi": "10.1038/s41378-023-00562-8",
+      "pmid": null,
+      "pmcid": null,
+      "kind": "image_cell",
+      "kind_zh": "图像识别与高通量细胞分析",
+      "notes": "无标记显微成像+深度学习高通量细胞分析",
+      "verified": {
+        "crossref": {
+          "title": "Computer vision meets microfluidics: a label-free method for high-throughput cell analysis",
+          "journal": "Microsystems &amp; Nanoengineering",
+          "year": null,
+          "authors": "Shizheng Zhou; Bingbing Chen; Edgar S. Fu; Hong Yan"
+        },
+        "openalex": {
+          "title": "Computer vision meets microfluidics: a label-free method for high-throughput cell analysis",
+          "journal": "Microsystems & Nanoengineering",
+          "year": 2023,
+          "citations": 64,
+          "is_oa": true,
+          "oa_status": "gold",
+          "oa_pdf": "https://www.nature.com/articles/s41378-023-00562-8.pdf",
+          "oa_landing": "https://doi.org/10.1038/s41378-023-00562-8"
+        }
+      }
+    },
+    {
+      "id": "05",
+      "title": "An artificial intelligence-assisted digital microfluidic system for multistate droplet control",
+      "title_zh": "人工智能辅助的数字微流控系统实现多态液滴控制",
+      "authors": "Kunlun Guo; Zerui Song; Jiale Zhou; Bin Shen; Bingyong Yan; Zhen Gu; Huifeng Wang",
+      "journal": "Microsystems & Nanoengineering",
+      "year": 2024,
+      "doi": "10.1038/s41378-024-00775-5",
+      "pmid": null,
+      "pmcid": null,
+      "kind": "dmf",
+      "kind_zh": "数字微流控",
+      "notes": "AI视觉反馈实现DMF多态液滴自动化控制",
+      "verified": {
+        "crossref": {
+          "title": "An artificial intelligence-assisted digital microfluidic system for multistate droplet control",
+          "journal": "Microsystems &amp; Nanoengineering",
+          "year": null,
+          "authors": "Kunlun Guo; Zerui Song; Jiale Zhou; Bin Shen; Bingyong Yan; Zhen Gu; Huifeng Wang"
+        },
+        "openalex": {
+          "title": "An artificial intelligence-assisted digital microfluidic system for multistate droplet control",
+          "journal": "Microsystems & Nanoengineering",
+          "year": 2024,
+          "citations": 41,
+          "is_oa": true,
+          "oa_status": "gold",
+          "oa_pdf": "https://www.nature.com/articles/s41378-024-00775-5.pdf",
+          "oa_landing": "https://doi.org/10.1038/s41378-024-00775-5"
+        }
+      }
+    },
+    {
+      "id": "06",
+      "title": "Microsystem Advances through Integration with Artificial Intelligence",
+      "title_zh": "人工智能融合带来的微系统进展",
+      "authors": "",
+      "journal": "Micromachines",
+      "year": 2023,
+      "doi": "10.3390/mi14040826",
+      "pmid": "37421059",
+      "pmcid": "PMC10141994",
+      "kind": "review",
+      "kind_zh": "综述与范式分析",
+      "notes": "微系统与AI集成综述（含微流控）",
+      "verified": {
+        "europepmc": {
+          "title": "Microsystem Advances through Integration with Artificial Intelligence.",
+          "journal": "Micromachines",
+          "year": "2023",
+          "doi": "10.3390/mi14040826",
+          "pmid": "37421059",
+          "pmcid": "PMC10141994",
+          "fulltexts": [
+            "https://doi.org/10.3390/mi14040826",
+            "https://europepmc.org/articles/PMC10141994",
+            "https://europepmc.org/articles/PMC10141994?pdf=render"
+          ]
+        }
+      }
+    },
+    {
+      "id": "07",
+      "title": "Deep learning enabled label-free microfluidic droplet classification for single cell functional assays",
+      "title_zh": "用于单细胞功能分析的深度学习无标记微流控液滴分类",
+      "authors": "Thibault Vanhoucke; Angga Perima; Lorenzo Zolfanelli; Pierre Bruhns; Matteo Broketa",
+      "journal": "Frontiers in Bioengineering and Biotechnology",
+      "year": 2024,
+      "doi": "10.3389/fbioe.2024.1468738",
+      "pmid": "39359262",
+      "pmcid": null,
+      "kind": "droplet_class",
+      "kind_zh": "液滴分类与分选（图像级）",
+      "notes": "无标记液滴图像深度学习分类",
+      "verified": {
+        "crossref": {
+          "title": "Deep learning enabled label-free microfluidic droplet classification for single cell functional assays",
+          "journal": "Frontiers in Bioengineering and Biotechnology",
+          "year": null,
+          "authors": "Thibault Vanhoucke; Angga Perima; Lorenzo Zolfanelli; Pierre Bruhns; Matteo Broketa"
+        },
+        "openalex": {
+          "title": "Deep learning enabled label-free microfluidic droplet classification for single cell functional assays",
+          "journal": "Frontiers in Bioengineering and Biotechnology",
+          "year": 2024,
+          "citations": 9,
+          "is_oa": true,
+          "oa_status": "gold",
+          "oa_pdf": "https://public-pages-files-2025.frontiersin.org/journals/bioengineering-and-biotechnology/articles/10.3389/fbioe.2024.1468738/pdf",
+          "oa_landing": "https://doi.org/10.3389/fbioe.2024.1468738"
+        },
+        "europepmc": {
+          "title": "Deep learning enabled label-free microfluidic droplet classification for single cell functional assays.",
+          "journal": "Frontiers in bioengineering and biotechnology",
+          "year": "2024",
+          "doi": "10.3389/fbioe.2024.1468738",
+          "pmid": "39359262",
+          "pmcid": "PMC11445169",
+          "fulltexts": [
+            "https://doi.org/10.3389/fbioe.2024.1468738",
+            "https://europepmc.org/articles/PMC11445169",
+            "https://europepmc.org/articles/PMC11445169?pdf=render"
+          ]
+        }
+      }
+    },
+    {
+      "id": "08",
+      "title": "Autonomous Droplet Microfluidic Design Framework with Large Language Models",
+      "title_zh": "基于大语言模型的自主液滴微流控设计框架",
+      "authors": "Dinh-Nguyen Nguyen; Raymond Kai-YuTong; Ngoc-Duy Dinh",
+      "journal": "ACS Omega",
+      "year": 2025,
+      "doi": "10.1021/acsomega.5c06253",
+      "pmid": null,
+      "pmcid": null,
+      "kind": "design_opt",
+      "kind_zh": "液滴/芯片设计与参数优化",
+      "notes": "LLM驱动的自主液滴微流控设计",
+      "verified": {
+        "crossref": {
+          "title": "Autonomous Droplet Microfluidic Design Framework with Large Language Models",
+          "journal": "ACS Omega",
+          "year": null,
+          "authors": "Dinh-Nguyen Nguyen; Raymond Kai-YuTong; Ngoc-Duy Dinh"
+        },
+        "openalex": {
+          "title": "Autonomous Droplet Microfluidic Design Framework with Large Language Models",
+          "journal": "ACS Omega",
+          "year": 2025,
+          "citations": 5,
+          "is_oa": true,
+          "oa_status": "gold",
+          "oa_pdf": "https://pubs.acs.org/doi/pdf/10.1021/acsomega.5c06253?ref=article_openPDF",
+          "oa_landing": "https://doi.org/10.1021/acsomega.5c06253"
+        }
+      }
+    },
+    {
+      "id": "09",
+      "title": "Machine Learning-Assisted Microfluidic Synthesis of Perovskite Quantum Dots",
+      "title_zh": "机器学习辅助的微流控钙钛矿量子点合成",
+      "authors": "Gaoyu Chen; Xia Zhu; Chenyu Xing; Yongkai Wang; Xiangxing Xu; Jianchun Bao; Jinghan Huang; Yurong Zhao; Xuan Wang; Xiuqing Zhou; Xiuli Du; Xun Wang",
+      "journal": "Advanced Photonics Research",
+      "year": 2022,
+      "doi": "10.1002/adpr.202200230",
+      "pmid": null,
+      "pmcid": null,
+      "kind": "synthesis",
+      "kind_zh": "材料合成与参数优化",
+      "notes": "微流控合成+ML参数优化材料合成",
+      "verified": {
+        "crossref": {
+          "title": "Machine Learning‐Assisted Microfluidic Synthesis of Perovskite Quantum Dots",
+          "journal": "Advanced Photonics Research",
+          "year": null,
+          "authors": "Gaoyu Chen; Xia Zhu; Chenyu Xing; Yongkai Wang; Xiangxing Xu; Jianchun Bao; Jinghan Huang; Yurong Zhao; Xuan Wang; Xiuqing Zhou; Xiuli Du; Xun Wang"
+        },
+        "openalex": {
+          "title": "Machine Learning‐Assisted Microfluidic Synthesis of Perovskite Quantum Dots",
+          "journal": "Advanced Photonics Research",
+          "year": 2022,
+          "citations": 34,
+          "is_oa": true,
+          "oa_status": "gold",
+          "oa_pdf": "",
+          "oa_landing": "https://doi.org/10.1002/adpr.202200230"
+        }
+      }
+    },
+    {
+      "id": "10",
+      "title": "Intelligent Microfluidics: The Convergence of Machine Learning and Microfluidics in Materials Science and Biomedicine",
+      "title_zh": "智能微流控：机器学习与微流控在材料科学与生物医学中的融合",
+      "authors": "Edgar A. Galan; Haoran Zhao; Xukang Wang; Qionghai Dai; Wilhelm T.S. Huck; Shaohua Ma",
+      "journal": "Matter",
+      "year": 2020,
+      "doi": "10.1016/j.matt.2020.08.034",
+      "pmid": null,
+      "pmcid": null,
+      "kind": "review",
+      "kind_zh": "综述与范式分析",
+      "notes": "早期系统综述：ML×微流控融合范式",
+      "verified": {
+        "crossref": {
+          "title": "Intelligent Microfluidics: The Convergence of Machine Learning and Microfluidics in Materials Science and Biomedicine",
+          "journal": "Matter",
+          "year": null,
+          "authors": "Edgar A. Galan; Haoran Zhao; Xukang Wang; Qionghai Dai; Wilhelm T.S. Huck; Shaohua Ma"
+        },
+        "openalex": {
+          "title": "Intelligent Microfluidics: The Convergence of Machine Learning and Microfluidics in Materials Science and Biomedicine",
+          "journal": "Matter",
+          "year": 2020,
+          "citations": 187,
+          "is_oa": true,
+          "oa_status": "bronze",
+          "oa_pdf": "http://www.cell.com/article/S2590238520304987/pdf",
+          "oa_landing": "https://doi.org/10.1016/j.matt.2020.08.034"
+        }
+      }
+    },
+    {
+      "id": "11",
+      "title": "AI-integrated microfluidics for drug screening: From single cell to organ-on-a-chip",
+      "title_zh": "AI集成微流控用于药物筛选：从单细胞到器官芯片",
+      "authors": "Hongyun Yin; Zheyu Li; Zinuo Shen; Shiying Wang; Na Du; Shibo Cheng; Jie Zhou; Yutao Li; Yanwei Jia; Ying Li",
+      "journal": "Acta Pharmaceutica Sinica B",
+      "year": 2026,
+      "doi": "10.1016/j.apsb.2026.01.001",
+      "pmid": null,
+      "pmcid": null,
+      "kind": "organ_chip",
+      "kind_zh": "器官芯片/药物筛选",
+      "notes": "AI+微流控药物筛选综述",
+      "verified": {
+        "crossref": {
+          "title": "AI-integrated microfluidics for drug screening: From single cell to organ-on-a-chip",
+          "journal": "Acta Pharmaceutica Sinica B",
+          "year": null,
+          "authors": "Hongyun Yin; Zheyu Li; Zinuo Shen; Shiying Wang; Na Du; Shibo Cheng; Jie Zhou; Yutao Li; Yanwei Jia; Ying Li"
+        },
+        "openalex": {
+          "title": "AI-integrated microfluidics for drug screening: From single cell to organ-on-a-chip",
+          "journal": "Acta Pharmaceutica Sinica B",
+          "year": 2026,
+          "citations": 6,
+          "is_oa": true,
+          "oa_status": "gold",
+          "oa_pdf": "",
+          "oa_landing": "https://doi.org/10.1016/j.apsb.2026.01.001"
+        }
+      }
+    },
+    {
+      "id": "12",
+      "title": "Circulating tumor cell detection in cancer patients using in-flow deep learning holography",
+      "title_zh": "流动中深度学习全息成像检测癌症患者循环肿瘤细胞",
+      "authors": "Kevin Mallery; Nathaniel R. Bristow; Nicholas Heller; Yash Travadi; Ali Arafa; Kaylee Kamalanathan; Catalina Galeano-Garces; Mahdi Ahmadi; Grant Schaap; Alexa Hesch; Olivia Hedeen; Zikora Izuora",
+      "journal": "npj Biosensing",
+      "year": 2026,
+      "doi": "10.1038/s44328-026-00084-z",
+      "pmid": null,
+      "pmcid": null,
+      "kind": "diagnostics",
+      "kind_zh": "疾病诊断/POCT",
+      "notes": "无标记全息成像+深度学习CTC检测",
+      "verified": {
+        "crossref": {
+          "title": "Circulating tumor cell detection in cancer patients using in-flow deep learning holography",
+          "journal": "npj Biosensing",
+          "year": null,
+          "authors": "Kevin Mallery; Nathaniel R. Bristow; Nicholas Heller; Yash Travadi; Ali Arafa; Kaylee Kamalanathan; Catalina Galeano-Garces; Mahdi Ahmadi; Grant Schaap; Alexa Hesch; Olivia Hedeen; Zikora Izuora"
+        },
+        "openalex": {
+          "title": "Circulating tumor cell detection in cancer patients using in-flow deep learning holography",
+          "journal": "npj Biosensing",
+          "year": 2026,
+          "citations": 0,
+          "is_oa": true,
+          "oa_status": "hybrid",
+          "oa_pdf": "https://www.nature.com/articles/s44328-026-00084-z.pdf",
+          "oa_landing": "https://doi.org/10.1038/s44328-026-00084-z"
+        }
+      }
+    },
+    {
+      "id": "13",
+      "title": "Rare cell classification using label-free imaging flow cytometry via motion-sensitive-triggered interferometry",
+      "title_zh": "基于运动敏感触发干涉测量的无标记成像流式细胞术稀有细胞分类",
+      "authors": "Eden Dotan; Dana Yagoda-Aharoni; Eli Shapira; Natan T. Shaked",
+      "journal": "Lab on a Chip",
+      "year": 2025,
+      "doi": "10.1039/D5LC00634A",
+      "pmid": null,
+      "pmcid": null,
+      "kind": "image_cell",
+      "kind_zh": "图像识别与高通量细胞分析",
+      "notes": "无标记成像流式+深度学习稀有细胞分类",
+      "verified": {
+        "crossref": {
+          "title": "Rare cell classification using label-free imaging flow cytometry\n                    <i>via</i>\n                    motion-sensitive-triggered interferometry",
+          "journal": "Lab on a Chip",
+          "year": null,
+          "authors": "Eden Dotan; Dana Yagoda-Aharoni; Eli Shapira; Natan T. Shaked"
+        },
+        "openalex": {
+          "title": "Rare cell classification using label-free imaging flow cytometry via motion-sensitive-triggered interferometry",
+          "journal": "Lab on a Chip",
+          "year": 2025,
+          "citations": 7,
+          "is_oa": false,
+          "oa_status": "closed",
+          "oa_pdf": "",
+          "oa_landing": ""
+        }
+      }
+    },
+    {
+      "id": "14",
+      "title": "A deep learning approach for designed diffraction-based acoustic patterning in microchannels",
+      "title_zh": "用于微通道中设计衍射声学图案化的深度学习方法",
+      "authors": "Samuel J. Raymond; David J. Collins; Richard O’Rorke; Mahnoush Tayebi; Ye Ai; John Williams",
+      "journal": "Scientific Reports",
+      "year": 2020,
+      "doi": "10.1038/s41598-020-65453-8",
+      "pmid": "32457358",
+      "pmcid": null,
+      "kind": "design_opt",
+      "kind_zh": "液滴/芯片设计与参数优化",
+      "notes": "DL正向/逆向设计声学图案",
+      "verified": {
+        "crossref": {
+          "title": "A deep learning approach for designed diffraction-based acoustic patterning in microchannels",
+          "journal": "Scientific Reports",
+          "year": null,
+          "authors": "Samuel J. Raymond; David J. Collins; Richard O’Rorke; Mahnoush Tayebi; Ye Ai; John Williams"
+        },
+        "openalex": {
+          "title": "A deep learning approach for designed diffraction-based acoustic patterning in microchannels",
+          "journal": "Scientific Reports",
+          "year": 2020,
+          "citations": 64,
+          "is_oa": true,
+          "oa_status": "gold",
+          "oa_pdf": "https://www.nature.com/articles/s41598-020-65453-8.pdf",
+          "oa_landing": "https://doi.org/10.1038/s41598-020-65453-8"
+        },
+        "europepmc": {
+          "title": "A deep learning approach for designed diffraction-based acoustic patterning in microchannels.",
+          "journal": "Scientific reports",
+          "year": "2020",
+          "doi": "10.1038/s41598-020-65453-8",
+          "pmid": "32457358",
+          "pmcid": "PMC7251103",
+          "fulltexts": [
+            "https://doi.org/10.1038/s41598-020-65453-8",
+            "https://europepmc.org/articles/PMC7251103",
+            "https://europepmc.org/articles/PMC7251103?pdf=render"
+          ]
+        }
+      }
+    },
+    {
+      "id": "15",
+      "title": "Deep Learning-driven Microfluidic-SERS to Characterize the Heterogeneity in Exosomes for Classifying Non-Small Cell Lung Cancer Subtypes",
+      "title_zh": "深度学习驱动的微流控-SERS表征外泌体异质性并分类非小细胞肺癌亚型",
+      "authors": "Hui Chen; Hongyi Liu; Longqiang Xing; Dandan Fan; Nan Chen; Pei Ma; Xuedian Zhang",
+      "journal": "ACS Sensors",
+      "year": 2025,
+      "doi": "10.1021/acssensors.4c03621",
+      "pmid": null,
+      "pmcid": null,
+      "kind": "diagnostics",
+      "kind_zh": "疾病诊断/POCT",
+      "notes": "微流控SERS+深度学习外泌体肺癌分型",
+      "verified": {
+        "crossref": {
+          "title": "Deep Learning-driven Microfluidic-SERS to Characterize the Heterogeneity in Exosomes for Classifying Non-Small Cell Lung Cancer Subtypes",
+          "journal": "ACS Sensors",
+          "year": null,
+          "authors": "Hui Chen; Hongyi Liu; Longqiang Xing; Dandan Fan; Nan Chen; Pei Ma; Xuedian Zhang"
+        },
+        "openalex": {
+          "title": "Deep Learning-driven Microfluidic-SERS to Characterize the Heterogeneity in Exosomes for Classifying Non-Small Cell Lung Cancer Subtypes",
+          "journal": "ACS Sensors",
+          "year": 2025,
+          "citations": 39,
+          "is_oa": true,
+          "oa_status": "hybrid",
+          "oa_pdf": "https://pubs.acs.org/doi/pdf/10.1021/acssensors.4c03621?ref=article_openPDF",
+          "oa_landing": "https://doi.org/10.1021/acssensors.4c03621"
+        }
+      }
+    },
+    {
+      "id": "16",
+      "title": "Real-time cell sorting with scalable in situ FPGA-accelerated deep learning",
+      "title_zh": "基于可扩展原位FPGA加速深度学习的实时细胞分选",
+      "authors": "Khayrul Islam; Ryan F. Forelli; Jianzhong Han; Deven Bhadane; Jian Huang; Joshua C. Agar; Nhan Tran; Seda Ogrenci; Yaling Liu",
+      "journal": "Digital Discovery",
+      "year": 2026,
+      "doi": "10.1039/D5DD00345H",
+      "pmid": null,
+      "pmcid": null,
+      "kind": "droplet_class",
+      "kind_zh": "液滴分类与分选（图像级）",
+      "notes": "FPGA实时深度学习细胞分选",
+      "verified": {
+        "crossref": {
+          "title": "Real-time cell sorting with scalable\n                    <i>in situ</i>\n                    FPGA-accelerated deep learning",
+          "journal": "Digital Discovery",
+          "year": null,
+          "authors": "Khayrul Islam; Ryan F. Forelli; Jianzhong Han; Deven Bhadane; Jian Huang; Joshua C. Agar; Nhan Tran; Seda Ogrenci; Yaling Liu"
+        },
+        "openalex": {
+          "title": "Real-time cell sorting with scalable in situ FPGA-accelerated deep learning",
+          "journal": "Digital Discovery",
+          "year": 2025,
+          "citations": 2,
+          "is_oa": true,
+          "oa_status": "diamond",
+          "oa_pdf": "https://pubs.rsc.org/en/content/articlepdf/2025/dd/d5dd00345h",
+          "oa_landing": "https://doi.org/10.1039/d5dd00345h"
+        }
+      }
+    },
+    {
+      "id": "17",
+      "title": "A Machine Learning-Driven Cyclic Optimizing Strategy for the Construction of Paper-Based Microfluidic Devices in the Early Diagnosis of Periodontitis",
+      "title_zh": "机器学习驱动的循环优化策略用于牙周炎早期诊断纸基微流控器件构建",
+      "authors": "Kangzheng Lv; Yuan Zhang; Ke Tang; Wei Huang; Feng Chen; Meihua Chen; Yan Wang; Juan Zhang",
+      "journal": "ACS Sensors",
+      "year": 2025,
+      "doi": "10.1021/acssensors.5c02031",
+      "pmid": "40934476",
+      "pmcid": null,
+      "kind": "diagnostics",
+      "kind_zh": "疾病诊断/POCT",
+      "notes": "纸基微流控+ML循环优化诊断牙周炎",
+      "verified": {
+        "crossref": {
+          "title": "A Machine Learning-Driven Cyclic Optimizing Strategy for the Construction of Paper-Based Microfluidic Devices in the Early Diagnosis of Periodontitis",
+          "journal": "ACS Sensors",
+          "year": null,
+          "authors": "Kangzheng Lv; Yuan Zhang; Ke Tang; Wei Huang; Feng Chen; Meihua Chen; Yan Wang; Juan Zhang"
+        },
+        "openalex": {
+          "title": "A Machine Learning-Driven Cyclic Optimizing Strategy for the Construction of Paper-Based Microfluidic Devices in the Early Diagnosis of Periodontitis",
+          "journal": "ACS Sensors",
+          "year": 2025,
+          "citations": 5,
+          "is_oa": false,
+          "oa_status": "closed",
+          "oa_pdf": "",
+          "oa_landing": ""
+        },
+        "europepmc": {
+          "title": "A Machine Learning-Driven Cyclic Optimizing Strategy for the Construction of Paper-Based Microfluidic Devices in the Early Diagnosis of Periodontitis.",
+          "journal": "ACS sensors",
+          "year": "2025",
+          "doi": "10.1021/acssensors.5c02031",
+          "pmid": "40934476",
+          "pmcid": null,
+          "fulltexts": [
+            "https://doi.org/10.1021/acssensors.5c02031"
+          ]
+        }
+      }
+    },
+    {
+      "id": "18",
+      "title": "Deep reinforcement learning-based digital twin for droplet microfluidics control",
+      "title_zh": "基于深度强化学习的液滴微流控数字孪生控制",
+      "authors": "Nafisat Gyimah; Ott Scheler; Toomas Rang; Tamás Pardy",
+      "journal": "Physics of Fluids",
+      "year": 2023,
+      "doi": "10.1063/5.0159981",
+      "pmid": null,
+      "pmcid": null,
+      "kind": "design_opt",
+      "kind_zh": "液滴/芯片设计与参数优化",
+      "notes": "DRL+数字孪生实现液滴生成自适应控制",
+      "verified": {
+        "crossref": {
+          "title": "Deep reinforcement learning-based digital twin for droplet microfluidics control",
+          "journal": "Physics of Fluids",
+          "year": null,
+          "authors": "Nafisat Gyimah; Ott Scheler; Toomas Rang; Tamás Pardy"
+        },
+        "openalex": {
+          "title": "Deep reinforcement learning-based digital twin for droplet microfluidics control",
+          "journal": "Physics of Fluids",
+          "year": 2023,
+          "citations": 10,
+          "is_oa": false,
+          "oa_status": "closed",
+          "oa_pdf": "",
+          "oa_landing": ""
+        }
+      }
+    },
+    {
+      "id": "19",
+      "title": "Advances in Integration, Wearable Applications, and Artificial Intelligence of Biomedical Microfluidics Systems",
+      "title_zh": "生物医学微流控系统的集成、可穿戴应用与人工智能进展",
+      "authors": "",
+      "journal": "Micromachines",
+      "year": 2023,
+      "doi": "10.3390/mi14050972",
+      "pmid": null,
+      "pmcid": "PMC10222806",
+      "kind": "review",
+      "kind_zh": "综述与范式分析",
+      "notes": "可穿戴/集成/AI 生物医学微流控综述",
+      "verified": {
+        "europepmc": {
+          "title": "Advances in Integration, Wearable Applications, and Artificial Intelligence of Biomedical Microfluidics Systems.",
+          "journal": "Micromachines",
+          "year": "2023",
+          "doi": "10.3390/mi14050972",
+          "pmid": "37241596",
+          "pmcid": "PMC10222806",
+          "fulltexts": [
+            "https://www.mdpi.com/2072-666X/14/5/972/pdf?version=1683594571",
+            "https://doi.org/10.3390/mi14050972",
+            "https://europepmc.org/articles/PMC10222806",
+            "https://europepmc.org/articles/PMC10222806?pdf=render"
+          ]
+        }
+      }
+    },
+    {
+      "id": "20",
+      "title": "Machine Learning-Driven Capillary Microfluidic Design Automation for Programmable Gradient Generation and Antimicrobial Testing",
+      "title_zh": "机器学习驱动的毛细管微流控设计自动化实现可编程梯度生成与抗菌测试",
+      "authors": "Mahmood Khalghollah; Azam Zare; Sorosh Abdollahi; Behrouz H. Far; Amir Sanati Nezhad",
+      "journal": "Small",
+      "year": 2025,
+      "doi": "10.1002/smll.73821",
+      "pmid": null,
+      "pmcid": null,
+      "kind": "design_opt",
+      "kind_zh": "液滴/芯片设计与参数优化",
+      "notes": "ML自动设计毛细管微流控梯度生成器",
+      "verified": {
+        "crossref": {
+          "title": "Machine Learning‐Driven Capillary Microfluidic Design Automation for Programmable Gradient Generation and Antimicrobial Testing",
+          "journal": "Small",
+          "year": null,
+          "authors": "Mahmood Khalghollah; Azam Zare; Sorosh Abdollahi; Behrouz H. Far; Amir Sanati Nezhad"
+        },
+        "openalex": {
+          "title": "Machine Learning‐Driven Capillary Microfluidic Design Automation for Programmable Gradient Generation and Antimicrobial Testing",
+          "journal": "Small",
+          "year": 2026,
+          "citations": 0,
+          "is_oa": true,
+          "oa_status": "hybrid",
+          "oa_pdf": "",
+          "oa_landing": "https://doi.org/10.1002/smll.73821"
+        }
+      }
+    },
+    {
+      "id": "21",
+      "title": "AlphaFlow: autonomous discovery and optimization of multi-step chemistry using a self-driven fluidic lab guided by reinforcement learning",
+      "title_zh": "AlphaFlow：强化学习引导的自驱动流体实验室实现多步化学自主发现与优化",
+      "authors": "Amanda A. Volk; Robert W. Epps; Daniel T. Yonemoto; Benjamin S. Masters; Felix N. Castellano; Kristofer G. Reyes; Milad Abolhasani",
+      "journal": "Nature Communications",
+      "year": 2023,
+      "doi": "10.1038/s41467-023-37139-y",
+      "pmid": null,
+      "pmcid": null,
+      "kind": "synthesis",
+      "kind_zh": "材料合成与参数优化",
+      "notes": "自驱动流体实验室+强化学习多步化学优化",
+      "verified": {
+        "crossref": {
+          "title": "AlphaFlow: autonomous discovery and optimization of multi-step chemistry using a self-driven fluidic lab guided by reinforcement learning",
+          "journal": "Nature Communications",
+          "year": null,
+          "authors": "Amanda A. Volk; Robert W. Epps; Daniel T. Yonemoto; Benjamin S. Masters; Felix N. Castellano; Kristofer G. Reyes; Milad Abolhasani"
+        },
+        "openalex": {
+          "title": "AlphaFlow: autonomous discovery and optimization of multi-step chemistry using a self-driven fluidic lab guided by reinforcement learning",
+          "journal": "Nature Communications",
+          "year": 2023,
+          "citations": 205,
+          "is_oa": true,
+          "oa_status": "gold",
+          "oa_pdf": "",
+          "oa_landing": "https://doi.org/10.1038/s41467-023-37139-y"
+        }
+      }
+    }
+  ]
+}

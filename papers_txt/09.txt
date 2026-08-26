@@ -1,0 +1,783 @@
+===PAGE 1===
+Machine Learning-Assisted Microﬂuidic Synthesis of
+Perovskite Quantum Dots
+Gaoyu Chen, Xia Zhu, Chenyu Xing, Yongkai Wang, Xiangxing Xu,* Jianchun Bao,
+Jinghan Huang, Yurong Zhao, Xuan Wang, Xiuqing Zhou,* Xiuli Du, and Xun Wang*
+1. Introduction
+All-inorganic
+perovskite
+quantum
+dots
+(PQDs),
+typically
+CsPbX3(X ¼ Cl/Br/I)
+PQDs,
+have
+shown
+great
+application
+potentials in solar cells,[1–3] lasers,[4,5] displays,[6,7] computing,[8,9]
+catalysis[10–13] and detectors,[14–18] etc. To date, wet-chemical
+strategies of hot injection,[19,20] room-temperature reaction,[21]
+solvothermal,[22]
+microwave,[23]
+ion
+exchange,[24] ultrasonic,[25] and microﬂui-
+dic[26,27] methods have been developed to
+prepare PQDs. PQDs with controllable
+photoluminescence (PL) wavelength can be
+synthesized, due to the adjustable bandgap
+from
+quantum
+conﬁnement
+effect,
+tailorable component, and high defect
+tolerance.[28–35] In the effort to achieve tun-
+able optical and electrical properties, the
+synthesis methods and reaction parameters
+such as precursors, reagent ratios, temper-
+ature, reaction time, and solution system
+need to be properly selected and precisely
+controlled. The critical issue that we must
+confront is how to ﬁnd the optimal param-
+eters in the large parameter space contain-
+ing many continuous and discrete variables.
+To overcome this challenge, basically there are two routes. From
+the hardware end is to enhance the experimental efﬁciency (e.g.,
+high throughput) and robustness of the method. From the
+software end is to develop an artiﬁcial intelligence (AI) system
+to predict the product properties by the reaction parameters or
+vice versa. Obviously, a combination of these two strategies would
+boost scientiﬁc research and application pace of the PQDs.
+The thermal injection route to synthesize PQDs is the most
+commonly used method. However, the batch differences and
+low throughput hinder the large-scale production and optimi-
+zation of the synthesis.[26] In recent years, microﬂuidic technol-
+ogy has been rapidly promoted in new quantum dots
+discovering and mass production.[36–40] The change of reaction
+parameters can be controlled rapidly with good reproducibility.
+Due to the limitation of the reaction space, the rapid heat trans-
+fer can be realized, which is beneﬁcial toward high-quality
+PQDs.[41] Owing to the automatic synthesis procedure, the
+uncontrollable human operation factors are largely avoided.
+Also, the higher throughput and efﬁciency make it possible
+to reveal continuous inline big data collection for optimiza-
+tion.[42] During the last 60 years, the AI have been applied to
+chemistry in many subﬁelds.[43] It liberates researchers from
+laboring analysis of large amount of data with complicated
+relationships, which is one of the major characters in synthetic
+chemistry due to the complexity of kinetics and dynamics in
+chemical systems.[44] As one of the powerful branches of
+AI, machine learning (ML) has shown great potential for
+chemical science. Speciﬁcally, ML has been applied to investi-
+gate the stability,[45–48] bandgap,[49–51] Curie temperature,[52]
+power conversion efﬁciency,[53] microstructures,[54] shape,
+G. Chen, X. Zhu, C. Xing, Y. Wang, X. Xu, J. Bao
+Jiangsu Key Laboratory of Biofunctional Materials School of Chemistry and
+Materials Science
+Nanjing Normal University
+Nanjing 210046, P. R. China
+E-mail: xuxx@njnu.edu.cn
+J. Huang, Y. Zhao, X. Wang, X. Zhou, X. Du
+School of Mathematical Sciences
+Nanjing Normal University
+Nanjing 210046, P. R. China
+E-mail: zhouxiuqing@njnu.edu.cn
+X. Wang
+Key Lab of Organic Optoelectronics and Molecular Engineering
+Department of Chemistry
+Tsinghua University
+Beijing 100084, P. R. China
+E-mail: wangxun@mail.tsinghua.edu.cn
+The ORCID identiﬁcation number(s) for the author(s) of this article
+can be found under https://doi.org/10.1002/adpr.202200230.
+© 2022 The Authors. Advanced Photonics Research published by Wiley-
+VCH GmbH. This is an open access article under the terms of the Creative
+Commons Attribution License, which permits use, distribution and
+reproduction in any medium, provided the original work is properly cited.
+DOI: 10.1002/adpr.202200230
+The quality and property control of nanomaterials are center themes to guarantee
+and promote their applications. Different synthesis methods and reaction
+parameters are control factors for their properties. However, the vast combination
+number of the factors with multilevels leads to the obstacle that trying all-through
+the data space is nearly impossible. Herein, the combination of microﬂuidic
+synthesis method with machine learning (ML) models to address this challenge in
+case of perovskite quantum dots (PQDs) with tunable photoluminescence (PL) is
+reported. The ML-assisted synthesis not only helps to elucidate the nucleation
+growth-ripening mechanisms, but also successfully guides to synthesize PQDs
+with precise wavelength and full width of half maximum (FWHM) of the PL by
+optimizable conditions to match the time-saving, energy-saving, and minimal
+environmental pressure goals.
+RESEARCH ARTICLE
+www.adpr-journal.com
+Adv. Photonics Res. 2022, 2200230
+2200230 (1 of 9)
+© 2022 The Authors. Advanced Photonics Research published by Wiley-VCH GmbH
+
+===PAGE 2===
+and morphology[55,56] of bulk or nanoperovskite crystals. In 2018,
+Bezinge et al. reported the integration of a high-throughput
+segmented-ﬂow
+microﬂuidic
+reactor
+and
+an
+in-line
+self-
+optimizing algorithm for the synthesis of perovskite nanocrystals
+with deﬁned emission properties.[57] In 2020, Epps et al presented
+the integration of ML-based experiment with high-efﬁciency
+autonomous ﬂow chemistry. Made-to-measure inorganic PQDs
+were synthesized in ﬂow by a postsynthesis ion-exchange route,
+with the target bandgaps of 1.9–2.9 eV simultaneously tuned.[58]
+In both reports, the independent variables are reagent concentra-
+tion and halide ratio.
+Herein, we developed an ML system guiding the synthesis
+of PQDs by microﬂuidic method. The objective functions stud-
+ied here are the wavelength and full width of half maximum
+(FWHM) of the PL spectrum. In addition to the Pb:Cs molar
+ratio and reaction halogen ratio, reaction temperature and ﬂow
+rate (equivalent to the reaction time, for the reaction channel
+length was ﬁxed) were also selected as independent variables,
+which is advantageous for the tuning of PQD size and size dis-
+tribution with more degrees of freedom. A total of 470 micro-
+ﬂuidic synthesis data sets of CsPbX3(X ¼ Cl/Br/I) PQDs,
+together with the corresponding PL, were collected for build-
+ing ML models. The PL data were off-line measured (in 4 h)
+by a spectrometer. Before the PL measurement, the PQDs
+were separated from the reaction solution by centrifugation
+and redispersed in cyclohexane to form a colloidal solution.
+It is closer to application than the solely inline measurement,
+for the PQDs must be puriﬁed from the reagents and byprod-
+ucts for ﬁnal use. The chemical conditions including the ion
+type and concentration, ligands, and else impurities would
+affect the PL properties. The PL properties of PQDs in the
+synthesis solution may deviate a lot from puriﬁed PQDs.
+With the trained ML system, the PL wavelength (bandgaps
+of 1.8–3.1 eV) and FWHM were predicted by traversing the
+synthesis parameter space. The ML results elucidated synthe-
+sis mechanisms and showed satisfactory prediction accuracy,
+facilitating the synthesis optimization with high efﬁciency.
+Speciﬁcally, reaction parameter optimization can be achieved
+with different restrictions in addition to wavelength and
+FWHM, for example, to synthesize PQDs with certain PL in
+the shortest time, at lowest temperature, or using minimal lead
+to alleviate environmental pressure. The schematic illustration
+of the AI-assisted microﬂuidic PQD synthesis system is shown
+in Figure 1.
+2. Results and Discussion
+2.1. Microﬂuidic Synthesis of PQDs
+The size, morphology, and PL spectrum of microﬂuidic
+synthesized CsPbX3(X ¼ Cl/Br/I) PQDs can be tuned by the
+reaction temperature, ratio of precursors, microchannel diame-
+ter, and ﬂow rate. Typical transmission electron microscopy
+(TEM) images of these PQDs are shown in Figure 2. Some
+PL FWHM–wavelength–temperature curves are plotted in
+Figure 3. The PL wavelength is highly correlated to the bandgap,
+which is controlled not only by the size/morphology according to
+quantum conﬁnement effect, but also by the components such as
+the ratio of halides. The PL FWHM is sensitive to the component
+and size/morphology distribution. The PL properties are formed
+and changed during the PQD nucleation, growth, and ripening
+processes. These processes are principally kinetic controlled in
+most cases. They are often very complicated, partially because
+the reaction mechanism can hardly be described thoroughly,
+for example, many incompletely known intermediate products
+such as monomers/oligomers/byproducts of different species
+and conﬁgurations that could be involved, matter transfer issues
+of diffusion-thermal/forced convection, catalytic effects, surface
+reconstruction and self-assembly process, etc. The complicated
+relationships between the wavelength, FWHM, and reaction
+parameters (Figure 3g) suggest a highly nonlinear kinetic reac-
+tion system far from thermodynamic equilibrium. Therefore,
+using traditional simple models with clear physical–chemical
+pictures is largely restricted. The machine learning could be a
+better choice.
+One-phase ﬂow microﬂuidic synthesis was adopted in this
+study. Commonly, a two-phase ﬂow microﬂuidic synthesis uses
+an additional immiscible ﬂuid/gas, which would eradicate foul-
+ing of the channel wall and reduce the affect of the residence
+time distributions caused by the velocity proﬁle in the cross
+section of the channel. However, the phase mode seems not a
+critical factor here. First, the reaction channel here is the poly-
+tetra ﬂuoroethylene capillaries, where the inner wall remains
+uncontaminated for this reaction system. Second, narrow size
+distribution of the PQDs could also be achieved despite the veloc-
+ity proﬁle. In addition, one-phase ﬂow provides synthetic ﬂexibil-
+ity and can withstand high ﬂow rates; More importantly, it allows
+the introducing of additional reagents into multistep reactions
+and facilitates the formation of more complex structures.[59–63]
+The precursor was freshly mixed for the following microﬂuidic
+Figure 1. Schematic illustration of the AI-assisted microﬂuidic PQDs synthesis system.
+www.advancedsciencenews.com
+www.adpr-journal.com
+Adv. Photonics Res. 2022, 2200230
+2200230 (2 of 9)
+© 2022 The Authors. Advanced Photonics Research published by Wiley-VCH GmbH
+
+===PAGE 3===
+reaction and completed in 1 h for each syringe. In this time
+range, the aging effect under room temperature is considered.
+It shouldn’t be overlooked in cases of longer reaction time.
+We previously reported the room-temperature synthesis of perov-
+skite nanowires in a similar solution system. It takes over 2 h for
+the formation of nanowires.[14] The aging concern can be
+addressed thoroughly using advanced mixing structures and
+techniques, where the mixing of the precursors with relatively
+high viscosity would be achieved in millisecond scale.[64–67] It
+also should be mentioned that the PL spectra data used for
+analysis were measured ofﬂine from the puriﬁed (centrifuged
+and
+redispersed
+in
+cyclohexane)
+PQDs.
+They
+are
+quite
+different from the in situ-measured PL spectra of the reaction
+solution.
+The
+puriﬁed
+PQDs
+of
+CsPbCl3,
+CsPbCl3Br1.5,
+CsPbBr3, CsPbBr3I1.5, and CsPbI3 show shorter PL peak
+wavelength and narrower FWHM (Figure S1, Supporting
+Information), possibly due to the complexity of the solution
+environments and aggregation states of the PQDs. Unlike the
+puriﬁed PQDs, the unpuriﬁed PQDs can’t be used directly in
+most cases. So the PL spectra from puriﬁed PQDs were used
+for the following ML study.
+2.2. Building the ML Models
+First, 470 experimental sets of different reaction parameters were
+conducted by microﬂuidic synthesis. The original data with dif-
+ferent dimensions is transformed into a similar value range, for
+example, the temperature value (°C) is divided by 100. The con-
+dition bounds are ﬂow rate of 0.05–1.2 mL min1, temperature of
+Figure 2. TEM images of microﬂuidic synthesized CsPbX3(X ¼ Cl/Br/I) PQDs. a1–a6) Br-φ0.5-R4-280 °C: CsPbBr3 PQDs synthesized at 280 °C with the
+microﬂuidic channel diameter of 0.5 mm, Pb:Cs ¼ 4:1, ﬂow rate v ¼ 0.6, 0.48, 0.36, 0.24, 0.12, 0.06 mL min1 from (a1) to (a6), respectively.
+b1–b6) Br-φ0.5-v0.12-R4: CsPbBr3 PQDs synthesized with φ ¼ 0.5 mm, v ¼ 0.12 mL min1, temperature of 230, 240, 250, 260, 270, 280 °C from
+(b1) to (b6), respectively. c1–c6) Br-φ1.0-v0.12-R4: the same with (b1)–(b6) except φ ¼ 1.0 mm. d1–d6) Cl-φ1.0-v0.12-R4: CsPbCl3 PQDs and
+e1–e6) I-φ1.0-v0.12-R4: CsPbI3 PQDs synthesized in the same condition as (b1)–(b6). (Scale bar: 100 nm).
+www.advancedsciencenews.com
+www.adpr-journal.com
+Adv. Photonics Res. 2022, 2200230
+2200230 (3 of 9)
+© 2022 The Authors. Advanced Photonics Research published by Wiley-VCH GmbH
+
+===PAGE 4===
+240–320 °C, halide ratio of 0–3 (total Cl, Br, and I in each
+synthesis has a ﬁxed value of 3), and Pb:Cs ratio of 1.5–8. The
+microﬂuidic channel diameter of 0.5 mm was selected for study.
+The ML modeling is run by Jupyter Notebook in Anaconda3
+(Python). Libraries of Pandas and NumPy are used to import
+and transform experiment data; Scikit-learn is used to build,
+train, and select ML models; Matplotlib is used to visualize
+results. Eight candidate models are used to perform regression
+analysis on PL wavelength and FWHM. They are “gradient
+boosting” (GB), “random forest” (RF), “multiple linear regres-
+sion” (MLR), “polynomial regression” (PR), “support vector
+regression with a linear kernel” (SVR.L), “support vector regres-
+sion with a polynomial kernel” (SVR.P), “support vector regres-
+sion with a radial basis function kernel” (SVR.R), and “k-nearest
+neighbors” (kNN). The data are randomly divided with 60% for
+training, 20% for validation, and 20% for test. The training sets
+are used to build the models. The validation sets are used to
+adjust the models. Through the comparison the performance
+of “coefﬁcient of determination” (R2), “mean squared error”
+(MSE), “root mean squared error” (RMSE), and “mean absolute
+error” (MAE) as the evaluation indexes of regression models,
+RMSE is selected. After multiple iterations, the model parame-
+ters that ﬁnally make the convergent RMSE are used. Through
+evaluating the performance of the models by RMSE of the test
+sets (Table S1, Supporting Information, Figure 2 and 3), it shows
+that the RMSE of GB and RF models have better prediction per-
+formance for wavelength and FWHM, respectively.
+2.3. ML-Assisted Synthesis Optimization
+2.3.1. Pearson Correlation Coefﬁcient: Advantages and
+Disadvantages
+The Pearson correlation coefﬁcient (Equation S(5), Supporting
+Information) is calculated based on the 470 experimental data
+sets, shown as heat map in Figure 4a. The histogram of the inﬂu-
+ence factors to PL wavelength and FWHM is drawn in Figure 4b.
+The histogram value is deﬁned as the absolute value of the
+correlation coefﬁcient. It can be seen in the heat map that the
+PL wavelength and FWHM is highly related: the longer
+the PL wavelength, the bigger the FWHM value. It indicates that
+the halogen ions have the greatest inﬂuence on both PL
+Figure 3. a–f) The absorption and PL spectra of microﬂuidic synthesized CsPbX3(X ¼ Cl/Br/I) PQDs. g) The PL FWHM–wavelength–temperature curves
+of the PQDs.
+www.advancedsciencenews.com
+www.adpr-journal.com
+Adv. Photonics Res. 2022, 2200230
+2200230 (4 of 9)
+© 2022 The Authors. Advanced Photonics Research published by Wiley-VCH GmbH
+
+===PAGE 5===
+wavelength and FWHM. They increase with the increase of
+iodide ratio and decrease with the increase of chloride ratio.
+This
+is
+mainly
+due
+to
+the
+energy
+band
+structure
+of
+CsPbX3(X ¼ Cl/Br/I). The correlation coefﬁcient of temperature
+to PL wavelength is positive, while the ﬂow rate to PL wavelength
+is negative; the temperature to FWHM is negative, while the ﬂow
+rate to FWHM is positive. Both the temperature and ﬂow rate
+have greater effects on FWHM than on PL wavelength. These
+features can be explained by the facts that the nucleation stage
+of PQDs could be completed in a period as short as 1–3 s.[19]
+Therefore, the nucleation, growth, and ripening stages of the
+PQDs would be overlapped during the microﬂuidic synthesis.
+The lower the ﬂow rate, the longer reaction time it takes, the big-
+ger the PQDs growth, and the longer the PL wavelength accord-
+ing to the quantum conﬁnement effect; meanwhile, more time
+can be allocated to the ripening of PQDs, leading to size focusing
+which induces narrowing of FWHM and vice versa. The higher
+the temperature, the higher the PQD growth rate could be, result-
+ing in longer PL wavelength; again, ripening leads to smaller
+FWHM. Comparatively, the ﬂow rate has bigger inﬂuence on
+FWHM than on PL wavelength.
+Although the heat map of Pearson correlation coefﬁcient
+and the according histogram give guidelines in searching for
+synthesis parameters, it is deﬁcient for precise prediction. It
+can point out a synthesis direction roughly for a target
+FWHM–wavelength, but cannot give any speciﬁc preparation
+parameters. For example, to synthesis PQDs with a given PL
+wavelength and narrow FWHM, it suggests to select the proper
+halogen ratio ﬁrst and conduct the reaction under relatively high
+temperature and low ﬂow rate. However, in relatively low tem-
+perature or high ﬂow rate, the same result could also be achieved
+practically, due to the complex synthesis mechanisms. With the
+aid of ML algorithms, these deﬁciencies can be overcome based
+on the prediction maps, which are discussed in the following
+paragraphs.
+2.3.2. ML-Assisted Insight Study of Nucleation Growth Ripening
+Mechanisms
+One of the major advantages of the trained ML models is that
+they can generate prediction data from the whole synthesis data
+space. As shown in Figure 4d, over 182 000 sets of synthesis con-
+dition data sets are subjected to the FWHM–wavelength predic-
+tion. This number can be readily multiplicated simply by
+reducing the minimal steps between data sets. This big data pool
+makes it possible to extract rules by studying the conditional
+mapping of predicted FWHM–wavelength, elucidating how
+the nucleation growth ripening mechanisms take effect.
+The ﬂow rate conditional prediction map (Figure 5a) and the
+temperature conditional prediction map (Figure 5b) of the
+FWHM–wavelength indicate that higher ﬂow rate or lower tem-
+perature result in higher FWHM values, respectively. These
+observations
+are
+consistent
+with
+the
+Pearson
+correlation
+Figure 4. a) Heat map of Pearson correlation coefﬁcient. b) The histogram of the correlation coefﬁcient. c) The FWHM–wavelength map of the 470
+training data. d) The FWHM–wavelength map of predicted data.
+www.advancedsciencenews.com
+www.adpr-journal.com
+Adv. Photonics Res. 2022, 2200230
+2200230 (5 of 9)
+© 2022 The Authors. Advanced Photonics Research published by Wiley-VCH GmbH
+
+===PAGE 6===
+coefﬁcient analysis, thus further supporting the suggested nucle-
+ation growth ripening mechanisms. The conditional prediction
+maps of ﬂow rate/temperature/Pb:Cs to FWHM–wavelength
+show obvious intuitive boundary features, presented by the col-
+ored plots in Figure 5a–d. The Pearson correlation coefﬁcient of
+Pb:Cs to FWHM is very small (0.035), suggesting nearly no
+Figure 5. a) Flow rate conditional prediction map. b) Temperature conditional prediction map. c) Pb:Cs ratio conditional prediction map. d) Halide
+reaction ratio (Cl, Cl:Br, Br, Br:I, I) conditional prediction map. e) Predicted data density map. f) Selected data points for testing: A1 and A2 in g), B1, B2
+and B3 in h), C1, C2 and C3 in i). j–l) Optimized synthesis of PQDs with high ﬂow rate, low temperature, and low lead conditions.
+www.advancedsciencenews.com
+www.adpr-journal.com
+Adv. Photonics Res. 2022, 2200230
+2200230 (6 of 9)
+© 2022 The Authors. Advanced Photonics Research published by Wiley-VCH GmbH
+
+===PAGE 7===
+correlation between them. The Pb:Cs ratio conditional prediction
+map (Figure 5c) gives a closer survey on this issue. It does show
+nearly no relationship of the FWHM and Pb:Cs ratio with the
+value ≤6:1; while at high Pb:Cs ratio of 8:1, it exhibits obvious
+narrowing to the lower FWHM part at the wavelength >500 nm
+region. It suggests that higher Pb:Cs ratio up to 8:1 would help in
+synthesizing narrow size distributed PQDs containing iodide. As
+a whole, the FWHM–wavelength distribution is triangular or
+horn shape like, going wider in the high-value side. The origina-
+tion of this feature can be found in the boundary mode in
+halide (Cl, Cl:Br, Br, Br:I, I) ratio conditional prediction map
+(Figure 5d), which is quite different from that of the former three
+(Figure 5a–c). Further, tactical use of the FWHM–wavelength
+prediction map may even discover some possible hidden mech-
+anisms. When plotted the 2D kernel density map of the predicted
+FWHM–wavelength data, clustering features can be found. It
+means the predicted FWHM–wavelength data undergo aggrega-
+tion to some speciﬁc area, as pointed by the arrows in Figure 5e.
+It is interesting because the reaction condition data for the pre-
+diction is generally evenly distributed. The clustering shapes and
+their orientation features are consistent with the mode of halide
+ratio conditional prediction map. It strongly suggests that some
+species of the PQDs with particular halide ratio may form pref-
+erentially, regardless of the perturbation of the reaction halide
+ratio. These species are more stable than those with other halide
+ratios, dominating during the thermodynamic and/or kinetic
+nucleation growth ripening process. This mechanism can hardly
+be recognized in sparsely distributed training data map or
+obtained from the Pearson correlation coefﬁcient analysis.
+Thus, it further proved the superiority of using ML tools in study-
+ing synthesis mechanisms of PQDs.
+2.3.3. ML-Assisted Synthesis by the Prediction Map
+Using the FWHM–wavelength prediction map, synthesis of PQDs
+with well-designed PL spectrum by optimized reaction conditions
+can be achieved. An example is that it can help to synthesize PQDs
+with different FWHM at a given wavelength. As shown in
+Figure 5f, the green squares marked A1 and A2 are predicted
+points with PL wavelength of 405  0.5 nm and FWHM of 12.4
+and 17.3 nm, respectively. The green squares marked B1, B2,
+and
+B3
+are
+predicted
+points
+with
+PL
+wavelength
+of
+500  0.5 nm and FWHM of 16.0, 23.4, and 31.8 nm, respectively.
+Using the predicted synthesis parameters at A1 (Cl2.8Br0.2-φ0.5-
+v0.5-R7.5-285 °C) and A2 (Cl2.6Br0.4-φ0.5-v0.8-R4-260 °C), the
+experimental tests prove the good accuracy of both FWHMs
+and
+wavelength
+predictions:
+wavelength
+of
+405.8 nm
+and
+FWHM of 11.2 nm for A1 and wavelength of 404.6 nm and
+FWHM of 16.4 nm for A2 (Figure 5g). Using the predicted syn-
+thesis parameters at B1 (Cl0.5Br2.5-φ0.5-v0.4-R3-295 °C), B2
+(Br2.3I0.7-φ0.5-v0.3-R7-240 °C), and B3 (Br2.1I0.9-φ0.5-v0.8-R6-
+240 °C), satisfactory accuracy is achieved by experimental tests
+(Figure 5h). Similarly, synthesis parameters can be predicted
+for different wavelengths with a given FWHM. For example, to
+synthesize PQDs with FWHM of 28.0 nm, the wavelength can
+be tuned as 490 nm (Br2.34I0.66-φ0.5-v0.8-R4-245 °C), 520 nm
+(Br2.3I0.7-φ0.5-v0.1-R2-240 °C),
+550 nm
+(Br1.8I1.2-φ0.5-v0.2-
+R6.5-270 °C), 580 nm (Br1.6I1.4-φ0.5-v0.8-R7.5-290 °C), 610 nm
+(Br1.4I1.6-φ0.5-v0.3-R3.5-300 °C), and 640 nm (Br1I2-φ0.5-v0.4-
+R1.5-290 °C). The mass data of the prediction map ﬁll the gaps
+of the training data, typically the circled areas in Figure 5f.
+Three points of C1 (Br1.9I1.1--v1.1-R4-255 °C), C2 (Br1.3I1.7-
+φ0.5-v0.7-R5.5-250 °C), and C3 (Br0.3I2.7-φ0.5-v1-R4.5-250 °C)
+are selected for testing the validity of the prediction in these areas.
+All of them yield good accuracy, as shown in Figure 5i. The pre-
+diction map can also give various reaction parameters leading to a
+same FWHM–wavelength point. It provides a practical solution for
+the synthesis optimization. Some examples are shown in
+Figure 5j–l. Typically, to synthesize PQDs with wavelength
+of
+564–565 nm
+and
+FWHM
+of
+24–25 nm,
+a
+time-saving
+reaction (high ﬂow rate) is Br1.8I1.2-φ0.5-v1.0-R2-310 °C; a
+low-temperature route is Br1.3I1.7-φ0.5-v0.2-R8-240 °C; a low lead
+using strategy (low Pb:Cs ratio) is Br2.0I1.0-φ0.5-v0.1-R1.5-305 °C.
+3. Conclusion
+In summary, ML algorithms were developed to assist the micro-
+ﬂuidic synthesis of PQDs. The ML models show excellent ability
+in visualizing of how the synthesis parameter controlled nucle-
+ation growth ripening mechanisms of PQDs in the conditional
+prediction maps. They exhibit powerful prediction ability in
+searching for proper/optimized reaction conditions that synthe-
+size PQDs with required FWHM–wavelengths. They are ready to
+be extended to the prediction of more properties such as size dis-
+tribution and PL quantum yields etc. The ML model could also be
+adapted to nanomaterials beyond PQDs, facilitating 1) the design
+and discovery of new nanomaterials; 2) understanding the syn-
+thesis mechanisms; 3) online quality control; 4) property optimi-
+zations; and 5) synthesis optimization for time saving, reagent
+saving, energy saving, and environmental-friendly purposes,
+thus accelerating the process of research and promoting the
+industrialization of functional nanomaterials.
+4. Experimental Section
+Materials: Cesium carbonate (Cs2CO3, 99%), lead chloride (PbCl2,
+99%), lead bromide (PbBr2, 99%), lead iodide (PbI2, 98%), oleylamine
+(OLA,
+90%),
+and
+1-octadecene
+(ODE,
+90%)
+were
+purchased
+from Aladdin. The oleic acid (OA, 90%) was purchased from Alfa
+Aesar. Cyclohexane (C6H12, 99.9%) was bought from Sinopharm
+Chemical Reagent Co., Ltd. All the chemicals were used without further
+puriﬁcation.
+Synthesis of CsPbX3 QDs: The CsPbX3(X ¼ Cl/Br/I) QDs were microﬂui-
+dic synthesized. The microﬂuidic channels were poly tetra ﬂuoroethylene
+(PTFE)
+capillaries
+passing
+through
+an
+aluminum
+heating
+block.
+Temperature sensors were ﬁxed inside the heating block to control the
+reaction temperature. Typically, the inner diameter (φ) and length of
+microﬂuidic channel were 0.5 mm (abbreviated as φ0.5) and 150 mm,
+respectively. Cs2CO3 (0.5 mmol) was dissolved in the mixture of 13 mL
+ODE and 4 mL OA under vacuum at 120 °C for 30 min to form a clear
+and transparent solution. It was then cooled to room temperature under
+Ar ﬂow. PbX2 (0.376 mmol) was added into a mixed solution of 10.3 mL
+ODE, 0.7 mL OA, and 1 mL OLA. The temperature was raised to 120 °C
+under vacuum and maintained for 30 min. Then it was cooled to room
+temperature with the same conditions. It needs 1 h or longer time in dis-
+solving PbCl2. The PbX2 precursor could be composed of pure PbCl2,
+PbBr2, PbI2, or mixture of PbCl2–PbBr2 or PbBr2–PbI2. The ratio of
+PbCl2:PbBr2 or PbBr2:PbI2, for example, 2.3:0.7, was abbreviated as
+Cl2.3Br0.7 or Br2.3I0.7, respectively. The reaction precursor was prepared
+www.advancedsciencenews.com
+www.adpr-journal.com
+Adv. Photonics Res. 2022, 2200230
+2200230 (7 of 9)
+© 2022 The Authors. Advanced Photonics Research published by Wiley-VCH GmbH
+
+===PAGE 8===
+by adding 1.6 mL Cs-OA to the PbX2 precursor (Pb:Cs ¼ 4:1, abbreviated
+as R4). After stirring for 2 min, the solution was drawn with a syringe and
+mounted on the microﬂuidic reaction system. The temperature ﬂuctuation
+of the microﬂuidic synthesis was controlled in 1 °C and ﬂow rate was
+generated by a program-controlled syringe pump with step of 0.87 μL
+for a 10 mL syringe. Under certain reaction temperature and ﬂow rate
+(v), for example, 280 °C and 0.4 mL min1 (abbreviated as v0.4), the
+PQDs were synthesized and collected by centrifugation at 12 000 rpm
+for 3 min. Cyclohexane was added to disperse the PQDs with the precip-
+itates from 4,000 rpm centrifugation discarded. The PQD cyclohexane
+colloidal solutions were characterized by the PL spectrometer in 4 h
+and stored in 4 °C for further use.
+Characterizations: The TEM images were measured by JEM-20CX, with
+accelerating voltage of 80 kV. The photoluminescence spectra were
+recorded by Hitachi F-7100.
+Supporting Information
+Supporting Information is available from the Wiley Online Library or from
+the author.
+Acknowledgements
+This work was supported by National Key R&D Program of China
+(2017YFA0700101), the National Natural Science Foundation of China
+(NSFC) No. 22035004, 21871143, 22175095, 22075147.
+Conﬂict of Interest
+The authors declare no conﬂict of interest.
+Data Availability Statement
+The data that support the ﬁndings of this study are available from the
+corresponding author upon reasonable request.
+Keywords
+machine learning, microﬂuidic syntheses, perovskites, photoluminescence,
+quantum dots
+Received: September 14, 2022
+Revised: October 8, 2022
+Published online:
+[1] J. Y. Kim, J.-W. Lee, H. S. Jung, H. Shin, N. G. Park, Chem. Rev. 2020,
+120, 7867.
+[2] P.-Y. Lin, A. Loganathan, I. Raifuku, M.-H. Li, Y.-Y. Chiu, S.-T. Chang,
+A. Fakharuddin, C.-F. Lin, T.-F. Guo, L. Schmidt-Mende, P. Chen, Adv.
+Energy Mater. 2021, 11, 2100818.
+[3] X. M. Li, K. L. Wang, F. Lgbari, C. Dong, W. F. Yang, C. Ma, H. Ma,
+Z.-K. Wang, L.-S. Liao, Nano Res. 2020, 13, 2203.
+[4] C. Zhou, J. Yu, H. X. Dong, F. L. Yuan, X. P. Zheng, M. M. Jiang,
+L. Zhang, J. Mater. Chem. C 2020, 8, 13642.
+[5] C.-Y. Huang, C. Zou, C. Y. Mao, K. L. Corp, Y.-C. Yao, Y.-J. Lee,
+C. W. Schlenker, A. K. Y. Jen, L. Y. Lin, ACS Photonics 2017, 4, 2281.
+[6] J. Z. Song, J. H. Li, X. M. Li, L. M. Xu, Y. H. Dong, H. B. Zeng, Adv.
+Mater. 2015, 27, 7162.
+[7] J. W. Chen, J. Wang, X. B. Xu, J. H. Li, J. Z. Song, S. Lan, S. N. Liu,
+B. Cai, B. N. Han, J. T. Precht, D. Ginger, H. B. Zeng, Nat. Photon.
+2021, 15, 238.
+[8] F. M. Ma, Y. B. Zhu, Z. W. Xu, Y. Liu, X. J. Zheng, S. M. Ju, Q. Q. Li,
+Z. Q. Ni, H. L. Hu, Y. Chai, C. X. Wu, T. W. Kim, F. S. Li, Adv. Funct.
+Mater. 2020, 30, 1908901.
+[9] Y. Wang, Z. Y. Lv, J. Chen, Z. P. Wang, Y. Zhou, L. Zhou, X. L. Chen,
+S.-T. Han, Adv. Mater. 2018, 30, 1802883.
+[10] L.-Y. Wu, Y.-F. Mu, X.-X. Guo, W. Zhang, Z.-M. Zhang, M. Zhang,
+T.-B. Lu, Angew. Chem., Int. Ed. 2019, 58, 9491.
+[11] P. F. Chen, W.-J. Ong, Z. H. Shi, X. J. Zhao, N. Li, Adv. Funct. Mater.
+2020, 30, 1909667.
+[12] J. G. Hou, S. Y. Cao, Y. Z. Wu, Z. M. Gao, F. Liang, Y. Q. Sun, Z. S. Lin,
+L. C. Sun, Chem. Eur. J. 2017, 23, 9481.
+[13] H. Chen, H. Wang, J. Wu, F. Wang, T. Zhang, Y. F. Wang, D. T. Liu,
+S. B. Li, R. V. Penty, L. H. White, Nano Res. 2020, 13, 1997.
+[14] X. X. Sheng, G. Y. Chen, C. Wang, W. Q. Wang, J. F. Hui, Q. Zhang,
+K. H. Yu, W. Wei, M. D. Yi, M. Zhang, Y. Deng, P. Wang, X. X. Xu,
+Z. H. Dai, J. C. Bao, X. Wang, Adv. Funct. Mater. 2018, 28,
+1800283.
+[15] Q. Q. He, G. Y. Chen, Y. K. Wang, X. Y. Liu, D. T. Xu, X. X. Xu, Y. Liu,
+J. C. Bao, X. Wang, Small 2021, 17, 2101403.
+[16] Z. X. Peng, D. D. Yang, B. Z. Yin, X. Guo, S. Li, Q. Q. Zhan, X. D. Xiao,
+X. F. Liu, Z. G. Xia, Z. M. Yang, J. R. Qiu, G. P. Dong, Sci. China Mater.
+2021, 64, 2261.
+[17] H. Mescher, F. Schackmar, H. Eggers, T. Abzieher, M. Zuber,
+E. Hamann, T. Baumbach, B. S. Richards, G. Hernandez-Sosa,
+U. W. Paetzold, U. Lemmer, ACS Appl. Mater. Interfaces 2020, 12,
+15774.
+[18] W. Xu, Z. X. Cai, F. M. Li, J. Dong, Y. R. Wang, Y. Q. Jiang, X. Chen,
+Nano Res. 2017, 10, 2692.
+[19] L. Protesescu, S. Yakunin, M. I. Bodnarchuk, F. Krieg, R. Caputo,
+C. H. Hendon, R. X. Yang, A. Walsh, M. V. Kovalenko, Nano Lett.
+2015, 15, 3692.
+[20] S. Ye, M. J. Zhao, J. Song, J. L. Qu, Nano Res. 2018, 11, 4654.
+[21] J. Z. Song, T. Fang, J. H. Li, L. M. Xu, F. J. Zhang, B. N. Han,
+Q. S. Shan, H. B. Zeng, Adv. Mater. 2018, 30, 1805409.
+[22] W. Zhai, J. Lin, Q. L. Li, K. Zheng, Y. Huang, Y. Z. Yao, X. He, L. L. Li,
+C. Yu, C. Liu, Y. Fang, Z. Y. Liu, C. C. Tang, Chem. Mater. 2018, 30,
+3714.
+[23] Z. Long, H. Ren, J. H. Sun, J. Ouyang, N. Na, Chem. Commun. 2017,
+53, 9914.
+[24] C. Fang, Y. Li, Y. T. Cai, T.-L. Zhou, X. Y. Tang, R.-J. Xie, Sci. China
+Mater. 2021, 64, 158.
+[25] Y. Tong, E. Bladt, M. F. Aygüler, A. Manzi, K. Z. Milowska,
+V. A. Hintermayr, P. Docampo, S. Bals, A. S. Urban, Angew.
+Chem., Int. Ed. 2016, 55, 13887.
+[26] R. W. Epps, K. C. Felton, C. W. Coley, Lab Chip 2017, 17, 4040.
+[27] Z. Z. Zhang, Y. X. Liu, C. Geng, S. S. Shi, X. S. Zhang, W. G. Bi, S. Xu,
+Nanoscale 2019, 11, 18790.
+[28] A. H. Slavney, L. Leppert, A. S. Valdes, D. Bartesaghi, T. J. Savenije,
+J. B. Neaton, H. I. Karunadasa, Angew. Chem., Int. Ed. 2018, 57,
+12765.
+[29] E. L. Unger, L. Kegelmann, K. Suchan, D. Sörell, L. Korte, S. Albrecht,
+J. Mater. Chem. A 2017, 5, 11401.
+[30] J. Butkus, P. Vashishtha, K. Chen, J. K. Gallaher, S. K. K. Prasad,
+D.
+Z.
+Metin,
+G.
+Laufersky,
+N.
+Gaston,
+J.
+E.
+Halpert,
+J. M. Hodgkiss, Chem. Mater. 2017, 29, 3644.
+[31] C. Katan, N. Mercier, J. Even, Chem. Rev. 2019, 119, 3140.
+[32] X. J. Wang, X. Q. Ran, X. T. Liu, H. Gu, S. W. Zuo, W. Hui, H. Lu,
+B. Sun, X. Y. Gao, J. Zhang, Y. D. Xia, Y. H. Chen, W. Huang,
+Angew. Chem., Int. Ed. 2020, 59, 13354.
+[33] J. Kang, L.-W. Wang, J. Phys. Chem. Lett. 2017, 8, 489.
+www.advancedsciencenews.com
+www.adpr-journal.com
+Adv. Photonics Res. 2022, 2200230
+2200230 (8 of 9)
+© 2022 The Authors. Advanced Photonics Research published by Wiley-VCH GmbH
+
+===PAGE 9===
+[34] D. Meggiolaro, S. G. Motti, E. Mosconi, A. J. Barker, J. Ball, C. Andrea
+Riccardo Perini, F. Deschler, A. Petrozza, F. De Angelis, Energy
+Environ. Sci. 2018, 11, 702.
+[35] J. C. Zhu, Q. Di, X. X. Zhao, X. T. Wu, X. K. Fan, Q. Li, W. D. Song,
+Z. W. Quan, Inorg. Chem. 2018, 57, 6206.
+[36] Z.-H. Tian, M. Shao, X.-Y. Zhao, Y.-J. Wang, K. Wang, J.-H. Xu, Cryst.
+Growth Des. 2018, 18, 3953.
+[37] G.-X. Li, Q. Li, R. Cheng, S. Chen, Curr. Opin. Chem. Eng. 2020, 29, 34.
+[38] I. Lignos, V. Morad, Y. Shynkarenko, C. Bernasconi, R. M. Maceiczyk,
+L.
+Protesescu,
+F.
+Bertolotti,
+S.
+Kumar,
+S.
+T.
+Ochsenbein,
+N. Masciocchi, A. Guagliardi, C.-J. Shih, M. I. Bodnarchuk,
+A. J. deMello, M. V. Kovalenko, ACS Nano 2018, 12, 5504.
+[39] J. B. Zhang, L. W. Fan, J. L. Li, X. F. Liu, R. W. Wang, L. Wang, G. L. Tu,
+Nano Res. 2019, 12, 121.
+[40] E. M. Chan, R. A. Mathies, A. P. Alivisatos, Nano Lett. 2003, 3, 199.
+[41] A. Yashina, I. Lignos, S. Stavrakis, J. Choo, A. J. deMello, J. Mater.
+Chem. C 2016, 4, 6401.
+[42] K. Abdel-Latif, R. W. Epps, C. B. Kerr, C. M. Papa, F. N. Castellano,
+M. Abolhasani, Adv. Funct. Mater. 2019, 29, 1900712.
+[43] A. Thakkar, S. Johansson, K. Jorner, D. Buttar, J.-L. Reymond,
+O. Engkvist, React. Chem. Eng. 2021, 6, 27.
+[44] J. A. Selekman, J. Qiu, K. Tran, J. Stevens, V. Rosso, E. Simmons,
+Y. Xiao, J. Janey, Annu. Rev. Chem. Biomol. 2017, 8, 525.
+[45] J.
+Schmidt,
+J.
+M.
+Shi,
+P.
+Borlido,
+L.
+M.
+Chen,
+S.
+Botti,
+M. A. L. Marques, Chem. Mater. 2017, 29, 5090.
+[46] T. M. Wu, J. Wang, ACS Appl. Mater. Interfaces 2020, 12, 57821.
+[47] A. Talapatra, B. P. Uberuaga, C. R. Stanek, G. Pilania, Chem. Mater.
+2021, 33, 845.
+[48] A. Ali, H. Park, R. Mall, B. Aïssa, S. Sanvito, H. Bensmail, A. Belaidi,
+F. El-Mellouhi, Chem. Mater. 2020, 32, 2998.
+[49] K. Takahashi, L. Takahashi, I. Miyazato, Y. Tanaka, ACS Photonics
+2018, 5, 771.
+[50] V. Gladkikh, D. Y. Kim, A. Hajibabaei, A. Jana, C. W. Myung, K. S. Kim,
+J. Phys. Chem. C 2020, 124, 8905.
+[51] S. H. Lu, Q. H. Zhou, L. Ma, Y. L. Guo, J. L. Wang, Small methods
+2019, 3, 1900360.
+[52] X. Y. Zhai, M. T. Chen, W. C. Lu, Comp. Mater. Sci. 2018, 151, 41.
+[53] C. Odabasi, R. Yildirim, Nano Energy 2019, 56, 770.
+[54] H.-A. Chen, P.-H. Tang, G.-J. Chen, C.-C. Chang, C.-W. Pao, J. Phys.
+Chem. Lett. 2021, 12, 3591.
+[55] J. C. Dahl, X. Z. Wang, X. Huang, E. M. Chan, A. P. Alivisatos, J. Am.
+Chem. Soc. 2020, 142, 11915.
+[56] E. J. Braham, J. Cho, K. M. Forlano, D. F. Watson, R. Arròyave,
+S. Banerjee, Chem. Mater. 2019, 31, 3281.
+[57] L. Bezinge, R. M. Maceiczyk, I. Lignos, M. V. Kovalenko, A. J. deMello,
+ACS Appl. Mater. Interfaces 2018, 10, 18869.
+[58] R. W. Epps, M. S. Bowen, A. A. Volk, K. Abdel-Latif, S. Han,
+K. G. Reyes, A. Amassian, M. Abolhasani, Adv. Mater. 2020, 32,
+2001626.
+[59] S. Kubendhiran, Z. Bao, K. Dave, R.-S. Liu, ACS Appl. Nano Mater.
+2019, 2, 1773.
+[60] T. W. Phillips, I. G. Lignos, R. M. Maceiczyk, A. J. deMello,
+J. C. deMello, Lab Chip 2014, 14, 3172.
+[61] H. W. Yang, W. L. Luan, Z. Wan, S.-T. Tu, W. K. Yuan, Z. M. M. Wang,
+Cryst. Growth Des. 2009, 9, 4807.
+[62] A. Toyota, H. Nakamura, H. Ozono, K. Yamashita, M. Uehara,
+H. Maeda, J. Phys. Chem. C 2010, 114, 7527.
+[63] J. D. Tice, H. L. Song, A. D. Lyon, R. F. Ismagilov, Langmuir 2003, 19,
+9127.
+[64] C. K. Ng, H. Deng, H. C. Li, W. P. Yin, T. Alan, J. J. Jasieniak, J. Mater.
+Chem. C 2021, 9, 313.
+[65] I. Shestopalov, J. D. Tice, R. F. Ismagilov, Lab Chip 2004, 4,
+316.
+[66] H. Z. Sun, Y. K. Ren, Y. Tao, T. Y. Jiang, H. Y. Jiang, Ind. Eng. Chem.
+Res. 2020, 59, 12514.
+[67] Z. H. Lua, J. McMahonb, H. Mohamedc, D. Barnardc, T. R. Shaikhc,
+C. A. Mannellac, T. Wagenknecht, T.-M. Lua, Sens. Actuators, B 2010,
+144, 301.
+www.advancedsciencenews.com
+www.adpr-journal.com
+Adv. Photonics Res. 2022, 2200230
+2200230 (9 of 9)
+© 2022 The Authors. Advanced Photonics Research published by Wiley-VCH GmbH

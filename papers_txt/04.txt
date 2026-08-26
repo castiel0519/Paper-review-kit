@@ -1,0 +1,1909 @@
+===PAGE 1===
+Zhou et al. Microsystems & Nanoengineering (2023) 9:116 
+Microsystems & Nanoengineering
+https://doi.org/10.1038/s41378-023-00562-8
+www.nature.com/micronano
+R E V I E W A R T I C L E
+Op e n A c c e s s
+Computer vision meets microﬂuidics: a label-free
+method for high-throughput cell analysis
+Shizheng Zhou1, Bingbing Chen1, Edgar S. Fu2 and Hong Yan
+1✉
+Abstract
+In this paper, we review the integration of microﬂuidic chips and computer vision, which has great potential to
+advance research in the life sciences and biology, particularly in the analysis of cell imaging data. Microﬂuidic chips
+enable the generation of large amounts of visual data at the single-cell level, while computer vision techniques can
+rapidly process and analyze these data to extract valuable information about cellular health and function. One of the
+key advantages of this integrative approach is that it allows for noninvasive and low-damage cellular characterization,
+which is important for studying delicate or fragile microbial cells. The use of microﬂuidic chips provides a highly
+controlled environment for cell growth and manipulation, minimizes experimental variability and improves the
+accuracy of data analysis. Computer vision can be used to recognize and analyze target species within heterogeneous
+microbial populations, which is important for understanding the physiological status of cells in complex biological
+systems. As hardware and artiﬁcial intelligence algorithms continue to improve, computer vision is expected to
+become an increasingly powerful tool for in situ cell analysis. The use of microelectromechanical devices in
+combination with microﬂuidic chips and computer vision could enable the development of label-free, automatic, low-
+cost, and fast cellular information recognition and the high-throughput analysis of cellular responses to different
+compounds, for broad applications in ﬁelds such as drug discovery, diagnostics, and personalized medicine.
+Introduction
+With
+the
+rapid
+advancement
+of
+interdisciplinary
+research in micromanufacturing, microelectromechanical
+system (MEMS) and life science, the fabrication of
+microﬂuidic devices has increasingly attracted interna-
+tional attention in the biotechnological ﬁeld. Various cell
+detection devices, such as electrodes, optics and acoustics,
+can be integrated on a microﬂuidic chip, and the structure
+and function of the chip can be ﬂexibly designed1, which
+can not only meet the needs of various types of cell
+analyses but also enable the visualization of single-cell
+information. Moreover, a series of operating steps,
+including
+sample
+preparation,
+reaction,
+separation,
+detection, cell culture, sorting, lysis and so on, which are
+available in chemical and biological labs, are miniaturized
+into one microﬂuidic chip to achieve high-throughput and
+high-speed detection.
+Cell analysis is a complicated process that involves
+various cell types and multiple biological reactions
+through different temporal and spatial dimensions2. Even
+in the same physical environments and culture conditions
+and with the same external stimuli, microbial cells from
+the same metrocyte may have remarkable variation in
+terms of size, growth rate, morphology and phenotype.
+Traditional cell assay methods, such as enzyme-linked
+immunosorbent assay (ELISA)3, quantitative polymerase
+chain reaction (qPCR)4 and other common bioassays, can
+provide unique insights into molecular biology and cell
+biology.
+However,
+these
+methods
+seem
+to
+neglect
+important cell morphology and cell state information and
+are thus unable to elucidate biological phenomena or
+accidental events caused by cellular interactions. There-
+fore, the analysis of cell composition, structure and
+© The Author(s) 2023
+OpenAccessThisarticleislicensedunderaCreativeCommonsAttribution4.0InternationalLicense,whichpermitsuse,sharing,adaptation,distributionandreproduction
+in any medium or format, as long as you give appropriate credit to the original author(s) and the source, provide a link to the Creative Commons license, and indicate if
+changes were made. The images or other third party material in this article are included in the article’s Creative Commons license, unless indicated otherwise in a credit line to the material. If
+material is not included in the article’s Creative Commons license and your intended use is not permitted by statutory regulation or exceeds the permitted use, you will need to obtain
+permission directly from the copyright holder. To view a copy of this license, visit http://creativecommons.org/licenses/by/4.0/.
+Correspondence: Hong Yan (yanhong@hainanu.edu.cn)
+1State Key Laboratory of Marine Resource Utilization in South China Sea,
+Hainan University, Haikou 570228, China
+2Graduate School of Computing and Information Science, University of
+Pittsburgh, Pittsburgh, PA 15260, USA
+1234567890():,;
+1234567890():,;
+1234567890():,;
+1234567890():,;
+
+===PAGE 2===
+morphology at the single-cell level is of critical impor-
+tance, not only for the exploration of cell heterogeneity
+but also for the discovery of interactions among cells and
+between cells and the environment. It enables us to
+comprehensively understand the behavior of cells, tissues,
+organs and even whole life forms.
+Optical imaging has been the most direct way to observe
+microbes at the single-cell level since the invention of
+microscopes by Antony van Leeuwenhoek in the mid-17th
+century. Currently, microscopic observation has become a
+routine procedure for biological scientists and bioengi-
+neers to examine cell images and determine their viability.
+Common imaging methods include optical bright ﬁeld
+microscopy,
+ﬂuorescence
+microscopy,
+confocal
+laser
+scanning microscopy, super resolution imaging, lensless
+microscopy and so on. Cellular or subcellular features are
+associated with characteristic structures and functions of
+living systems and play an important role in cell iden-
+tity5–8. Cell images obtained through microscopic imaging
+contain a large amount of cellular information, such as
+size, morphology, texture, internal structure. As opposed
+to the traditional single variable cell analysis method, the
+main advantage of image-based cell analysis lies in its
+ability to implement high-throughput screening for single-
+cell and multivariable imaging analysis. For example, in
+drug screening, visual cellular data can be interpreted to
+determine cell phenotypes, drug-induced gene expression
+and protein localization, to predict phenotypic changes in
+cytoskeleton structure and to implement high-throughput
+screening for variable single-cell imaging6,9.
+The development of imaging technology has led to
+image quality enhancement that enables more informa-
+tion, including subtle phenotypic changes of cells that are
+difﬁcult to recognize by the human eye, to be obtained
+from individual images. At the single-cell level, images
+may contain a large amount of cell morphological and
+spatial information. However, only a small part of this
+information can be extracted from cell images using
+manual analysis due to the large amount of data. Thus,
+there is an urgent need for the development of hardware
+and algorithms to provide a real-time data mining and
+visualization platform for computerized cell visual analy-
+sis. The overwhelming information content and the
+growing data volume call for automated image analysis
+methods with upgraded information content. In recent
+years, computer vision algorithms have been widely used
+in biological image processing and analysis to overcome
+the bottleneck caused by the explosion of data growth
+since they are able to extract and analyze massive visual
+information from cell images10–12. Computer vision is a
+branch of artiﬁcial intelligence (AI) that uses algorithms
+to mimic the way the that the human visual system
+acquires,
+processes,
+analyzes
+and
+synthesizes
+visual
+information. The human visual cortex is composed of
+over 140 million neurons and is capable of unrivaled
+visual perception by segmentation and integration of
+visual data relayed from the retina, as well as by instan-
+taneous recognition of objects and patterns (Fig. 1). Light
+signals are converted into electrical signals on the retina
+and transmitted to the lateral geniculate nucleus (LGN).
+Raw image
+Data preprocessing / Data augmentation
+Deep learning neural network
+Prediction
+Decision
+Neutrophil
+erythrocyte
+Neutrophil
+erythrocyte
+LGN
+Computer vision
+Eye
+LGN
+Human
+V1
+V2
+V4
+PIT
+CIT
+AIT
+AIT
+CIT PIT
+V4
+V2
+V1
+V3
+Fig. 1 Cell recognition through the human eyes and brain and computer vision. PIT: posterior IT, CIT: central IT, AIT: anterior IT
+Zhou et al. Microsystems & Nanoengineering (2023) 9:116 
+Page 2 of 15
+
+===PAGE 3===
+This process is similar to the image preprocessing and
+image enhancement processes in computer vision, which
+facilitates the recognition and extraction of targeted
+object features in the image. The LGN then transmits the
+signals to the visual cortex (including V1, V2 and V4) and
+the inferior temporal (IT) cortex to further reﬁne the
+signals, extract the color, shape and movement informa-
+tion, and make conclusions. This process is similar to the
+image recognition process of a deep learning neural net-
+work, where the neural network extracts the feature
+information layer by layer and ﬁnally outputs the classi-
+ﬁcation probability of each category. For the ﬁve senses
+that the human brain possesses, vision plays a major role
+that involves >50% of the brain’s computational space
+directly or indirectly for constant visual processing and
+integration. Humans use more neurons for vision than the
+other four types combined. This is the reason why human
+vision is so powerful. In comparison, computer vision is
+still in an immature stage of development with respect to
+visual perception.
+Although AI-based image recognition is not yet matching
+the human and computer vision still lags behind the human
+visual cortex thus far, we argue that when computer vision
+algorithms are integrated with microﬂuidic technology in
+cell data acquisition, the integration of computer vision with
+miniaturized microﬂuidic devices is somewhat superior in
+cell imaging analysis to human intelligence. The reason is
+that even though image recognition in the visual cortex is
+more advanced than its artiﬁcial counterparts, the human
+eye is the bottleneck for information ﬂow from microscopic
+objects to the retina. On the other hand, microﬂuidic chips
+for cells are capable of generating much more information
+intense visual data at the micrometer and even nanometer
+level for subsequent computer vision equipped with artiﬁ-
+cial neural networks to learn, analyze and recognize visual
+information.
+This review will be conducted with the abovementioned
+theme to show that the combination of computer vision
+and microﬂuidics will not only promote the real-time
+detection of single cells but also enable more accurate and
+robust processing of high-throughput visual data. Com-
+puter vision algorithms can precisely overcome the ana-
+lytic difﬁculty of microﬂuidic technology and make the
+analytic results more accurate and robust, providing a
+promising AI-aided cell visual data generation and
+information acquisition method in the ﬁelds of life science
+and biotechnology. This review will discuss the principles
+and related applications of computer vision and micro-
+ﬂuidics and provide an outlook on the future development
+of this interdisciplinary research.
+Computer vision for cell analysis
+There are four basic tasks in the ﬁeld of computer
+vision, including classiﬁcation, location, detection and
+segmentation, as shown in Fig. 2a. Since an image is a
+matrix composed of pixel values, traditional computer
+vision methods can extract features from an image to
+distinguished it from other classes of images, such as size,
+deformation, brightness, edge, texture and color, allowing
+the computer “understand” the image. These features are
+expressed in the form of numerical values, vectors, and
+symbols. Algorithm optimization and feature engineering
+for speciﬁc cells is a challenging task. Tuned feature
+extraction algorithms have a small amount of computa-
+tion and fast processing speed and can handle high-
+throughput and relatively simple image processing tasks.
+However, they are not sufﬁcient in terms of addressing
+global feature changes and local context changes. In
+recent years, with the improvement of computing power
+and artiﬁcial intelligence algorithms, neural networks
+have been widely used in practice. A neural network
+consists of several neurons that are divided into several
+layers, including an input layer, a hidden layer, and an
+output layer for classiﬁcation or prediction.
+To make neural networks more suitable for image
+analysis, researchers proposed convolutional neural net-
+works (CNNs)13,14, and the architecture of CNNs was
+inspired
+by
+the
+visual
+data
+processing
+mechanism
+underlying the human visual cortex. Convolutional neural
+networks use convolutional kernels to process local image
+information in the form of a matrix and are the most
+mainstream neural network in the ﬁeld of computer
+vision. Convolutional neural networks are composed of
+convolutional layers containing multiple convolutional
+cores. It can directly learn the features at the pixel level of
+a cellular images. The receptive ﬁeld of the front con-
+volutional layer is small, and most of the captured and
+calculated images are local information with picture
+details, while the back convolutional layer increases layer
+by layer to capture more complex and abstract informa-
+tion of the image (Fig. 2b). Convolutional neural networks
+identify objects through their ability to extract more
+abstract features, and can capture more variations and
+details of visual stimuli and perform more complex cell
+image analysis tasks.
+Exploration of computer vision in microﬂuidic cell
+analysis
+Currently, the development of microﬂuidic technology is
+at a pace where it produces more data than researchers are
+able to analyze, especially in the cell imaging area using
+microﬂuidic cell analysis. Computer vision algorithms can
+precisely solve this bottleneck with the aid of microﬂuidic
+technology. With their excellent feature extraction and
+generalizability, computer vision algorithms have been
+widely used in the development of cell characterization in
+microﬂuidic cytometry, cell detection on chips, cell growth
+analysis, drug screening and point-of-care tests.
+Zhou et al. Microsystems & Nanoengineering (2023) 9:116 
+Page 3 of 15
+
+===PAGE 4===
+Cell characterization in microﬂuidic cytometry
+The biophysical features of cells reﬂect their identities,
+which are fundamental to maintain their homeostatic
+state in health and play a deﬁning role in the pathogenesis
+of disease15. Biophysical cytometry is a technique used to
+analyze the physical features of cells, including their size,
+shape, deformability, and mechanical properties16. It can
+reveal subtle spatial and temporal variations in the bio-
+physical phenotype of cells and their correlation with
+cellular function.
+Traditional computer vision techniques have been used
+in cell characterization for several decades17, and they
+remain a valuable tool for analyzing cell images, offering
+advantages such as ﬂexibility, interpretability and com-
+putational
+efﬁciency.
+Traditional
+computer
+vision
+algorithm-assisted label-free microﬂuidic imaging cyto-
+metry and deformability cytometry can achieve extremely
+high cell throughput18–20. Microﬂuidic chips offer a
+microfabricated detection region with ﬁne-tuned geome-
+trical properties21 and ensure that only a single cell is
+present in the ﬁeld of view at any given time by enabling
+the precise control and manipulation of ﬂuids at the
+microscale level22,23. This allows for the acquisition of
+high-quality images of individual cells, and for the
+extraction of detailed information of spatial and temporal
+features.
+Deformability
+cytometry
+enables
+high-
+throughput detection of both static and dynamic cellular
+mechanical phenotypes and has been widely applied in
+various ﬁelds, including cancer research, stem cell dif-
+ferentiation18,
+and
+blood
+testing24–26.
+Currently,
+constriction-based deformability cytometry (cDC), shear
+ﬂow deformability cytometry (sDC) and extensional ﬂow
+deformability cytometry (xDC) are mainly used23, as
+shown in Fig. 3a.
+When applying traditional computer vision methods to
+microﬂuidic imaging cytometry, the general steps are
+image acquisition, preprocessing, segmentation, feature
+extraction and analysis. Many of these processes can be
+implemented
+through
+the
+computer
+vision
+library
+OpenCV (https://opencv.org/). The most popular method
+in imaging ﬂow cytometry is to convert a single-cell image
+into a binary map and then perform threshold segmen-
+tation to distinguish the cell from the background and
+extract spatially-based biophysical features by means of
+built-in functions or ﬁne-tuned feature engineering,
+including cell size, perimeter, circularity, area, deforma-
+tion, uniformity, density and so on, as shown in Fig. 3b.
+The above steps can be carried out in turn with the
+a
+b
+Platelets, RBC, WBC
+RBC
+RBC
+RBC
+RBC
+WBC
+RBC
+RBC
+Platelets
+Platelets
+WBC
+RBC
+WBC
+RBC
+RBC
+Platelets
+(i) Image classification
+(ii) Object detection
+(iii) Semantic segmentation
+(iv) Instance segmentation
+Pool
+Conv
+Conv
+Fully connected
+Conv
+Pool
+0.96 Cell periphery
+0.01 Cytoplasm
+0.01 Vacuole
+Fig. 2 Computer vision for image analysis. a Four major applications in the ﬁeld of computer vision. (i) input an image and determine the class to
+which the image belongs; (ii) detect all objects in an image, determine their classes and locate the positions of the objects; (iii) on the basis of object
+detection, semantic segmentation requires further determination of which pixels belong to a class in an image; (iv) determine which pixels each
+object contains on the basis of object detection; b Convolutional neural network for cell feature extraction and classiﬁcation. CNN can detect the
+features of corners, edges, and lines in the ﬁrst layers, and its middle layer represents a combination of these low-level features, while at deeper levels,
+there are features that give the most weight to the cells that need to be separated, such as the membrane structure and dot patterns120,121
+Zhou et al. Microsystems & Nanoengineering (2023) 9:116 
+Page 4 of 15
+
+===PAGE 5===
+OpenCV functions ‘threshold’ and ‘ﬁndContours’. In
+addition, the ‘moment’ and ‘HuMoment’ functions can be
+used to extract the moments and Hu moments, respec-
+tively, to calculate features such as the centroid and
+orientation
+and
+for
+more
+comprehensive
+shape
+recognition.
+The temporal deformation features of cells can be rea-
+lized by setting multiple ROIs in a channel for continuous
+cell tracking. Fregin et al. captured the full dynamics of
+suspended cells passing a centralized construction of a
+microﬂuidic channel on-the-ﬂy by sDC, determining the
+apparent Young’s modulus and apparent viscosity with
+throughput rates of up to 100 cells per second27,28, as
+shown in Fig. 3c. The integrability of microﬂuidics allows
+the integration of other physical ﬁelds on a chip to sti-
+mulate cells for short-time transient responses. Although
+this research has not yet achieved high throughput, the
+technique
+is
+promising
+in
+terms
+of
+uncovering
+physiological responses of single cells by characterizing
+the temporal and spatial biophysical features in real time
+and tracking cell cycle stages.
+Deep learning offers the potential to extract hidden
+information from images captured by imaging ﬂow cyto-
+metry29. Unlike traditional computer vision methods,
+deep learning methods do not require to predeﬁne the
+morphological features to be included in the analysis and
+do not search for the optimal combination of features in a
+feature set. It will avoid biased analysis, allow the
+exploration of potential relationships between different
+phenotypes and aid in the discovery of the heterogeneity
+of
+cell
+types15,30,31.
+Although
+achieving
+detection
+throughput comparable to that of traditional image pro-
+cessing methods is not yet possible through the combi-
+nation
+of
+deep
+learning
+methods
+and
+microﬂuidic
+cytometry, this approach is still very promising, especially
+in
+terms
+of
+obtaining
+a
+deeper
+understanding
+of
+a
+c
+(i)
+(ii)
+(iii)
+1
+2
+3
+4
+5
+1
+2000
+1960
+1920
+1880
+0.1
+0.2
+0.3
+0.4
+2
+3
+4
+5
+Time (s)
+10 µm
+10 µm
+Frequency (Hz)
+Passage time
+b
+Area ratio=
+=
+=
+=
+Hull area
+Raw area
+Area A & area ratio
+A
+rf
+rf
+Front
+radius
+Axes ratio Ra
+Taylor deformation dT
+r ()
+r ()
+(r) – (r)
+(r) – (r)
+(r)+(r)
+(r)+(r)
+dT
+Lx – Ly
+Lx + Ly
+Principal axes ratio Rpa
+Rpa
+Rescaled circularity c*
+c* = 1 – c
+A
+
+P
+1– 2
+=
+Inv. Haralick's circularity cH
+–1
+Normalized front radius Rf
+–1
+Rf
+–1
+cH
+–1
+(r )
+(r )
+cvar
+2(r)
+(r)
+(r)
+2(r)
+Circular variance cvar
+Inertia ratio Ri
+4
+4
+COM
+Raw area
+Hull area (Area A)
+Ly
+Lx
+Ly
+Lx
+Ly
+a
+b
+Lx
+Perimeter P
+y
+x
+y
+x
+y
+=
+=
+=
+Ri
+x
+y
+=
+Ra
+x
+Area A
+t1
+t2
+t3
+tn
+Flow direction
+Fig. 3 Traditional computer vision algorithm-assisted microﬂuidic cytometry. a The three main types of deformability cytometry23. (i) cDC measured
+the time needed for cells to pass through the constricted channel; (ii) sDC and (iii) xDC use hydrodynamic ﬂow to induce cell deformation without
+direct contact and infer cell deformability from the image-based evaluation of cell shape. b Nine common shape descriptors27. They are used to
+measure the degree of deformation of cells after being focused by the buffer. Different features are selected to construct a scatter plot that shows the
+ranges of features of different cell classes. c Dynamic tracking of single cells in a microﬂuidic channel28. Multiple ROIs are set up in the channels to
+collect time series images of cellular deformation
+Zhou et al. Microsystems & Nanoengineering (2023) 9:116 
+Page 5 of 15
+
+===PAGE 6===
+biophysical cellular heterogeneity and revealing sig-
+niﬁcant biophysical biomarkers of health and disease.
+Cell detection and classiﬁcation on a chip
+Different from external physical ﬁelds such as sound,
+electricity and magnetism, the optical imaging system on
+a microﬂuidic platform can intuitively obtain the internal
+structure and phenotypic features of each cell with almost
+no damage to the cells. The characteristics of miniatur-
+ized microﬂuidic chips with high integration make them
+an ideal platform to automatically analyze cell image or
+video data combined with computer vision-related tech-
+nologies, providing a tool to automatically analyze cell
+image or video data combined with computer vision
+methods32.
+The integration of computer vision and microﬂuidic
+chips makes it possible to realize cell detection, cell
+identiﬁcation and cell sorting on a chip. Before sorting, it
+is necessary to fully understand the features of each cell,
+which can be adequately learned from previous cell ima-
+ging data. After extracting the cell characteristics, the
+software transmits the sorting signal to a sorting device to
+implement the sorting process. Cell image segmentation
+methods based on feature engineering mainly include
+threshold segmentation33,34, watershed algorithms35–37,
+and edge detection38–40. Unlike those of the single-cell
+images generated by imaging ﬂow cytometry with a uni-
+form background, general image classiﬁcation tasks have a
+high level of background noise and multiple objects,
+which
+makes
+traditional
+algorithms
+require
+time-
+consuming tuning processes, and they are less robust to
+environmental perturbations.
+The advantage of using CNNs for cell classiﬁcation is
+that they enable feature extraction and encapsulation
+without requiring user to concern about the speciﬁc fea-
+ture treatment process, and their portability has allowed
+them to be widely used in the ﬁeld of microﬂuidic cell
+classiﬁcation. Nitta et al. proposed an Intelligent Image-
+activated Cell Sorting system (iIACS) based on a CNN
+architecture that is capable of sorting cells according to
+cell images in real time. The system integrates a high-
+speed ﬂuorescence microscope, a 3D two-step hydraulic
+focus microﬂuidic chip, and the dual-membrane pumps to
+enable real-time and automated ﬂuid focusing, cell
+detection, and cell sorting. It allows the real-time sorting
+of microalgae and blood cells based on intracellular pro-
+tein localization and cell‒cell interactions41,42. Based on
+iIACS, the authors changed the cellular imaging method
+to an image-sensor-based optomechanical ﬂow imaging
+method and upgraded the system hardware to obtain
+higher quality cell images and faster processing speed43.
+In another case, Chen et al. developed an optomechanical
+scanning imaging m ethod to quickly transmit cell signals,
+reconstruct cell images through a ﬁeld-programmable
+gate array (FPGA), and transfer the reconstructed cell
+image to the CPU for image feature extraction and cell
+classiﬁcation44. The study by Godino et al. demonstrated
+a precise single-cell manipulation technique in which an
+automated cell sorting device was fabricated using an
+open-source package in the ﬁeld of computer vision to
+recognize cell color and manipulate cell movement
+through dielectrophoresis under bright ﬁeld imaging45.
+Nawaz et al. used surface acoustic waves to manipulate
+cells and accurately sort single cells based on the output
+of deep neural networks46. Girault et al. developed a label-
+free microﬂuidic droplet sorting system based on droplet
+images. In their system, a high-speed camera was used to
+capture the cells in the droplets in each frame and
+recognize their boundaries. Then, computer vision was
+used to recognize the cell images based on the morpho-
+logical characteristics of the objects in the droplets and to
+sort the droplets of interest through direct current
+pulses47,48.
+Cell detection and counting with microﬂuidic chips is
+characterized by fast and high throughput and the large-
+scale imaging of cells in chip channels; in particular, cells
+in the ﬁeld of view are detected and counted automatically
+in real time by computer vision technology. Heo et al.
+proposed a fast image-processing pipeline (R-MOD: Real-
+time Moving Object Detector) based on CNNs to acquire
+and analyze cell images through monitoring microﬂuidic
+channels
+real-time49.
+They
+also
+added
+a
+syringe-
+connected piezo actuator to enable rapid cell sorting
+after detecting and counting cells50, as shown in Fig. 4a.
+Here, computer vision and microﬂuidics were applied to
+detect multiple cells in the ﬁeld of view and to maintain
+high-throughput detection by increasing the concentra-
+tion of the cell solution at a low ﬂow rate. Transferring
+algorithms from the ﬁeld of pattern recognition to
+microﬂuidic cell detection is promising. For example, the
+You Only Look Once (YOLO) series of algorithms51–53,
+which are lightweight, modular and fast, have been used
+for droplet54,55, cellular viability56 and circulating tumor
+cells (CTCs) detection57. It can also be integrated with
+other algorithms to achieve different assay functions, as
+shown in Fig. 4b. The dynamic processes of a cell are
+recorded in multiframe images, which is important for
+rare cell characterization. It should be noted that real-
+time detection using computer vision described above did
+not involve additional channels or syringe pumps to focus
+the cell solution because the cells ﬂowing through the
+channel without a serial arrangement were well detected
+and identiﬁed by the object detection algorithm in com-
+puter vision.
+The performance of the image sensor of the microscope
+camera determines the resolution of the collected cell
+images. Some cell substructures need to be displayed as
+high-resolution images. The lensless microscope imaging
+Zhou et al. Microsystems & Nanoengineering (2023) 9:116 
+Page 6 of 15
+
+===PAGE 7===
+method is not bound by the microscope lens and can
+achieve high-resolution imaging in a large ﬁeld of view58.
+It acquires the digital signals of cell samples through the
+sensor and reconstructs them into a high-resolution
+image through a CNN to realize the rapid detection of
+the cells59–61. In recent years, some researchers have
+applied
+lensless
+microscopic
+imaging
+technology
+to
+microﬂuidic cell analysis. Gӧrӧcs et al. developed a real-
+time water detection device to display the ﬂow of the
+diffraction patterns of microorganisms in microﬂuidic
+channels through lensless holographic microscopy. A
+holographic diffraction pattern was established in real
+time by using the phase recovery and image reconstruc-
+tion method in computer vision, and chromatic image of
+individual microorganisms were captured. The method is
+low cost and portable and achieves high-throughput
+continuous monitoring of marine microorganism groups;
+for example, it can obtain the composition of phyto-
+plankton in the ocean62, as shown in Fig. 4c. Singh et al.
+developed a microﬂuidic system for online digital holo-
+graphic microscopic imaging that was able to detect and
+identify CTCs in the blood at a rate of 10,000 cells
+per second without cellular labeling63. Luo et al. com-
+bined mobile lensless microscopy with deep learning to
+automatically measure levels of highly sensitive C-reactive
+protein in human serum samples64. The lensless micro-
+ﬂuidic system can quickly obtain high-quality single-cell
+images without limiting the throughput of the system,
+providing an economical, effective and portable solution
+for real-time diagnosis.
+The massive imaging datasets generated by microﬂuidic
+chips meet the demands of neural networks that rely on
+large amounts of training data for accuracy. The “big data”
+feature and the ability to sort cells with microﬂuidics
+a
+b
+c
+Detection
+Tracking
+Image binarization
+Cropping
+Output:cell type
+and location
+Sorting
+decision
+Bright field image
+Binary image
+CNN
+classifier
+Processed image
+Collection
+Waste
+Expand
+Pushing
+force
++ V
+Enclosure
+Pump
+Outlet
+Inlet
+Mirror
+Microchip
+Sensor
+LED
+Spectral
+filters
+Recon-
+struction
+Flow direction
+ROI
+Observation
+Cells classification
+& location
+Object detection
+model
+Input
+Fn
+Fn+1
+Fn+x
+Time
+Fn Fn+1
+Fn+x
+CTC
+70 µm
+70 µm
+140 µm
+140 µm
+100 µm
+50 µm
+50 µm
+100 µm
+a-8
+a-9
+a-2
+a-3
+b-8
+b-9
+b-2
+b-3
+RBC
+WBC
+Muti-frame
+association
+Classificaion
+correction
+Fig. 4 On-chip cell detection and classiﬁcation with computer vision technologies. a CV-based image-activated microﬂuidic cell sorting50. Image
+segmentation algorithms and object detection neural networks in computer vision were applied to quickly collect cell images in a high-throughput
+manner and output the sorting decision to the downstream piezoelectric actuator. b The YOLOv4 algorithm with multiframe image correlation to
+detect CTCs in a sheathless and label-free manner. Multiple frames of a cell in the ﬂow channel can reﬂect the phenotype of that cell from multiple
+perspectives, and together, these images are used to make classiﬁcation decisions, greatly improving the accuracy of cell classiﬁcation as well as the
+robustness of the model. c Lensless portable ﬂow cytometer for natural water analysis62. This device uses a partially coherent lensless holographic
+microscope to capture images with diffraction patterns of ﬂowing objects in microchannels and then converts these diffraction patterns into
+chromatic variations for a deep learning neural network to be trained for the classiﬁcation and identiﬁcation of algae
+Zhou et al. Microsystems & Nanoengineering (2023) 9:116 
+Page 7 of 15
+
+===PAGE 8===
+based on image features marks an important milestone for
+the integration of computer vision and microﬂuidic chips
+as an important tool for enabling AI-based research in life
+science
+and
+biomedicine.
+For
+example,
+biomedical
+research can rely on massive image features from
+microﬂuidics to understand cell behaviors and ﬁnd their
+relations between phenotype and genotype. With algo-
+rithm and computing power updates, the image detection
+and feature extraction abilities of computer vision will
+make its applications in microﬂuidic cell analysis more
+intelligent.
+Cell growth assessment on a chip
+Cell growth assessment is an important task in biolo-
+gical research to obtain a deeper understanding of cellular
+activities such as the cell life cycle, cell growth, metabo-
+lism and cell population communication. It includes the
+assessment of cell viability, the living or dead state of cells
+in the cell community, the cell growth cycle, and the
+possibility of cell survival under environmental stress.
+Compared with that of the entire microbial population,
+the assessment of cell growth status at the individual cell
+level can provide more detailed information65.
+Microﬂuidics are fast, efﬁcient and economically effec-
+tive as a cell growth detection platform. They can detect
+the status of cell metabolism to observe the cell phenotype
+at the single-cell level and to create a chemical and phy-
+sical microenvironment for cells by fully manipulating the
+ﬂuid inside and out. A microﬂuidic device can also allow
+cell culture experiments with different concentration
+gradients or pH gradients through solution exchange in
+the microchannel. Whether at the single-cell level or in
+the cell population, cell image analysis through computer
+vision can intuitively detect cell morphological changes
+during cell growth or environmental variation with much
+lower costs66 compared to that of electrochemical detec-
+tion and other methods. Jagannadh et al. demonstrated a
+portable bright-ﬁeld imaging system based on a micro-
+ﬂuidic chip to detect the cell viability of yeast cells67. Even
+using low frame rate imaging equipment, computer vision
+algorithms were able to automatically segment the cell
+images in real time, extract cell features, and evaluate the
+effects of the elimination, absorption and retention of
+dyes. They were even able to quantify the dead cells from
+a large number of viable cells. Kim et al. proposed a new
+computer-vision-based method to estimate the viability of
+bacteria in a microﬂuidic channel using fast Fourier
+transform to detect the frequency alteration of a micro-
+scopic image68. By analyzing the frequency of time-lapse
+images, the regional concentration changes of bacteria
+cultured under an antibiotic gradient were detected. Chen
+et al. used CNNs to automatically collect and segment
+tumor cell images of cell cultures on a microﬂuidic chip69.
+By associating the cell shapes in the early cell growth
+phase with those in the ﬁnal phase, the CNN model was
+able to predict whether a cell would eventually form a
+tumor sphere from the cell growth images from the fourth
+day, which greatly reduced the time required for medical
+oncology experiments. It was also observed that computer
+vision with microﬂuidics can be used to assess the degree
+of cell division cycle and cell differentiation, which has
+been mentioned in more than one study70,71.
+Drug screening on a chip
+Unlike traditional well plate cell culture methods,
+microﬂuidics provide the ability to manipulate cells and
+maintain a controlled environment for cell growth in a
+three-dimensional
+environment.
+The
+thousands
+of
+microchambers on a chip allow high-throughput drug
+testing
+and
+screening
+for
+biomedical
+investigations.
+Although there are many applications for drug screening
+through microﬂuidic platforms6,72, progress has been slow
+in large-scale drug screening. One of the main bottlenecks
+is the lack of a fast and low-cost read-out method to
+screen drugs. In recent years, the emergence of computer
+vision methods has gradually overcome this obstacle.
+Drug screening based on cell phenotype has become a
+trend in drug discovery, which is an unbiased screening to
+predict and discover compounds that induce cell pheno-
+type changes in a cell growth environment. Research
+shows that these drug screening methods have discovered
+more new drugs than targeted drug screening based on
+speciﬁc targets or mechanisms73. Zhang et al. developed a
+microﬂuidic platform that can culture three-dimensional
+tumor cells for cell growth assessment and drug screening
+(Fig. 5a). This platform can perform automatic image
+acquisition and cropping74. By training bright-ﬁeld images
+of three-dimensional tumor cells, a CNN model predicted
+and estimated the viability of 3D tumor cell spheroids and
+accurately evaluated the efﬁcacy of three chemother-
+apeutic drugs.
+The crystallization screening of pharmaceutical active
+ingredients is another important drug discovery approach
+in the pharmaceutical industry, where microﬂuidic tech-
+nology provides a new method for the high-throughput
+screening of pharmaceutical crystallization. Although it
+has the advantages of low sample consumption, less time
+consumption, and increased throughput, there are still
+some problems that need to be solved. For example,
+extracting useful information from a large amount of data
+requires long-term and tedious labor. To overcome these
+hurdles, Su et al. proposed a high-throughput system that
+combines microﬂuidic hydrogel droplet platforms with
+computer vision to screen drug crystallization conditions
+(Fig. 5b). This system uses a CNN to identify and classify
+hundreds of indomethacin crystal images and successfully
+determines the antisolvent crystallization conditions for
+three indomethacin crystals75.
+Zhou et al. Microsystems & Nanoengineering (2023) 9:116 
+Page 8 of 15
+
+===PAGE 9===
+The abuse of antibiotics has promoted the evolution of
+drug-resistant bacteria. To address this threat, the devel-
+opment of novel and speciﬁc antibiotics is crucial and
+requires timely antibiotic sensitivity testing. The drug
+susceptibility testing microﬂuidic (DSTM) system devel-
+oped by Matsumoto et al. used image analysis software to
+detect the difference in the number and shape of drug-
+treated cells. It was found that this method was able to
+quickly detect the drug sensitivity of Pseudomonas aeru-
+ginosa76. Yu et al. performed real-time imaging of freely
+moving bacterial cells in urine and used deep learning
+algorithms to automatically analyze various phenotypic
+features and responses of the cells in videos. By learning
+multiple phenotypic features of cells, researchers can
+determine whether bacterial cells are inhibited by anti-
+biotics without the need to deﬁne and quantify each fea-
+ture77. It is obvious that computer vision neural networks
+have great potential in drug screening since high-
+throughput microﬂuidic systems are able to deﬁne and
+quantify every feature of the cells in massive 3D cell image
+acquisition for the CV neural networks to use as
+training data.
+It is possible to obtain a variety of phenotypic features of
+individual cells, including cell size, morphology, move-
+ment and division, using computer vision methods to
+analyze cell images under the action of drugs. Cells
+dynamically grow, change shape, divide, rotate and move
+over time. Using conventional computer vision techni-
+ques by deﬁning and quantifying these features, their
+extremely short processing speed promises the ability to
+enable real-time characterization oriented toward high-
+volume cell cultures, as shown in Fig. 5c, where conven-
+tional computer vision algorithms show advantages in
+ultralarge-scale high-resolution imaging78.
+Point-of-care testing
+The global SARS-CoV-2 pandemic has led to a high
+demand for point-of-care testing (POCT) devices79.
+Microﬂuidic POCT platforms simplify analyses by inte-
+grating multiple procedures, such as sampling, chemical
+reactions, chromatographic separation and detection into
+a small chip, enabling multiple analyses and providing a
+“sample-in-answer-out” function80,81. Accurate and sen-
+sitive signal readout methods are essential for addressing
+Field of view
+1.0cm × 1.1cm 
+50 µm
+t = 4.2 s
+Convolutional neural network
+Drug inhibition score
+Six drug conditions
+Tumor sphere culture
+chip array
+Ground truth
+Prediction
+Drug efficacy estimation
+Conv 
+layers
+Region proposal 
+networks
+Feature maps
+ROI pooling
+Proposals
+Raw images
+Classes; location
+Cell #
+Cell #
+0s
+35s
+Time (s)
+1
+N
+5s
+0
+20
+10
+0s
+30s
+10s
+20s
+Time (s)
+Sheet
+Sheet: 98%
+Sheet: 97%
+Sheet: 97%
+Sheet: 94%
+Sheet: 97%
+Sheet: 92%
+a
+b
+c
+Fig. 5 CV-based drug screening system. a Prediction of the therapeutic effect of drugs on tumor spheres by a convolutional neural network74. The
+chip can simultaneously test six drug conditions and capture bright-ﬁeld images and live/dead cell staining images of tumor cells after drug
+treatment. The bright-ﬁeld images are input into a convolutional neural network to predict the viability of cells, and the living/dead cell staining
+images are used as the true values to evaluate the accuracy of the prediction results. b Combination of a hydrogel droplet platform and computer
+vision to screen the antisolvent crystallization conditions of active pharmaceutical ingredients75. The method collects images of hydrogel droplets
+containing different drug crystals in serpentine channels and detects different drug crystal shapes in the hydrogel droplets by using an object
+detection algorithm. c Real-time drug screening by ultralarge-scale high-resolution imaging and computer vision. Video clips of Ca2+ ion signals in
+cells are recorded at 30 Hz and then analyzed ofﬂine. Within each region of interest, all image frames are accumulated to synthesize a grayscale map,
+and individual cells are then identiﬁed by the binarization algorithm ImageJ. The ﬂuorescence intensity of these cells in each frame are extracted and
+resolved, revealing the rhythmic response of cardiomyocytes following drug injection78
+Zhou et al. Microsystems & Nanoengineering (2023) 9:116 
+Page 9 of 15
+
+===PAGE 10===
+analytical sensing, cost and operational difﬁculties and
+determining the practical applications of analytical sen-
+sing strategies, and the use of simpliﬁed but accurate
+readout methods is important for microﬂuidic instanta-
+neous analytical sensing devices82,83. In Fig. 6a, Chen et al.
+ingeniously designed aptamer-functionalized barcodes
+and microﬂuidic chips. Various aptamers to multiple
+target exosomes can be encoded by the characteristic
+reﬂection peaks of barcodes, and the results of multiple
+detection of exosomes can be read by the photonic signals
+of the highly sensitive barcodes, which are represented as
+different brilliant structural colors under a camera84.
+The availability of inexpensive imaging technology such
+as Raspberry Pi has lowered the barriers to accessing cost-
+efﬁcient and objective detection methodologies, and they
+can be interfaced with ﬂexible software that is capable of
+a
+b
+c
+Bright field
+image
+Fluorescent
+image
+Control
+Input: raw image
+Output: position,class,
+contour
+Class box
+Sample
+RGB feature extraction
+Random forest
+model
+CCD
+camera
+Laser
+transmitter
+Raspberry Pi
+Lighting
+system
+Camera module
+RolAlign
+Mask R-CNN
+Conv
+Conv
+pH = 7
+R
+G
+B
+Fig. 6 CV-assisted point-of-care testing devices. a Herringbone microﬂuidics for multiple exosome detection84. The detection of exosomes can be
+simpliﬁed to read the photonic signals of barcodes with the imaging of charge-coupled-device and the digital image processing methods to achieve
+higher sensitivity and accuracy. b A mobile device supported by machine learning for high-precision pH classiﬁcation88. The color values from
+individual components are extracted by multiple traditional image processing techniques, such as gray/HSV conversion, histogram equalization and
+blurring, and calculating the difference in the vector space can improve the precision of pH classiﬁcation. c A low-cost system for high-precision
+detection of C. elegans96. This system utilizes a Mask R-CNN to automatically detect C. elegans in an end-to-end manner, which yields reliable and
+precise location information. The neural network structure has been optimized and supported by hardware and software platforms, making it easy to
+deploy on mobile devices for a wide range of bioanalytical tasks
+Zhou et al. Microsystems & Nanoengineering (2023) 9:116 
+Page 10 of 15
+
+===PAGE 11===
+performing image segmentation and probing a variety of
+color spaces. However, this approach is unsuitable when
+the response is complex and irregular85. The computa-
+tional capacity of integrated circuit chips has increased
+signiﬁcantly, greatly enhancing digital signal processing
+and image processing capabilities. The lightweight trend
+in neural network research has led to the widespread
+deployment of computer vision models on mobile devices,
+such as the architectures of MobileNetV1 and MnasNet,
+which can also achieve faster speed and accuracy in digital
+signal detection and image processing. In the face of the
+demand for signal readout methods for POCT micro-
+ﬂuidics, computer vision techniques can detect signal
+variations more sensitively, for example, by obtaining
+accurate pixel-by-pixel color characteristics and distin-
+guishing subtle changes in color brightness and hue
+during a chromogenic reaction, thereby accurately quan-
+tifying the concentration of the target analyte and
+improving the accuracy of POCT85–88, as shown in Fig.
+6b. Image processing algorithms can be integrated with
+lightweight convolutional neural networks on a model
+device to achieve fully automated real-time data readout,
+analysis and upload, even in remote areas with poor
+infrastructure89. On the other hand, the unique patterns
+and features extracted from the data by computer vision
+algorithms can reﬂect biomedical information that is
+difﬁcult to obtain with traditional methods.
+The built-in modules of smartphones enable them to
+collect and convert signals, analyze data, and transmit and
+store information. Image processing programs, software,
+and lightweight image detection models based on con-
+volutional neural networks can be rapidly deployed on
+mobile devices, enabling automated image reconstruction
+and enhancement90–92 and quantitative analysis82,93 to
+carry out a wide range of cell analysis tasks, such as blood
+cell morphology analysis94, cell counting95 and cell
+tracking96, as shown in Fig. 6c. Image quality is limited by
+the parameters of the mobile phone imaging sensor, such
+as the ﬁeld of view, resolution and other model para-
+meters, and the shooting environment, leading to difﬁ-
+culties in capturing high-quality images in remote areas.
+The
+integration
+of
+noise
+reduction
+and
+resolution
+enhancement algorithms can help to improve image
+quality and thus improve POCT sensitivity.
+There is no doubt that microﬂuidic POCT technology
+based on computer vision is a very promising area that
+enables the integration of a microﬂuidic chip with mobile
+devices for various cell detection needs. Traditional image
+processing algorithms can eliminate irrelevant informa-
+tion and restore useful information to enhance image
+realism for fast, high sensitivity colorimetric analysis and
+image preprocessing for object detection. Visual detection
+models based on neural networks, supported by transfer
+learning and cloud computing92, can signiﬁcantly reduce
+the high memory requirements of POCT devices for the
+deployment of complex models. It can address a wide
+range of complex cellular analysis needs, greatly simpli-
+fying health care and improving clinical outcomes, espe-
+cially in resource-constrained areas.
+Challenges and opportunities
+The development of microﬂuidic technology in recent
+years has made it possible to reach a higher standard in
+cell imaging analysis. Computer vision, as an important
+technical means, can intuitively interpret the phenotypic
+characteristics and internal structure of each cell in a
+noninvasive or low-damage way to isolate, identify and
+analyze cells of interest in complex heterogeneous cell
+populations.
+Throughput vs. speed of imaging vs. image quality
+Microﬂuidic systems have the potential to provide high-
+throughput analysis, rapid image acquisition, and high
+image quality, but achieving all three simultaneously can
+be challenging due to various technical limitations. One
+major limitation is the speed of imaging. High-speed
+imaging is essential for tracking the dynamic behaviors of
+cells in real time, such as cell migration, division, and
+response to external stimuli. However, the faster the
+imaging speed is, the lower the image quality, as the
+exposure time for each frame is reduced, which can result
+in motion blur, low contrast, and noise. Another limita-
+tion is the throughput of the microﬂuidic system. High-
+throughput analysis is essential for screening large cell
+populations or for analyzing multiple samples simulta-
+neously. However, increasing the throughput typically
+requires sacriﬁcing imaging speed or image quality, as the
+system needs to accommodate more cells or samples,
+which can lead to reduced imaging resolution or longer
+acquisition times. Finally, achieving high image quality
+can also be challenging due to limitations in optical
+resolution and sensitivity, as well as potential interference
+from the microﬂuidic device itself. This can result in
+lower image quality, particularly when imaging deep
+within
+a
+microchannel
+or
+through
+thick
+biological
+samples.
+Thus, maintaining a balance among throughput, ima-
+ging speed, and image quality is necessary to achieve
+optimal performance in microﬂuidic cell analysis and to
+ensure that the data obtained are reliable and accurate.
+DeMello’s group presented a sheathless, microﬂuidic
+imaging ﬂow cytometer incorporating stroboscopic illu-
+mination for blur-free cellular analysis at throughputs
+exceeding 50,000 cells/s19,20. Motion blur in images from
+fast-moving objects can be eliminated by appropriate
+stroboscopic light pulses. Stroboscopic illumination can
+boost the ambient brightness level in short pulses, which
+greatly reduces the exposure time of the camera. The
+Zhou et al. Microsystems & Nanoengineering (2023) 9:116 
+Page 11 of 15
+
+===PAGE 12===
+increased brightness allows the whole system to run fas-
+ter, and the higher light output also allows for a reduced
+aperture to provide a better depth of ﬁeld for imaging.
+The single-cell ﬂow formed by inertial focusing avoids the
+steps of object localization and segmentation in computer
+visual detection and speeds up the system image proces-
+sing. In addition, approaches using multiple channels in
+parallel increase the detection throughput even further
+based on achieving a balance between high throughput,
+imaging speed and image quality. Holzner et al. presented
+an optoﬂuidic ﬂow cytometer integrating a refractive,
+microlens
+array,
+which
+could
+magnify
+micron-sized
+objects up to 4 times, not only providing optical perfor-
+mance equivalent to that of a high magniﬁcation micro-
+scope objective but also enhancing the throughput in wide
+ﬁeld imaging and enumeration of cells97. Huang et al.
+adopted an image enhancement approach by using a
+generative adversarial network (GAN) model that enables
+the images acquired at low magniﬁcation to reach the
+resolution at high magniﬁcation, allowing the system to
+acquire
+high-quality
+images
+while
+maintaining
+high
+throughput at low resolution. These results have paved
+the way for the statistical analysis of cells with high-
+dimensional spatial information98.
+Microﬂuidic ﬂow cytometry achieves high cell detection
+throughput while delivering large amounts of high-quality
+cell image data. Relying solely on traditional image pro-
+cessing can easily result in the loss of information about
+heterogeneous cell populations; for instance, 1 mL of
+whole blood may contain only 1–10 circulating tumor
+cells. The development of deep learning algorithms has
+completely revolutionized the approach to image pro-
+cessing and the scale of image analysis99, transforming on-
+chip imaging into an intelligent engine capable of fully
+automated
+quantitative
+analysis
+that
+was
+previously
+unimaginable.
+Development of deep learning
+With the rapid advancement of computer vision and
+microﬂuidic technology as well as improved hardware,
+complex cell visual analysis is attracting more attention in
+cell research. Artiﬁcial intelligence branches, supervised
+learning, unsupervised learning, reinforcement learning
+and transfer learning are being developed to signiﬁcantly
+enhance computer vision neural networks in cell image
+analysis. Here, unsupervised learning or weakly super-
+vised learning can extract information on the internal
+relationships of data without requiring domain experts to
+annotate the data100. It can also ﬁnd hidden populations
+of cells that are rare or only slightly different from other
+cells that have not been observed; thus, it is useful for
+discovering new cell types or phenotypes101–103. Reinfor-
+cement learning is a process of interacting with the
+environment, receiving rewards or punishments after each
+action, learning through trial and error, and optimization
+with the goal of maximizing cumulative rewards. It has
+shown good results in omics analysis, biomedical image
+analysis, drug screening and other ﬁelds104 and performed
+satisfactorily in high-throughput microﬂuidics control,
+which has paved the way for robust and repeatable long-
+term microﬂuidics experiments105,106. On the other hand,
+applications of transfer learning can greatly improve the
+generalizability of neural networks, train the model faster,
+and obtain higher prediction accuracy107.
+A major challenge in applying deep learning in micro-
+ﬂuidics is the acquisition of training data. However,
+manually annotating datasets is time-consuming and
+highly dependent on the prior knowledge of the experts.
+Thus, there is uncertainty in the true value, that is, there
+are errors in the annotations provided by the experts.
+Active learning may be adopted to solve the problem of
+limited data labels and a high cost of data annotation and
+to avoid subjectivity and selection bias when experts
+annotate data. It was seen to improve the model gen-
+eralizability108. Active learning can proactively propose
+some annotation requests, submit selected data to experts
+for annotation, and then train the model with the anno-
+tated data. The above process is repeated continuously
+until the model achieves the ideal accuracy109. In addition,
+the imbalance of data classes will affect the results of
+neural network analysis. In this case, data resampling and
+data enhancement are often used to balance the amount
+of data in each category, or the loss function is modiﬁed to
+add a larger penalty coefﬁcient to the class with fewer
+samples so that the model training is more in favor of the
+class with fewer samples110.
+In the development of microﬂuidic chips, multimodal
+data fusion is a future trend111. It integrates multiple
+detection methods into a chip to measure multiple para-
+meters of the target, such as simultaneously measuring
+the size of a single cell, the polarizability under multiple
+frequencies and the deformability of cells in the process of
+cell tracking112 for more comprehensively characterized
+cells. Convolutional networks have proven to be effective
+in analyzing the impedance spectra generated by electrical
+impedance detection113, and the synergistic detection and
+cross-validation of optical imaging and electrical impe-
+dance is very promising114.
+The combination of organ-chip and computer vision
+also has great potential to obtain microscopic cell defor-
+mation and movement that cannot be observed by the
+naked eye or through a microscope, such as cell migration
+in blood vessels115 and brain tumor metastasis in the
+blood‒brain barrier116,117. Chen et al. used an improved
+CNN to recognize and focus tumor spheroids auto-
+matically and to observe the structural changes and
+dynamic growth of tumors. It was found that CNNs could
+clearly extract cell features such as tumor spheroid
+Zhou et al. Microsystems & Nanoengineering (2023) 9:116 
+Page 12 of 15
+
+===PAGE 13===
+boundaries and tumor surface roughness, accurately
+detect the degree of tumor spheroid invasion on 3D organ
+chips, and automatically generate analysis reports118.
+Computer vision techniques can also track the growth of
+cells in organs or organoids in real time, providing a more
+detailed, intuitive and comprehensive understanding of
+cell growth and movement119. They will play an important
+role in computer-assisted early cancer screening, tumor
+drug development and personalized medicine.
+In summary, the analysis of cell composition, structure
+and morphology at the single-cell level is essential in
+various ﬁelds, such as cell biology, medical research, and
+drug discovery. In the past, manual observation of cell
+images was the primary way to extract information about
+cells. However, manual observation is time-consuming,
+prone to human errors and biases and is not practical
+when analyzing large datasets in the AI era. Therefore,
+computer vision techniques have emerged as an alter-
+native to manual observation.
+Traditional computer vision methods rely on feature
+extraction, which involves deﬁning a set of handcrafted
+features based on the prior knowledge of researchers.
+These methods can perform cell feature extraction and
+some conversions regarding color and grayscale at a very
+fast speed. Thus, they have been widely used in high-
+throughput imaging cytometry. However, these methods
+are not suitable for analyzing complex cell images with a
+large number of features. When dealing with complex
+cellular images with a large number of features, deep
+learning
+neural
+networks
+have
+become
+increasingly
+popular.
+As the examples in this review have indicated, deep
+learning neural networks can learn complex features
+directly from cell images without the need for feature
+extraction. These networks can learn and recognize cell
+structures and morphology and perform cell segmenta-
+tion, cell recognition, and cell tracking tasks. In particular,
+CNN models can analyze large volumes of cell images
+with high accuracy and speed, which enables researchers
+to explore cell heterogeneity, reveal interactions among
+cells, and enhance the understanding of cellular processes.
+Conclusions
+The combination of microﬂuidics and computer vision
+has led to signiﬁcant advancements in cell analysis. In this
+review, microﬂuidic devices are shown to enable the
+manipulation and analysis of cells at the microscale level,
+providing high precision and throughput and generating
+speciﬁc cell patterns. On the other hand, computer vision
+algorithms can process large amounts of data, analyze the
+resulting images, extract quantitative data, and identify
+patterns that may not be visible to the human eye. The
+integration of these two technologies has allowed for
+more efﬁcient and accurate cell analysis. This enables
+researchers to study cells in a highly controlled environ-
+ment, generating high-quality data that can be used to
+answer complex research questions.
+As computer vision algorithms continue to improve, we
+can expect to see even more advanced cell imaging ana-
+lysis. For example, machine learning algorithms could be
+trained to recognize speciﬁc cell types or identify subtle
+changes in cell behavior. Additionally, the use of micro-
+ﬂuidic devices combined with computer vision could
+enable high-throughput screening of drug candidates,
+allowing for faster and more efﬁcient drug development.
+In summary, the combination of microﬂuidics and
+computer vision has tremendous potential for advancing
+our understanding of cell behavior and developing new
+treatments for disease.
+Acknowledgements
+This work is supported by the Hainan Provincial Higher Education Scientiﬁc
+Research Project Key Project (HNKY2021ZD-7), the Hainan Provincial Social
+Science Research Project (HNSK(YB)-20–24) and Hainan Provincial Key Research
+and Development Program (ZDYF2020026).
+Conﬂict of interest
+The authors declare no competing interests.
+Received: 19 September 2022 Revised: 21 March 2023 Accepted: 10 April
+2023
+References
+1.
+Riordon, J. et al. Deep learning with microﬂuidics for biotechnology. Trends
+Biotechnol. 37, 310–324 (2019).
+2.
+He, J. et al. Recent advances and perspectives in microﬂuidics-based single-
+cell
+biosensing
+techniques.
+Small
+Methods
+https://doi.org/10.1002/
+smtd.201700192 (2017).
+3.
+Ksiazek, T. G. et al. ELISA for the detection of antibodies to Ebola viruses. J.
+Infect. Dis. 179, S192–S198 (1999).
+4.
+Postollec, F. et al. Recent advances in quantitative PCR (qPCR) applications in
+food microbiology. Food Microbiol. 28, 848–861 (2011).
+5.
+Vasina, M. et al. Advanced database mining of efﬁcient haloalkane dehalo-
+genases by sequence and structure bioinformatics and microﬂuidics. Chem.
+Catal. 2, 2704–2725 (2022).
+6.
+Haasen, D. et al. How phenotypic screening inﬂuenced drug discovery:
+lessons from 5 years of practice. Assay. Drug Dev. Technol. 15, 239–246 (2017).
+7.
+von Erlach, T. C. et al. Cell-geometry-dependent changes in plasma mem-
+brane order direct stem cell signalling and fate. Nat. Mater. 17, 237–242
+(2018).
+8.
+Nketia, T. A. et al. Analysis of live cell images: methods, tools and opportu-
+nities. Methods 115, 65–79 (2017).
+9.
+Swinney, D. C. & Lee, J. A. Recent advances in phenotypic drug discovery.
+F1000Res 9, F1000 (2020).
+10.
+Carpenter, A. E. et al. CellProﬁler: image analysis software for identifying and
+quantifying cell phenotypes. Genome Biol. 7, R100 (2006).
+11.
+Grys, B. T. et al. Machine learning and computer vision approaches for
+phenotypic proﬁling. J. Cell Biol. 216, 65–71 (2017).
+12.
+Khan, A. U. M. et al. AutoCellSeg: robust automatic colony forming unit
+(CFU)/cell analysis using adaptive image segmentation and easy-to-use post-
+editing techniques. Sci. Rep. 8, 7302 (2018).
+13.
+Lecun, Y., Kavukcuoglu, K. & Farabet, C. Convolutional netwokrs and appli-
+cations in vision. In Proceedings of 2010 IEEE International Symposium on
+Circuits and Systems (IEEE, 2010).
+14.
+Fukushima, K. Artiﬁcial vision by multi-layered neural networks: neocognitron
+and its advances. Neural Netw. 37, 103–119 (2013).
+Zhou et al. Microsystems & Nanoengineering (2023) 9:116 
+Page 13 of 15
+
+===PAGE 14===
+15.
+Lee, K. C. M. et al. Toward deep biophysical cytometry: prospects and
+challenges. Trends Biotechnol. 39, 1249–1262 (2021).
+16.
+Chen, H. et al. Microﬂuidic technologies for cell deformability cytometry.
+Smart Med. 1, e20220001 (2022).
+17.
+Gilbert, C. W. A computer programme for the analysis of human chromo-
+somes. Nature 212, 1437–1440 (1966).
+18.
+Otto, O. et al. Real-time deformability cytometry: on-the-ﬂy cell mechanical
+phenotyping. Nat. Methods 12, 199–202 (2015).
+19.
+Rane, A. S. et al. High-throughput multiparametric imaging ﬂow cytometry.
+Chem 3, 588–602 (2017).
+20.
+Holzner, G. et al. High-throughput multiparametric imaging ﬂow cytometry:
+toward diffraction-limited subcellular detection and monitoring of sub-
+cellular processes. Cell Rep. 34, 108824 (2021).
+21.
+Wang, M. et al. Developments of conventional and microﬂuidic ﬂow cyto-
+metry enabling high-throughput characterization of single cells. Biosens.
+(Basel) 12, 443 (2022).
+22.
+Stavrakis, S. et al. High-throughput microﬂuidic imaging ﬂow cytometry. Curr.
+Opin. Biotechnol. 55, 36–43 (2019).
+23.
+Urbanska, M. et al. A comparison of microﬂuidic methods for high-
+throughput cell deformability measurements. Nat. Methods 17, 587–593
+(2020).
+24.
+Kubankova, M. et al. Physical phenotype of blood cells is altered in COVID-19.
+Biophys. J. 120, 2838–2847 (2021).
+25.
+Piergiovanni, M. et al. Deformation of leukemia cell lines in hyperbolic
+microchannels: investigating the role of shear and extensional components.
+Lab Chip 20, 2539–2548 (2020).
+26.
+Toepfner, N. et al. Detection of human disease conditions by single-cell
+morpho-rheological phenotyping of blood. Elife 7, e29213 (2018).
+27.
+Fregin, B., Biedenweg, D. & Otto, O. Interpretation of cell mechanical
+experiments in microﬂuidic systems depend on the choice of cellular shape
+descriptors. Biomicroﬂuidics 16, 024109 (2022).
+28.
+Fregin, B. et al. High-throughput single-cell rheology in complex samples by
+dynamic real-time deformability cytometry. Nat. Commun. 10, 415 (2019).
+29.
+Doan, M. et al. Deepometry, a framework for applying supervised and weakly
+supervised deep learning to imaging cytometry. Nat. Protoc. 16, 3572–3595
+(2021).
+30.
+Herbig, M. et al. Real-time deformability cytometry: label-free functional
+characterization of cells. Methods Mol. Biol. 1678, 347–369 (2018).
+31.
+Otesteanu, C. F. et al. A weakly supervised deep learning approach for label-
+free imaging ﬂow-cytometry-based blood diagnostics. Cell Rep. Methods 1,
+100094 (2021).
+32.
+Vembadi, A., Menachery, A. & Qasaimeh, M. A. Cell cytometry: review and
+perspective on biotechnological advances. Front Bioeng. Biotechnol. 7, 147
+(2019).
+33.
+Dima, A. A. et al. Comparison of segmentation algorithms for ﬂuorescence
+microscopy images of cells. Cytom. A 79, 545–559 (2011).
+34.
+Shen, S. P. et al. Automatic Cell Segmentation by Adaptive Thresholding
+(ACSAT)
+for
+large-scale
+calcium
+imaging
+datasets.
+eNeuro
+5,
+ENEURO.0056–18.2018 (2018).
+35.
+Logesh Kumar, S. et al. Identiﬁcation of lung cancer cell using watershed
+segmentation on CT images, Indian. J. Sci. Technol. 9, 1–4 (2016).
+36.
+Koyuncu, C. F. et al. Iterative h-minima-based marker-controlled watershed
+for cell nucleus segmentation. Cytom. A 89, 338–349 (2016).
+37.
+Mirsky, S. K. et al. Automated analysis of individual sperm cells using stain-free
+interferometric phase microscopy and machine learning. Cytom. A 91,
+893–900 (2017).
+38.
+Akram, S. U. et al. Cell tracking via proposal generation and selection. arXiv
+https://doi.org/10.48550/arXiv.1705.03386 (2017).
+39.
+Meijering, E. Cell segmentation: 50 years down the road [Life Sciences]. IEEE
+Signal Process. Mag. 29, 140–145 (2012).
+40.
+Pan, Y., Zhou, T. & Xia, Y. Bacterial foraging based edge detection for cell
+image segmentation. Annu Int Conf. IEEE Eng. Med Biol. Soc. 2015, 3873–3876
+(2015).
+41.
+Nitta, N. et al. Intelligent image-activated cell sorting. Cell 175, 266–276
+(2018).
+42.
+Isozaki, A. et al. A practical guide to intelligent image-activated cell sorting.
+Nat. Protoc. 14, 2370–2415 (2019).
+43.
+Isozaki, A. et al. Intelligent image-activated cell sorting 2.0. Lab Chip 20,
+2263–2273 (2020).
+44.
+Chen, X. et al. Image-guided cell sorting using fast scanning lasers. APL
+Photonics https://doi.org/10.1063/1.5144117 (2020).
+45.
+Godino, N. et al. Combining dielectrophoresis and computer vision for
+precise and fully automated single-cell handling and analysis. Lab Chip 19,
+4016–4020 (2019).
+46.
+Nawaz, A. A. et al. Intelligent image-based deformation-assisted cell sorting
+with molecular speciﬁcity. Nat. Methods 17, 595–599 (2020).
+47.
+Girault, M. et al. An on-chip imaging droplet-sorting system: a real-time
+shape recognition method to screen target cells in droplets with single cell
+resolution. Sci. Rep. 7, 40072 (2017).
+48.
+Girault, M. et al. Algorithm for the precise detection of single and cluster cells
+in microﬂuidic applications. Cytom. A 89, 731–741 (2016).
+49.
+Heo, Y. J. et al. Real-time image processing for microscopy-based label-free
+imaging ﬂow cytometry in a microﬂuidic chip. Sci. Rep. 7, 11651 (2017).
+50.
+Lee, K. et al. User-friendly image-activated microﬂuidic cell sorting technique
+using an optimized, fast deep learning algorithm. Lab Chip 21, 1798–1810
+(2021).
+51.
+Redmon, J. & Farhadi, A. YOLOv3: An incremental improvement. arXiv https://
+doi.org/10.48550/arXiv.1804.02767 (2018).
+52.
+Redmon, J. et al. You Only Look Once: Uniﬁed, real-time object detection.
+arXiv https://doi.org/10.48550/arXiv.1506.02640 (2016).
+53.
+Bochkovskiy, A., Wang, C. Y. & Liao, H. YOLOv4: optimal speed and accuracy
+of object detection. arXiv https://doi.org/10.48550/arXiv.2004.10934 (2020).
+54.
+Gardner, K. et al. Deep learning detector for high precision monitoring of cell
+encapsulation statistics in microﬂuidic droplets. Lab Chip 22, 4067–4080
+(2022).
+55.
+Arjun, A., Ajith, R. R. & Kumar Ranjith, S. Mixing characterization of binary-
+coalesced droplets in microchannels using deep neural network. Biomicro-
+ﬂuidics 14, 034111 (2020).
+56.
+Li, S. et al. Label‐free classiﬁcation of dead and live colonic adenocarcinoma
+cells based on 2D light scattering and deep learning analysis. Cytom. Part A
+99, 1134–1142 (2021).
+57.
+Du, Z. et al. Label-free detection and enumeration of rare circulating tumor
+cells by bright-ﬁeld image cytometry and multiframe image correlation
+analysis. Lab Chip 22, 3390–3401 (2022).
+58.
+Mikami, H. et al. High-speed imaging meets single-cell analysis. Chem 4,
+2278–2300 (2018).
+59.
+Girault, M. et al. Particle recognition in microﬂuidic applications using a
+template matching algorithm. Jpn. J. Appl. Phys. 55, 06GN05 (2016).
+60.
+Xiong, B. et al. Dual-modality imaging microﬂuidic cytometer for onsite
+detection
+of
+phytoplankton.
+Photonics
+https://doi.org/10.3390/
+photonics8100435 (2021).
+61.
+Huang, X. et al. Machine learning based single-frame super-resolution pro-
+cessing for lensless blood cell counting. Sensors (Basel) 16, 1836 (2016).
+62.
+Grcs, Z. et al. A deep learning-enabled portable imaging ﬂow cytometer for
+cost-effective, high-throughput, and label-free analysis of natural water
+samples. Light Sci. Appl. 7, 66 (2018).
+63.
+Singh, D. K. et al. Label-free, high-throughput holographic screening and
+enumeration of tumor cells in blood. Lab Chip 17, 2920–2932 (2017).
+64.
+Luo, Y. et al. Quantitative particle agglutination assay for point-of-care testing
+using mobile holographic imaging and deep learning. Lab Chip 21,
+3550–3558 (2021).
+65.
+Saad, M. G. et al. A droplet-based gradient microﬂuidic to monitor and
+evaluate the growth of Chlorella vulgaris under different levels of nitrogen
+and
+temperatures.
+Algal
+Res.
+https://doi.org/10.1016/j.algal.2019.101657
+(2019).
+66.
+Xu, M. et al. Morphological indicator for directed evolution of Euglena gracilis
+with a high heavy metal removal efﬁciency. Environ. Sci. Technol. 55,
+7880–7889 (2021).
+67.
+Jagannadh, V. K., Adhikari, J. V. & Gorthi, S. S. Automated cell viability
+assessment using a microﬂuidics based portable imaging ﬂow analyzer.
+Biomicroﬂuidics 9, 024123 (2015).
+68.
+Kim, K., Kim, S. & Jeon, J. S. Visual estimation of bacterial growth level in
+microﬂuidic culture systems. Sens. (Basel) 18, 447 (2018).
+69.
+Chen, Y. C., Zhang, Z. & Yoon, E. Early prediction of single-cell derived sphere
+formation rate using convolutional neural network image analysis. Anal.
+Chem. 92, 7717–7724 (2020).
+70.
+Lojk, J. et al. Automatic Cell Counter for Cell Viability Estimation (IEEE, 2014).
+71.
+Zhang, J. et al. Label-free, high resolution, multi-modal light micro-
+scopy for discrimination of live stem cell differentiation status. Sci. Rep.
+8, 697 (2018).
+72.
+Ding, M. & Edwards, B. S. High-throughput ﬂow cytometry in drug discovery.
+SLAS Discov. 23, 599–602 (2018).
+Zhou et al. Microsystems & Nanoengineering (2023) 9:116 
+Page 14 of 15
+
+===PAGE 15===
+73.
+Swinney, D. C. & Anthony, J. How were new medicines discovered? Nat. Rev.
+Drug Discov. 10, 507–519 (2011).
+74.
+Zhang, Z. et al. Label-free estimation of therapeutic efﬁcacy on 3D cancer
+spheres using convolutional neural network image analysis. Anal. Chem. 91,
+14093–14100 (2019).
+75.
+Su, Z. et al. A high-throughput system combining microﬂuidic hydrogel
+droplets with deep learning for screening the antisolvent-crystallization
+conditions of active pharmaceutical ingredients. Lab Chip 20, 1907–1916
+(2020).
+76.
+Matsumoto, Y. et al. A microﬂuidic channel method for rapid drug-
+susceptibility testing of pseudomonas aeruginosa. PLoS One 11, e0148797
+(2016).
+77.
+Yu, H. et al. Phenotypic antimicrobial susceptibility testing with deep learning
+video microscopy. Anal. Chem. 90, 6314–6322 (2018).
+78.
+Huang L. et al. High content drug screening of primary cardiomyocytes
+based on microﬂuidics and real-time ultra-large-scale high-resolution ima-
+ging. Lab Chip https://doi.org/10.1039/D1LC00740H (2021).
+79.
+Ghosh, S. et al. A new microchannel capillary ﬂow assay (MCFA) platform
+with lyophilized chemiluminescence reagents for a smartphone-based POCT
+detecting malaria. Microsyst. Nanoeng. 6, 5 (2020).
+80.
+Liu, D. et al. Integrated microﬂuidic devices for in vitro diagnostics at point of
+care. Aggregate https://doi.org/10.1002/agt2.184 (2022).
+81.
+Wang, B. et al. Smartphone-based platforms implementing microﬂuidic
+detection with image-based artiﬁcial intelligence. Nat. Commun. 14, 1341
+(2023).
+82.
+Priye, A., Ball, C. S. & Meagher, R. J. Colorimetric-luminance readout for
+quantitative analysis of ﬂuorescence signals with a smartphone CMOS sen-
+sor. Anal. Chem. 90, 12385–12389 (2018).
+83.
+Wu, W. et al. Direct single-cell antimicrobial susceptibility testing of Escher-
+ichia coli in urine using a ready-to-use 3D microwell array chip. Lab Chip 23,
+2399–2410 (2023).
+84.
+Chen, H. et al. Aptamer-functionalized barcodes in herringbone
+microﬂuidics for multiple detection of exosomes. Small Methods 6,
+e2200236 (2022).
+85.
+Woolf, M. S. et al. Digital postprocessing and image segmentation for
+objective analysis of colorimetric reactions. Nat. Protoc. 16, 218–238 (2021).
+86.
+Kim, S. C. et al. A smartphone-based optical platform for colorimetric analysis
+of microﬂuidic device. Sens. Actuators B: Chem. 239, 52–59 (2017).
+87.
+Lopez-Ruiz, N. et al. Smartphone-based simultaneous pH and nitrite colori-
+metric determination for paper microﬂuidic devices. Anal. Chem. 86,
+9554–9562 (2014).
+88.
+Kim, H. et al. Fluorescent sensor array for high-precision pH classiﬁcation with
+machine learning-supported mobile devices. Dyes and Pigm. https://doi.org/
+10.1016/j.dyepig.2021.109492 (2021).
+89.
+Turbe, V. et al. Deep learning of HIV ﬁeld-based rapid tests. Nat. Med. 27,
+1165–1170 (2021).
+90.
+Tseng, D. et al. Lensfree microscopy on a cellphone. Lab Chip 10, 1787–1792
+(2010).
+91.
+Lee, S. A. & Yang, C. A smartphone-based chip-scale microscope using
+ambient illumination. Lab Chip 14, 3056–3063 (2014).
+92.
+Im, H. et al. Digital diffraction analysis enables low-cost molecular diagnostics
+on a smartphone. Proc. Natl Acad. Sci. USA 112, 5613–5618 (2015).
+93.
+Gou, T. et al. Smartphone-based mobile digital PCR device for DNA quan-
+titative analysis with high accuracy. Biosens. Bioelectron. 120, 144–152 (2018).
+94.
+Zhu, H. et al. Cost-effective and rapid blood analysis on a cell-phone. Lab
+Chip 13, 1282–1288 (2013).
+95.
+Zeng, Y. et al. A low cost and portable smartphone microscopic device for
+cell counting. Sens. Actuators A: Phys. 274, 57–63 (2018).
+96.
+Fudickar S. et al. Mask R-CNN based C. elegans detection with a DIY
+microscope. Biosensors (Basel) 11, 257 (2021).
+97.
+Holzner, G. et al. An optoﬂuidic system with integrated microlens arrays for
+parallel imaging ﬂow cytometry. Lab Chip 18, 3631–3637 (2018).
+98.
+Huang, K. et al. Deep imaging ﬂow cytometry. Lab Chip 22, 876–889 (2022).
+99.
+Siu, D. M. D. et al. Optoﬂuidic imaging meets deep learning: from merging to
+emerging. Lab Chip 23, 1011–1033 (2023).
+100.
+Radford A., Metz L., Chintala S. Unsupervised representation learning with
+deep convolutional generative adversarial networks. arXiv https://doi.org/
+10.48550/arXiv.1511.06434 (2015).
+101.
+Pattanaik, P. A., Mittal, M. & Khan, M. Z. Unsupervised deep learning CAD
+scheme for the detection of Malaria in blood smear microscopic images. IEEE
+Access 8, 94936–94946 (2020).
+102.
+Godinez W. J., Hossain I. & Zhang X. Unsupervised phenotypic analysis of
+cellular images with multiscale convolutional neural networks. bioRxiv https://
+doi.org/10.1101/361410 (2018).
+103.
+Zamanighomi, M. et al. Unsupervised clustering and epigenetic classiﬁcation
+of single cells. Nat. Commun. 9, 2410 (2018).
+104.
+Mahmud, M. et al. Applications of deep learning and reinforcement learning
+to biological data. IEEE Trans. Neural Netw. Learn Syst. 29, 2063–2079 (2018).
+105.
+Abe, T., Oh-Hara, S. & Ukita, Y. Adoption of reinforcement learning for the
+intelligent control of a microﬂuidic peristaltic pump. Biomicroﬂuidics 15,
+034101 (2021).
+106.
+Dressler, O. J. et al. Reinforcement learning for dynamic microﬂuidic control.
+ACS Omega 3, 10084–10091 (2018).
+107.
+Liu, A. et al. Sparse coding induced transfer learning for HEp-2 cell classiﬁ-
+cation. Biomed. Mater. Eng. 24, 237–243 (2014).
+108.
+Cohn, D., Atlas, L. & Ladner, R. Improving generalization with active learning.
+Mach. Learn. 15, 201–221 (1994).
+109.
+Budd, S., Robinson, E. C. & Kainz, B. A survey on active learning and human-in-
+the-loop deep learning for medical image analysis. Med Image Anal. 71,
+102062 (2021).
+110.
+Haibo, H. & Garcia, E. A. Learning from Imbalanced Data. IEEE Trans. Knowl.
+Data Eng. 21, 1263–1284 (2009).
+111.
+Haandbæk, N. et al. Characterization of single yeast cell phenotypes using
+microﬂuidic impedance cytometry and optical imaging. ACS Sens. 1,
+1020–1027 (2016).
+112.
+Apichitsopa, N., Jaffe, A. & Voldman, J. Multiparameter cell-tracking intrinsic
+cytometry for single-cell characterization. Lab Chip 18, 1430–1439 (2018).
+113.
+Caselli, F. et al. Deciphering impedance cytometry signals with neural net-
+works. Lab Chip 22, 1714–1722 (2022).
+114.
+Liang H. et al. Development of microﬂuidic ﬂow cytometry capable of
+characterization of single-cell intrinsic structural and electrical parameters. J.
+Micromech. Microeng. 32, 035007 (2022).
+115.
+Wang, M. et al. Multicell migration tracking within angiogenic networks by
+deep learning-based segmentation and augmented Bayesian ﬁltering. J.
+Med. Imaging (Bellingham) 5, 024005 (2018).
+116.
+Wei, W. et al. 3D in vitro blood-brain-barrier model for investigating barrier
+Iinsults. Adv. Sci. (Weinh) 10, e2205752 (2023).
+117.
+Oliver, C. R. et al. A platform for artiﬁcial intelligence based identiﬁcation of
+the extravasation potential of cancer cells into the brain metastatic niche. Lab
+Chip 19, 1162–1173 (2019).
+118.
+Chen, Z. et al. Automated evaluation of tumor spheroid behavior in 3D
+culture using deep learning-based recognition. Biomaterials 272, 120770
+(2021).
+119.
+Bian, X. et al. A deep learning model for detection and tracking in high-
+throughput images of organoid. Comput. Biol. Med. 134, 104490 (2021).
+120.
+Angermueller, C. et al. Deep learning for computational biology. Mol. Syst.
+Biol. 12, 878 (2016).
+121.
+Parnamaa, T. & Parts, L. Accurate classiﬁcation of protein subcellular locali-
+zation from high-throughput microscopy images using deep learning. G3
+(Bethesda) 7, 1385–1392 (2017).
+Zhou et al. Microsystems & Nanoengineering (2023) 9:116 
+Page 15 of 15
