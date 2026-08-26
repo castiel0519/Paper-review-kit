@@ -16,8 +16,7 @@ metadata:
 ## 资源
 - Base：`C:\Users\samue\.dsh\skills\paper-review-kit`
 - `scripts/`：全部管线脚本（角色见 `scripts/README.md`）
-- `templates/`：`papers_meta.example.json`（选题元数据样例）、`summary.example.json`（精读摘要样例）、
-  `summaries_manual.example.py`（人工精读填充样例）、`project-README.example.md`（项目README样例）
+- `templates/`：`papers_meta.example.json`（候选论文元数据样例）、`summary.example.json`（精读摘要样例）
 
 ## 使用步骤
 1. **建项目**：`mkdir <project>`，把本技能的 `scripts/` 复制进 `<project>/scripts/`；
