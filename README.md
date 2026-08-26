@@ -69,3 +69,8 @@ ml_microfluidics_review/
   `scripts/retheme.py --topic <主题> --topic-en <英文>` 一键替换。
 - **主要交付物**：`deliverables/机器学习与人工智能在微流控中的应用_读书报告.docx` 与
   `deliverables/机器学习与人工智能在微流控中的应用_研究报告.pptx`（每篇论文 2 页）。
+
+## 许可证
+本项目源码与脚本采用 [MIT License](LICENSE) 开源：允许任意使用、修改、再分发与商业使用，
+仅需保留版权与许可声明，使用风险自负。
+（说明：仓库不含论文 PDF 全文，论文版权归原出版商与作者所有。）
