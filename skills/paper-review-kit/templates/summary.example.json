@@ -1,58 +1,63 @@
 {
-  "abstract_en": "Droplet microfluidics enables kHz screening of picoliter samples at a fraction of the cost of other high-throughput approaches. However, generating stable droplets with desired characteristics typically requires labor-intensive empirical optimization of device designs and flow conditions that limit adoption to specialist labs. Here, we compile a comprehensive droplet dataset and use it to train machine learning models capable of accurately predicting device geometries and flow conditions required to generate stable aqueous-in-oil and oil-in-aqueous single and double emulsions from 15 to 250 μm at rates up to 12000 Hz for different fluids commonly used in life sciences. Blind predictions by our models for as-yet-unseen fluids, geometries, and device materials yield accurate results, establishing their generalizability. Finally, we generate an easy-to-use design automation tool that yield droplets within 3 μm (<8%) of the desired diameter, facilitating tailored droplet-based platforms and accelerating their utility in life sciences.",
-  "abstract_zh": "作者构建了覆盖单/双乳液的液滴生成综合数据集，训练机器学习模型预测给定流体、几何与流量条件下的液滴直径与生成频率，并把模型封装为设计自动化工具；对未见流体/几何/材料的盲测准确，自动设计产出的液滴直径与目标偏差在3 μm（<8%）以内。",
-  "background_zh": "液滴微流控能以极低成本实现皮升级样品的 kHz 级筛选，但稳定生成指定液滴通常需要大量经验性试错，限制了非专业实验室的使用。",
-  "problem_zh": "如何从大量连续/离散变量（芯片几何、流量、流体物性）中快速找到生成目标液滴（15–250 μm、最高12 kHz）的条件？",
-  "data_zh": "整理两个已有实验数据集：单乳液868个数据点（8种分散相/6种连续相/46种PDMS与塑料器件）+ 双乳液474个数据点（3种器件），共含器件几何、流量、流体物性、直径与生成频率。",
-  "task_zh": "回归预测液滴直径与生成频率，并实现反向设计（由目标液滴自动给出器件几何与运行条件）。",
-  "method_zh": "特征化几何/流量/物性后用梯度提升决策树与神经网络建模，并与标度律（scaling laws）和质量守恒耦合；通过模型选择与训练得到预测器，再构建“设计自动化”逆解工具。",
-  "results_zh": "模型对未见流体、几何与材料给出准确盲测；自动化设计工具产出的液滴直径与目标偏差≤3 μm（<8%），支持多种生命科学常用流体。",
+  "abstract_en": "Proteins are essential to life, and understanding their structure can facilitate a mechanistic understanding of their function. We validate an entirely redesigned version of our neural network-based model, AlphaFold, in the challenging 14th Critical Assessment of protein Structure Prediction (CASP14), demonstrating accuracy competitive with experimental structures in a majority of cases and greatly outperforming other methods.",
+  "abstract_zh": "作者重新设计了基于神经网络的蛋白质结构预测模型 AlphaFold，并在 CASP14 评测中取得了接近实验精度的预测结果，显著优于其他方法，展示了从氨基酸序列直接预测三维结构的能力。",
+  "background_zh": "蛋白质三维结构决定其功能，但实验解析成本高、周期长；从氨基酸序列直接预测结构是计算生物学长期难题。",
+  "problem_zh": "如何在没有同源模板的情况下，仅凭氨基酸序列高精度预测蛋白质三维结构？",
+  "data_zh": "PDB 实验结构数据、UniProt 序列库、多序列比对（MSA）与模板信息。",
+  "task_zh": "端到端蛋白质三维结构预测：输入序列与 MSA，输出原子坐标与置信度。",
+  "method_zh": "AlphaFold2 采用 Evoformer 处理 MSA 与残基对表示，引入三角注意力与循环精化，再由 Structure Module 直接生成三维坐标；训练中结合自蒸馏与多任务损失。",
+  "results_zh": "在 CASP14 中，AlphaFold 对多数目标的中位主链精度达到实验误差水平，并在无模板与跨膜蛋白等难例上显著领先；开放了数据库与代码。",
   "metrics_zh": [
     {
-      "label": "数据集规模",
-      "value": "868(SE)+474(DE) 数据点"
+      "label": "CASP14 中位 GDT",
+      "value": "约 92.4（GDT_TS）"
     },
     {
-      "label": "尺寸范围",
-      "value": "15–250 μm"
+      "label": "TM-score",
+      "value": "多数目标接近实验精度"
     },
     {
-      "label": "生成频率",
-      "value": "最高12 kHz"
-    },
-    {
-      "label": "设计误差",
-      "value": "<3 μm (<8%)"
+      "label": "模型规模",
+      "value": "端到端深度学习模型"
     }
   ],
-  "innovation_zh": "公开综合数据集 + 混合标度律的机器学习建模 + 一键设计自动化工具，显著降低液滴微流控使用门槛。",
-  "limitation_zh": "数据集来源为两个实验室的手工数据，覆盖流体/器件有限；模型以经验回归为主，对极端或新机制工况的外推仍需验证。",
-  "paradigm_zh": "数据驱动的正向预测 + 标度律约束的逆向设计：用大规模实验数据训练代理模型，把多参数“试错”转化为“预测+逆解”，并以盲测检验泛化。",
+  "innovation_zh": "以注意力机制融合 MSA 与结构先验，实现了端到端、接近实验精度的结构预测，并推动大规模结构数据库建设。",
+  "limitation_zh": "对动态构象、复合物与部分孤儿蛋白预测仍有限；预测依赖 MSA 质量；对配体/翻译后修饰建模仍需扩展。",
+  "paradigm_zh": "数据驱动的端到端基础模型范式：用大规模序列-结构数据训练，以注意力网络替代手工特征与能量函数，并用公开评测建立可信度。",
   "paradigm_tags": [
-    "数据驱动回归",
-    "标度律+ML混合",
-    "设计自动化",
-    "泛化盲测"
+    "深度学习",
+    "注意力机制",
+    "端到端预测",
+    "基础模型",
+    "公开评测"
   ],
-  "framework_zh": "数据集构建（实验+文献汇总）→ 特征工程（几何/流量/物性）→ 多模型训练与选择（提升树/神经网络）→ 正向预测→逆解设计工具→实验验证偏差。",
+  "framework_zh": "序列与 MSA 输入 → Evoformer 编码（残基对表示 + 三角更新）→ Structure Module 生成坐标 → 循环精化与置信度估计 → CASP/数据库验证。",
   "framework_steps": [
-    "数据与预处理：汇总SE/DE实验数据，统一几何、流量、物性特征",
-    "模型设计：梯度提升决策树+神经网络，耦合标度律与质量守恒",
-    "训练策略：按流体/几何/材料分层划分，盲测评估泛化",
-    "评估与解读：对比观测直径/频率，验证设计工具产出偏差<8%"
+    "数据与预处理：PDB/UniProt/MSA 构建与特征化",
+    "模型设计：Evoformer + Structure Module 端到端结构预测",
+    "训练策略：自蒸馏、多任务损失与模型集成",
+    "评估与解读：CASP14 指标、pLDDT 置信度与误差分析"
   ],
-  "scheme_zh": "Scheme 展示“数据集→模型训练→设计自动化”流水线：上图为单/双乳液芯片与液滴成像，中图为直径/频率预测曲线，下图为逆解设计、缩放定律与守恒律结合的流程。",
-  "lessons_zh": "建立公开、可复用的数据集并用混合物理-数据模型，是普及液滴微流控设计的关键路径；泛化能力必须通过“盲测”证明。",
+  "scheme_zh": "Scheme 展示从氨基酸序列与 MSA 输入，经 Evoformer 编码到 Structure Module 输出三维结构，再到 CASP 评测与 AlphaFold DB 应用的完整流程。",
+  "lessons_zh": "大规模数据、注意力机制与公开评测共同推动基础模型落地；开放代码与数据库能加速下游应用。",
   "id": "01",
-  "title_en": "Design automation of microfluidic single and double emulsion droplets with machine learning",
-  "title_zh": "机器学习实现微流控单乳液与双乳液液滴的设计自动化",
-  "journal": "Nature Communications",
-  "year": 2023,
-  "doi": "10.1038/s41467-023-44068-3",
-  "pmid": null,
-  "pmcid": null,
-  "kind": "design_opt",
-  "kind_zh": "液滴/芯片设计与参数优化",
+  "title_en": "Highly accurate protein structure prediction with AlphaFold",
+  "title_zh": "AlphaFold 实现高精度蛋白质结构预测",
+  "journal": "Nature",
+  "year": 2021,
+  "doi": "10.1038/s41586-021-03819-2",
+  "pmid": 34265844,
+  "pmcid": "PMC8371605",
+  "kind": "modeling",
+  "kind_zh": "基础模型与结构预测",
   "scheme_image": "papers_figs/01_fig1.png",
-  "pdf_status": "已获取PDF全文精读"
+  "pdf_status": "pdf_read",
+  "evidence_pages": [
+    "p3",
+    "p5"
+  ],
+  "figure_refs": [
+    "Fig.1"
+  ],
+  "reviewed": true
 }

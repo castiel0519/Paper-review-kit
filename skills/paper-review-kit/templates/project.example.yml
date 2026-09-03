@@ -1,0 +1,51 @@
+# Paper-Review-Kit 项目配置示例。
+# 复制为项目根目录的 project.yml 后按需修改；所有字段均可选，缺省使用通用值。
+
+project:
+  slug: paper_review_example
+  topic: 论文调研
+  topic_en: Paper Review
+  title: 论文精读调研报告
+  title_en: Paper Review Report
+  range: 2020-2026
+
+compliance:
+  # 第三方渠道（如 Sci-Hub）默认关闭；只有显式设为 true 才会尝试。
+  allow_third_party: false
+
+download:
+  workers: 6
+  max_mb: 60
+  timeout: 45
+
+apis:
+  mailto: researcher@example.com
+  user_agent: paper-review-kit/1.0 (mailto:researcher@example.com)
+
+# 报告渲染配置（可选）。narrative 下可覆盖背景/趋势/展望/局限等文案。
+report:
+  cover_subtitle: SCI 论文精读调研报告
+  kinds:
+    modeling:
+      en: Modeling & Foundation Models
+      group: 基础模型与结构预测
+      color: BLUE
+    review:
+      en: Review & Paradigm
+      group: 综述与范式分析
+      color: GOLD
+  narrative:
+    background:
+      - 本主题领域数据与实验空间庞大、反馈链路长，AI/ML 正在加速设计与分析。
+    trends:
+      - 数据驱动建模：以可复用数据集与基准测试为底座。
+      - 端到端深度学习：从原始输入直接完成检测、分类与预测。
+      - 自主实验与智能体：LLM/智能体逐步参与实验设计与优化。
+    outlook:
+      - 从单一数据集走向多中心、跨模态联合建模。
+      - 自监督/预训练模型成为标准组件，降低标注成本。
+    conclusions:
+      - 方法创新覆盖设计、识别、控制与预测全链条。
+      - 工程落地需要可解释、可重复与低算力。
+    limitations:
+      - 论文间任务与指标不可直接横向比较，阅读时需区分方法学与应用可用性。

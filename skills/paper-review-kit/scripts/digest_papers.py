@@ -1,71 +1,79 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-digest_papers.py — 为每篇论文生成“精读摘要缓冲”：
-从 papers_txt/*.txt 中抽取 首页(摘要) + 方法/结果/讨论关键段落 + 图表标题，
-写入 digests/{id}.txt（每篇约 4-6KB），供主上下文定向精读，
-避免把 21 篇全文一次性载入上下文。
+digest_papers.py — 生成结构化精读缓冲（v2）。
+
+从 papers_txt/{id}.txt 中：
+  - 首页摘要前 1200 字符
+  - 每个关键 section 首次命中后 700 字符
+  - 输出 digests/{id}.md，默认整篇 ≤ 2600 字符
+供子 Agent 精读使用；主 Agent 请用 make_brief.py 生成的 brief。
 """
-import json
-import os
 import re
 
-HERE = os.path.dirname(os.path.abspath(__file__))
-BASE = os.path.dirname(HERE)
-TXT_DIR = os.path.join(BASE, "papers_txt")
-DIG_DIR = os.path.join(BASE, "digests")
-os.makedirs(DIG_DIR, exist_ok=True)
+from prk_config import output_dir, parse_project_arg
 
-HEAD_RE = re.compile(r"^\s*(\d+(?:\.\d+)*)?\s*([A-Z][^\n]{0,60}(?:[A-Za-z\s\-–+/&(),.]{0,40}))\s*$")
-SECTION_KEYS = ["abstract", "introduction", "material", "method", "experiment",
-                "result", "discussion", "conclusion", "fig", "table"]
-
-
-def split_pages(text):
-    return re.split(r"===PAGE \d+===", text)
-
-
-def clean(t):
-    return re.sub(r"\s+", " ", t).strip()
+PAGE_RE = re.compile(r"===PAGE (\d+)===(.*?)(?===PAGE \d+===|\Z)", re.S)
+SECTION_KEYS = [
+    ("abstract", ["abstract"]),
+    ("introduction", ["introduction"]),
+    ("methods", ["methods", "material and methods", "method"]),
+    ("results", ["results", "result"]),
+    ("discussion", ["discussion"]),
+    ("conclusion", ["conclusion"]),
+    ("figures", ["fig. 1", "figure 1", "fig 1"]),
+    ("tables", ["table 1"]),
+]
+MAX_TOTAL = 2600
+MAX_SECTION = 700
 
 
-def head_tail(text, head=900, tail=0):
-    t = clean(text)
-    return t[:head] + (" ... " + t[-tail:] if tail else "")
+def clean(s):
+    return re.sub(r"\s+", " ", s).strip()
 
 
 def main():
-    files = sorted(f for f in os.listdir(TXT_DIR) if f.endswith(".txt"))
-    for fn in files:
-        pid = fn[:-4]
-        with open(os.path.join(TXT_DIR, fn), encoding="utf-8") as f:
-            raw = f.read()
-        pages = split_pages(raw)
-        page1 = clean(pages[1]) if len(pages) > 1 else clean(raw)
-        # 摘取首页前 1800 字符（含标题/作者/摘要）
-        first = page1[:1800]
-        # 关键词段落：找 methods / results / discussion
-        hits = []
-        for i, pg in enumerate(pages[1:], start=2):
-            body = clean(pg)
-            low = body.lower()
-            for key in ["abstract", "introduction", "methods", "results",
-                        "discussion", "conclusion", "fig. 1", "table 1"]:
-                if key in low:
-                    idx = low.find(key)
-                    hits.append((i, key, body[idx:idx + 1400]))
-        # 去重：每个 key 只保留最先出现的两段
+    cfg, args = parse_project_arg()
+    txt_dir = output_dir(cfg, "papers_txt")
+    dig_dir = output_dir(cfg, "digests")
+    if not txt_dir.is_dir():
+        print("papers_txt/ 不存在，跳过")
+        return
+    for fn in sorted(txt_dir.glob("*.txt")):
+        pid = fn.stem
+        raw = fn.read_text(encoding="utf-8")
+        pages = []
+        for m in PAGE_RE.finditer(raw):
+            pno = int(m.group(1))
+            body = clean(m.group(2))
+            pages.append((pno, body))
+        if not pages:
+            continue
+        head = (pages[0][1] or raw)[:1200]
+        parts = [f"### {pid} digest\n", f"\n## Page 1 (head)\n{head}\n"]
         seen = set()
-        digest_parts = [f"### {pid} digest\n\n## Page 1 (head)\n{first}\n"]
-        for pg_no, key, seg in hits:
-            k = key
-            if k in seen:
+        for section, keys in SECTION_KEYS:
+            if section in seen:
                 continue
-            seen.add(k)
-            digest_parts.append(f"\n## p{pg_no} [{key}]\n{seg}\n")
-        digest = "".join(digest_parts)
-        with open(os.path.join(DIG_DIR, f"{pid}.md"), "w", encoding="utf-8") as f:
-            f.write(digest)
+            for pno, body in pages[1:]:
+                low = body.lower()
+                hit = None
+                for key in keys:
+                    idx = low.find(key)
+                    if idx >= 0:
+                        hit = (key, idx)
+                        break
+                if hit is not None:
+                    seg = body[hit[1]:hit[1] + MAX_SECTION]
+                    parts.append(f"\n## page {pno} [{section}]\n{seg}\n")
+                    seen.add(section)
+                    break
+        digest = "".join(parts)
+        if len(digest) > MAX_TOTAL:
+            # 保留开头和后面的 section，删除中间溢出
+            head_part = digest[:MAX_TOTAL]
+            digest = head_part + "\n## (truncated)\n"
+        (dig_dir / f"{pid}.md").write_text(digest, encoding="utf-8")
         print(f"[{pid}] digest {len(digest)} chars")
 
 

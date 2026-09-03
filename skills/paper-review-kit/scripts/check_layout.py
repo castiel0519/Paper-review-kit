@@ -2,16 +2,13 @@
 """
 check_layout.py — 用 python-pptx 检查每页文本是否可能溢出文本框/幻灯片边界（近似字符宽度估算）。
 输出 layout_report.json：每个违约的 shape 记录。
+PPTX 文件名由 project.yml / papers_meta 驱动。
 """
-import json
 import math
-import os
 
 from pptx import Presentation
-from pptx.util import Emu
 
-BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-PPTX = os.path.join(BASE, "deliverables", "机器学习与人工智能在微流控中的应用_研究报告.pptx")
+from prk_config import load_papers_meta, output_dir, parse_project_arg, project_path, project_title, write_json
 
 
 def est_overflow(slide_no, shape):
@@ -19,7 +16,6 @@ def est_overflow(slide_no, shape):
     w_in = shape.width / 914400.0 if shape.width else 1
     h_in = shape.height / 914400.0 if shape.height else 1
     total_lines = 0
-    overflow = False
     for para in tf.paragraphs:
         text = "".join(r.text for r in para.runs)
         if not text:
@@ -34,13 +30,18 @@ def est_overflow(slide_no, shape):
         lines = max(1, math.ceil(len(text) / cpl))
         total_lines += lines * (size * 1.35) / 72.0
     est_h = total_lines
-    if est_h > h_in * 1.15 + 0.05:
-        overflow = True
-    return overflow, round(est_h, 2), round(h_in, 2)
+    return est_h > h_in * 1.15 + 0.05, round(est_h, 2), round(h_in, 2)
 
 
 def main():
-    prs = Presentation(PPTX)
+    cfg, args = parse_project_arg()
+    meta = load_papers_meta(cfg)
+    title = project_title(cfg, meta)
+    pptx = output_dir(cfg, "deliverables") / f"{title}_研究报告.pptx"
+    if not pptx.exists():
+        raise SystemExit(f"PPTX 不存在：{pptx}")
+
+    prs = Presentation(str(pptx))
     issues = []
     total_shapes = 0
     for i, slide in enumerate(prs.slides, start=1):
@@ -58,9 +59,9 @@ def main():
                                "text": sh.text_frame.text[:60]})
     report = {"slides": len(prs.slides._sldIdLst), "total_text_shapes": total_shapes,
               "probable_overflows": len(issues), "issues": issues[:20]}
-    with open(os.path.join(BASE, "layout_report.json"), "w", encoding="utf-8") as f:
-        json.dump(report, f, ensure_ascii=False, indent=2)
-    print(json.dumps(report, ensure_ascii=False, indent=2))
+    out = project_path(cfg, "layout_report.json")
+    write_json(out, report)
+    print("layout_report ->", out)
 
 
 if __name__ == "__main__":

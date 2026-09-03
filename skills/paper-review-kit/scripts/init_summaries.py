@@ -1,16 +1,14 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-init_summaries.py — 从 papers_meta.json 初始化每篇论文的结构化摘要模板
-（summaries/summary_{id}.json），再人工/半自动填充精读内容。
+init_summaries.py — 从 papers_meta.json 初始化每篇论文的精读摘要模板。
+只创建缺失的 summary 文件，已存在的内容绝不覆盖。
 """
-import json
+import argparse
 import os
 
-HERE = os.path.dirname(os.path.abspath(__file__))
-BASE = os.path.dirname(HERE)
-SUM_DIR = os.path.join(BASE, "summaries")
-os.makedirs(SUM_DIR, exist_ok=True)
+from prk_config import load_config, load_papers_meta, output_dir, parse_project_arg, write_json
+from prk_schema import validate_meta
 
 TEMPLATE = {
     "abstract_en": "",
@@ -29,30 +27,51 @@ TEMPLATE = {
     "framework_zh": "",
     "framework_steps": ["数据与预处理", "模型设计", "训练策略", "评估与解读"],
     "scheme_zh": "",
-    "lessons_zh": ""
+    "lessons_zh": "",
+    "pdf_status": "missing",
+    "scheme_image": "",
+    "evidence_pages": [],
+    "figure_refs": [],
+    "reviewed": False,
 }
 
 
 def main():
-    meta = json.load(open(os.path.join(BASE, "papers_meta.json"), encoding="utf-8"))
+    parser = argparse.ArgumentParser(description=__doc__)
+    cfg, args = parse_project_arg(parser)
+    meta = load_papers_meta(cfg)
+    errors, _ = validate_meta(meta)
+    if errors:
+        raise SystemExit("papers_meta.json 校验失败：\n  - " + "\n  - ".join(errors))
+    sum_dir = output_dir(cfg, "summaries")
+    created = 0
+    skipped = 0
     for p in meta["papers"]:
-        path = os.path.join(SUM_DIR, f"summary_{p['id']}.json")
+        pid = str(p.get("id", "")).strip()
+        if not pid:
+            continue
+        path = sum_dir / f"summary_{pid}.json"
+        if path.exists():
+            skipped += 1
+            continue
         d = dict(TEMPLATE)
-        d["id"] = p["id"]
-        d["title_en"] = p["title"]
-        d["title_zh"] = p["title_zh"]
-        d["journal"] = p["journal"]
-        d["year"] = p["year"]
-        d["doi"] = p["doi"]
-        d["pmid"] = p.get("pmid")
-        d["pmcid"] = p.get("pmcid")
-        d["kind"] = p["kind"]
-        d["kind_zh"] = p["kind_zh"]
-        d["scheme_image"] = f"papers_figs/{p['id']}_fig1.png"
-        if not os.path.exists(path):
-            with open(path, "w", encoding="utf-8") as f:
-                json.dump(d, f, ensure_ascii=False, indent=2)
-            print("init", path)
+        d.update({
+            "id": pid,
+            "title_en": p.get("title", ""),
+            "title_zh": p.get("title_zh", "") or p.get("title", ""),
+            "journal": p.get("journal", ""),
+            "year": p.get("year"),
+            "doi": p.get("doi") or "",
+            "pmid": p.get("pmid"),
+            "pmcid": p.get("pmcid"),
+            "kind": p.get("kind", ""),
+            "kind_zh": p.get("kind_zh", "") or p.get("kind", ""),
+            "scheme_image": f"papers_figs/{pid}_fig1.png",
+        })
+        write_json(path, d)
+        created += 1
+        print(f"init {path.name}")
+    print(f"done: created={created}, kept_existing={skipped}")
 
 
 if __name__ == "__main__":

@@ -1,54 +1,47 @@
 ---
 name: paper-review-kit
-description: 用内置 Python 脚本完成 SCI 论文调研全流程：元数据核验→合规/多源 PDF 下载→全文与 Scheme 提取→隔离精读→DOCX 读书报告 + 每篇两页 PPT（内容讲解+Scheme；研究范式+框架解析）。
-whenToUse: 当用户要求批量调研某方向 SCI 论文、尽可能下载/精读 PDF 并生成读书报告与详细 PPT（每篇两页、含 Scheme 与研究范式/框架解析）时使用。
+description: 用内置 Python 脚本完成 SCI 论文调研全流程：元数据核验→合规/多源 PDF 下载→全文与 Scheme 提取→隔离精读→DOCX 读书报告 + 每篇两页 PPT + 可选的调研综述。配置由 project.yml 驱动。
+whenToUse: 当用户要求批量调研某方向 SCI 论文、下载/精读 PDF、生成读书报告与详细 PPT，或后续需要自然语言综述时使用。
 metadata:
-  version: 0.1.0
+  version: 0.3.0
 ---
 
 # paper-review-kit 工作流
 
 ## 一句话原则
-主会话不读论文全文：脚本负责检索、元数据核验、下载与文本/图提取；精读采用
-“每篇独立文本文件 + 定向关键词检索 + 结构化 JSON”隔离方式；报告由脚本直接渲染 JSON。
-主 agent 只做选题、任务设计与最终汇总（与 `paper-watch` 精读 schema 兼容，可配合其 host 工具）。
+主 Agent 不读论文全文，也不读超大 digest；只读 `digests/brief.txt`。
+子 Agent 读 `digests/<id>.md` + 定向 grep + 压缩 Scheme view，用 `save_summary.py` 落盘。
 
-## 资源
-- Base：`C:\Users\samue\.dsh\skills\paper-review-kit`
-- `scripts/`：全部管线脚本（角色见 `scripts/README.md`）
-- `templates/`：`papers_meta.example.json`（候选论文元数据样例）、`summary.example.json`（精读摘要样例）
+## 项目脚本
+复制 `scripts/` 到项目，配置 `project.yml` 与 `papers_meta.json`。
+关键字段：
+- `read_depth`: `brief | targeted（默认） | full`
+- `figure_overrides`: 手工指定 Scheme 页与 bbox
+- `manual_urls` / `download_overrides` / `xml_pmcid`: 下载与 XML 降级
 
-## 使用步骤
-1. **建项目**：`mkdir <project>`，把本技能的 `scripts/` 复制进 `<project>/scripts/`；
-   用 `templates/papers_meta.example.json` 为模板编写 `papers_meta.json`（id/title/title_zh/journal/year/doi/pmid/pmcid/kind/kind_zh/notes）。
-2. **主题化**：`python scripts/retheme.py --topic 癌症早筛 --topic-en Cancer Screening`
-   （只改 make_docx/make_pptx/verify_deliverables 中的“微流控”措辞；人工复核通顺性）。
-3. **跑前半程**：`bash scripts/run_pipeline.sh`
-   自动执行：verify_meta → init_summaries → download_papers_fast → extract_text → extract_figs → digest_papers → condense_digests → augment_summaries。
-4. **精读**：主 agent 只读 `digests/keyfacts.txt`（每篇 3–6KB），必要时 `grep` 定位 `papers_txt/<id>.txt`；
-   为每篇写 `summaries/summary_<id>.json`（字段与长度约束见下；无全文的用 `pdf_status: abstract_only`）。
-5. **生成**：`python scripts/make_docx.py`（读书报告）→ `python scripts/make_pptx.py`（每篇 2 页的 PPT）。
-6. **自检**：`python scripts/verify_deliverables.py`（PDF/摘要/DOCX/PPTX 完整性）+
-   `python scripts/check_layout.py`（PPT 溢出风险）；导出 PNG 预览用 PowerPoint COM
-   （`$pres.Export(dir,'PNG',1280,720)`）。
+## 执行步骤
+1. `bash scripts/run_pipeline.sh`：核验 → 建模板 → 下载 → 提取 → digest。
+2. 精读：主 Agent 只读 `digests/brief.txt`（由 `make_brief.py` 从 summaries 生成）。
+3. 子 Agent 任务卡：一次一篇，输入 `digests/<id>.md`、可选 `papers_txt/<id>.txt`（仅 grep）、`papers_figs/<id>_fig1_view.png`；输出写 `summaries/summary_<id>.json`。
+4. 写 summary 用 `python scripts/save_summary.py --id <id>`（stdin JSON），不要用 write/edit 回显全文。
+5. Scheme 确认：视觉子 Agent 看 `papers_figs/figs_info.json`，若默认 `_fig1.png` 不是框架图，把选中的图写入 summary `scheme_image`。
+6. `python scripts/make_brief.py` → `make_docx.py` → `make_pptx.py`。
+7. 自检：`verify_deliverables.py` + `check_layout.py`。
+8. 可选综述：`make_review_material.py` → 综述子 Agent 使用 `templates/review_template.md` 写 `deliverables/{title}_调研综述.md` → `make_review_docx.py` → `verify_review.py`。
 
-## 精读输出 schema（与 paper-watch 一致）
-字段：`id/title_en/title_zh/journal/year/doi/pmid/pmcid/kind/kind_zh/pdf_status/
-abstract_en/abstract_zh/background_zh/problem_zh/data_zh/task_zh/method_zh/
-results_zh/metrics_zh/innovation_zh/limitation_zh/paradigm_tags/paradigm_zh/
-framework_zh/framework_steps/scheme_zh/lessons_zh/evidence_pages/figure_refs`。
+## 主/子 Agent 协作
+- 每次只派一篇；子 Agent 必须先写 `summary_<id>.json` 再返回。
+- 主 Agent 按文件存在性回收；失败只重试该篇。
+- `pdf_read` 必须给 `evidence_pages` / `figure_refs`，否则不能算完成。
 
-长度上限：`method_zh/results_zh/framework_zh/scheme_zh` ≤1200 字，其余文本 ≤600 字；
-`metrics_zh` 最多 5 条；`paradigm_tags` 3–8 个；`framework_steps` 4–6 条；
-`pdf_status ∈ pdf_read | abstract_only | missing`，无全文时不得编造。
+## 输出 schema 要点
+- `pdf_status`: `pdf_read | abstract_only | missing`
+- `pdf_read` 必填：`evidence_pages`、`figure_refs`
+- 长度上限：method/results/framework/scheme ≤1200 字，其余 ≤600 字
+- `metrics_zh` ≤5 条；`paradigm_tags` 3–8；`framework_steps` 4–6
 
-## PPT 结构要求
-封面 / 目录 / 背景与选文 / 领域全景 + **每篇论文恰好 2 页**：
-- 第 1 页：内容讲解（背景/数据/方法/结果/创新点）+ 论文 Scheme 图
-- 第 2 页：研究范式（范式标签+解析）+ 研究框架解析（数据流→模型→训练→评估/解读）
-结尾：横向对比 / 范式总结与趋势 / 结论与展望 / 参考文献。
+## PPT 要求
+每篇 2 页；第 1 页内容讲解 + Scheme，第 2 页研究范式 + 框架解析。
 
 ## 合规
-默认只下载合法可得 PDF：OpenAlex OA、Unpaywall、Europe PMC/PMC render、Semantic Scholar OA、
-出版商 OA、用户有权限的机构代理。第三方渠道（如 Sci-Hub）仅在用户显式授权后尝试，
-且失败原因（DNS/证书/403）如实记录，不得在报告中声称已获取未获得的全文。
+第三方渠道默认关闭；仅 `allow_third_party: true` 或命令行允许时尝试。

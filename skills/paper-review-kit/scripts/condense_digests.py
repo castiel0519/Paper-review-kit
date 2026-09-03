@@ -1,50 +1,49 @@
 # -*- coding: utf-8 -*-
 """
-condense_digests.py — 从 digests/*.md 生成“关键事实”压缩文本 keyfacts.txt：
-每篇包含：首页摘要(前1200字)、Results/Conclusion/Methods 段落(各前1000字)、
-包含数字/百分比的句子(前20条)。供主上下文定向精读，避免全文占用。
+condense_digests.py — 兼容脚本：从 digests/*.md 生成压缩版 keyfacts.txt。
+
+v2 策略：每篇最多 1200 字符，只保留首页摘要和 method/results/discussion 片段，
+不再收集数字行避免把页码/编号当事实。主 Agent 的精读路由请用 make_brief.py。
 """
-import os
 import re
 
-BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-DIG_DIR = os.path.join(BASE, "digests")
-OUT = os.path.join(DIG_DIR, "keyfacts.txt")
+from prk_config import output_dir, parse_project_arg
+
+MAX_PER_PAPER = 1200
+KEYS = ["methods", "results", "discussion", "conclusion"]
 
 
-def clean(t):
-    return re.sub(r"\s+", " ", t).strip()
+def clean(s):
+    return re.sub(r"\s+", " ", s).strip()
 
 
 def main():
-    result = []
-    for fn in sorted(os.listdir(DIG_DIR)):
-        if not fn.endswith(".md"):
-            continue
-        pid = fn[:-3]
-        with open(os.path.join(DIG_DIR, fn), encoding="utf-8") as f:
-            raw = f.read()
-        # 抽象：开头
-        head = clean(raw.split("## Page 1")[1].split("##")[0]) if "## Page 1" in raw else clean(raw[:1500])
-        result.append(f"\n{'='*90}\n### {pid}\nABSTRACT: {head[:1500]}")
-        # 分段关键词
-        for key in ["Results and Discussion", "Results", "Conclusion", "Methods", "Experimental"]:
-            idx = raw.find(key)
-            if idx >= 0 and key not in ("Results",):
-                seg = clean(raw[idx:idx + 1800])
-                result.append(f"\n-- {key} --\n{seg}")
-        # 数字行
-        nums = []
-        for line in raw.split("\n"):
-            if re.search(r"\d+(\.\d+)?\s*%|\d{2,}", line) and len(line) < 400:
-                nums.append(clean(line))
-            if len(nums) >= 20:
-                break
-        if nums:
-            result.append("\n-- NUMBERS --\n" + "\n".join(nums[:20]))
-    with open(OUT, "w", encoding="utf-8") as f:
-        f.write("\n".join(result))
-    print("wrote", OUT, "chars", len("\n".join(result)))
+    cfg, args = parse_project_arg()
+    dig_dir = output_dir(cfg, "digests")
+    if not dig_dir.is_dir():
+        print("digests/ 不存在，跳过")
+        return
+    chunks = []
+    for fn in sorted(dig_dir.glob("*.md")):
+        raw = fn.read_text(encoding="utf-8")
+        pid = fn.stem
+        head = ""
+        m = re.search(r"## Page 1 \(head\)\n(.*?)(?=\n## |\Z)", raw, re.S)
+        if m:
+            head = clean(m.group(1))[:600]
+        parts = [f"### {pid}\n摘要: {head}\n"]
+        for key in KEYS:
+            m = re.search(rf"## page \d+ \[{key}\]\n(.*?)(?=\n## |\Z)", raw, re.S)
+            if m:
+                seg = clean(m.group(1))[:400]
+                parts.append(f"{key}: {seg}\n")
+        text = "".join(parts)
+        if len(text) > MAX_PER_PAPER:
+            text = text[:MAX_PER_PAPER] + "\n...\n"
+        chunks.append(text)
+    out = dig_dir / "keyfacts.txt"
+    out.write_text("\n".join(chunks), encoding="utf-8")
+    print("wrote", out, "chars", sum(len(c) for c in chunks))
 
 
 if __name__ == "__main__":

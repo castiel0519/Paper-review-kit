@@ -10,7 +10,8 @@ papers_meta_extra.json
 check_report.json
 layout_report.json
 
-# 日志与 Python 缓存
+# 日志、下载临时文件与 Python 缓存
+*.part
 download*.log
 retry.log
 *.pyc
