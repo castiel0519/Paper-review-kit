@@ -1,14 +1,32 @@
 # Paper Review Kit
 
-> 一套把「SCI 论文检索 → 元数据核验 → PDF 下载 → 全文/图表提取 → 结构化精读 →
-> DOCX 读书报告 + 每篇两页 PPT」全流程标准化、可复用的**脚本包 + 会话技能（Skill）**。
+> 一套把「SCI 论文调研 → 元数据核验 → 合规下载 → 全文/图表提取 → 结构化精读 →
+> DOCX 读书报告 + 每篇两页 PPT + 自然语言综述」全流程标准化、可复用的 **脚本包 + DSH 技能（Skill）**。
 
-本仓库只保留「工具本身」：自动化脚本与可复用的 `paper-review-kit` 技能。
-运行管线后生成的 `papers/`、`summaries/`、`digests/`、`deliverables/` 等
-属于**运行时产物**，默认不提交（见 `.gitignore`）。
+---
 
-当前主线（v0.2.0 / M1）：**去专案化 + project.yml 配置驱动**。报告标题、年份范围、
-研究方向、第三方下载开关与叙事文案都在项目配置里，不再把“微流控”等具体主题写死在源码里。
+## 这套工具解决什么问题
+
+调研一个学术方向时，通常要：
+
+1. 选一批论文、核验元数据；
+2. 尽量合法下载 PDF；
+3. 提取全文和 Scheme 图；
+4. 逐篇精读并结构化记录；
+5. 生成读书报告 / PPT / 综述。
+
+这个仓库把这些步骤固化成脚本和 DSH Skill，同时尽量控制 token 消耗。
+
+---
+
+## 核心特点
+
+- **配置驱动**：主题、标题、范围、报告文案、下载策略都由 `project.yml` 控制，不修改源码。
+- **合规下载**：默认只走 OA / PMC / 出版商等合法来源；Sci-Hub 等第三方默认关闭。
+- **Token 分层**：主 Agent 只读 `brief.txt`，子 Agent 读结构化 digest，全文只按需 grep。
+- **Scheme 提取 v2**：基于标题锚点 + 位图/矢量图检测裁剪，不再把整页文字当图。
+- **主/子 Agent 协作**：主 Agent 只做分发和汇总，视觉精读交给子 Agent，要求先落盘再返回。
+- **自然语言综述**：读书报告完成后，可基于素材包生成带引用编号的详细综述。
 
 ---
 
@@ -17,104 +35,236 @@
 ```
 Paper-review-kit/
 ├── README.md
+├── CHANGELOG.md
 ├── LICENSE
-├── .gitignore
+├── requirements.txt
 ├── scripts/                         # 兼容 wrapper（实现已收敛到 skill 内）
+├── docs/
+│   └── NEXT_PLAN.md                 # 后续改动清单/方案
 ├── examples/
-│   └── microfluidics/               # 旧微流控专案样例归档（可参考，不再作为默认模板）
-└── skills/paper-review-kit/         # 单一事实源
-    ├── SKILL.md                     # DSH/Agent 工作流
+│   └── microfluidics/               # 旧微流控专案完整样例归档
+├── tests/                           # 本地回归测试
+└── skills/paper-review-kit/         # 单一事实源，DSH 技能主体
+    ├── SKILL.md                     # DSH/Agent 工作流说明
     ├── scripts/                     # 全部管线脚本（复制到新项目使用）
-    └── templates/                   # project.example.yml / papers_meta / summary 模板
+    └── templates/                   # project/papers_meta/summary/review 模板
 ```
 
----
-
-## 核心脚本速览
-
-| 脚本 | 作用 | 阶段 |
-|---|---|---|
-| `retheme.py` | 把主题写入 `project.yml`（不再改渲染源码） | 0 初始化 |
-| `verify_meta.py` | OpenAlex/Crossref/Europe PMC/Unpaywall 核验 DOI、期刊、年份、OA 状态 | ① 核验 |
-| `init_summaries.py` | 初始化每篇论文的精读摘要模板（`pdf_status` 默认 `missing`） | ② 建模板 |
-| `download_papers_fast.py` | 并发下载：manual_urls → Europe PMC → PMC → 出版商 → OA 链接 | ③ 下载 |
-| `retry_downloads.py` / `download_targeted.py` | 失败重试 / 定向补下载（URL 在 papers_meta.json 中配置） | ③ 补下载 |
-| `fetch_xml.py` | 对 `xml_pmcid` 非空论文用 Europe PMC fullTextXML 降级 | ③ 降级 |
-| `extract_text.py` | PyMuPDF 逐页提取全文 | ④ 提取 |
-| `extract_figs.py` | 标题锚点+图块检测，输出候选与 `_fig1_view.png` | ④ 提取 |
-| `digest_papers.py` / `condense_digests.py` | 生成结构化 `digests/<id>.md` 与压缩版 keyfacts | ⑤ 精读准备 |
-| `make_brief.py` | 从 summaries 生成主 Agent 路由层 `digests/brief.txt` | ⑤ 精读准备 |
-| `augment_summaries.py` | 回填英文摘要与题录 | ⑤ 精读准备 |
-| `make_docx.py` | 读书报告：十大维度精读 + 横向对比 + 范式总结 | ⑥ 生成 |
-| `make_review_material.py` | 生成综述素材包 | ⑧ 综述 |
-| `make_review_docx.py` | 综述 Markdown 转 DOCX | ⑧ 综述 |
-| `verify_review.py` | 校验综述引用编号 | ⑧ 综述 |
-| `make_pptx.py` | 研究报告：封面/目录/背景/全景 + 每篇 2 页 + 对比/趋势/结论/文献 | ⑥ 生成 |
-| `verify_deliverables.py` / `check_layout.py` | 完整性自检 / PPT 溢出检查 | ⑦ 交付 |
-| `run_pipeline.sh` | 一键跑完 ①–⑤ 前半程 | 0→⑤ |
+> 新项目请复制 `skills/paper-review-kit/scripts/`，不要复制根目录 `scripts/`。
 
 ---
 
-## 快速开始（新主题）
+## 快速开始
+
+### 1. 创建项目并复制脚本
 
 ```bash
-# 1) 建项目并复制“技能内”脚本（单一事实源）
 mkdir my_review && cd my_review
 cp -r <本仓库>/skills/paper-review-kit/scripts .
+```
 
-# 2) 初始化配置与论文清单
+### 2. 初始化配置和论文清单
+
+```bash
 cp <本仓库>/skills/paper-review-kit/templates/project.example.yml project.yml
 cp <本仓库>/skills/paper-review-kit/templates/papers_meta.example.json papers_meta.json
 python scripts/retheme.py --topic 癌症早筛 --topic-en "Cancer Screening"
+```
 
-# 3) 编辑 project.yml / papers_meta.json：
-#    - project.yml：标题、范围、compliance.allow_third_party（默认 false）、报告文案
-#    - papers_meta.json：id/title/title_zh/journal/year/doi/kind...
-#    - 补充下载 URL 用 manual_urls / download_overrides；XML 降级用 xml_pmcid
+### 3. 编辑配置
 
-# 4) 一键前半程：核验→建模板→下载→提取→建精读缓冲
+**`project.yml`** 控制：
+
+```yaml
+project:
+  title: 论文精读调研报告
+  topic: 论文调研
+  range: 2020-2026
+compliance:
+  allow_third_party: false   # 第三方渠道默认关闭
+download:
+  workers: 6
+  max_mb: 60
+report:
+  kinds: { ... }
+  narrative: { ... }
+```
+
+**`papers_meta.json`** 每篇论文可配置：
+
+```json
+{
+  "id": "01",
+  "title": "...",
+  "title_zh": "...",
+  "journal": "...",
+  "year": 2024,
+  "doi": "10.xxxx/xxx",
+  "kind": "modeling",
+  "kind_zh": "基础模型",
+  "read_depth": "targeted",
+  "manual_urls": ["https://.../paper.pdf"],
+  "download_overrides": [
+    { "url": "https://.../paper.pdf", "referer": null }
+  ],
+  "xml_pmcid": "PMC123456",
+  "figure_overrides": {
+    "page": 3,
+    "bbox": [100, 200, 500, 600]
+  }
+}
+```
+
+### 4. 跑前半程
+
+```bash
 bash scripts/run_pipeline.sh
+```
 
-# 5) 子 Agent 逐篇精读并写 summaries/summary_XX.json
-#    用 scripts/save_summary.py 落盘；pdf_status 只允许：pdf_read / abstract_only / missing
-#    主 Agent 只读 digests/brief.txt（先运行 make_brief.py）
+自动执行：核验 → 初始化摘要模板 → 下载 → 提取全文 → 提取 Scheme → 生成 digest → 压缩 keyfacts。
 
-# 6) 生成 brief/报告并自检
+### 5. 精读
+
+- 主 Agent **只读** `digests/brief.txt`（由 `make_brief.py` 生成）。
+- 子 Agent 一次只精读一篇：
+  - 输入：`digests/<id>.md`、可选 `papers_txt/<id>.txt`（只 grep）、`papers_figs/<id>_fig1_view.png`
+  - 输出：`summaries/summary_<id>.json`
+
+推荐用 `save_summary.py` 落盘，避免 write/edit 工具回显全文：
+
+```bash
+python scripts/save_summary.py --id 01 <<'JSON'
+{ "...": "..." }
+JSON
+```
+
+`pdf_status` 只能填：
+
+```text
+pdf_read       已读全文
+abstract_only  只有摘要
+missing        未获取
+```
+
+`pdf_read` 必须同时写：
+
+```json
+"evidence_pages": ["p2", "p5"],
+"figure_refs": ["Figure 1"]
+```
+
+### 6. 生成报告
+
+```bash
 python scripts/make_brief.py
 python scripts/make_docx.py
 python scripts/make_pptx.py
 python scripts/verify_deliverables.py
 python scripts/check_layout.py
+```
 
-# 7) 可选：生成自然语言调研综述
+### 7. 可选：生成自然语言综述
+
+```bash
+# 1. 生成综述素材包
 python scripts/make_review_material.py
-# 综述子 Agent 使用 templates/review_template.md 写 deliverables/{title}_调研综述.md
+
+# 2. 让综述子 Agent 按 templates/review_template.md 写 Markdown
+#    写到 deliverables/{title}_调研综述.md
+
+# 3. 校验引用编号并转 DOCX
 python scripts/verify_review.py
 python scripts/make_review_docx.py
 ```
 
 ---
 
-## 技能 `skills/paper-review-kit/`
+## Token 分层设计
 
-- **安装**：把 `skills/paper-review-kit/` 放到 DSH 的 skills 目录（如 `~/.dsh/skills/`）；
-- **调用**：新会话中说 *“用 paper-review-kit 调研《某主题》”* 即可自动加载；
-- **主/子 Agent 协作**：主 Agent 只做分发与汇总；视觉精读交给子 Agent，子 Agent
-  必须先写完 `summaries/summary_<id>.json` 再返回，主 Agent 按文件存在性回收和重试；
-- **合规**：默认只下载合法可得 OA PDF；第三方渠道仅在 `allow_third_party: true`
-  或 `--allow-third-party` 显式授权后尝试，失败原因如实记录。
+| 层 | 文件 | 谁读 | 用途 |
+|---|---|---|---|
+| L0 路由层 | `digests/brief.txt` | 主 Agent | 每篇 ≤320 字符，任务分发和回收 |
+| L1 精读层 | `digests/<id>.md` | 子 Agent | 结构化 digest，每篇 ≤2.6KB |
+| L2 全文层 | `papers_txt/<id>.txt` | 子 Agent 按需 grep | 证据定位 |
+| L3 视觉层 | `papers_figs/<id>_fig1_view.png` | 视觉子 Agent | ≤1024px 压缩图，报告仍用原图 |
 
 ---
 
-## 依赖与环境
+## Scheme 提取说明
 
-- Python 3.9+（仓库脚本已在 3.12 验证）
-- `pip install -r requirements.txt`（包含 `requests/pymupdf/python-docx/python-pptx/pyyaml/Pillow`）
-- Windows 下用 Git Bash 运行 `run_pipeline.sh`；PowerShell 亦可逐条执行
+新版 `extract_figs.py` 不再把 Fig.1 标题上方的整页区域当图。
+
+流程：
+
+1. 找到 `Fig. 1` / `Scheme 1` 标题块作为锚点；
+2. 收集页面上的位图和矢量图块；
+3. 过滤小装饰/背景，合并多面板；
+4. 按“贴合标题、水平对齐、面积、正文重叠”评分；
+5. 只裁剪图块 bbox，输出：
+   - `{id}_fig1.png`：报告用原图
+   - `{id}_fig1_view.png`：Agent 视觉确认用
+   - `{id}_altN.png`：备用候选
+   - `figs_info.json`：候选/bbox/score/confidence
+
+如果自动裁剪不正确，可以在 `papers_meta.json` 中写 `figure_overrides`，或由视觉子 Agent 选择候选并写入 `summary.scheme_image`。
+
+---
+
+## 脚本一览
+
+| 脚本 | 作用 |
+|---|---|
+| `retheme.py` | 写入 project.yml 主题 |
+| `verify_meta.py` | 核验 DOI/期刊/OA/PDF 链接 |
+| `init_summaries.py` | 初始化摘要模板 |
+| `download_papers_fast.py` | 并发合规下载 |
+| `retry_downloads.py` | 失败重试 |
+| `download_targeted.py` | 定向补下载 |
+| `fetch_xml.py` | Europe PMC XML 降级 |
+| `extract_text.py` | PDF 逐页文本提取 |
+| `extract_figs.py` | Scheme 图块检测/裁剪 |
+| `digest_papers.py` | 结构化 digest |
+| `condense_digests.py` | 压缩 keyfacts |
+| `make_brief.py` | 主 Agent 路由 brief |
+| `augment_summaries.py` | 回填英文摘要/题录 |
+| `save_summary.py` | 子 Agent 落盘 summary |
+| `make_docx.py` | 生成读书报告 DOCX |
+| `make_pptx.py` | 生成每篇 2 页 PPT |
+| `verify_deliverables.py` | 交付物自检 |
+| `check_layout.py` | PPT 布局溢出检查 |
+| `make_review_material.py` | 生成综述素材包 |
+| `make_review_docx.py` | 综述 MD 转 DOCX |
+| `verify_review.py` | 校验综述引用 |
+| `ab_compare.py` | 两套 summaries A/B 对比 |
+| `run_pipeline.sh` | 一键前半程 |
+
+---
+
+## 测试
+
+```bash
+python -m unittest discover -s tests -q
+```
+
+当前包含 M1 与 v3 功能回归测试。
+
+---
+
+## 依赖
+
+```bash
+pip install -r requirements.txt
+```
+
+需要 Python 3.9+，Windows 推荐 Git Bash 运行 `run_pipeline.sh`。
 
 ---
 
 ## 许可证
 
-本项目源码、脚本与技能采用 [MIT License](LICENSE)：允许自由使用、修改、再分发与商业使用，
-仅需保留版权与许可声明，使用风险自负。
+MIT License，详见 [LICENSE](LICENSE)。
+
+## 链接
+
+- 仓库：https://github.com/castiel0519/Paper-review-kit
+- 方案：`docs/NEXT_PLAN.md`
